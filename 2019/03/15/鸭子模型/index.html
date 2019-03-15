@@ -98,20 +98,24 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="最近在网上看到一个概念：“鸭子模型”，出于好奇搜一下然后就有了这篇水文，各位看一下图个乐呵就好了 背景如果它走起来像鸭子，而且叫起来像鸭子，那么它就是鸭子也就是说，我们只关注对象行为而不关注对象本身 推论 凡是这样签名的方法：object.method(arg1, arg2, …)的方法，都可以采用method.apply(object, [arg1, arg2, …])进行调研。 array的某">
+<meta property="og:type" content="article">
+<meta property="og:title" content="鸭子模型？？？">
+<meta property="og:url" content="http://yoursite.com/2019/03/15/鸭子模型/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="最近在网上看到一个概念：“鸭子模型”，出于好奇搜一下然后就有了这篇水文，各位看一下图个乐呵就好了 背景如果它走起来像鸭子，而且叫起来像鸭子，那么它就是鸭子也就是说，我们只关注对象行为而不关注对象本身 推论 凡是这样签名的方法：object.method(arg1, arg2, …)的方法，都可以采用method.apply(object, [arg1, arg2, …])进行调研。 array的某">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-15T12:54:20.642Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="鸭子模型？？？">
+<meta name="twitter:description" content="最近在网上看到一个概念：“鸭子模型”，出于好奇搜一下然后就有了这篇水文，各位看一下图个乐呵就好了 背景如果它走起来像鸭子，而且叫起来像鸭子，那么它就是鸭子也就是说，我们只关注对象行为而不关注对象本身 推论 凡是这样签名的方法：object.method(arg1, arg2, …)的方法，都可以采用method.apply(object, [arg1, arg2, …])进行调研。 array的某">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/15/鸭子模型/">
 
 
 
@@ -121,7 +125,7 @@
   };
 </script>
 
-  <title>Hexo</title>
+  <title>鸭子模型？？？ | Hexo</title>
   
 
 
@@ -169,8 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -208,7 +211,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -270,9 +273,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -304,10 +307,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/15/鸭子模型/" class="post-title-link" itemprop="url">鸭子模型？？？</a>
+          <h1 class="post-title" itemprop="name headline">鸭子模型？？？
+
               
             
           </h1>
@@ -371,9 +372,7 @@
       
 
       
-        
-          
-            <p>最近在网上看到一个概念：“鸭子模型”，出于好奇搜一下然后就有了这篇水文，各位看一下图个乐呵就好了</p>
+        <p>最近在网上看到一个概念：“鸭子模型”，出于好奇搜一下然后就有了这篇水文，各位看一下图个乐呵就好了</p>
 <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>如果它走起来像鸭子，而且叫起来像鸭子，那么它就是鸭子<br>也就是说，<strong>我们只关注对象行为而不关注对象本身</strong></p>
 <h4 id="推论"><a href="#推论" class="headerlink" title="推论"></a>推论</h4><ul>
 <li><strong>凡是这样签名的方法：object.method(arg1, arg2, …)的方法，都可以采用method.apply(object, [arg1, arg2, …])进行调研。</strong></li>
@@ -398,8 +397,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var duck = &#123;    //鸭子</span><br><span class="line">    duckSinging:function()&#123;</span><br><span class="line">        return &quot;嘎&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;；</span><br><span class="line"></span><br><span class="line">var chicken = &#123;    //鸡</span><br><span class="line">    duckSinging:function()&#123;</span><br><span class="line">        return &quot;嘎&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var choir = [];    //合唱团</span><br><span class="line"></span><br><span class="line">var joinChoir = function(animal)&#123;    //加入合唱团的方法</span><br><span class="line">    if(animal &amp;&amp; animal.duckSinging() === &quot;嘎&quot;)&#123;</span><br><span class="line">        choir.push(animal);</span><br><span class="line">        console.log(&quot;恭喜加入合唱团&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for(var i =0;i&lt;999;i++)&#123;    //加入999只鸭子</span><br><span class="line">    joinChoir(duck);</span><br><span class="line">&#125;</span><br><span class="line">joinChoir(chicken);</span><br><span class="line"></span><br><span class="line">console.log(choir.length);    //1000    现在凑齐了1000只可以嘎嘎叫的动物，不用管它是不是鸭子</span><br></pre></td></tr></table></figure>
 <p>说实话我还是改了一部分的，原博主的判断条件有点问题，我也给他评论了，暂时就这样吧</p>
 
-          
-        
       
     </div>
 
@@ -422,185 +419,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/JavaScript中的map和reduce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/15/JavaScript中的map和reduce/" class="post-title-link" itemprop="url">JavaScript中的map和reduce</a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2019/03/15/JavaScript中的map和reduce/" rel="next" title="JavaScript中的map和reduce">
+                <i class="fa fa-chevron-left"></i> JavaScript中的map和reduce
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-15 20:27:00 / Geändert am: 20:50:04" itemprop="dateCreated datePublished" datetime="2019-03-15T20:27:00+08:00">2019-03-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>以前看js都是云里雾里的，后来学了一些Java感觉稍微能看懂一些，恰逢又回头看到了以前关于js在有道云上的一些笔记，决定做一个关于map和reduce的分析</p>
-<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><ul>
-<li>map一般来说针对数组进行操作。但是进行了一个很好的封装使得读者可以清晰的看到被操作数组，以及对数组内每个元素进行操作的函数。我们先看一个小例子：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*1*/</span><br><span class="line">arr.map(function&#123;</span><br><span class="line">    return x * x;</span><br><span class="line">&#125;); // [1, 4, 9, 16, 25, 36, 49, 64, 81]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/*2*/</span><br><span class="line">var f = function (x) &#123;</span><br><span class="line">    return x * x;</span><br><span class="line">&#125;;</span><br><span class="line">var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];</span><br><span class="line">var result = [];</span><br><span class="line">for (var i=0; i&lt;arr.length; i++) &#123;</span><br><span class="line">    result.push(f(arr[i]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>诺，二者的原理其实并无两样，只不过map将函数进行了抽象化使得读者更加清晰的将结果视为：把f(x)作用在Array的每一个元素并把结果生成一个新的Array</p>
-<p><strong>划重点！！！！！</strong><br><strong>我等初学者可以勉强将map视为一个for循环，而其中的方法（函数）则代表了我们要对数组中每个元素进行处理所用到的方法（函数）</strong></p>
-<p>最后放一个将字符串转化为整数的小方法给大家看一下啦</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var arr = [&apos;1&apos;, &apos;2&apos;, &apos;3&apos;];</span><br><span class="line">var r;</span><br><span class="line">r = arr.map(function(x)&#123;return parseInt(x);&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h2><p>不知道在座的各位有没有学过数据结构，记不记得里边的广义表章节。</p>
-<p>总之其中有一个广义表的存储方法名为<strong>头尾链表存储结构</strong>。叫的花哨其实没那么难懂。即使将广义表分为头尾两部分头部为值，尾部为指针指向后边的元素。后边的元素继续细分为头尾，以此类推<br><img src="http://img.blog.csdn.net/20171105112242582?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzg3MjIwOTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p><img src="http://img.blog.csdn.net/20171105112302089?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzg3MjIwOTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>对没错就这么个玩意儿~为了省事我直接把PPT截了个图，大伙儿凑合着看啊</p>
-<ul>
-<li><strong>那么这东西跟reduce有啥关系？</strong><ul>
-<li>reduce规定<strong>必须接受两个参数</strong>。reduce()<strong>把结果继续和序列的下一个元素做累计计算</strong></li>
-<li>效果就这样：<strong>[x1, x2, x3, x4].reduce(f) = f(f(f(x1, x2), x3), x4);</strong>—-像不像上面说到的广义表头尾链表存储结构倒过来（当然你得把最终的一个元素改成两个）？</li>
-</ul>
-</li>
-</ul>
-<p>有啥用？先来个简单的。对数组进行求和</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1, 3, 5, 7, 9];</span><br><span class="line">arr.reduce(function (x, y) &#123;</span><br><span class="line">    return x + y;</span><br><span class="line">&#125;); 	// 25</span><br></pre></td></tr></table></figure>
-<p>看到没，效果是不是让你们想起了递归操作？没错。我只考虑前两个元素相加，后边的咱先放下不管。如此如此……就成了嘛~</p>
-<p>不光如此，reduce还能将数组中的一组数转化为一个大整数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1, 3, 5, 7, 9];</span><br><span class="line">arr.reduce(function (x, y) &#123;</span><br><span class="line">    return x * 10 + y;</span><br><span class="line">&#125;); 		// 13579</span><br></pre></td></tr></table></figure>
-<ul>
-<li>最后放一个不使用parseInt()利用map和reduce将字符串数组转化为整数的例子<ul>
-<li>Tips：想办法把一个字符串13579先变成Array——[1, 3, 5, 7, 9]，再利用reduce()就可以写出一个把字符串转换为Number的函数。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos;;</span><br><span class="line">function string2int(s) &#123;</span><br><span class="line"></span><br><span class="line">    //split()分割字符串返回的是一个数组；</span><br><span class="line">    var arr = s.split(&apos;&apos;);</span><br><span class="line">    return arr.map(function(x)&#123;</span><br><span class="line">          //js的弱类型转换，‘-’会将字符串转变为数字，</span><br><span class="line">          //x (乘) 1也是一个道理，但这样为何不直接return s (乘) 1呢;</span><br><span class="line">          return x-0;</span><br><span class="line">    &#125;).reduce(function a(x,y)&#123;</span><br><span class="line">       return x*10+y;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -610,161 +450,15 @@
   </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/15/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-15 19:52:39" itemprop="dateCreated datePublished" datetime="2019-03-15T19:52:39+08:00">2019-03-15</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -784,8 +478,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -831,6 +534,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#推论"><span class="nav-number">2.</span> <span class="nav-text">推论</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -959,6 +679,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -974,6 +698,8 @@
 
   
 
+
+  
 
 
   
