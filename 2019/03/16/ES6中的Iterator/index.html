@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Symbol函数前不能使用new命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。  Symbol函数可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。  Symbol函数的参数只是表示对当前 Symb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6中的Symbol">
+<meta property="og:url" content="http://yoursite.com/2019/03/16/ES6中的Iterator/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Symbol函数前不能使用new命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。  Symbol函数可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。  Symbol函数的参数只是表示对当前 Symb">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-16T09:32:09.587Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6中的Symbol">
+<meta name="twitter:description" content="Symbol函数前不能使用new命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。  Symbol函数可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。  Symbol函数的参数只是表示对当前 Symb">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/16/ES6中的Iterator/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ES6中的Symbol | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/ES6中的Iterator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6中的Symbol
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-03-16 16:13:33 / Updated at: 17:32:09" itemprop="dateCreated datePublished" datetime="2019-03-16T16:13:33+08:00">2019-03-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p><code>Symbol</code>函数前不能使用<code>new</code>命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种<strong>类似于字符串的数据类型。</strong></p>
+</li>
+<li><p><code>Symbol</code>函数可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。</p>
+</li>
+<li><p><code>Symbol</code>函数的参数只是表示对当前 Symbol 值的描述，因此相同参数的<code>Symbol</code>函数的返回值是不相等的。</p>
+</li>
+<li><p><code>Symbol</code>值不能与其他类型的值进行运算，会报错。</p>
+</li>
+<li><p><code>Symbol</code>值也可以转为布尔值，但是不能转为数值。</p>
+</li>
+<li><p><strong><code>Symbol</code>值一般用作属性名，以防止某个键被覆盖或改写。</strong></p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line">a[mySymbol] = <span class="string">'Hello!'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  [mySymbol]: <span class="string">'Hello!'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, mySymbol, &#123; <span class="attr">value</span>: <span class="string">'Hello!'</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上写法都得到同样结果</span></span><br><span class="line">a[mySymbol] <span class="comment">// "Hello!"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但是<code>Symbol</code>值作为对象的属性名时不能用点运算符：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">const</span> a = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">a.mySymbol = <span class="string">'Hello!'</span>;</span><br><span class="line">a[mySymbol] <span class="comment">// undefined</span></span><br><span class="line">a[<span class="string">'mySymbol'</span>] <span class="comment">// "Hello!"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>在对象内部使用<code>Symbol</code>值定义属性时，<code>Symbol</code>值必须放在方括号中</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  [s]: <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123; ... &#125;	<span class="comment">// 或是对象增强写法： [s](arg) &#123; ... &#125;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj[s](<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="一-属性名的遍历"><a href="#一-属性名的遍历" class="headerlink" title="一.  属性名的遍历"></a>一.  属性名的遍历</h3><p>作为属性名的<code>Symbol</code>值和其他字符串类型的键不同，无法通过<code>for...in</code>、<code>for...of</code>循环中，也不会被<code>Object.keys()</code>、<code>Object.getOwnPropertyNames()</code>、<code>JSON.stringify()</code>返回。</p>
+<p><strong>它通过<code>Object.getOwnPropertySymbols</code>方法返回指定对象的所有<code>Symbol</code>属性名（返回一个数组）</strong></p>
+<p>故<u>通过此方法可以为对象定义一些非私有的、但又希望只用于内部的方法</u></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> size = <span class="built_in">Symbol</span>(<span class="string">'size'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Collection</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>[size] = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  add(item) &#123;</span><br><span class="line">    <span class="keyword">this</span>[<span class="keyword">this</span>[size]] = item;</span><br><span class="line">    <span class="keyword">this</span>[size]++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> sizeOf(instance) &#123;</span><br><span class="line">    <span class="keyword">return</span> instance[size];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> x = <span class="keyword">new</span> Collection();</span><br><span class="line">Collection.sizeOf(x) <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">x.add(<span class="string">'foo'</span>);</span><br><span class="line">Collection.sizeOf(x) <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.keys(x) <span class="comment">// ['0']</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyNames(x) <span class="comment">// ['0']</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertySymbols(x) <span class="comment">// [Symbol(size)]</span></span><br></pre></td></tr></table></figure>
+<p>另一个新的 API，<strong><code>Reflect.ownKeys</code>方法可以返回所有类型的键名，包括常规键名和 Symbol 键名</strong>。</p>
+<h3 id="二-模块的Singleton模式"><a href="#二-模块的Singleton模式" class="headerlink" title="二.  模块的Singleton模式"></a>二.  模块的Singleton模式</h3><p><code>Singleton</code>模式指的是调用一个类，任何时候返回的都是同一个实例。</p>
+<p>对于<code>node</code>来讲，模块文件可以看作是一个类，为了保证每次执行此模块文件返回的都是同一个实例，我们常把实例放到顶层对象<code>global</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mod.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.foo = <span class="string">'hello'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!global._foo) &#123;</span><br><span class="line">  global._foo = <span class="keyword">new</span> A();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = global._foo;</span><br></pre></td></tr></table></figure>
+<p>然后加载上边的<code>mod.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="built_in">require</span>(<span class="string">'./mod.js'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a.foo);</span><br></pre></td></tr></table></figure>
+<p><strong>但问题是我们必须令引用<code>mod.js</code>的诸多文件既可以使用，又无法修改</strong></p>
+<p>为防止此情况的发生，我们可以使用<code>Symbol</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mod.js</span></span><br><span class="line"><span class="keyword">const</span> FOO_KEY = <span class="built_in">Symbol</span>(<span class="string">'foo'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.foo = <span class="string">'hello'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!global[FOO_KEY]) &#123;</span><br><span class="line">  global[FOO_KEY] = <span class="keyword">new</span> A();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = global[FOO_KEY];</span><br></pre></td></tr></table></figure>
+<p>若键名使用<code>Symbol</code>方法生成，那么外部将无法引用这个值，自然也无法改写。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/16/ES6中的promise/" rel="next" title="ES6中的Promise">
+                <i class="fa fa-chevron-left"></i> ES6中的Promise
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ensemble
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">articles</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-属性名的遍历"><span class="nav-number">1.</span> <span class="nav-text">一.  属性名的遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-模块的Singleton模式"><span class="nav-number">2.</span> <span class="nav-text">二.  模块的Singleton模式</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
