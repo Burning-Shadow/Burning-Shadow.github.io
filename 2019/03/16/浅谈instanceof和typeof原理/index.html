@@ -98,18 +98,18 @@
 
 
 
-  <meta name="description" content="typeof 实现原理一.  typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。">
+  <meta name="description" content="一.  typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈 instanceof 和 typeof 原理">
 <meta property="og:url" content="http://yoursite.com/2019/03/16/浅谈instanceof和typeof原理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="typeof 实现原理一.  typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。">
+<meta property="og:description" content="一.  typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/28/163a55d5d35b866d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:updated_time" content="2019-03-16T01:44:31.321Z">
+<meta property="og:updated_time" content="2019-03-16T01:49:58.926Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 instanceof 和 typeof 原理">
-<meta name="twitter:description" content="typeof 实现原理一.  typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。">
+<meta name="twitter:description" content="一.  typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，">
 <meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/5/28/163a55d5d35b866d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 
 
@@ -335,7 +335,7 @@
                 
               
 
-              <time title="Erstellt: 2019-03-16 09:30:33 / Geändert am: 09:44:31" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
+              <time title="Erstellt: 2019-03-16 09:30:33 / Geändert am: 09:49:58" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
             
 
             
@@ -374,7 +374,7 @@
       
 
       
-        <h2 id="typeof-实现原理"><a href="#typeof-实现原理" class="headerlink" title="typeof 实现原理"></a>typeof 实现原理</h2><h2 id="一-typeof实现原理"><a href="#一-typeof实现原理" class="headerlink" title="一.  typeof实现原理"></a>一.  typeof实现原理</h2><p><code>typeof</code> 一般被用于判断一个变量的类型，我们可以利用 <code>typeof</code> 来判断<code>number</code>,  <code>string</code>,  <code>object</code>,<code>boolean</code>,  <code>function</code>, <code>undefined</code>,  <code>symbol</code> 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 <code>object</code> 类型的数据的时候，<code>typeof</code>能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，<strong><code>typeof</code>在判断一个 <code>object</code>的数据的时候只能告诉我们这个数据是 <code>object</code>, 而不能细致的具体到是哪一种 <code>object</code></strong></p>
+        <h2 id="一-typeof实现原理"><a href="#一-typeof实现原理" class="headerlink" title="一.  typeof实现原理"></a>一.  typeof实现原理</h2><p><code>typeof</code> 一般被用于判断一个变量的类型，我们可以利用 <code>typeof</code> 来判断<code>number</code>,  <code>string</code>,  <code>object</code>,<code>boolean</code>,  <code>function</code>, <code>undefined</code>,  <code>symbol</code> 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 <code>object</code> 类型的数据的时候，<code>typeof</code>能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，<strong><code>typeof</code>在判断一个 <code>object</code>的数据的时候只能告诉我们这个数据是 <code>object</code>, 而不能细致的具体到是哪一种 <code>object</code></strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'abc'</span>);</span><br><span class="line"><span class="keyword">typeof</span> s === <span class="string">'object'</span><span class="comment">// true</span></span><br><span class="line">s <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <p>要想判断一个数据具体是哪一种 <code>object</code> 的时候，我们需要利用 <code>instanceof</code> 这个操作符来判断，这个我们后面会说到。<br>来谈谈关于 <code>typeof</code> 的原理吧，我们可以先想一个很有意思的问题，<code>js</code> 在底层是怎么存储数据的类型信息呢？或者说，一个 <code>js</code> 的变量，在它的底层实现中，它的类型信息是怎么实现的呢？<br>其实，<strong>js 在底层存储变量的时候，会在变量的机器码的低位1-3位存储其类型信息</strong></p>
 <ul>
@@ -577,7 +577,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#typeof-实现原理"><span class="nav-number">1.</span> <span class="nav-text">typeof 实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一-typeof实现原理"><span class="nav-number">2.</span> <span class="nav-text">一.  typeof实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-instanceof-实现原理"><span class="nav-number">3.</span> <span class="nav-text">二.  instanceof 实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-总结"><span class="nav-number">4.</span> <span class="nav-text">三.  总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-typeof实现原理"><span class="nav-number">1.</span> <span class="nav-text">一.  typeof实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-instanceof-实现原理"><span class="nav-number">2.</span> <span class="nav-text">二.  instanceof 实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-总结"><span class="nav-number">3.</span> <span class="nav-text">三.  总结</span></a></li></ol></div>
             
 
           </div>
