@@ -287,6 +287,374 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/浅谈instanceof和typeof原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/16/浅谈instanceof和typeof原理/" class="post-title-link" itemprop="url">浅谈 instanceof 和 typeof 原理</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-16 09:30:33 / Geändert am: 09:44:31" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="typeof-实现原理"><a href="#typeof-实现原理" class="headerlink" title="typeof 实现原理"></a>typeof 实现原理</h2><h2 id="一-typeof实现原理"><a href="#一-typeof实现原理" class="headerlink" title="一.  typeof实现原理"></a>一.  typeof实现原理</h2><p><code>typeof</code> 一般被用于判断一个变量的类型，我们可以利用 <code>typeof</code> 来判断<code>number</code>,  <code>string</code>,  <code>object</code>,<code>boolean</code>,  <code>function</code>, <code>undefined</code>,  <code>symbol</code> 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 <code>object</code> 类型的数据的时候，<code>typeof</code>能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，<strong><code>typeof</code>在判断一个 <code>object</code>的数据的时候只能告诉我们这个数据是 <code>object</code>, 而不能细致的具体到是哪一种 <code>object</code></strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'abc'</span>);</span><br><span class="line"><span class="keyword">typeof</span> s === <span class="string">'object'</span><span class="comment">// true</span></span><br><span class="line">s <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>要想判断一个数据具体是哪一种 <code>object</code> 的时候，我们需要利用 <code>instanceof</code> 这个操作符来判断，这个我们后面会说到。<br>来谈谈关于 <code>typeof</code> 的原理吧，我们可以先想一个很有意思的问题，<code>js</code> 在底层是怎么存储数据的类型信息呢？或者说，一个 <code>js</code> 的变量，在它的底层实现中，它的类型信息是怎么实现的呢？<br>其实，<strong>js 在底层存储变量的时候，会在变量的机器码的低位1-3位存储其类型信息</strong></p>
+<ul>
+<li>000：对象</li>
+<li>010：浮点数</li>
+<li>100：字符串</li>
+<li>110：布尔</li>
+<li>1：整数</li>
+</ul>
+<p>but, 对于 <code>undefined</code> 和 <code>null</code> 来说，这两个值的信息存储是有点特殊的。</p>
+<p><code>null</code>：所有机器码均为0<br><code>undefined</code>：用 −2^30 整数来表示<br>所以，<code>typeof</code> 在判断 <code>null</code> 的时候就出现问题了，<strong>由于<code>null</code>的所有机器码均为0，因此直接被当做了对象来看待</strong>。<br>然而用 <code>instanceof</code> 来判断的话</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> <span class="keyword">instanceof</span> <span class="literal">null</span> <span class="comment">// TypeError: Right-hand side of 'instanceof' is not an object</span></span><br></pre></td></tr></table></figure>
+<p><code>null</code> 直接被判断为不是<code>object</code>，这也是<code>JavaScript</code>的历史遗留<code>bug</code>，可以参考<code>typeof</code>。</p>
+<p>因此在用 <code>typeof</code> 来判断变量类型的时候，我们需要注意，<strong>最好是用 <code>typeof</code> 来判断基本数据类型（包括<code>symbol</code>），避免对 <code>null</code> 的判断</strong>。</p>
+<p>还有一个不错的判断类型的方法，就是<strong><code>Object.prototype.toString</code></strong>，我们可以利用这个方法来对一个变量的类型来进行比较准确的判断</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="number">1</span>) <span class="comment">// "[object Number]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="string">'hi'</span>) <span class="comment">// "[object String]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(&#123;<span class="attr">a</span>:<span class="string">'hi'</span>&#125;) <span class="comment">// "[object Object]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([<span class="number">1</span>,<span class="string">'a'</span>]) <span class="comment">// "[object Array]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">true</span>) <span class="comment">// "[object Boolean]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;) <span class="comment">// "[object Function]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">null</span>) <span class="comment">// "[object Null]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">undefined</span>) <span class="comment">// "[object Undefined]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">Symbol</span>(<span class="number">1</span>)) <span class="comment">// "[object Symbol]"</span></span><br></pre></td></tr></table></figure>
+<h2 id="二-instanceof-实现原理"><a href="#二-instanceof-实现原理" class="headerlink" title="二.  instanceof 实现原理"></a>二.  instanceof 实现原理</h2><p>之前我们提到了<code>instanceof</code>来判断对象的具体类型，其实<code>instanceof</code>主要的作用就是判断一个实例是否属于某种类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> nicole = <span class="keyword">new</span> person()</span><br><span class="line">nicole <span class="keyword">instanceof</span> person <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>当然，<code>instanceof</code>也可以判断一个实例是否是其父类型或者祖先类型的实例。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> programmer = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">programmer.prototype = <span class="keyword">new</span> person()</span><br><span class="line"><span class="keyword">let</span> nicole = <span class="keyword">new</span> programmer()</span><br><span class="line">nicole <span class="keyword">instanceof</span> person <span class="comment">// true</span></span><br><span class="line">nicole <span class="keyword">instanceof</span> programmer <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>这是<code>instanceof</code>的用法，但是<code>instanceof</code>的原理是什么呢？根据<code>ECMAScript</code>语言规范，我梳理了一下大概的思路，然后整理了一段代码如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">new_instance_of</span>(<span class="params">leftVaule, rightVaule</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">let</span> rightProto = rightVaule.prototype; <span class="comment">// 取右表达式的 prototype 值</span></span><br><span class="line">    leftVaule = leftVaule.__proto__; <span class="comment">// 取左表达式的__proto__值</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    	<span class="keyword">if</span> (leftVaule === <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;	</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (leftVaule === rightProto) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">        &#125; </span><br><span class="line">        leftVaule = leftVaule.__proto__ </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实 <strong><code>instanceof</code>主要的实现原理就是只要右边变量的 prototype 在左边变量的原型链上即可。因此，<code>instanceof</code>在查找的过程中会遍历左边变量的原型链，直到找到右边变量的<code>prototype</code>，如果查找失败，则会返回 <code>false</code></strong>，告诉我们左边变量并非是右边变量的实例。<br>看几个很有趣的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Function</span> <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">// true</span></span><br><span class="line">Foo <span class="keyword">instanceof</span> Foo <span class="comment">// false</span></span><br><span class="line">Foo <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">// true</span></span><br><span class="line">Foo <span class="keyword">instanceof</span> <span class="built_in">Function</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>要想全部理解<code>instanceof</code>的原理，除了我们刚刚提到的实现原理，我们还需要知道 <code>JavaScript</code>的原型继承原理。</p>
+<p>关于原型继承的原理，我简单用一张图来表示</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/28/163a55d5d35b866d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="一张图搞懂原型链"></p>
+<p>我们知道每个 JavaScript 对象均有一个隐式的<code>__proto__</code>原型属性，而显式的原型属性是<code>prototype</code>，只有 <code>Object.prototype.__proto__</code> 属性在未修改的情况下为<code>null</code>值。根据图上的原理，我们来梳理上面提到的几个有趣的<code>instanceof</code>使用的例子。</p>
+<ul>
+<li><code>Object instanceof Object</code><ul>
+<li>由图可知，<code>Object</code>的<code>prototype</code>属性是<code>Object.prototype</code>, 而由于<code>Object</code>本身是一个函数，由 <code>Function</code>所创建，所以<code>Object.__proto__</code>的值是<code>Function.prototype</code>，而<code>Function.prototype</code>的<code>__proto__</code>属性是<code>Object.prototype</code>，所以我们可以判断出，<code>Object instanceof Object</code>的结果是<code>true</code>。用代码简单的表示一下</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">leftValue = <span class="built_in">Object</span>.__proto__ = <span class="built_in">Function</span>.prototype;</span><br><span class="line">rightValue = <span class="built_in">Object</span>.prototype;</span><br><span class="line"><span class="comment">// 第一次判断</span></span><br><span class="line">leftValue != rightValue</span><br><span class="line">leftValue = <span class="built_in">Function</span>.prototype.__proto__ = <span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="comment">// 第二次判断</span></span><br><span class="line">leftValue === rightValue</span><br><span class="line"><span class="comment">// 返回 true</span></span><br></pre></td></tr></table></figure>
+<p><code>Function instanceof Function</code>和<code>Function instanceof Object</code>的运行过程与<code>Object instanceof Object</code>类似，故不再详说。</p>
+<ul>
+<li><code>Foo instanceof Foo</code><ul>
+<li><code>Foo</code>函数的<code>prototype</code>属性是<code>Foo.prototype</code>，而 <code>Foo</code>的<code>__proto__</code> 属性是<code>Function.prototype</code>，由图可知，<code>Foo</code>的原型链上并没有<code>Foo.prototype</code>，因此<code>Foo instanceof Foo</code>也就返回<code>false</code> 。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">leftValue = Foo, rightValue = Foo</span><br><span class="line">leftValue = Foo.__proto = <span class="built_in">Function</span>.prototype</span><br><span class="line">rightValue = Foo.prototype</span><br><span class="line"><span class="comment">// 第一次判断</span></span><br><span class="line">leftValue != rightValue</span><br><span class="line">leftValue = <span class="built_in">Function</span>.prototype.__proto__ = <span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="comment">// 第二次判断</span></span><br><span class="line">leftValue != rightValue</span><br><span class="line">leftValue = <span class="built_in">Object</span>.prototype = <span class="literal">null</span></span><br><span class="line"><span class="comment">// 第三次判断</span></span><br><span class="line">leftValue === <span class="literal">null</span></span><br><span class="line"><span class="comment">// 返回 false</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Foo instanceof Object</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">leftValue = Foo, rightValue = <span class="built_in">Object</span></span><br><span class="line">leftValue = Foo.__proto__ = <span class="built_in">Function</span>.prototype</span><br><span class="line">rightValue = <span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="comment">// 第一次判断</span></span><br><span class="line">leftValue != rightValue</span><br><span class="line">leftValue = <span class="built_in">Function</span>.prototype.__proto__ = <span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="comment">// 第二次判断</span></span><br><span class="line">leftValue === rightValue</span><br><span class="line"><span class="comment">// 返回 true</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Foo instanceof Function</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">leftValue = Foo, rightValue = <span class="built_in">Function</span></span><br><span class="line">leftValue = Foo.__proto__ = <span class="built_in">Function</span>.prototype</span><br><span class="line">rightValue = <span class="built_in">Function</span>.prototype</span><br><span class="line"><span class="comment">// 第一次判断</span></span><br><span class="line">leftValue === rightValue</span><br><span class="line"><span class="comment">// 返回 true</span></span><br></pre></td></tr></table></figure>
+<h2 id="三-总结"><a href="#三-总结" class="headerlink" title="三.  总结"></a>三.  总结</h2><p>简单来说，我们使用<code>typeof</code>来判断基本数据类型是<code>ok</code>的，不过需要注意当用<code>typeof</code>来判断<code>null</code>类型时的问题，如果想要判断一个对象的具体类型可以考虑用<code>instanceof</code>，但是<code>instanceof</code>也可能判断不准确，比如一个数组，他可以被<code>instanceof</code>判断为<code>Object</code>所以我们要想比较准确的判断对象实例的类型时，可以采取 <code>Object.prototype.toString.call</code>方法。</p>
+<p>作者：nicole_zhang<br>链接：<a href="https://juejin.im/post/5b0b9b9051882515773ae714" target="_blank" rel="noopener">https://juejin.im/post/5b0b9b9051882515773ae714</a><br>来源：掘金</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/forEach_for-in_for-of/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/16/forEach_for-in_for-of/" class="post-title-link" itemprop="url">JavaScript中的循环方法——forEach、for-in和for-of</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-16 09:25:47 / Geändert am: 09:30:12" itemprop="dateCreated datePublished" datetime="2019-03-16T09:25:47+08:00">2019-03-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。它的解释器被称为JavaScript引擎，为浏览器的一部分，广泛用于客户端的脚本语言，最早是在HTML（标准通用标记语言下的一个应用）网页上使用，用来给HTML网页增加动态功能。</p>
+<p>JavaScript诞生已经有20多年了，我们一直使用的用来循环一个数组的方法是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index = <span class="number">0</span>; index &lt; myArray.length; index++) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自从JavaScript5起，我们开始可以使用内置的<code>forEach</code>方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myArray.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>写法简单了许多，但也有短处：你不能中断循环(使用语句或使用语句。<br>JavaScript里还有一种循环方法：。</p>
+<p><code>for-in</code>循环实际是为循环<code>”enumerable“</code>对象而设计的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> obj) &#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"obj."</span> + prop + <span class="string">" = "</span> + obj[prop]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">// "obj.a = 1"</span></span><br><span class="line"><span class="comment">// "obj.b = 2"</span></span><br><span class="line"><span class="comment">// "obj.c = 3"</span></span><br></pre></td></tr></table></figure>
+<p>你也可以用它来循环一个数组：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> myArray) &#123; <span class="comment">// 不推荐这样</span></span><br><span class="line">	<span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不推荐用for-in来循环一个数组，因为，不像对象，数组的 index 跟普通的对象属性不一样，是重要的数值序列指标。</p>
+<p><strong>总之，<code>for–in</code>是用来循环带有字符串key的对象的方法</strong>。</p>
+<h2 id="for-of循环"><a href="#for-of循环" class="headerlink" title="for-of循环"></a>for-of循环</h2><p><code>ES6</code>里引入了一种新的循环方法，它就是<code>for-of</code>循环，它既比传统的<code>for</code>循环简洁，同时弥补了<code>forEach</code>和<code>for-in</code>循环的短板。</p>
+<p>我们看一下它的<code>for-of</code>的语法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> value <span class="keyword">of</span> myArray) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>for-of</code>的语法看起来跟<code>for-in</code>很相似，但它的功能却丰富的多，它能循环很多东西。</p>
+<p><strong><code>for-of</code>循环使用例子</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> iterable = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 10</span></span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"><span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
+<p>我们可以使用来替代，这样它就变成了在循环里的不可修改的静态变量</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> iterable = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> value <span class="keyword">of</span> iterable) &#123;</span><br><span class="line"><span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 10</span></span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"><span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
+<p><strong>循环一个字符串：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> iterable = <span class="string">"boo"</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// "b"</span></span><br><span class="line"><span class="comment">// "o"</span></span><br><span class="line"><span class="comment">// "o"</span></span><br><span class="line"><span class="keyword">let</span> iterable = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>([<span class="number">0x00</span>, <span class="number">0xff</span>]);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 255</span></span><br><span class="line"><span class="keyword">let</span> iterable = <span class="keyword">new</span> <span class="built_in">Map</span>([[<span class="string">"a"</span>, <span class="number">1</span>], [<span class="string">"b"</span>, <span class="number">2</span>], [<span class="string">"c"</span>, <span class="number">3</span>]]);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> entry <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(entry);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// [a, 1]</span></span><br><span class="line"><span class="comment">// [b, 2]</span></span><br><span class="line"><span class="comment">// [c, 3]</span></span><br><span class="line"><span class="keyword">let</span> iterable = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>]);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<p><strong>循环一个 DOM collection</strong>：</p>
+<p>循环一个<code>DOM collections</code>，比如 <code>NodeList</code>，之前我们讨论过 如何循环一个<code>NodeList</code> ，现在方便了，可以直接使用<code>for-of</code>循环：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Note: This will only work in platforms that have</span></span><br><span class="line"><span class="comment">// implemented NodeList.prototype[Symbol.iterator]</span></span><br><span class="line"><span class="keyword">let</span> articleParagraphs = <span class="built_in">document</span>.querySelectorAll(<span class="string">"article &gt; p"</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> paragraph <span class="keyword">of</span> articleParagraphs) &#123;</span><br><span class="line">	paragraph.classList.add(<span class="string">"read"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>循环一个拥有enumerable属性的对象</strong></p>
+<p><code>for–of</code>循环并不能直接使用在普通的对象上，但如果我们按对象所拥有的属性进行循环，可使用内置的<code>Object.keys()</code>方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">of</span> <span class="built_in">Object</span>.keys(someObject)) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(key + <span class="string">": "</span> + someObject[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>循环一个生成器(generators)</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fibonacci</span>(<span class="params"></span>) </span>&#123; <span class="comment">// a generator function</span></span><br><span class="line">	<span class="keyword">let</span> [prev, curr] = [<span class="number">0</span>, <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">		[prev, curr] = [curr, prev + curr];</span><br><span class="line">		<span class="keyword">yield</span> curr;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> n <span class="keyword">of</span> fibonacci()) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(n);</span><br><span class="line">	<span class="comment">// truncate the sequence at 1000</span></span><br><span class="line">	<span class="keyword">if</span> (n &gt;= <span class="number">1000</span>) </span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>转自脚本之家。没找到作者大大名姓。不过还是分享一下以备后用~</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/鸭子模型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -611,153 +979,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/15/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-15 19:52:39" itemprop="dateCreated datePublished" datetime="2019-03-15T19:52:39+08:00">2019-03-15</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -800,7 +1021,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
