@@ -287,6 +287,370 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/CSS中的rem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/17/CSS中的rem/" class="post-title-link" itemprop="url">CSS中的rem</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-17 21:02:26" itemprop="dateCreated datePublished" datetime="2019-03-17T21:02:26+08:00">2019-03-17</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>近些年来随着微信小程序的蓬勃发展，原本适用于PC端的字体型号px好像不再那么的万金油了，尤其是面对不同的手机屏幕，px的适配性显得过于呆板。之前的一些大厂选用了通用型号的屏幕适配，多余的部分则用留白来填补。这样虽然让Plus型号得以施展，但是一段留白总归看的诸位土豪心中不爽。随着CSS的发展，rem横空出世解决了这一难题</p>
+<p>为了大家的时间，我们采用我初中答政治题的方式，分“是什么”，“为什么”，“怎样做”三个方面给大家讲一下rem的详情，希望最大程度的节省大家的时间</p>
+<h4 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h4><p>rem全称font size of the root element，指<strong>相对于根元素字体大小的单位</strong>。<br>之前他还有个兄弟：em</p>
+<ul>
+<li>em：相对父元素字体大小的单位</li>
+<li>rem：相对于根元素字体大小的单位</li>
+</ul>
+<h4 id="为什么？"><a href="#为什么？" class="headerlink" title="为什么？"></a>为什么？</h4><p>理由的话我们之前也讲过了，rem是针对于web app推出的新属性，同样的适用于web page。如果按照之前的固定宽度做法太死板，如果设置响应式布局又难以维护还麻烦，所以干脆咱们用rem，有个统一参照还好收拾，利索！</p>
+<h4 id="怎样做"><a href="#怎样做" class="headerlink" title="怎样做"></a>怎样做</h4><p>首先是设置根元素，也就是html的字体大小<br>比如我们设置为10px</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">html&#123;</span><br><span class="line">	font-size:10px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后就可以灵活的控制啦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.btn &#123;</span><br><span class="line">    width: 6rem;</span><br><span class="line">    height: 3rem;</span><br><span class="line">    line-height: 3rem;</span><br><span class="line">    font-size: 1.2rem;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    background: #06c;</span><br><span class="line">    color: #fff;</span><br><span class="line">    border-radius: .5rem;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">    text-align: center;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终.btn的宽度为60px</p>
+<p>敲黑板！！！！！说结论啦！！！！！<br><strong>最终字体的px = 倍数 * 根节点px</strong><br>也就是说，上边的60px宽度是6*10px计算得来的！、</p>
+<h5 id="不同分辨率下的font-size又是怎么搞？"><a href="#不同分辨率下的font-size又是怎么搞？" class="headerlink" title="不同分辨率下的font-size又是怎么搞？"></a>不同分辨率下的font-size又是怎么搞？</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">html&#123;</span><br><span class="line">	//100vw是设备的宽度，除以7.5可以让1rem的大小在iPhone6下等于100px。</span><br><span class="line">    font-size: calc(100vw/7.5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>全局px替换为rem<br>替换设计稿中的px为rem，即font-size: 12px，需要写成font-size: .12rem。注意rem=px/100，其他宽度、高度、间距等同理。由于rem是相对于根节点元素大小的单位，遂当设备宽度改变时，采用rem布局的大小均会跟随相同比例变化，从而实现整体缩放。</p>
+<p>低版本浏览器的话还需要手动适配哦<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.documentElement.style.fontSize = window.innerWidth/7.5 + &apos;px&apos;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/聊聊jquery中的ajax/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/17/聊聊jquery中的ajax/" class="post-title-link" itemprop="url">聊聊jquery中的ajax</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-17 21:01:32" itemprop="dateCreated datePublished" datetime="2019-03-17T21:01:32+08:00">2019-03-17</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>jq的ajax方法封装了原生的阿贾克斯请求，让用户得以更加方便的使用。我们来看一下双方的对比</p>
+<p>html部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;form&gt;</span><br><span class="line">   &lt;input type=&quot;text&quot; name=&quot;username&quot; id=&quot;username&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type=&quot;password&quot; name=&quot;password&quot; id=&quot;password&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type=&quot;button&quot; id=&quot;btn&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>原生：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">document.getElementById(&apos;btn&apos;).addEventListener(&apos;click&apos;, () =&gt; &#123;</span><br><span class="line">    let xhr = new XMLHttpRequest();</span><br><span class="line">    xhr.open(&apos;post&apos;, &apos;http://192.168.1.171:80/actas/user/checkUser.action&apos;);</span><br><span class="line">    xhr.onreadystatechange = function() &#123;</span><br><span class="line">        if (xhr.status == 200 &amp;&amp; xhr.readyState == 4) &#123;</span><br><span class="line">            console.log(xhr.responseText)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    xhr.setRequestHeader(&apos;Content-Type&apos;, &apos;application/json&apos;);</span><br><span class="line">    xhr.send(JSON.stringify(&#123;</span><br><span class="line">        username: document.getElementById(&apos;username&apos;).value,</span><br><span class="line">        password: document.getElementById(&apos;password&apos;).value</span><br><span class="line">    &#125;))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>jquery：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;#btn&apos;).click(function() &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">    url: &apos;http://192.168.1.171:80/actas/user/checkUser.action&apos;,</span><br><span class="line">    async: true, 	//是否异步</span><br><span class="line">    // timeout:10000,   //超时10s则请求结束</span><br><span class="line">    dataType: &apos;json&apos;,</span><br><span class="line">    type: &quot;POST&quot;,</span><br><span class="line">    data: JSON.stringify(&#123;</span><br><span class="line">        username: $(&apos;#username&apos;).val(),</span><br><span class="line">        password: $(&apos;#password&apos;).val()</span><br><span class="line">    &#125;),</span><br><span class="line">    crossDomain: true, //跨域：true</span><br><span class="line">    contentType: &apos;application/json&apos;,</span><br><span class="line">    // contentType: &apos;application/x-www-form-urlencoded&apos;,</span><br><span class="line">    success: (data) =&gt; &#123;</span><br><span class="line">        console.log(data);</span><br><span class="line">    &#125;,</span><br><span class="line">    error: (err) =&gt; &#123;</span><br><span class="line">        console.log(err)</span><br><span class="line">    &#125;,</span><br><span class="line">    complete: () =&gt; &#123;</span><br><span class="line">		console.log(&apos;complete&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>显而易见，使用ajax实现相较于原生简单得多，也清晰的多</p>
+<h4 id="一-各属性用途"><a href="#一-各属性用途" class="headerlink" title="一.  各属性用途"></a>一.  各属性用途</h4><p>下面我们来具体的讲一下ajax的各个属性，加深大家的理解</p>
+<ul>
+<li>url：<strong>发送请求的地址</strong></li>
+<li>type：<strong>请求方式，默认为GET</strong><ul>
+<li>POST</li>
+<li>GET</li>
+<li>OPTION</li>
+<li>PUT（部分浏览器支持）</li>
+<li>DELETE（部分浏览器支持）</li>
+</ul>
+</li>
+<li>dataType：<strong>预期服务器返回的数据类型。如果不指定，jQuery 将自动根据 HTTP 包 MIME 信息来智能判断</strong><ul>
+<li>xml: 返回 XML 文档</li>
+<li>html: 返回纯文本 HTML 信息；包含的script标签会在插入dom时执行</li>
+<li>script: 返回纯文本 JavaScript 代码。不会自动缓存结果。除非设置了”cache”参数。<ul>
+<li>在远程请求时(不在同一个域下)，所有POST请求都将转为GET请求。(因为将使用DOM的script标签来加载)</li>
+</ul>
+</li>
+<li>json: 返回 JSON 数据</li>
+<li>jsonp: JSONP 格式。使用 JSONP 形式调用函数时，如 “myurl?callback=?” jQuery 将自动替换 ? 为正确的函数名，以执行回调函数。</li>
+<li>text: 返回纯文本字符串</li>
+</ul>
+</li>
+<li>data：<strong>要发送的数据</strong><ul>
+<li>这里注意：若是想要发送json格式的数据，那我们需要将data做一些小的修饰：</li>
+<li>`data: JSON.stringify({<pre><code>username: $(&apos;#username&apos;).val(),
+password: $(&apos;#password&apos;).val()
+</code></pre>   })`。当然，我们的dataType属性同时也要设置为“JSON”，而这配合食用更佳</li>
+</ul>
+</li>
+<li>success：请求成功后执行的函数</li>
+<li>error：请求致败后执行的函数</li>
+<li>complete：请求结束后执行的函数（无论成功失败）</li>
+</ul>
+<p>诺，这些是常用的一些属性值。但是我们想要深入理解还需要一些更高级的属性：</p>
+<ul>
+<li>contentType：<strong>发送至服务器时内容的编码类型</strong><ul>
+<li>application/x-www-form-urlencoded：默认值，这种格式的特点就是，name/value 成为一组，每组之间用 &amp; 联接，而 name与value 则是使用 = 连接<ul>
+<li>不过如果设计页面的人比较缺德，非得给你嵌套一下子，（比如要发送的数据为<code>{
+data: {
+a: [{
+x: 2
+}]
+}
+}</code>），这时候你就比较难受了。然后就引出了我们下面要介绍另一个值：</li>
+</ul>
+</li>
+<li>application/json：将值设置为它的时候，我们就可以发送json格式的数据了！不过前面也提到了，我们还需要将另外1个属性处理一下：<ul>
+<li>需要将data后边跟的东西加上JSON.stringfy()</li>
+<li>举个栗子：<code>data: JSON.stringify({a: [{b:1, a:1}]})</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="二-Important！！！！"><a href="#二-Important！！！！" class="headerlink" title="二.  Important！！！！"></a>二.  Important！！！！</h4><ul>
+<li>headers：<strong>用于设置头部信息！！！！重中之重</strong></li>
+</ul>
+<p>……未完待更</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/Vue项目中关于axios跨域的设置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1666,182 +2030,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/JavaScript中的map和reduce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/15/JavaScript中的map和reduce/" class="post-title-link" itemprop="url">JavaScript中的map和reduce</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-15 20:27:00 / Geändert am: 20:59:12" itemprop="dateCreated datePublished" datetime="2019-03-15T20:27:00+08:00">2019-03-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>以前看js都是云里雾里的，后来学了一些Java感觉稍微能看懂一些，恰逢又回头看到了以前关于js在有道云上的一些笔记，决定做一个关于map和reduce的分析</p>
-<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><ul>
-<li>map一般来说针对数组进行操作。但是进行了一个很好的封装使得读者可以清晰的看到被操作数组，以及对数组内每个元素进行操作的函数。我们先看一个小例子：</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*1*/</span></span><br><span class="line">arr.map(<span class="function"><span class="keyword">function</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;); <span class="comment">// [1, 4, 9, 16, 25, 36, 49, 64, 81]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*2*/</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>];</span><br><span class="line"><span class="keyword">var</span> result = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;arr.length; i++) &#123;</span><br><span class="line">    result.push(f(arr[i]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>诺，二者的原理其实并无两样，只不过map将函数进行了抽象化使得读者更加清晰的将结果视为：把f(x)作用在Array的每一个元素并把结果生成一个新的Array</p>
-<p><strong>划重点！！！！！</strong><br><strong>我等初学者可以勉强将map视为一个for循环，而其中的方法（函数）则代表了我们要对数组中每个元素进行处理所用到的方法（函数）</strong></p>
-<p>最后放一个将字符串转化为整数的小方法给大家看一下啦</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>];</span><br><span class="line"><span class="keyword">var</span> r;</span><br><span class="line">r = arr.map(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;<span class="keyword">return</span> <span class="built_in">parseInt</span>(x);&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h2><p>不知道在座的各位有没有学过数据结构，记不记得里边的广义表章节。</p>
-<p>总之其中有一个广义表的存储方法名为<strong>头尾链表存储结构</strong>。叫的花哨其实没那么难懂。即使将广义表分为头尾两部分头部为值，尾部为指针指向后边的元素。后边的元素继续细分为头尾，以此类推<br><img src="http://img.blog.csdn.net/20171105112242582?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzg3MjIwOTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p><img src="http://img.blog.csdn.net/20171105112302089?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzg3MjIwOTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>对没错就这么个玩意儿~为了省事我直接把PPT截了个图，大伙儿凑合着看啊</p>
-<ul>
-<li><strong>那么这东西跟reduce有啥关系？</strong><ul>
-<li>reduce规定<strong>必须接受两个参数</strong>。reduce()<strong>把结果继续和序列的下一个元素做累计计算</strong></li>
-<li>效果就这样：<strong>[x1, x2, x3, x4].reduce(f) = f(f(f(x1, x2), x3), x4);</strong>—-像不像上面说到的广义表头尾链表存储结构倒过来（当然你得把最终的一个元素改成两个）？</li>
-</ul>
-</li>
-</ul>
-<p>有啥用？先来个简单的。对数组进行求和</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>];</span><br><span class="line">arr.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;); 	<span class="comment">// 25</span></span><br></pre></td></tr></table></figure>
-<p>看到没，效果是不是让你们想起了递归操作？没错。我只考虑前两个元素相加，后边的咱先放下不管。如此如此……就成了嘛~</p>
-<p>不光如此，reduce还能将数组中的一组数转化为一个大整数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>];</span><br><span class="line">arr.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * <span class="number">10</span> + y;</span><br><span class="line">&#125;); 		<span class="comment">// 13579</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>最后放一个不使用parseInt()利用map和reduce将字符串数组转化为整数的例子<ul>
-<li>Tips：想办法把一个字符串13579先变成Array——[1, 3, 5, 7, 9]，再利用reduce()就可以写出一个把字符串转换为Number的函数。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">string2int</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//split()分割字符串返回的是一个数组；</span></span><br><span class="line">    <span class="keyword">var</span> arr = s.split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">return</span> arr.map(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">          <span class="comment">//js的弱类型转换，‘-’会将字符串转变为数字，</span></span><br><span class="line">          <span class="comment">//x (乘) 1也是一个道理，但这样为何不直接return s (乘) 1呢;</span></span><br><span class="line">          <span class="keyword">return</span> x<span class="number">-0</span>;</span><br><span class="line">    &#125;).reduce(<span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> x*<span class="number">10</span>+y;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Nächste Seite"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1881,7 +2076,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>

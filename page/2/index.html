@@ -98,27 +98,20 @@
 
 
 
-  <meta name="description" content="以前看js都是云里雾里的，后来学了一些Java感觉稍微能看懂一些，恰逢又回头看到了以前关于js在有道云上的一些笔记，决定做一个关于map和reduce的分析 map map一般来说针对数组进行操作。但是进行了一个很好的封装使得读者可以清晰的看到被操作数组，以及对数组内每个元素进行操作的函数。我们先看一个小例子：  123456789101112131415161718var arr = [1, 2">
-<meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript中的map和reduce">
-<meta property="og:url" content="http://yoursite.com/2019/03/15/JavaScript中的map和reduce/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="以前看js都是云里雾里的，后来学了一些Java感觉稍微能看懂一些，恰逢又回头看到了以前关于js在有道云上的一些笔记，决定做一个关于map和reduce的分析 map map一般来说针对数组进行操作。但是进行了一个很好的封装使得读者可以清晰的看到被操作数组，以及对数组内每个元素进行操作的函数。我们先看一个小例子：  123456789101112131415161718var arr = [1, 2">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://img.blog.csdn.net/20171105112242582?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzg3MjIwOTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20171105112302089?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzg3MjIwOTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2019-03-15T12:59:12.944Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript中的map和reduce">
-<meta name="twitter:description" content="以前看js都是云里雾里的，后来学了一些Java感觉稍微能看懂一些，恰逢又回头看到了以前关于js在有道云上的一些笔记，决定做一个关于map和reduce的分析 map map一般来说针对数组进行操作。但是进行了一个很好的封装使得读者可以清晰的看到被操作数组，以及对数组内每个元素进行操作的函数。我们先看一个小例子：  123456789101112131415161718var arr = [1, 2">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20171105112242582?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzg3MjIwOTc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:title" content="Hexo">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/15/JavaScript中的map和reduce/">
+  <link rel="canonical" href="http://yoursite.com/page/2/">
 
 
 
@@ -128,7 +121,7 @@
   };
 </script>
 
-  <title>JavaScript中的map和reduce | Hexo</title>
+  <title>Hexo</title>
   
 
 
@@ -176,7 +169,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -276,9 +270,9 @@
           
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -310,8 +304,10 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript中的map和reduce
-
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/15/JavaScript中的map和reduce/" class="post-title-link" itemprop="url">JavaScript中的map和reduce</a>
               
             
           </h1>
@@ -375,7 +371,9 @@
       
 
       
-        <p>以前看js都是云里雾里的，后来学了一些Java感觉稍微能看懂一些，恰逢又回头看到了以前关于js在有道云上的一些笔记，决定做一个关于map和reduce的分析</p>
+        
+          
+            <p>以前看js都是云里雾里的，后来学了一些Java感觉稍微能看懂一些，恰逢又回头看到了以前关于js在有道云上的一些笔记，决定做一个关于map和reduce的分析</p>
 <h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><ul>
 <li>map一般来说针对数组进行操作。但是进行了一个很好的封装使得读者可以清晰的看到被操作数组，以及对数组内每个元素进行操作的函数。我们先看一个小例子：</li>
 </ul>
@@ -407,6 +405,8 @@
 </li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">string2int</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//split()分割字符串返回的是一个数组；</span></span><br><span class="line">    <span class="keyword">var</span> arr = s.split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">return</span> arr.map(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">          <span class="comment">//js的弱类型转换，‘-’会将字符串转变为数字，</span></span><br><span class="line">          <span class="comment">//x (乘) 1也是一个道理，但这样为何不直接return s (乘) 1呢;</span></span><br><span class="line">          <span class="keyword">return</span> x<span class="number">-0</span>;</span><br><span class="line">    &#125;).reduce(<span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> x*<span class="number">10</span>+y;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
       
     </div>
 
@@ -429,28 +429,12 @@
       
 
       
-      
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/15/鸭子模型/" rel="prev" title="鸭子模型？？？">
-                鸭子模型？？？ <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -460,15 +444,18 @@
   </article>
 
 
-  </div>
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Vorherige Seite"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
           
-
-  
-
-
 
         </div>
         
@@ -488,17 +475,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -544,23 +522,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#map"><span class="nav-number">1.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reduce"><span class="nav-number">2.</span> <span class="nav-text">reduce</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
@@ -689,10 +650,6 @@
 
 
   
-  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
-<script src="/js/src/post-details.js?v=7.0.1"></script>
-
-
 
   
 
@@ -708,8 +665,6 @@
 
   
 
-
-  
 
 
   
