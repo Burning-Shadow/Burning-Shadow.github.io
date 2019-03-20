@@ -287,6 +287,188 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript中的事件循环&消息队列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/20/JavaScript中的事件循环&消息队列/" class="post-title-link" itemprop="url">JavaScript中的事件循环&消息队列</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-20 13:59:41 / Geändert am: 16:35:58" itemprop="dateCreated datePublished" datetime="2019-03-20T13:59:41+08:00">2019-03-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>作为一门设计初衷为了处理浏览器网页交互（<code>DOM</code>操作、<code>UI</code>动画等）的语言，<code>JavaScript</code>只能被设计为单线程（否则多个线程同时处理<code>DOM</code>那将会造成混乱）。</p>
+<p>可是写过<code>JavaScript</code>代码的人都用过定时器、<code>ajax</code>、事件绑定等。如果是单线程那岂不是无法完成这些异步请求？</p>
+<h3 id="一-前言"><a href="#一-前言" class="headerlink" title="一.  前言"></a>一.  前言</h3><p>其实，<code>JavaScript</code>单线程指的是浏览器中负责解释和执行<code>JavaScript</code>代码的只有一个线程——<strong><code>JavaScript</code>引擎线程。</strong>除了他之外浏览器还有其他四个线程：</p>
+<ul>
+<li>事件触发线程</li>
+<li>定时器触发线程</li>
+<li>异步<code>http</code>请求线程</li>
+<li><code>GUI</code>渲染线程</li>
+</ul>
+<p>当遇到计时器、DOM事件监听或是网络请求时，<code>JS</code>引擎会将其交给<code>webapi</code>，也就是浏览器提供的相应线程。而JS引擎则继续后边的其他任务，以此方式实现<strong>异步非阻塞。</strong></p>
+<p>在此咱们不得不讲一下<code>setTimeout</code>（<code>setInterval</code>）函数。这东西没咱们想象的那么准，原因就在于当事件结束后他会将相应的回调函数（<code>callback</code>）交还给 <strong>消息队列</strong>。而消息队列中排列着其他的任务，只有轮到它才会被执行。<strong>所以<code>setTimeout</code>只能保证其在<code>ms</code>毫秒 <u>之后</u> 执行。</strong></p>
+<h3 id="二-事件循环与消息队列"><a href="#二-事件循环与消息队列" class="headerlink" title="二.  事件循环与消息队列"></a>二.  事件循环与消息队列</h3><h4 id="2-1-什么是消息队列"><a href="#2-1-什么是消息队列" class="headerlink" title="2.1  什么是消息队列"></a>2.1  什么是消息队列</h4><p>众所周知<code>JavaScript</code>中的存储区域分为堆区、栈区、还有消息队列区。</p>
+<ul>
+<li><strong>堆区存放用户创建的对象</strong>。（内训泄露定位的主要区域也在这里。）</li>
+<li><strong>栈区则是用来处理函数执行（所以又称为执行栈）</strong>。每嵌套一层向栈中推入函数信息，得到返回值后出栈。主代码块<strong>依次</strong>进入执行栈，依次执行。</li>
+<li><strong>而消息队列则是用来处理异步任务</strong>。每当出现异步调用事件时都会将其入队，<u>执行完毕后</u>再由<strong>任务队列</strong>通知主线程，让<code>JS</code>引擎接管此事件。</li>
+</ul>
+<h4 id="2-2-什么是事件循环"><a href="#2-2-什么是事件循环" class="headerlink" title="2.2  什么是事件循环"></a>2.2  什么是事件循环</h4><p>当执行栈为空时（JS引擎线程空闲），事件触发线程会从消息队列中取出一个任务（异步的回调函数）放入执行栈中执行。执行完毕后执行栈再次为空，事件触发线程会重复上一步操作，继续从消息队列中取出一个任务。此机制被称为事件循环（<code>event loop</code>）机制。</p>
+<p>我们不妨举个例子来看看其操作流程：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'timer 1 over'</span>)</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'timer 2 over'</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">// script end</span></span><br><span class="line"><span class="comment">// timer 2 over</span></span><br><span class="line"><span class="comment">// timer 1 over</span></span><br></pre></td></tr></table></figure>
+<p>本例中我们先顺序执行同步代码，从消息队列中依次进入执行栈执行，依次打印<code>script start</code>，<code>script end</code>。</p>
+<p>而两个<code>setTimeout</code>作为异步代码，分别由定时器触发线程进行监控，时间到后再将其推入消息队列中。</p>
+<p>当函数执行栈空时从消息队列中取任务执行。由于”<code>timer 2 over</code>“先入队所以先被取出，<code>timer 1 over</code>同理。</p>
+<h3 id="三-宏任务-amp-微任务"><a href="#三-宏任务-amp-微任务" class="headerlink" title="三.  宏任务&amp;微任务"></a>三.  宏任务&amp;微任务</h3><p>上边这些个机制事实上在ES5已经够用了。但是ES6会有一些问题。因为其引入了新的异步机制——<code>Promise</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timer over'</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">// script end</span></span><br><span class="line"><span class="comment">// promise1</span></span><br><span class="line"><span class="comment">// promise2</span></span><br><span class="line"><span class="comment">// timer over</span></span><br></pre></td></tr></table></figure>
+<p>为什么<code>promise1</code>和<code>promise2</code>在“<code>timer over</code>”之前打印？</p>
+<p>这里就要引入宏任务（<code>macrotask</code>）和微任务（<code>microotask</code>）。</p>
+<ul>
+<li>上面提到的一切事件（同步代码块、<code>setTimeout</code>、<code>setInterval</code>等）都是宏任务</li>
+<li>而微任务则是<code>Promise</code>和<code>process.nextTick</code></li>
+</ul>
+<p>顺序的话还是同步事件优先级最高，而这些异步事件其次<strong>。机制同样是事件循环</strong>。</p>
+<p>当执行宏任务时遇到<code>Promise</code>等，会创建微任务（<code>.then()</code>里的回调），并加入微任务队列队尾。</p>
+<p>microtask必然是在某个宏任务执行的时候创建的，而在下一个宏任务开始之前，浏览器会对页面重新渲染(<code>task</code> &gt;&gt; <code>渲染</code> &gt;&gt; <code>下一个task</code>(从任务队列中取一个))。同时，在上一个宏任务执行完成后，渲染页面之前，会执行当前微任务队列中的所有微任务。</p>
+<blockquote>
+<p>在某一个<code>macrotask</code>执行完后，在重新渲染与开始下一个宏任务之前，就会将在它执行期间产生的所有microtask都执行完毕（在渲染前）。</p>
+</blockquote>
+<blockquote>
+<p>在node环境下，<code>process.nextTick</code>的优先级高于<code>Promise</code>，也就是说：在宏任务结束后会先执行微任务队列中的<code>nextTickQueue</code>，然后才会执行微任务中的<code>Promise</code>。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript中的闭包/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1938,180 +2120,6 @@ x: 2
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/JavaScript中的this解析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/17/JavaScript中的this解析/" class="post-title-link" itemprop="url">JavaScript中的this解析</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-17 20:02:01 / Geändert am: 20:58:05" itemprop="dateCreated datePublished" datetime="2019-03-17T20:02:01+08:00">2019-03-17</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="一-默认绑定"><a href="#一-默认绑定" class="headerlink" title="一.默认绑定"></a>一.默认绑定</h3><p><strong>独立函数调用</strong>时遵循默认绑定的原则。一般情况下若无其他规则出现则默认将<code>this</code>绑定到全局对象上。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">foo()	<span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="二-隐式绑定"><a href="#二-隐式绑定" class="headerlink" title="二.隐式绑定"></a>二.隐式绑定</h3><p>若调用位置有上下文对象就遵循隐式绑定（如example.foo()）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>,  <span class="attr">foo</span>:foo&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'global'</span></span><br><span class="line">obj.foo()		<span class="comment">// 2</span></span><br><span class="line"><span class="keyword">var</span> bar = obj.foo</span><br><span class="line">bar()		<span class="comment">// 'global</span></span><br></pre></td></tr></table></figure></p>
-<p>如图。之前我们直接调用<code>foo</code>函数时因为其具有上下文对象，所以正确打印，<code>this</code>此时正指向此对象(<code>obj</code>)。<br>可是之后的<code>bar</code>为什么又无法正确打印出对应的结果呢？<br>首先我们看，题目中用一个变量<code>bar</code>存储了<code>obj.foo</code>。所以为完成此赋值操作引擎会对<code>obj.foo</code>进行<code>RHS</code>查找，并找出其对应的键<code>foo</code>。继而再对值<code>foo</code>进行<code>RHS</code>查找，得到<code>foo</code>函数。<br>可是此时对其进行调用时，由于无上下文对象（<code>bar</code>本身的调用并不是靠”<code>.</code>“出来的）所以就造成了隐式丢失。故采取默认绑定规则，绑定在全局的<code>a</code>上。<br>或者我们换一种说法：<code>bar</code>引用的时<code>foo</code>函数本身。因而此时的<code>bar</code>其实是一个不带任何修饰的函数调用，自然采取默认绑定规则。</p>
-<h4 id="2-1这题怎么解决"><a href="#2-1这题怎么解决" class="headerlink" title="2.1这题怎么解决"></a>2.1这题怎么解决</h4><p>上面我们讲到了，隐式绑定的规则说通俗一点就是必须用”<code>.</code>“操作符将其函数与相应对象绑定。所以我们改成这样就可以啦<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>,  <span class="attr">foo</span>:foo&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'global'</span></span><br><span class="line">obj.foo()		<span class="comment">// 2</span></span><br><span class="line"><span class="keyword">var</span> bar = obj</span><br><span class="line">bar.foo()		    <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
-<p>此例中前半部分都一样。一直进行<code>RHS</code>查找，直到将<code>obj</code>的调用地址赋给<code>bar</code>。也就是说<code>bar</code>此时具有了一个<code>obj</code>的引用。在此后通过<code>.</code>操作符操作时就不会再发生上面所说的隐式丢失了</p>
-<h5 id="2-1-1-原理"><a href="#2-1-1-原理" class="headerlink" title="2.1.1  原理"></a>2.1.1  原理</h5><blockquote>
-<p>对象属性引用链只有上一层或者说最后一层再调用位置中起作用</p>
-<h4 id="2-2-参数传递所引起的隐式丢失"><a href="#2-2-参数传递所引起的隐式丢失" class="headerlink" title="2.2  参数传递所引起的隐式丢失"></a>2.2  参数传递所引起的隐式丢失</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>,log(a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dooFoo</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">	fn()	<span class="comment">// 调用位置</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>,  <span class="attr">foo</span>:foo&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'global'</span></span><br><span class="line">dooFoo(obj.foo)		<span class="comment">// 'global'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>我们分析一下。作为参数传递进<code>dooFoo</code>的<code>obj.foo</code>，引擎会对其进行<code>RHS</code>搜索。不信我们删掉<code>foo</code>看一下<br><img src="https://img-blog.csdnimg.cn/20190304152321162.png" alt="在这里插入图片描述"><br>喏，这个<code>ReferenceError</code>的报错就能充分说明问题了。<br>既然是<code>RHS</code>那么我们会得到一个<code>foo</code>函数的引用。但是此引用是脱离了上下文的，自然会发生隐式丢失。</p>
-<p><strong><code>JavaScript</code>的内置库函数也一样，所以少用这种传入参数的方式，容易造成隐式丢失</strong></p>
-<h3 id="三-显式绑定"><a href="#三-显式绑定" class="headerlink" title="三.显式绑定"></a>三.显式绑定</h3><p>隐式绑定这种由JavaScript内部机制造成的宫斗剧一般的勾心斗角显然不适合我这种单纯的boy。而正好有另一种绑定方式，简单粗暴易懂，让人一眼看出<code>this</code>作用域。</p>
-<h4 id="3-1-apply、call"><a href="#3-1-apply、call" class="headerlink" title="3.1  apply、call"></a>3.1  apply、call</h4><p>在用此方法之前我建议好兄弟们去看一下这俩函数的<a href="https://blog.csdn.net/qq_38722097/article/details/88126276" target="_blank" rel="noopener">相关内容</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>,log(a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>: <span class="number">2</span>&#125;</span><br><span class="line">foo.call(obj)	<span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>但是显式绑定仍然无法解决丢失绑定问题</strong></p>
-<h4 id="3-2-硬绑定"><a href="#3-2-硬绑定" class="headerlink" title="3.2  硬绑定"></a>3.2  硬绑定</h4><h5 id="3-2-1-创建一个可以重复使用的辅助函数"><a href="#3-2-1-创建一个可以重复使用的辅助函数" class="headerlink" title="3.2.1  创建一个可以重复使用的辅助函数"></a>3.2.1  创建一个可以重复使用的辅助函数</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">something</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a, something)</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.a + something</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bind</span>(<span class="params">fn, obj</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> fn.apply(obj, <span class="built_in">arguments</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b = bar(<span class="number">3</span>)	<span class="comment">// 2 3</span></span><br><span class="line"><span class="built_in">console</span>.log(b)	<span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
-<p>如图，我们每次在<code>bind</code>函数上将传入的函数硬性绑定在其对象上，如此一来无论如何调用<code>bar</code>，都会手动在<code>obj</code>上调用<code>fn</code></p>
-<h5 id="3-2-2-Function-prototype-bind"><a href="#3-2-2-Function-prototype-bind" class="headerlink" title="3.2.2  Function.prototype.bind"></a>3.2.2  Function.prototype.bind</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">something</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a, something)</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.a + something</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b = bar(<span class="number">3</span>)	<span class="comment">// 2 3</span></span><br><span class="line"><span class="built_in">console</span>.log(b)	<span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
-<p><code>bind()</code>会返回一个硬编码的新韩淑，它会把你指定的参数设置为<code>this</code>的上下文并调用原始函数</p>
-<h4 id="3-3-API调用参数指定this"><a href="#3-3-API调用参数指定this" class="headerlink" title="3.3  API调用参数指定this"></a>3.3  API调用参数指定this</h4><p>一些函数会提供一个可选参数作为你的“上下文”，以达到确保回调函数使用指定<code>this</code>的目的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">el</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(el, <span class="keyword">this</span>.id)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">id</span>:<span class="string">'awesome'</span>&#125;</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].forEach(foo, obj)</span><br></pre></td></tr></table></figure></p>
-<h3 id="四-new绑定"><a href="#四-new绑定" class="headerlink" title="四.new绑定"></a>四.new绑定</h3><h4 id="4-1-写在前面"><a href="#4-1-写在前面" class="headerlink" title="4.1  写在前面"></a>4.1  写在前面</h4><blockquote>
-<p>JavaScript中没有构造函数，只有对函数的构造调用<br>发生函数的构造调用时，自动执行以下操作</p>
-<ul>
-<li>创建一个全新的对象</li>
-<li>此对象会被执行<code>[[prototype]]</code>链接</li>
-<li>此新对象会绑定到函数调用的<code>this</code></li>
-<li>执行此函数代码</li>
-<li>若函数无返回值，则自动返回这个新对象<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.a = <span class="number">1</span></span><br><span class="line">	<span class="keyword">this</span>.b = <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> instance = <span class="keyword">new</span> fun()</span><br><span class="line"><span class="built_in">console</span>.log(instance.a)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<h3 id="五-箭头函数"><a href="#五-箭头函数" class="headerlink" title="五.箭头函数"></a>五.箭头函数</h3><p>箭头函数的<code>this</code>指向就可以理解为传统面向对象语言的<code>this</code>啦。它会根据外层的作用域来决定<code>this</code>，即取决于外层的函数作用域或全局作用域，且<strong>箭头函数的绑定无法修改</strong></p>
-<p>今天的总结就到这里啦<br><img src="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2158,7 +2166,7 @@ x: 2
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>

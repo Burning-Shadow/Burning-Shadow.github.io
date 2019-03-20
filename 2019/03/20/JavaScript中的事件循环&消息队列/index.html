@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="作为一门设计初衷为了处理浏览器网页交互（DOM操作、UI动画等）的语言，JavaScript只能被设计为单线程（否则多个线程同时处理DOM那将会造成混乱）。 可是写过JavaScript代码的人都用过定时器、ajax、事件绑定等。如果是单线程那岂不是无法完成这些异步请求？ 一.  前言其实，JavaScript单线程指的是浏览器中负责解释和执行JavaScript代码的只有一个线程——JavaSc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript中的事件循环&amp;消息队列">
+<meta property="og:url" content="http://yoursite.com/2019/03/20/JavaScript中的事件循环&消息队列/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="作为一门设计初衷为了处理浏览器网页交互（DOM操作、UI动画等）的语言，JavaScript只能被设计为单线程（否则多个线程同时处理DOM那将会造成混乱）。 可是写过JavaScript代码的人都用过定时器、ajax、事件绑定等。如果是单线程那岂不是无法完成这些异步请求？ 一.  前言其实，JavaScript单线程指的是浏览器中负责解释和执行JavaScript代码的只有一个线程——JavaSc">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-20T08:35:58.131Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript中的事件循环&amp;消息队列">
+<meta name="twitter:description" content="作为一门设计初衷为了处理浏览器网页交互（DOM操作、UI动画等）的语言，JavaScript只能被设计为单线程（否则多个线程同时处理DOM那将会造成混乱）。 可是写过JavaScript代码的人都用过定时器、ajax、事件绑定等。如果是单线程那岂不是无法完成这些异步请求？ 一.  前言其实，JavaScript单线程指的是浏览器中负责解释和执行JavaScript代码的只有一个线程——JavaSc">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/20/JavaScript中的事件循环&消息队列/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JavaScript中的事件循环&消息队列 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript中的事件循环&消息队列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript中的事件循环&消息队列
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-20 13:59:41 / Geändert am: 16:35:58" itemprop="dateCreated datePublished" datetime="2019-03-20T13:59:41+08:00">2019-03-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>作为一门设计初衷为了处理浏览器网页交互（<code>DOM</code>操作、<code>UI</code>动画等）的语言，<code>JavaScript</code>只能被设计为单线程（否则多个线程同时处理<code>DOM</code>那将会造成混乱）。</p>
+<p>可是写过<code>JavaScript</code>代码的人都用过定时器、<code>ajax</code>、事件绑定等。如果是单线程那岂不是无法完成这些异步请求？</p>
+<h3 id="一-前言"><a href="#一-前言" class="headerlink" title="一.  前言"></a>一.  前言</h3><p>其实，<code>JavaScript</code>单线程指的是浏览器中负责解释和执行<code>JavaScript</code>代码的只有一个线程——<strong><code>JavaScript</code>引擎线程。</strong>除了他之外浏览器还有其他四个线程：</p>
+<ul>
+<li>事件触发线程</li>
+<li>定时器触发线程</li>
+<li>异步<code>http</code>请求线程</li>
+<li><code>GUI</code>渲染线程</li>
+</ul>
+<p>当遇到计时器、DOM事件监听或是网络请求时，<code>JS</code>引擎会将其交给<code>webapi</code>，也就是浏览器提供的相应线程。而JS引擎则继续后边的其他任务，以此方式实现<strong>异步非阻塞。</strong></p>
+<p>在此咱们不得不讲一下<code>setTimeout</code>（<code>setInterval</code>）函数。这东西没咱们想象的那么准，原因就在于当事件结束后他会将相应的回调函数（<code>callback</code>）交还给 <strong>消息队列</strong>。而消息队列中排列着其他的任务，只有轮到它才会被执行。<strong>所以<code>setTimeout</code>只能保证其在<code>ms</code>毫秒 <u>之后</u> 执行。</strong></p>
+<h3 id="二-事件循环与消息队列"><a href="#二-事件循环与消息队列" class="headerlink" title="二.  事件循环与消息队列"></a>二.  事件循环与消息队列</h3><h4 id="2-1-什么是消息队列"><a href="#2-1-什么是消息队列" class="headerlink" title="2.1  什么是消息队列"></a>2.1  什么是消息队列</h4><p>众所周知<code>JavaScript</code>中的存储区域分为堆区、栈区、还有消息队列区。</p>
+<ul>
+<li><strong>堆区存放用户创建的对象</strong>。（内训泄露定位的主要区域也在这里。）</li>
+<li><strong>栈区则是用来处理函数执行（所以又称为执行栈）</strong>。每嵌套一层向栈中推入函数信息，得到返回值后出栈。主代码块<strong>依次</strong>进入执行栈，依次执行。</li>
+<li><strong>而消息队列则是用来处理异步任务</strong>。每当出现异步调用事件时都会将其入队，<u>执行完毕后</u>再由<strong>任务队列</strong>通知主线程，让<code>JS</code>引擎接管此事件。</li>
+</ul>
+<h4 id="2-2-什么是事件循环"><a href="#2-2-什么是事件循环" class="headerlink" title="2.2  什么是事件循环"></a>2.2  什么是事件循环</h4><p>当执行栈为空时（JS引擎线程空闲），事件触发线程会从消息队列中取出一个任务（异步的回调函数）放入执行栈中执行。执行完毕后执行栈再次为空，事件触发线程会重复上一步操作，继续从消息队列中取出一个任务。此机制被称为事件循环（<code>event loop</code>）机制。</p>
+<p>我们不妨举个例子来看看其操作流程：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'timer 1 over'</span>)</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'timer 2 over'</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">// script end</span></span><br><span class="line"><span class="comment">// timer 2 over</span></span><br><span class="line"><span class="comment">// timer 1 over</span></span><br></pre></td></tr></table></figure>
+<p>本例中我们先顺序执行同步代码，从消息队列中依次进入执行栈执行，依次打印<code>script start</code>，<code>script end</code>。</p>
+<p>而两个<code>setTimeout</code>作为异步代码，分别由定时器触发线程进行监控，时间到后再将其推入消息队列中。</p>
+<p>当函数执行栈空时从消息队列中取任务执行。由于”<code>timer 2 over</code>“先入队所以先被取出，<code>timer 1 over</code>同理。</p>
+<h3 id="三-宏任务-amp-微任务"><a href="#三-宏任务-amp-微任务" class="headerlink" title="三.  宏任务&amp;微任务"></a>三.  宏任务&amp;微任务</h3><p>上边这些个机制事实上在ES5已经够用了。但是ES6会有一些问题。因为其引入了新的异步机制——<code>Promise</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timer over'</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">// script end</span></span><br><span class="line"><span class="comment">// promise1</span></span><br><span class="line"><span class="comment">// promise2</span></span><br><span class="line"><span class="comment">// timer over</span></span><br></pre></td></tr></table></figure>
+<p>为什么<code>promise1</code>和<code>promise2</code>在“<code>timer over</code>”之前打印？</p>
+<p>这里就要引入宏任务（<code>macrotask</code>）和微任务（<code>microotask</code>）。</p>
+<ul>
+<li>上面提到的一切事件（同步代码块、<code>setTimeout</code>、<code>setInterval</code>等）都是宏任务</li>
+<li>而微任务则是<code>Promise</code>和<code>process.nextTick</code></li>
+</ul>
+<p>顺序的话还是同步事件优先级最高，而这些异步事件其次<strong>。机制同样是事件循环</strong>。</p>
+<p>当执行宏任务时遇到<code>Promise</code>等，会创建微任务（<code>.then()</code>里的回调），并加入微任务队列队尾。</p>
+<p>microtask必然是在某个宏任务执行的时候创建的，而在下一个宏任务开始之前，浏览器会对页面重新渲染(<code>task</code> &gt;&gt; <code>渲染</code> &gt;&gt; <code>下一个task</code>(从任务队列中取一个))。同时，在上一个宏任务执行完成后，渲染页面之前，会执行当前微任务队列中的所有微任务。</p>
+<blockquote>
+<p>在某一个<code>macrotask</code>执行完后，在重新渲染与开始下一个宏任务之前，就会将在它执行期间产生的所有microtask都执行完毕（在渲染前）。</p>
+</blockquote>
+<blockquote>
+<p>在node环境下，<code>process.nextTick</code>的优先级高于<code>Promise</code>，也就是说：在宏任务结束后会先执行微任务队列中的<code>nextTickQueue</code>，然后才会执行微任务中的<code>Promise</code>。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/20/JavaScript中的闭包/" rel="next" title="JavaScript中的闭包">
+                <i class="fa fa-chevron-left"></i> JavaScript中的闭包
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-前言"><span class="nav-number">1.</span> <span class="nav-text">一.  前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-事件循环与消息队列"><span class="nav-number">2.</span> <span class="nav-text">二.  事件循环与消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-什么是消息队列"><span class="nav-number">2.1.</span> <span class="nav-text">2.1  什么是消息队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-什么是事件循环"><span class="nav-number">2.2.</span> <span class="nav-text">2.2  什么是事件循环</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-宏任务-amp-微任务"><span class="nav-number">3.</span> <span class="nav-text">三.  宏任务&amp;微任务</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
