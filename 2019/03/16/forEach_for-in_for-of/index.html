@@ -105,7 +105,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。它的解释器被称为JavaScript引擎，为浏览器的一部分，广泛用于客户端的脚本语言，最早是在HTML（标准通用标记语言下的一个应用）网页上使用，用来给HTML网页增加动态功能。 JavaScript诞生已经有20多年了，我们一直使用的用来循环一个数组的方法是这样的： 123for (var index">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-16T01:56:51.789Z">
+<meta property="og:updated_time" content="2019-03-21T16:06:24.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的循环方法——forEach、for-in和for-of">
 <meta name="twitter:description" content="JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。它的解释器被称为JavaScript引擎，为浏览器的一部分，广泛用于客户端的脚本语言，最早是在HTML（标准通用标记语言下的一个应用）网页上使用，用来给HTML网页增加动态功能。 JavaScript诞生已经有20多年了，我们一直使用的用来循环一个数组的方法是这样的： 123for (var index">
@@ -193,7 +193,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -221,7 +221,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -238,7 +238,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -326,19 +326,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-03-16 09:25:47 / Modified: 09:56:51" itemprop="dateCreated datePublished" datetime="2019-03-16T09:25:47+08:00">2019-03-16</time>
+              <time title="Erstellt: 2019-03-16 09:25:47" itemprop="dateCreated datePublished" datetime="2019-03-16T09:25:47+08:00">2019-03-16</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-22 00:06:24" itemprop="dateModified" datetime="2019-03-22T00:06:24+08:00">2019-03-22</time>
               
             
           </span>
@@ -375,17 +387,17 @@
         <p>JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。它的解释器被称为JavaScript引擎，为浏览器的一部分，广泛用于客户端的脚本语言，最早是在HTML（标准通用标记语言下的一个应用）网页上使用，用来给HTML网页增加动态功能。</p>
 <p>JavaScript诞生已经有20多年了，我们一直使用的用来循环一个数组的方法是这样的：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index = <span class="number">0</span>; index &lt; myArray.length; index++) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="一-forEach"><a href="#一-forEach" class="headerlink" title="一.  forEach"></a>一.  forEach</h2><p>自从JavaScript5起，我们开始可以使用内置的<code>forEach</code>方法：</p>
+<h2 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h2><p>自从JavaScript5起，我们开始可以使用内置的<code>forEach</code>方法：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myArray.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h3 id="短处"><a href="#短处" class="headerlink" title="短处"></a>短处</h3><p>无法中断循环（使用语句）</p>
-<h2 id="二-for-in循环"><a href="#二-for-in循环" class="headerlink" title="二.  for-in循环"></a>二.  for-in循环</h2><p>为了解决<code>forEach</code>无法中断的问题我们可以使用<code>for-in</code></p>
+<h2 id="for-in循环"><a href="#for-in循环" class="headerlink" title="for-in循环"></a>for-in循环</h2><p>为了解决<code>forEach</code>无法中断的问题我们可以使用<code>for-in</code></p>
 <p><code>for-in</code>循环实际是为循环<code>”enumerable“</code>对象而设计的：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> obj) &#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"obj."</span> + prop + <span class="string">" = "</span> + obj[prop]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">// "obj.a = 1"</span></span><br><span class="line"><span class="comment">// "obj.b = 2"</span></span><br><span class="line"><span class="comment">// "obj.c = 3"</span></span><br></pre></td></tr></table></figure>
 <p>你也可以用它来循环一个数组：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> myArray) &#123; <span class="comment">// 不推荐这样</span></span><br><span class="line">	<span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><u>不推荐用<code>for-in</code>来循环一个数组，因为，不像对象，数组的<code>index</code>跟普通的对象属性不一样，是重要的数值序列指标。</u></p>
 <p><strong>总之，<code>for–in</code>是用来循环带有字符串key的对象的方法</strong>。</p>
-<h2 id="三-for-of循环"><a href="#三-for-of循环" class="headerlink" title="三.  for-of循环"></a>三.  for-of循环</h2><p><code>ES6</code>里引入了一种新的循环方法，它就是<code>for-of</code>循环，它既比传统的<code>for</code>循环简洁，同时弥补了<code>forEach</code>和<code>for-in</code>循环的短板。</p>
+<h2 id="for-of循环"><a href="#for-of循环" class="headerlink" title="for-of循环"></a>for-of循环</h2><p><code>ES6</code>里引入了一种新的循环方法，它就是<code>for-of</code>循环，它既比传统的<code>for</code>循环简洁，同时弥补了<code>forEach</code>和<code>for-in</code>循环的短板。</p>
 <p>我们看一下它的<code>for-of</code>的语法：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> value <span class="keyword">of</span> myArray) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>for-of</code>的语法看起来跟<code>for-in</code>很相似，但它的功能却丰富的多，它能循环很多东西。</p>
@@ -491,10 +503,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -515,7 +527,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -556,7 +568,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-forEach"><span class="nav-number">1.</span> <span class="nav-text">一.  forEach</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#短处"><span class="nav-number">1.1.</span> <span class="nav-text">短处</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-for-in循环"><span class="nav-number">2.</span> <span class="nav-text">二.  for-in循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-for-of循环"><span class="nav-number">3.</span> <span class="nav-text">三.  for-of循环</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#forEach"><span class="nav-number">1.</span> <span class="nav-text">forEach</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#短处"><span class="nav-number">1.1.</span> <span class="nav-text">短处</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-in循环"><span class="nav-number">2.</span> <span class="nav-text">for-in循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-of循环"><span class="nav-number">3.</span> <span class="nav-text">for-of循环</span></a></li></ol></div>
             
 
           </div>
@@ -589,7 +601,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -597,7 +609,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

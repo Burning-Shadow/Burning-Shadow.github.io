@@ -105,7 +105,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="jq的ajax方法封装了原生的阿贾克斯请求，让用户得以更加方便的使用。我们来看一下双方的对比 html部分： 12345&amp;lt;form&amp;gt;   &amp;lt;input type=&amp;quot;text&amp;quot; name=&amp;quot;username&amp;quot; id=&amp;quot;username&amp;quot;&amp;gt;&amp;lt;br&amp;gt;    &amp;lt;input type=&amp;quot;passw">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-17T13:01:32.666Z">
+<meta property="og:updated_time" content="2019-03-21T16:04:03.156Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聊聊jquery中的ajax">
 <meta name="twitter:description" content="jq的ajax方法封装了原生的阿贾克斯请求，让用户得以更加方便的使用。我们来看一下双方的对比 html部分： 12345&amp;lt;form&amp;gt;   &amp;lt;input type=&amp;quot;text&amp;quot; name=&amp;quot;username&amp;quot; id=&amp;quot;username&amp;quot;&amp;gt;&amp;lt;br&amp;gt;    &amp;lt;input type=&amp;quot;passw">
@@ -193,7 +193,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -221,7 +221,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -238,7 +238,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -326,16 +326,32 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-03-17 21:01:32" itemprop="dateCreated datePublished" datetime="2019-03-17T21:01:32+08:00">2019-03-17</time>
+              <time title="Erstellt: 2019-03-17 21:01:32" itemprop="dateCreated datePublished" datetime="2019-03-17T21:01:32+08:00">2019-03-17</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-22 00:04:03" itemprop="dateModified" datetime="2019-03-22T00:04:03+08:00">2019-03-22</time>
+              
             
           </span>
 
@@ -380,7 +396,7 @@
 </li>
 </ul>
 <p>显而易见，使用ajax实现相较于原生简单得多，也清晰的多</p>
-<h4 id="一-各属性用途"><a href="#一-各属性用途" class="headerlink" title="一.  各属性用途"></a>一.  各属性用途</h4><p>下面我们来具体的讲一下ajax的各个属性，加深大家的理解</p>
+<h4 id="各属性用途"><a href="#各属性用途" class="headerlink" title="各属性用途"></a>各属性用途</h4><p>下面我们来具体的讲一下ajax的各个属性，加深大家的理解</p>
 <ul>
 <li>url：<strong>发送请求的地址</strong></li>
 <li>type：<strong>请求方式，默认为GET</strong><ul>
@@ -435,7 +451,7 @@ x: 2
 </ul>
 </li>
 </ul>
-<h4 id="二-Important！！！！"><a href="#二-Important！！！！" class="headerlink" title="二.  Important！！！！"></a>二.  Important！！！！</h4><ul>
+<h4 id="Important！！！！"><a href="#Important！！！！" class="headerlink" title="Important！！！！"></a>Important！！！！</h4><ul>
 <li>headers：<strong>用于设置头部信息！！！！重中之重</strong></li>
 </ul>
 <p>……未完待更</p>
@@ -527,10 +543,10 @@ x: 2
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -551,7 +567,7 @@ x: 2
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -592,7 +608,7 @@ x: 2
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一-各属性用途"><span class="nav-number">1.</span> <span class="nav-text">一.  各属性用途</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二-Important！！！！"><span class="nav-number">2.</span> <span class="nav-text">二.  Important！！！！</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#各属性用途"><span class="nav-number">1.</span> <span class="nav-text">各属性用途</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Important！！！！"><span class="nav-number">2.</span> <span class="nav-text">Important！！！！</span></a></li></ol></div>
             
 
           </div>
@@ -625,7 +641,7 @@ x: 2
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -633,7 +649,7 @@ x: 2
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

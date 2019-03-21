@@ -98,18 +98,18 @@
 
 
 
-  <meta name="description" content="一.词法作用域1.1  LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值） 我们可以简单的理解为LHS是赋值语句左边部分，注重的是变量本身。而RHS则是赋值语句右边部分，注重的是所要赋给变量">
+  <meta name="description" content="词法作用域LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值） 我们可以简单的理解为LHS是赋值语句左边部分，注重的是变量本身。而RHS则是赋值语句右边部分，注重的是所要赋给变量的值 1234">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript中的作用域">
 <meta property="og:url" content="http://yoursite.com/2019/03/20/JavaScript中的作用域/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一.词法作用域1.1  LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值） 我们可以简单的理解为LHS是赋值语句左边部分，注重的是变量本身。而RHS则是赋值语句右边部分，注重的是所要赋给变量">
+<meta property="og:description" content="词法作用域LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值） 我们可以简单的理解为LHS是赋值语句左边部分，注重的是变量本身。而RHS则是赋值语句右边部分，注重的是所要赋给变量的值 1234">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-03-20T03:21:54.314Z">
+<meta property="og:updated_time" content="2019-03-21T15:47:05.474Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的作用域">
-<meta name="twitter:description" content="一.词法作用域1.1  LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值） 我们可以简单的理解为LHS是赋值语句左边部分，注重的是变量本身。而RHS则是赋值语句右边部分，注重的是所要赋给变量">
+<meta name="twitter:description" content="词法作用域LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值） 我们可以简单的理解为LHS是赋值语句左边部分，注重的是变量本身。而RHS则是赋值语句右边部分，注重的是所要赋给变量的值 1234">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
 
 
@@ -195,7 +195,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -223,7 +223,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -240,7 +240,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -328,16 +328,32 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-03-20 11:21:54" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:54+08:00">2019-03-20</time>
+              <time title="Erstellt: 2019-03-20 11:21:54" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:54+08:00">2019-03-20</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-21 23:47:05" itemprop="dateModified" datetime="2019-03-21T23:47:05+08:00">2019-03-21</time>
+              
             
           </span>
 
@@ -370,7 +386,7 @@
       
 
       
-        <h2 id="一-词法作用域"><a href="#一-词法作用域" class="headerlink" title="一.词法作用域"></a>一.词法作用域</h2><h3 id="1-1-LHS和RHS"><a href="#1-1-LHS和RHS" class="headerlink" title="1.1  LHS和RHS"></a>1.1  LHS和RHS</h3><blockquote>
+        <h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><h3 id="LHS和RHS"><a href="#LHS和RHS" class="headerlink" title="LHS和RHS"></a>LHS和RHS</h3><blockquote>
 <p>若查找的目的是对变量进行赋值则引擎会使用LHS查询</p>
 <p>若目的是获取变量的值则使用LHS查询</p>
 </blockquote>
@@ -383,7 +399,7 @@
 <p><code>ReferenceError</code>同作用域判别失败有关</p>
 <p><code>TypeError</code>则代表作用域判别成功，但对结果的操作是非法的</p>
 </blockquote>
-<h3 id="1-2-词法阶段"><a href="#1-2-词法阶段" class="headerlink" title="1.2  词法阶段"></a>1.2  词法阶段</h3><p>我们刚才提到了作用域，为了帮助理解我们举个栗子</p>
+<h3 id="词法阶段"><a href="#词法阶段" class="headerlink" title="词法阶段"></a>词法阶段</h3><p>我们刚才提到了作用域，为了帮助理解我们举个栗子</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>)</span>&#123;				<span class="comment">// ①</span></span><br><span class="line">    <span class="keyword">var</span> b = a * <span class="number">2</span>				<span class="comment">// ②</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">c</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a, b, c)	<span class="comment">// ③</span></span><br><span class="line">    &#125;</span><br><span class="line">    bar(b * <span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line">foo(<span class="number">2</span>)		<span class="comment">// 2, 4, 12</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>①包含着整个全局作用域，其中只有1个标识符：<code>foo</code></p>
@@ -392,39 +408,39 @@
 </blockquote>
 <p>由此可知，所谓的作用域包含了参数（<code>arguments</code>）、变量（<code>variable</code>）、方法（<code>function</code>）。</p>
 <p>当我们进行<code>LHS</code>或<code>RHS</code>查找时，若本层作用域中未找到则会自动向上，直至顶层的全局作用域。<code>RHS</code>未找到则报<code>ReferenceError</code>，而<code>LHS</code>未找到则会自动帮你创建一个全局的变量供你使用</p>
-<h3 id="1-3-欺骗词法作用域"><a href="#1-3-欺骗词法作用域" class="headerlink" title="1.3  欺骗词法作用域"></a>1.3  欺骗词法作用域</h3><h4 id="1-3-1-eval"><a href="#1-3-1-eval" class="headerlink" title="1.3.1  eval()"></a>1.3.1  eval()</h4><p><code>eval</code>函数可以接受一个字符串作为参数。神奇之处在于他会<strong>将其中的内容视为好像在书写时就存在于此位置的代码</strong>。</p>
+<h3 id="欺骗词法作用域"><a href="#欺骗词法作用域" class="headerlink" title="欺骗词法作用域"></a>欺骗词法作用域</h3><h4 id="eval"><a href="#eval" class="headerlink" title="eval()"></a>eval()</h4><p><code>eval</code>函数可以接受一个字符串作为参数。神奇之处在于他会<strong>将其中的内容视为好像在书写时就存在于此位置的代码</strong>。</p>
 <p>在执行<code>eval(str)</code>之后的代码时，引擎并不在意代码<code>str</code>是以动态形式插入进来的，只会像往常一般，遵循着一层层向上的词法作用域进行查找。这就造成了一个隐患：<strong>欺骗词法</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">str, a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">eval</span>(str)</span><br><span class="line">    <span class="built_in">console</span>.log(a, b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span></span><br><span class="line">foo(<span class="string">"var b = 3"</span>, <span class="number">1</span>)		<span class="comment">// 1, 3</span></span><br></pre></td></tr></table></figure>
 <p>如此例所示，<code>eval</code>会将原本的词法作用域进行修改，使得本来要向父级作用域进行<code>RHS</code>查找的变量<code>b</code>可以被操控改变为任何值。更加严重的是，若<code>b</code>处于该作用域父级的同时还处于全局作用域的子级，那么我们将无法在此作用域中找到正确的<code>b</code></p>
-<h4 id="1-3-2-with"><a href="#1-3-2-with" class="headerlink" title="1.3.2  with"></a>1.3.2  with</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">with</span>(obj)&#123;</span><br><span class="line">        a = <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">foo(o1)</span><br><span class="line"><span class="built_in">console</span>.log(o1.a)	<span class="comment">// 2	o1.a值被改变</span></span><br><span class="line"></span><br><span class="line">foo(o2)</span><br><span class="line"><span class="built_in">console</span>.log(o2.a)	<span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(a)		<span class="comment">// 2 —— a被泄漏到了全局作用域上</span></span><br></pre></td></tr></table></figure>
+<h4 id="with"><a href="#with" class="headerlink" title="with"></a>with</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">with</span>(obj)&#123;</span><br><span class="line">        a = <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">foo(o1)</span><br><span class="line"><span class="built_in">console</span>.log(o1.a)	<span class="comment">// 2	o1.a值被改变</span></span><br><span class="line"></span><br><span class="line">foo(o2)</span><br><span class="line"><span class="built_in">console</span>.log(o2.a)	<span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(a)		<span class="comment">// 2 —— a被泄漏到了全局作用域上</span></span><br></pre></td></tr></table></figure>
 <p><code>foo</code>函数中的<code>with</code>看似是对变量<code>a</code>进行了简单的词法引用，实际却是一个<code>LHS</code>引用，并将2赋值给<code>o1.a</code>。</p>
 <p>可是<code>a</code>又是怎么被泄漏变成一个全局变量的呢？</p>
 <blockquote>
 <p><code>with</code>可以将一个没有属性或有多个属性的对象处理为一个<strong>完全隔离的此法作用域</strong>。因此此对象的属性也会被处理为定义在此作用域中的词法标识符</p>
 </blockquote>
 <p>当我们传递<code>o1</code>给<code>with</code>时，<code>with</code>所声明的作用域为<code>o1</code>。而此作用域中含一个<code>a</code>。单我们将<code>o2</code>作为作用域时其中无<code>a</code>，因此执行<code>a = 2</code>时自动创建了一个全局变量</p>
-<h2 id="二-函数作用域"><a href="#二-函数作用域" class="headerlink" title="二.函数作用域"></a>二.函数作用域</h2><blockquote>
+<h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><blockquote>
 <p>函数作用域：属于这个函数的全部变量都可以在整个函数的范围内使用及复用</p>
 </blockquote>
-<h3 id="2-1作用"><a href="#2-1作用" class="headerlink" title="2.1作用"></a>2.1作用</h3><h4 id="2-1-1-隐藏"><a href="#2-1-1-隐藏" class="headerlink" title="2.1.1  隐藏"></a>2.1.1  隐藏</h4><p>由于函数作用域的存在导致了我们想要访问函数的内部方法或变量时无法绕过该函数，那么我们不妨换一种思路：<strong>将想要封装的代码块用函数包裹起来就可以完成“隐藏”功能</strong></p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><h4 id="隐藏"><a href="#隐藏" class="headerlink" title="隐藏"></a>隐藏</h4><p>由于函数作用域的存在导致了我们想要访问函数的内部方法或变量时无法绕过该函数，那么我们不妨换一种思路：<strong>将想要封装的代码块用函数包裹起来就可以完成“隐藏”功能</strong></p>
 <p>本着<strong>最小特权原则</strong>，我们应该尽可能少的暴露必要内容，以防止别处对其的调用或更改。将其存储至函数中可以使得该方法更加安全，保证其私密性</p>
-<h4 id="2-1-2-规避冲突"><a href="#2-1-2-规避冲突" class="headerlink" title="2.1.2  规避冲突"></a>2.1.2  规避冲突</h4><p>由于我们每层都会有一个存储参数、变量与方法的作用域，而不同作用域之间可以有同名变量，所以我们可以利用这一点，将一些同名而不同意义的变量存储至不同作用域，以防止其被覆盖</p>
-<h3 id="2-2-优化"><a href="#2-2-优化" class="headerlink" title="2.2  优化"></a>2.2  优化</h3><p>上述我们提到了通过函数封装代码块，但是想要调用里边的方法时却无法绕开这个函数，这也造成了这个函数的名称本身污染了所在作用域。其次，必须显式的通过函数名才能调用这个函数，完成其中代码的运行。所以我们渴望<strong>一种不需要函数名就能直接运行其中代码的数据结构</strong></p>
+<h4 id="规避冲突"><a href="#规避冲突" class="headerlink" title="规避冲突"></a>规避冲突</h4><p>由于我们每层都会有一个存储参数、变量与方法的作用域，而不同作用域之间可以有同名变量，所以我们可以利用这一点，将一些同名而不同意义的变量存储至不同作用域，以防止其被覆盖</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>上述我们提到了通过函数封装代码块，但是想要调用里边的方法时却无法绕开这个函数，这也造成了这个函数的名称本身污染了所在作用域。其次，必须显式的通过函数名才能调用这个函数，完成其中代码的运行。所以我们渴望<strong>一种不需要函数名就能直接运行其中代码的数据结构</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">3</span></span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>我们在函数外边嵌套了一个<code>()</code>，函数就会被当作一个<strong>函数表达式</strong>，而非一个<strong>函数声明</strong>来处理</p>
 <blockquote>
 <p>函数声明和函数表达式之间最重要的区别是它们的名称标识符将会绑定在何处</p>
 </blockquote>
 <p><strong>函数表达式</strong>的特殊之处在于他不像函数声明一般被绑定在所在作用域，而是<strong>被绑定在函数表达式自身的函数中</strong>。也就是说该函数表达式中的代码只能在所在位置中访问，而无法被外部作用于访问</p>
-<h2 id="三-块作用域"><a href="#三-块作用域" class="headerlink" title="三.块作用域"></a>三.块作用域</h2><h3 id="3-1-JavaScript中的问题"><a href="#3-1-JavaScript中的问题" class="headerlink" title="3.1  JavaScript中的问题"></a>3.1  JavaScript中的问题</h3><p><code>js</code>中没有块级作用域的体现，而我们所最熟悉的循环代码事实上虽然实现了功能，但是并不符合传统面向对象对于块级作用域的理解</p>
+<h2 id="块作用域"><a href="#块作用域" class="headerlink" title="块作用域"></a>块作用域</h2><h3 id="JavaScript中的问题"><a href="#JavaScript中的问题" class="headerlink" title="JavaScript中的问题"></a>JavaScript中的问题</h3><p><code>js</code>中没有块级作用域的体现，而我们所最熟悉的循环代码事实上虽然实现了功能，但是并不符合传统面向对象对于块级作用域的理解</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当使用<code>var</code>声明变量时，因为<code>js</code>中特殊的变量提升机制，导致它写在哪里都一样，因为其最终都会属于外部作用域。要确保没有在其他地方意外使用<code>i</code>只能靠自觉</p>
-<h3 id="3-2-with"><a href="#3-2-with" class="headerlink" title="3.2  with"></a>3.2  with</h3><p>用<code>with</code>创建出的作用域仅在<code>with</code>声明作用域中有效</p>
-<h3 id="3-3-try…catch"><a href="#3-3-try…catch" class="headerlink" title="3.3  try…catch"></a>3.3  try…catch</h3><p><code>try...catch</code>中的<code>catch</code>分句也会创建一个块级作用域。</p>
-<h3 id="3-4-let"><a href="#3-4-let" class="headerlink" title="3.4  let"></a>3.4  let</h3><p><code>let</code>声明的变量隐式劫持了所在的块级作用域</p>
-<h3 id="3-5"><a href="#3-5" class="headerlink" title="3.5  {}"></a>3.5  {}</h3><p>同时为了解决此问题我们可以将希望拥有独立作用域的代码块外嵌套一层大括号，以此达到外部作用域无法访问的目的</p>
-<h3 id="3-6-const"><a href="#3-6-const" class="headerlink" title="3.6  const"></a>3.6  const</h3><p><code>const</code>也会创建块级作用域变量。但其创建的变量无法修改</p>
-<h2 id="四-声明提升"><a href="#四-声明提升" class="headerlink" title="四.声明提升"></a>四.声明提升</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a)</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>	<span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="with-1"><a href="#with-1" class="headerlink" title="with"></a>with</h3><p>用<code>with</code>创建出的作用域仅在<code>with</code>声明作用域中有效</p>
+<h3 id="try…catch"><a href="#try…catch" class="headerlink" title="try…catch"></a>try…catch</h3><p><code>try...catch</code>中的<code>catch</code>分句也会创建一个块级作用域。</p>
+<h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><p><code>let</code>声明的变量隐式劫持了所在的块级作用域</p>
+<h3 id><a href="#" class="headerlink" title="{}"></a>{}</h3><p>同时为了解决此问题我们可以将希望拥有独立作用域的代码块外嵌套一层大括号，以此达到外部作用域无法访问的目的</p>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p><code>const</code>也会创建块级作用域变量。但其创建的变量无法修改</p>
+<h2 id="声明提升"><a href="#声明提升" class="headerlink" title="声明提升"></a>声明提升</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a)</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>	<span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>只有声明（无论是变量声明还是函数声明）会被提升，赋值（<code>a = 2</code>）仍会被留在原地</li>
 <li>函数会被首先提升，然后才是变量</li>
@@ -518,10 +534,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -542,7 +558,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -583,7 +599,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-词法作用域"><span class="nav-number">1.</span> <span class="nav-text">一.词法作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-LHS和RHS"><span class="nav-number">1.1.</span> <span class="nav-text">1.1  LHS和RHS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-词法阶段"><span class="nav-number">1.2.</span> <span class="nav-text">1.2  词法阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-欺骗词法作用域"><span class="nav-number">1.3.</span> <span class="nav-text">1.3  欺骗词法作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-eval"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1  eval()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-with"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2  with</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-函数作用域"><span class="nav-number">2.</span> <span class="nav-text">二.函数作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1作用"><span class="nav-number">2.1.</span> <span class="nav-text">2.1作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-隐藏"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1  隐藏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-规避冲突"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2  规避冲突</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-优化"><span class="nav-number">2.2.</span> <span class="nav-text">2.2  优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-块作用域"><span class="nav-number">3.</span> <span class="nav-text">三.块作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-JavaScript中的问题"><span class="nav-number">3.1.</span> <span class="nav-text">3.1  JavaScript中的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-with"><span class="nav-number">3.2.</span> <span class="nav-text">3.2  with</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-try…catch"><span class="nav-number">3.3.</span> <span class="nav-text">3.3  try…catch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-let"><span class="nav-number">3.4.</span> <span class="nav-text">3.4  let</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5"><span class="nav-number">3.5.</span> <span class="nav-text">3.5  {}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-const"><span class="nav-number">3.6.</span> <span class="nav-text">3.6  const</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-声明提升"><span class="nav-number">4.</span> <span class="nav-text">四.声明提升</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#词法作用域"><span class="nav-number">1.</span> <span class="nav-text">词法作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LHS和RHS"><span class="nav-number">1.1.</span> <span class="nav-text">LHS和RHS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词法阶段"><span class="nav-number">1.2.</span> <span class="nav-text">词法阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#欺骗词法作用域"><span class="nav-number">1.3.</span> <span class="nav-text">欺骗词法作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#eval"><span class="nav-number">1.3.1.</span> <span class="nav-text">eval()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#with"><span class="nav-number">1.3.2.</span> <span class="nav-text">with</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数作用域"><span class="nav-number">2.</span> <span class="nav-text">函数作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用"><span class="nav-number">2.1.</span> <span class="nav-text">作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏"><span class="nav-number">2.1.1.</span> <span class="nav-text">隐藏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规避冲突"><span class="nav-number">2.1.2.</span> <span class="nav-text">规避冲突</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">2.2.</span> <span class="nav-text">优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块作用域"><span class="nav-number">3.</span> <span class="nav-text">块作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript中的问题"><span class="nav-number">3.1.</span> <span class="nav-text">JavaScript中的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#with-1"><span class="nav-number">3.2.</span> <span class="nav-text">with</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#try…catch"><span class="nav-number">3.3.</span> <span class="nav-text">try…catch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#let"><span class="nav-number">3.4.</span> <span class="nav-text">let</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">3.5.</span> <span class="nav-text">{}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const"><span class="nav-number">3.6.</span> <span class="nav-text">const</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明提升"><span class="nav-number">4.</span> <span class="nav-text">声明提升</span></a></li></ol></div>
             
 
           </div>
@@ -616,7 +632,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -624,7 +640,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

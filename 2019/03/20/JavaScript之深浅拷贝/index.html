@@ -98,17 +98,17 @@
 
 
 
-  <meta name="description" content="一.  前言首先咱们先理一下这玩意儿的概念  浅拷贝：将对象的各个属性进行依次复制，并不会进行递归复制，也就是说只会赋值目标对象的第一层属性。 深拷贝：递归拷贝目标对象的所有属性。  咱们可以这么理解：浅拷贝就像人口普查，只往上看这一代。深拷贝则是入党审核，你家庭案底都得查得清清楚楚。 那么咱们正式开始 二.  应用场景当我们需要大量复制某些对象而其却可以完全独立，互不干扰的时候我们就需要用到拷贝">
+  <meta name="description" content="前言首先咱们先理一下这玩意儿的概念  浅拷贝：将对象的各个属性进行依次复制，并不会进行递归复制，也就是说只会赋值目标对象的第一层属性。 深拷贝：递归拷贝目标对象的所有属性。  咱们可以这么理解：浅拷贝就像人口普查，只往上看这一代。深拷贝则是入党审核，你家庭案底都得查得清清楚楚。 那么咱们正式开始 应用场景当我们需要大量复制某些对象而其却可以完全独立，互不干扰的时候我们就需要用到拷贝。 而深拷贝还是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript之深浅拷贝">
 <meta property="og:url" content="http://yoursite.com/2019/03/20/JavaScript之深浅拷贝/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一.  前言首先咱们先理一下这玩意儿的概念  浅拷贝：将对象的各个属性进行依次复制，并不会进行递归复制，也就是说只会赋值目标对象的第一层属性。 深拷贝：递归拷贝目标对象的所有属性。  咱们可以这么理解：浅拷贝就像人口普查，只往上看这一代。深拷贝则是入党审核，你家庭案底都得查得清清楚楚。 那么咱们正式开始 二.  应用场景当我们需要大量复制某些对象而其却可以完全独立，互不干扰的时候我们就需要用到拷贝">
+<meta property="og:description" content="前言首先咱们先理一下这玩意儿的概念  浅拷贝：将对象的各个属性进行依次复制，并不会进行递归复制，也就是说只会赋值目标对象的第一层属性。 深拷贝：递归拷贝目标对象的所有属性。  咱们可以这么理解：浅拷贝就像人口普查，只往上看这一代。深拷贝则是入党审核，你家庭案底都得查得清清楚楚。 那么咱们正式开始 应用场景当我们需要大量复制某些对象而其却可以完全独立，互不干扰的时候我们就需要用到拷贝。 而深拷贝还是">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-20T03:17:27.080Z">
+<meta property="og:updated_time" content="2019-03-21T16:00:03.684Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript之深浅拷贝">
-<meta name="twitter:description" content="一.  前言首先咱们先理一下这玩意儿的概念  浅拷贝：将对象的各个属性进行依次复制，并不会进行递归复制，也就是说只会赋值目标对象的第一层属性。 深拷贝：递归拷贝目标对象的所有属性。  咱们可以这么理解：浅拷贝就像人口普查，只往上看这一代。深拷贝则是入党审核，你家庭案底都得查得清清楚楚。 那么咱们正式开始 二.  应用场景当我们需要大量复制某些对象而其却可以完全独立，互不干扰的时候我们就需要用到拷贝">
+<meta name="twitter:description" content="前言首先咱们先理一下这玩意儿的概念  浅拷贝：将对象的各个属性进行依次复制，并不会进行递归复制，也就是说只会赋值目标对象的第一层属性。 深拷贝：递归拷贝目标对象的所有属性。  咱们可以这么理解：浅拷贝就像人口普查，只往上看这一代。深拷贝则是入党审核，你家庭案底都得查得清清楚楚。 那么咱们正式开始 应用场景当我们需要大量复制某些对象而其却可以完全独立，互不干扰的时候我们就需要用到拷贝。 而深拷贝还是">
 
 
 
@@ -193,7 +193,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -221,7 +221,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -238,7 +238,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -326,19 +326,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-03-20 02:39:48 / Modified: 11:17:27" itemprop="dateCreated datePublished" datetime="2019-03-20T02:39:48+08:00">2019-03-20</time>
+              <time title="Erstellt: 2019-03-20 02:39:48" itemprop="dateCreated datePublished" datetime="2019-03-20T02:39:48+08:00">2019-03-20</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-22 00:00:03" itemprop="dateModified" datetime="2019-03-22T00:00:03+08:00">2019-03-22</time>
               
             
           </span>
@@ -372,20 +384,20 @@
       
 
       
-        <h3 id="一-前言"><a href="#一-前言" class="headerlink" title="一.  前言"></a>一.  前言</h3><p>首先咱们先理一下这玩意儿的概念</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>首先咱们先理一下这玩意儿的概念</p>
 <blockquote>
 <p>浅拷贝：将对象的各个属性进行依次复制，并不会进行递归复制，也就是说<strong>只会赋值目标对象的第一层属性</strong>。</p>
 <p>深拷贝：<strong>递归拷贝目标对象的所有属性</strong>。</p>
 </blockquote>
 <p>咱们可以这么理解：浅拷贝就像人口普查，只往上看这一代。深拷贝则是入党审核，你家庭案底都得查得清清楚楚。</p>
 <p>那么咱们正式开始</p>
-<h3 id="二-应用场景"><a href="#二-应用场景" class="headerlink" title="二.  应用场景"></a>二.  应用场景</h3><p>当我们需要大量复制某些对象而其却可以完全独立，互不干扰的时候我们就需要用到拷贝。</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>当我们需要大量复制某些对象而其却可以完全独立，互不干扰的时候我们就需要用到拷贝。</p>
 <p>而深拷贝还是浅拷贝则需要根据我们实际需要而定。如果涉及到继承之类的东西我们当然需要深层拷贝。而如果只是属性方面的复制还是推荐使用浅拷贝。</p>
-<h3 id="三-浅拷贝"><a href="#三-浅拷贝" class="headerlink" title="三.  浅拷贝"></a>三.  浅拷贝</h3><h4 id="3-1-JQ中的-extend-obj"><a href="#3-1-JQ中的-extend-obj" class="headerlink" title="3.1  JQ中的$.extend({}, obj)"></a>3.1  JQ中的$.extend({}, obj)</h4><p>这个就不再多说咯，调用官方API就可以轻松完成。不过如果小伙伴们使用框架，比如自带DOM渲染的Vue，由于他是MVVM框架，尽量避免直接操作DOM，所以大部分玩家不会选择直接引入jq。所以我们下面介绍一下其他的实现方式</p>
-<h4 id="3-2-for-in暴力赋值"><a href="#3-2-for-in暴力赋值" class="headerlink" title="3.2  for in暴力赋值"></a>3.2  for in暴力赋值</h4><p>最简单的方法就是通过<code>for...in</code>循环遍历赋值。如此我们不会误将引用赋给另一个对象，自然也不用担心对象之间的独立性</p>
+<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><h4 id="JQ中的-extend-obj"><a href="#JQ中的-extend-obj" class="headerlink" title="JQ中的$.extend({}, obj)"></a>JQ中的$.extend({}, obj)</h4><p>这个就不再多说咯，调用官方API就可以轻松完成。不过如果小伙伴们使用框架，比如自带DOM渲染的Vue，由于他是MVVM框架，尽量避免直接操作DOM，所以大部分玩家不会选择直接引入jq。所以我们下面介绍一下其他的实现方式</p>
+<h4 id="for-in暴力赋值"><a href="#for-in暴力赋值" class="headerlink" title="for in暴力赋值"></a>for in暴力赋值</h4><p>最简单的方法就是通过<code>for...in</code>循环遍历赋值。如此我们不会误将引用赋给另一个对象，自然也不用担心对象之间的独立性</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowCopy</span>(<span class="params">source, target = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> key;</span><br><span class="line">    <span class="keyword">for</span> (key <span class="keyword">in</span> source) &#123;</span><br><span class="line">        <span class="keyword">if</span> (source.hasOwnProperty(key)) &#123;</span><br><span class="line">            target[key] = source[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p> 里边我们涉及到了一个函数：<code>hasOwnProperty()</code>。他可以<strong>防止向上继续进行拷贝，只对本层处理</strong>。</p>
-<h4 id="3-3-Object-assign-target-obj1-obj2-…"><a href="#3-3-Object-assign-target-obj1-obj2-…" class="headerlink" title="3.3  Object.assign(target, obj1, obj2, ….)"></a>3.3  Object.assign(target, obj1, obj2, ….)</h4><ul>
+<h4 id="Object-assign-target-obj1-obj2-…"><a href="#Object-assign-target-obj1-obj2-…" class="headerlink" title="Object.assign(target, obj1, obj2, ….)"></a>Object.assign(target, obj1, obj2, ….)</h4><ul>
 <li><code>target</code>：目标对象</li>
 <li><code>obj1</code>：源对象1</li>
 <li><code>obj2</code>：源对象2</li>
@@ -396,22 +408,22 @@
 <p>这个例子就可以形象地说明这东西的特点啦：</p>
 <p>有没有注意到，<strong>我们第一层的属性（<code>name</code>、<code>age</code>）独立，而第二层的属性（<code>child</code>）则未能完成上面提到的“互不干扰”。</strong>这不正好符合我们的思路吗</p>
 <p>如果需要深层拷贝的话，咱加个递归不就好了吗~(<code>4.2</code>)</p>
-<h4 id="3-4-展开运算符（…）"><a href="#3-4-展开运算符（…）" class="headerlink" title="3.4  展开运算符（…）"></a>3.4  展开运算符（…）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">    age: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = &#123;...a&#125;</span><br><span class="line">a.age = <span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<h3 id="四-深拷贝"><a href="#四-深拷贝" class="headerlink" title="四.  深拷贝"></a>四.  深拷贝</h3><h4 id="4-1-for-in循环递归"><a href="#4-1-for-in循环递归" class="headerlink" title="4.1  for in循环递归"></a>4.1  for in循环递归</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params"> source </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> target = <span class="built_in">Array</span>.isArray( source ) ? [] : &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">var</span> k <span class="keyword">in</span> source ) &#123;</span><br><span class="line">        <span class="keyword">if</span> ( <span class="keyword">typeof</span> source[ k ] === <span class="string">'object'</span> ) &#123;</span><br><span class="line">            target[ k ] = deepCopy( source[ k ] )</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            target[ k ] = source[ k ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-2-Object-assign循环递归"><a href="#4-2-Object-assign循环递归" class="headerlink" title="4.2  Object.assign循环递归"></a>4.2  Object.assign循环递归</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params"> source </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, target)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> source)&#123;</span><br><span class="line">        target[key] = deepCopy(source[key])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-3-开挂法"><a href="#4-3-开挂法" class="headerlink" title="4.3  开挂法"></a>4.3  开挂法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> copy = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj));</span><br></pre></td></tr></table></figure>
+<h4 id="展开运算符（…）"><a href="#展开运算符（…）" class="headerlink" title="展开运算符（…）"></a>展开运算符（…）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">    age: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = &#123;...a&#125;</span><br><span class="line">a.age = <span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><h4 id="for-in循环递归"><a href="#for-in循环递归" class="headerlink" title="for in循环递归"></a>for in循环递归</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params"> source </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> target = <span class="built_in">Array</span>.isArray( source ) ? [] : &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">var</span> k <span class="keyword">in</span> source ) &#123;</span><br><span class="line">        <span class="keyword">if</span> ( <span class="keyword">typeof</span> source[ k ] === <span class="string">'object'</span> ) &#123;</span><br><span class="line">            target[ k ] = deepCopy( source[ k ] )</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            target[ k ] = source[ k ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Object-assign循环递归"><a href="#Object-assign循环递归" class="headerlink" title="Object.assign循环递归"></a>Object.assign循环递归</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params"> source </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, target)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> source)&#123;</span><br><span class="line">        target[key] = deepCopy(source[key])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="开挂法"><a href="#开挂法" class="headerlink" title="开挂法"></a>开挂法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> copy = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj));</span><br></pre></td></tr></table></figure>
 <p>将对象转化为<code>json</code>字符串再转换为<code>json</code>对象。<strong>但是有两个弊端：</strong></p>
 <ul>
 <li>若你的对象里有函数，那你这函数没法被拷贝下来</li>
 <li>无法拷贝<code>obj</code>原型链上的属性和方法。</li>
 </ul>
-<h3 id="五-刨根问底"><a href="#五-刨根问底" class="headerlink" title="五.  刨根问底"></a>五.  刨根问底</h3><h4 id="5-1-深浅拷贝——堆和栈的区别"><a href="#5-1-深浅拷贝——堆和栈的区别" class="headerlink" title="5.1  深浅拷贝——堆和栈的区别"></a>5.1  深浅拷贝——堆和栈的区别</h4><p>身前拷贝的主要区别还是内存中的存储类型不同。</p>
+<h3 id="刨根问底"><a href="#刨根问底" class="headerlink" title="刨根问底"></a>刨根问底</h3><h4 id="深浅拷贝——堆和栈的区别"><a href="#深浅拷贝——堆和栈的区别" class="headerlink" title="深浅拷贝——堆和栈的区别"></a>深浅拷贝——堆和栈的区别</h4><p>身前拷贝的主要区别还是内存中的存储类型不同。</p>
 <blockquote>
 <p><strong>基本类型</strong>（<code>undefined</code>、<code>boolean</code>、<code>number</code>、<code>string</code>、<code>null</code>）<strong>存放在栈中</strong></p>
 <p><strong>引用类型</strong>（<code>object</code>、<code>Array</code>、<code>function</code>）则<strong>存放在堆中</strong></p>
 </blockquote>
 <p>为什么说这个呢？咱们细细道来</p>
-<h5 id="5-1-1-基本数据类型不可变"><a href="#5-1-1-基本数据类型不可变" class="headerlink" title="5.1.1  基本数据类型不可变"></a>5.1.1  基本数据类型不可变</h5><p><strong>所有的基本数据类型的值都不可更改的</strong>：任何方法都无法改变一个原始值。</p>
+<h5 id="基本数据类型不可变"><a href="#基本数据类型不可变" class="headerlink" title="基本数据类型不可变"></a>基本数据类型不可变</h5><p><strong>所有的基本数据类型的值都不可更改的</strong>：任何方法都无法改变一个原始值。</p>
 <p>可能有的Boy会问：我这么操作不也就改了吗</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">12</span>;</span><br><span class="line">num = <span class="number">13</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num)		<span class="comment">// 13</span></span><br></pre></td></tr></table></figure>
 <p>可是事实上这是对基本类型的重新赋值，并不算更改。</p>
@@ -508,10 +520,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -532,7 +544,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -573,7 +585,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-前言"><span class="nav-number">1.</span> <span class="nav-text">一.  前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-应用场景"><span class="nav-number">2.</span> <span class="nav-text">二.  应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-浅拷贝"><span class="nav-number">3.</span> <span class="nav-text">三.  浅拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-JQ中的-extend-obj"><span class="nav-number">3.1.</span> <span class="nav-text">3.1  JQ中的$.extend({}, obj)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-for-in暴力赋值"><span class="nav-number">3.2.</span> <span class="nav-text">3.2  for in暴力赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-Object-assign-target-obj1-obj2-…"><span class="nav-number">3.3.</span> <span class="nav-text">3.3  Object.assign(target, obj1, obj2, ….)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-展开运算符（…）"><span class="nav-number">3.4.</span> <span class="nav-text">3.4  展开运算符（…）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-深拷贝"><span class="nav-number">4.</span> <span class="nav-text">四.  深拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-for-in循环递归"><span class="nav-number">4.1.</span> <span class="nav-text">4.1  for in循环递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-Object-assign循环递归"><span class="nav-number">4.2.</span> <span class="nav-text">4.2  Object.assign循环递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-开挂法"><span class="nav-number">4.3.</span> <span class="nav-text">4.3  开挂法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-刨根问底"><span class="nav-number">5.</span> <span class="nav-text">五.  刨根问底</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-深浅拷贝——堆和栈的区别"><span class="nav-number">5.1.</span> <span class="nav-text">5.1  深浅拷贝——堆和栈的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-1-基本数据类型不可变"><span class="nav-number">5.1.1.</span> <span class="nav-text">5.1.1  基本数据类型不可变</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">2.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浅拷贝"><span class="nav-number">3.</span> <span class="nav-text">浅拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JQ中的-extend-obj"><span class="nav-number">3.1.</span> <span class="nav-text">JQ中的$.extend({}, obj)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#for-in暴力赋值"><span class="nav-number">3.2.</span> <span class="nav-text">for in暴力赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-assign-target-obj1-obj2-…"><span class="nav-number">3.3.</span> <span class="nav-text">Object.assign(target, obj1, obj2, ….)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#展开运算符（…）"><span class="nav-number">3.4.</span> <span class="nav-text">展开运算符（…）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深拷贝"><span class="nav-number">4.</span> <span class="nav-text">深拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#for-in循环递归"><span class="nav-number">4.1.</span> <span class="nav-text">for in循环递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-assign循环递归"><span class="nav-number">4.2.</span> <span class="nav-text">Object.assign循环递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开挂法"><span class="nav-number">4.3.</span> <span class="nav-text">开挂法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刨根问底"><span class="nav-number">5.</span> <span class="nav-text">刨根问底</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#深浅拷贝——堆和栈的区别"><span class="nav-number">5.1.</span> <span class="nav-text">深浅拷贝——堆和栈的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基本数据类型不可变"><span class="nav-number">5.1.1.</span> <span class="nav-text">基本数据类型不可变</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -606,7 +618,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -614,7 +626,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

@@ -98,18 +98,18 @@
 
 
 
-  <meta name="description" content="一.  typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，">
+  <meta name="description" content="typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，type">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈 instanceof 和 typeof 原理">
 <meta property="og:url" content="http://yoursite.com/2019/03/16/浅谈instanceof和typeof原理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一.  typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，">
+<meta property="og:description" content="typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，type">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/28/163a55d5d35b866d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:updated_time" content="2019-03-16T01:49:58.926Z">
+<meta property="og:updated_time" content="2019-03-21T16:06:50.454Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 instanceof 和 typeof 原理">
-<meta name="twitter:description" content="一.  typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，">
+<meta name="twitter:description" content="typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，type">
 <meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/5/28/163a55d5d35b866d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 
 
@@ -195,7 +195,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -223,7 +223,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -240,7 +240,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -328,19 +328,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-03-16 09:30:33 / Modified: 09:49:58" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
+              <time title="Erstellt: 2019-03-16 09:30:33" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-22 00:06:50" itemprop="dateModified" datetime="2019-03-22T00:06:50+08:00">2019-03-22</time>
               
             
           </span>
@@ -374,7 +386,7 @@
       
 
       
-        <h2 id="一-typeof实现原理"><a href="#一-typeof实现原理" class="headerlink" title="一.  typeof实现原理"></a>一.  typeof实现原理</h2><p><code>typeof</code> 一般被用于判断一个变量的类型，我们可以利用 <code>typeof</code> 来判断<code>number</code>,  <code>string</code>,  <code>object</code>,<code>boolean</code>,  <code>function</code>, <code>undefined</code>,  <code>symbol</code> 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 <code>object</code> 类型的数据的时候，<code>typeof</code>能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，<strong><code>typeof</code>在判断一个 <code>object</code>的数据的时候只能告诉我们这个数据是 <code>object</code>, 而不能细致的具体到是哪一种 <code>object</code></strong></p>
+        <h2 id="typeof实现原理"><a href="#typeof实现原理" class="headerlink" title="typeof实现原理"></a>typeof实现原理</h2><p><code>typeof</code> 一般被用于判断一个变量的类型，我们可以利用 <code>typeof</code> 来判断<code>number</code>,  <code>string</code>,  <code>object</code>,<code>boolean</code>,  <code>function</code>, <code>undefined</code>,  <code>symbol</code> 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 <code>object</code> 类型的数据的时候，<code>typeof</code>能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，<strong><code>typeof</code>在判断一个 <code>object</code>的数据的时候只能告诉我们这个数据是 <code>object</code>, 而不能细致的具体到是哪一种 <code>object</code></strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'abc'</span>);</span><br><span class="line"><span class="keyword">typeof</span> s === <span class="string">'object'</span><span class="comment">// true</span></span><br><span class="line">s <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <p>要想判断一个数据具体是哪一种 <code>object</code> 的时候，我们需要利用 <code>instanceof</code> 这个操作符来判断，这个我们后面会说到。<br>来谈谈关于 <code>typeof</code> 的原理吧，我们可以先想一个很有意思的问题，<code>js</code> 在底层是怎么存储数据的类型信息呢？或者说，一个 <code>js</code> 的变量，在它的底层实现中，它的类型信息是怎么实现的呢？<br>其实，<strong>js 在底层存储变量的时候，会在变量的机器码的低位1-3位存储其类型信息</strong></p>
 <ul>
@@ -391,7 +403,7 @@
 <p>因此在用 <code>typeof</code> 来判断变量类型的时候，我们需要注意，<strong>最好是用 <code>typeof</code> 来判断基本数据类型（包括<code>symbol</code>），避免对 <code>null</code> 的判断</strong>。</p>
 <p>还有一个不错的判断类型的方法，就是<strong><code>Object.prototype.toString</code></strong>，我们可以利用这个方法来对一个变量的类型来进行比较准确的判断</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="number">1</span>) <span class="comment">// "[object Number]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="string">'hi'</span>) <span class="comment">// "[object String]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(&#123;<span class="attr">a</span>:<span class="string">'hi'</span>&#125;) <span class="comment">// "[object Object]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([<span class="number">1</span>,<span class="string">'a'</span>]) <span class="comment">// "[object Array]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">true</span>) <span class="comment">// "[object Boolean]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;) <span class="comment">// "[object Function]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">null</span>) <span class="comment">// "[object Null]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">undefined</span>) <span class="comment">// "[object Undefined]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">Symbol</span>(<span class="number">1</span>)) <span class="comment">// "[object Symbol]"</span></span><br></pre></td></tr></table></figure>
-<h2 id="二-instanceof-实现原理"><a href="#二-instanceof-实现原理" class="headerlink" title="二.  instanceof 实现原理"></a>二.  instanceof 实现原理</h2><p>之前我们提到了<code>instanceof</code>来判断对象的具体类型，其实<code>instanceof</code>主要的作用就是判断一个实例是否属于某种类型</p>
+<h2 id="instanceof-实现原理"><a href="#instanceof-实现原理" class="headerlink" title="instanceof 实现原理"></a>instanceof 实现原理</h2><p>之前我们提到了<code>instanceof</code>来判断对象的具体类型，其实<code>instanceof</code>主要的作用就是判断一个实例是否属于某种类型</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> nicole = <span class="keyword">new</span> person()</span><br><span class="line">nicole <span class="keyword">instanceof</span> person <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <p>当然，<code>instanceof</code>也可以判断一个实例是否是其父类型或者祖先类型的实例。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> programmer = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">programmer.prototype = <span class="keyword">new</span> person()</span><br><span class="line"><span class="keyword">let</span> nicole = <span class="keyword">new</span> programmer()</span><br><span class="line">nicole <span class="keyword">instanceof</span> person <span class="comment">// true</span></span><br><span class="line">nicole <span class="keyword">instanceof</span> programmer <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
@@ -426,8 +438,7 @@
 <li><code>Foo instanceof Function</code></li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">leftValue = Foo, rightValue = <span class="built_in">Function</span></span><br><span class="line">leftValue = Foo.__proto__ = <span class="built_in">Function</span>.prototype</span><br><span class="line">rightValue = <span class="built_in">Function</span>.prototype</span><br><span class="line"><span class="comment">// 第一次判断</span></span><br><span class="line">leftValue === rightValue</span><br><span class="line"><span class="comment">// 返回 true</span></span><br></pre></td></tr></table></figure>
-<h2 id="三-总结"><a href="#三-总结" class="headerlink" title="三.  总结"></a>三.  总结</h2><p>简单来说，我们使用<code>typeof</code>来判断基本数据类型是<code>ok</code>的，不过需要注意当用<code>typeof</code>来判断<code>null</code>类型时的问题，如果想要判断一个对象的具体类型可以考虑用<code>instanceof</code>，但是<code>instanceof</code>也可能判断不准确，比如一个数组，他可以被<code>instanceof</code>判断为<code>Object</code>所以我们要想比较准确的判断对象实例的类型时，可以采取 <code>Object.prototype.toString.call</code>方法。</p>
-<p>作者：nicole_zhang<br>链接：<a href="https://juejin.im/post/5b0b9b9051882515773ae714" target="_blank" rel="noopener">https://juejin.im/post/5b0b9b9051882515773ae714</a><br>来源：掘金</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>简单来说，我们使用<code>typeof</code>来判断基本数据类型是<code>ok</code>的，不过需要注意当用<code>typeof</code>来判断<code>null</code>类型时的问题，如果想要判断一个对象的具体类型可以考虑用<code>instanceof</code>，但是<code>instanceof</code>也可能判断不准确，比如一个数组，他可以被<code>instanceof</code>判断为<code>Object</code>所以我们要想比较准确的判断对象实例的类型时，可以采取 <code>Object.prototype.toString.call</code>方法。</p>
 
       
     </div>
@@ -516,10 +527,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -540,7 +551,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -581,7 +592,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-typeof实现原理"><span class="nav-number">1.</span> <span class="nav-text">一.  typeof实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-instanceof-实现原理"><span class="nav-number">2.</span> <span class="nav-text">二.  instanceof 实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-总结"><span class="nav-number">3.</span> <span class="nav-text">三.  总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#typeof实现原理"><span class="nav-number">1.</span> <span class="nav-text">typeof实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#instanceof-实现原理"><span class="nav-number">2.</span> <span class="nav-text">instanceof 实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -614,7 +625,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -622,7 +633,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
