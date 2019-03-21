@@ -105,14 +105,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="定义js如同其他高级语言一样都有垃圾回收机制，会周期性的检查之前分配的内存是否可达，帮助开发者管理内存。对不可达的内存通过算法确定、标记并适时回收。 而内存泄露则可以理解为当应用程序不再需要占用内存时，由于某些原因操作系统未回收其内存。 堆？栈？队列？任务队列由于js是单线程，所以所有的任务都需要排队。学过操作系统的都知道单线程最大的浪费就是输入输出时的等待，所以JavaScript设计者采取了另">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190306111456446.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019030611151282.gif">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-03-21T15:52:30.707Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c93bcca3a213b0417da3c67">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c93bcee3a213b0417da3dae">
+<meta property="og:image" content="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg">
+<meta property="og:updated_time" content="2019-03-21T16:34:31.007Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的内存泄露">
 <meta name="twitter:description" content="定义js如同其他高级语言一样都有垃圾回收机制，会周期性的检查之前分配的内存是否可达，帮助开发者管理内存。对不可达的内存通过算法确定、标记并适时回收。 而内存泄露则可以理解为当应用程序不再需要占用内存时，由于某些原因操作系统未回收其内存。 堆？栈？队列？任务队列由于js是单线程，所以所有的任务都需要排队。学过操作系统的都知道单线程最大的浪费就是输入输出时的等待，所以JavaScript设计者采取了另">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190306111456446.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c93bcca3a213b0417da3c67">
 
 
 
@@ -354,7 +354,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-21 23:52:30" itemprop="dateModified" datetime="2019-03-21T23:52:30+08:00">2019-03-21</time>
+                <time title="Geändert am: 2019-03-22 00:34:31" itemprop="dateModified" datetime="2019-03-22T00:34:31+08:00">2019-03-22</time>
               
             
           </span>
@@ -397,7 +397,7 @@
 <h5 id="异步任务（asynchronous）"><a href="#异步任务（asynchronous）" class="headerlink" title="异步任务（asynchronous）"></a>异步任务（asynchronous）</h5><blockquote>
 <p>不进入主线程、而进入”<strong>任务队列</strong>“（task queue）的任务，只有”<strong>任务队列</strong>“通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</p>
 </blockquote>
-<h4 id="函数执行栈"><a href="#函数执行栈" class="headerlink" title="函数执行栈"></a>函数执行栈</h4><p><img src="https://img-blog.csdnimg.cn/20190306111456446.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="函数执行栈"><a href="#函数执行栈" class="headerlink" title="函数执行栈"></a>函数执行栈</h4><p><img src="https://pic.superbed.cn/item/5c93bcca3a213b0417da3c67" alt="在这里插入图片描述"></p>
 <p>函数的嵌套调用就是通过函数执行栈。每嵌套一层向栈中推入函数信息，得到返回值后出栈</p>
 <h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>而主要的用户创建的对象就存放在堆中。<strong>内存泄漏定位的主要区域就在这里</strong>。</p>
 <h3 id="Mark-and-Sweep（标记扫描）算法"><a href="#Mark-and-Sweep（标记扫描）算法" class="headerlink" title="Mark-and-Sweep（标记扫描）算法"></a>Mark-and-Sweep（标记扫描）算法</h3><p>大部分垃圾回收机制的算法均称为<code>mark-and-sweep</code>，由以下几部分组成</p>
@@ -406,7 +406,7 @@
 <li>所有的 <code>roots</code> 被检查和标记为激活（即不是垃圾）。所有的子对象也被递归地检查。从<code>root</code>开始的所有对象如果是可达的，它就不被当作垃圾。</li>
 <li>所有未被标记的内存会被当做垃圾，收集器现在可以释放内存，归还给操作系统了。</li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/2019030611151282.gif" alt="在这里插入图片描述"></p>
+<p><img src="https://pic.superbed.cn/item/5c93bcee3a213b0417da3dae" alt="在这里插入图片描述"></p>
 <blockquote>
 <p>不需要的引用是指开发者明知内存引用不再需要，却由于某些原因，它仍被留在激活的<code>root</code>树中。在<code>JavaScript</code>中，不需要的引用是保留在代码中的变量，它不再需要，却指向一块本该被释放的内存。</p>
 </blockquote>
@@ -422,7 +422,7 @@
 <h4 id="DOM引用"><a href="#DOM引用" class="headerlink" title="DOM引用"></a>DOM引用</h4><p>当需要删除DOM的引用时候注意一点：同一份DOM一般拥有两份引用：DOM树和字典</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elements = &#123;</span><br><span class="line">    button: <span class="built_in">document</span>.getElementById(<span class="string">'button'</span>),</span><br><span class="line">    image: <span class="built_in">document</span>.getElementById(<span class="string">'image'</span>)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doStuff</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    elements.image.src = <span class="string">'http://example.com/image_name.png'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeImage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// The image is a direct child of the body element.</span></span><br><span class="line">    <span class="built_in">document</span>.body.removeChild(<span class="built_in">document</span>.getElementById(<span class="string">'image'</span>));</span><br><span class="line">    <span class="comment">// At this point, we still have a reference to #button in the</span></span><br><span class="line">    <span class="comment">//global elements object. In other words, the button element is</span></span><br><span class="line">    <span class="comment">//still in memory and cannot be collected by the GC.</span></span><br><span class="line">    elements.img = <span class="literal">null</span>		<span class="comment">// tell the engine to collect the memory</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>还有一个额外的考虑，当涉及 DOM 树内部或叶子节点的引用时，必须考虑这一点。假设你在 JavaScript 代码中保留了对 table 特定单元格（<code>&lt;td&gt;</code>）的引用。有一天，你决定从 DOM 中删除该 table，但扔保留着对该单元格的引用。直观地来看，可以假设 GC 将收集除了该单元格之外所有的内容。实际上，这不会发生的：该单元格是该 table 的子节点，并且 children 保持着对它们 parents 的引用。也就是说，在 JavaScript 代码中对单元格的引用会导致整个表都保留在内存中的。保留 DOM 元素的引用时，需要仔细考虑。</p>
-<p>好啦今天的话题就讲到这里<br><img src="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>好啦今天的话题就讲到这里<br><img src="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg" alt="在这里插入图片描述"></p>
 
       
     </div>

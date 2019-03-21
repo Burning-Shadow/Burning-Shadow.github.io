@@ -105,14 +105,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="其实这个专题之前就写过一些东西，不过当时属实是个小老弟，非常生涩而且里边的东西都是复制粘贴来的。想表达的东西很多但是都没有表达清楚。所以面临面试的我打算重新总结一番，当作一个回顾吧 是什么什么是闭包？  MDN：包是函数和生命该函数的词法环境的组合   Tyler McGinnis：子函数在其父级变量环境上“关闭”的概念   w3cschool：词法表示包括不被计算的变量的函数。也就是说，函数可以">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190303220838158.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019030322085821.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-03-21T15:44:56.490Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c93bb153a213b0417da2fee">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c93bb4f3a213b0417da3195">
+<meta property="og:image" content="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg">
+<meta property="og:updated_time" content="2019-03-21T16:27:53.800Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的闭包">
 <meta name="twitter:description" content="其实这个专题之前就写过一些东西，不过当时属实是个小老弟，非常生涩而且里边的东西都是复制粘贴来的。想表达的东西很多但是都没有表达清楚。所以面临面试的我打算重新总结一番，当作一个回顾吧 是什么什么是闭包？  MDN：包是函数和生命该函数的词法环境的组合   Tyler McGinnis：子函数在其父级变量环境上“关闭”的概念   w3cschool：词法表示包括不被计算的变量的函数。也就是说，函数可以">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190303220838158.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c93bb153a213b0417da2fee">
 
 
 
@@ -354,7 +354,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-21 23:44:56" itemprop="dateModified" datetime="2019-03-21T23:44:56+08:00">2019-03-21</time>
+                <time title="Geändert am: 2019-03-22 00:27:53" itemprop="dateModified" datetime="2019-03-22T00:27:53+08:00">2019-03-22</time>
               
             
           </span>
@@ -421,11 +421,11 @@
 <p>延迟函数的回调会在循环结束时才执行。<code>Why?</code>因为其缺陷在于我们试图假设循环中的每个迭代都在运行时都会自己捕获一个<code>i</code>的副本。但事实上尽管循环中的10个函数都是在各个迭代中分别定义的，可其共享一个作用域，而此作用域中只有一个<code>i</code></p>
 <h4 id="到底怎么办"><a href="#到底怎么办" class="headerlink" title="到底怎么办"></a>到底怎么办</h4><p>由上述可知<strong>我们需要更多的闭包作用域</strong>！尤其是每个迭代都需要一个闭包作用域，如此才可以实现<code>i</code>的迭代</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log( i )</span><br><span class="line">        &#125;, i*<span class="number">1000</span>)</span><br><span class="line">    &#125;)(i)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 正确打印</span></span><br></pre></td></tr></table></figure>
-<h5 id="第一个咋错了？"><a href="#第一个咋错了？" class="headerlink" title="第一个咋错了？"></a>第一个咋错了？</h5><p><img src="https://img-blog.csdnimg.cn/20190303220838158.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>首先是错误输出案例。</p>
+<h5 id="第一个咋错了？"><a href="#第一个咋错了？" class="headerlink" title="第一个咋错了？"></a>第一个咋错了？</h5><p><img src="https://pic.superbed.cn/item/5c93bb153a213b0417da2fee" alt="在这里插入图片描述"><br>首先是错误输出案例。</p>
 <p>我们从上一篇博客中知道函数作用域包括<strong>参数</strong>、<strong>变量</strong>以及<strong>方法</strong>。所以我们将同一个作用域中的这些部分包含在一个圈内（为了省事我就不画全局作用域啦）</p>
 <p>①中包含了传入参数<code>i</code>（每次循环都会被迭代，所以下方<code>i*1000</code>中的<code>i</code>也会同步更新。）和函数<code>setTimeout</code>。</p>
 <p>②作用域中则是<code>timer</code>内部的<code>i</code>。由于此作用域中未定义此变量，所以引擎会向上级作用域讨要这个<code>i</code>的值。而闭包的特点前面我们讲过（<strong>尽管循环中的10个函数都是在各个迭代中分别定义的，可其共享一个作用域，而此作用域中只有一个<code>i</code></strong>），所以只能得到循环结束后的结果10作为<code>i</code>的值。</p>
-<h5 id="那这个为啥又对了？"><a href="#那这个为啥又对了？" class="headerlink" title="那这个为啥又对了？"></a>那这个为啥又对了？</h5><p><img src="https://img-blog.csdnimg.cn/2019030322085821.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>我们前面说到<code>IIFE(Immediately Invoked Function Expression，立即执行函数表达式)</code>模式会创建全新的作用域。所以在两层作用域之间嵌套一层，就可以实现参数的传递啦。</p>
+<h5 id="那这个为啥又对了？"><a href="#那这个为啥又对了？" class="headerlink" title="那这个为啥又对了？"></a>那这个为啥又对了？</h5><p><img src="https://pic.superbed.cn/item/5c93bb4f3a213b0417da3195" alt="在这里插入图片描述"><br>我们前面说到<code>IIFE(Immediately Invoked Function Expression，立即执行函数表达式)</code>模式会创建全新的作用域。所以在两层作用域之间嵌套一层，就可以实现参数的传递啦。</p>
 <p><strong>第①层</strong>依旧平平无奇，只有传入的迭代变量<code>i</code>以及那个<code>IIFE</code></p>
 <p><strong>第②层</strong>就有猫腻啦！我们将上一层的迭代变量作为参数传入了这个立即执行函数表达式，如此即可保证变量的同步更新</p>
 <p><strong>第③层</strong>则是遵循之前我们所讲，向上一层作用域寻求变量<code>i</code>。由于上一层（②层）的<code>i</code>是作为参数传入（可以理解为实时更新），所以自然可以取到正确的值咯~</p>
@@ -443,7 +443,7 @@
 </li>
 <li>可以在父函数外部改变函数内部变量的值，造成安全隐患。</li>
 </ul>
-<p>好了今天的话题我们就讲到这里<br><img src="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>好了今天的话题我们就讲到这里<br><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg" alt="告辞"></p>
 
       
     </div>

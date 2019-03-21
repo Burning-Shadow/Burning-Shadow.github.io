@@ -722,7 +722,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-21 23:44:56" itemprop="dateModified" datetime="2019-03-21T23:44:56+08:00">2019-03-21</time>
+                <time title="Geändert am: 2019-03-22 00:27:53" itemprop="dateModified" datetime="2019-03-22T00:27:53+08:00">2019-03-22</time>
               
             
           </span>
@@ -791,11 +791,11 @@
 <p>延迟函数的回调会在循环结束时才执行。<code>Why?</code>因为其缺陷在于我们试图假设循环中的每个迭代都在运行时都会自己捕获一个<code>i</code>的副本。但事实上尽管循环中的10个函数都是在各个迭代中分别定义的，可其共享一个作用域，而此作用域中只有一个<code>i</code></p>
 <h4 id="到底怎么办"><a href="#到底怎么办" class="headerlink" title="到底怎么办"></a>到底怎么办</h4><p>由上述可知<strong>我们需要更多的闭包作用域</strong>！尤其是每个迭代都需要一个闭包作用域，如此才可以实现<code>i</code>的迭代</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log( i )</span><br><span class="line">        &#125;, i*<span class="number">1000</span>)</span><br><span class="line">    &#125;)(i)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 正确打印</span></span><br></pre></td></tr></table></figure>
-<h5 id="第一个咋错了？"><a href="#第一个咋错了？" class="headerlink" title="第一个咋错了？"></a>第一个咋错了？</h5><p><img src="https://img-blog.csdnimg.cn/20190303220838158.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>首先是错误输出案例。</p>
+<h5 id="第一个咋错了？"><a href="#第一个咋错了？" class="headerlink" title="第一个咋错了？"></a>第一个咋错了？</h5><p><img src="https://pic.superbed.cn/item/5c93bb153a213b0417da2fee" alt="在这里插入图片描述"><br>首先是错误输出案例。</p>
 <p>我们从上一篇博客中知道函数作用域包括<strong>参数</strong>、<strong>变量</strong>以及<strong>方法</strong>。所以我们将同一个作用域中的这些部分包含在一个圈内（为了省事我就不画全局作用域啦）</p>
 <p>①中包含了传入参数<code>i</code>（每次循环都会被迭代，所以下方<code>i*1000</code>中的<code>i</code>也会同步更新。）和函数<code>setTimeout</code>。</p>
 <p>②作用域中则是<code>timer</code>内部的<code>i</code>。由于此作用域中未定义此变量，所以引擎会向上级作用域讨要这个<code>i</code>的值。而闭包的特点前面我们讲过（<strong>尽管循环中的10个函数都是在各个迭代中分别定义的，可其共享一个作用域，而此作用域中只有一个<code>i</code></strong>），所以只能得到循环结束后的结果10作为<code>i</code>的值。</p>
-<h5 id="那这个为啥又对了？"><a href="#那这个为啥又对了？" class="headerlink" title="那这个为啥又对了？"></a>那这个为啥又对了？</h5><p><img src="https://img-blog.csdnimg.cn/2019030322085821.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>我们前面说到<code>IIFE(Immediately Invoked Function Expression，立即执行函数表达式)</code>模式会创建全新的作用域。所以在两层作用域之间嵌套一层，就可以实现参数的传递啦。</p>
+<h5 id="那这个为啥又对了？"><a href="#那这个为啥又对了？" class="headerlink" title="那这个为啥又对了？"></a>那这个为啥又对了？</h5><p><img src="https://pic.superbed.cn/item/5c93bb4f3a213b0417da3195" alt="在这里插入图片描述"><br>我们前面说到<code>IIFE(Immediately Invoked Function Expression，立即执行函数表达式)</code>模式会创建全新的作用域。所以在两层作用域之间嵌套一层，就可以实现参数的传递啦。</p>
 <p><strong>第①层</strong>依旧平平无奇，只有传入的迭代变量<code>i</code>以及那个<code>IIFE</code></p>
 <p><strong>第②层</strong>就有猫腻啦！我们将上一层的迭代变量作为参数传入了这个立即执行函数表达式，如此即可保证变量的同步更新</p>
 <p><strong>第③层</strong>则是遵循之前我们所讲，向上一层作用域寻求变量<code>i</code>。由于上一层（②层）的<code>i</code>是作为参数传入（可以理解为实时更新），所以自然可以取到正确的值咯~</p>
@@ -813,7 +813,7 @@
 </li>
 <li>可以在父函数外部改变函数内部变量的值，造成安全隐患。</li>
 </ul>
-<p>好了今天的话题我们就讲到这里<br><img src="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>好了今天的话题我们就讲到这里<br><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg" alt="告辞"></p>
 
           
         
@@ -932,7 +932,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-21 23:47:05" itemprop="dateModified" datetime="2019-03-21T23:47:05+08:00">2019-03-21</time>
+                <time title="Geändert am: 2019-03-22 00:35:30" itemprop="dateModified" datetime="2019-03-22T00:35:30+08:00">2019-03-22</time>
               
             
           </span>
@@ -1027,7 +1027,7 @@
 <li>只有声明（无论是变量声明还是函数声明）会被提升，赋值（<code>a = 2</code>）仍会被留在原地</li>
 <li>函数会被首先提升，然后才是变量</li>
 </ul>
-<p>今天我们讲的内容一定要记在小本子上背牢了。下次咱们会讲闭包，没有今天关于作用域的概念将会寸步难行~<br><img src="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>今天我们讲的内容一定要记在小本子上背牢了。下次咱们会讲闭包，没有今天关于作用域的概念将会寸步难行~<br><img src="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg" alt="在这里插入图片描述"></p>
 
           
         
@@ -1146,7 +1146,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-21 23:44:13" itemprop="dateModified" datetime="2019-03-21T23:44:13+08:00">2019-03-21</time>
+                <time title="Geändert am: 2019-03-22 00:37:22" itemprop="dateModified" datetime="2019-03-22T00:37:22+08:00">2019-03-22</time>
               
             
           </span>
@@ -1205,7 +1205,7 @@
 <li>不过需要注意的一点是，<strong>已经被实例化的对象</strong><code>__proto__</code>属性指向其构造函数的<code>prototype</code>。</li>
 <li>另外一个特殊的对象<code>Object</code>。作为所有对象的父类他的原型的<code>__proto__</code>属性指向<code>null</code></li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/2019022822050917.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>如此我们就可以看得懂那张经典的原型链图解啦</p>
+<p><img src="https://pic.superbed.cn/item/5c93bda83a213b0417da42a9" alt="在这里插入图片描述"><br>如此我们就可以看得懂那张经典的原型链图解啦</p>
 <h3 id="从原理讨论原型链的用处"><a href="#从原理讨论原型链的用处" class="headerlink" title="从原理讨论原型链的用处"></a>从原理讨论原型链的用处</h3><h4 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h4><p><code>typeof</code>作为《JavaScript高级程序设计》中首推的判断类型方法无疑是大多数人的选择。不过令人烦恼的是我们发现当碰到<code>Array</code>、<code>Function</code>等类型时他均返回一个<code>Object</code>。这就有点气人了。所以机智的玩家们采取了<code>Object.prototype.toString.call(obj)</code>方法来识别对象类型。他会返回一个<code>&quot;[object Type]&quot;</code>的东西来告诉你所指对象的类型。</p>
 <p>此处就用到了原型链必不可少的<code>prototype</code>。通过改变<code>this</code>指针指向将我们所要验证类型的对象。以完成类型的检验</p>
 <h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><p>除去<code>typeof</code>外我们还有另一个方法：<code>instanceof</code></p>
@@ -1213,7 +1213,7 @@
 <p><code>instanceof</code>这个方法用于判断某实例是否从属于某种类型，同时也可以判断一个实例是否是其父类型或者祖先类型的实例。举个栗子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Son.prototype = <span class="keyword">new</span> Father();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> son = <span class="keyword">new</span> Son();</span><br><span class="line">son <span class="keyword">instanceof</span> Son  <span class="comment">//true</span></span><br><span class="line">son <span class="keyword">instanceof</span> Father  <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
 <p>看见没，只要你是这一家子的人（实例）那你无论走哪这祖宗祠堂（原型链上的老东西们）都认你。那么他们是如何判断你是不是这家的儿孙呢？当然是原型链。我们来试着写一串伪代码来进行验证<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">new_instance_of</span>(<span class="params">leftVaule, rightVaule</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">let</span> rightProto = rightVaule.prototype; <span class="comment">// 取右表达式的 prototype 值</span></span><br><span class="line">    leftVaule = leftVaule.__proto__; <span class="comment">// 取左表达式的__proto__值</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    	<span class="keyword">if</span> (leftVaule === <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;	</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (leftVaule === rightProto) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">        &#125; </span><br><span class="line">        leftVaule = leftVaule.__proto__ </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>如此这般，通过原型链认祖归宗。咱们看看是否有用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new_instance_of(son, Son)	<span class="comment">// true</span></span><br><span class="line">new_instance_of(son, Father)	<span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
-<p>今天的内容就这么多<br><img src="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>今天的内容就这么多<br><img src="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg" alt="在这里插入图片描述"></p>
 
           
         
@@ -1332,7 +1332,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-21 23:48:51" itemprop="dateModified" datetime="2019-03-21T23:48:51+08:00">2019-03-21</time>
+                <time title="Geändert am: 2019-03-22 00:34:56" itemprop="dateModified" datetime="2019-03-22T00:34:56+08:00">2019-03-22</time>
               
             
           </span>
@@ -1399,7 +1399,7 @@
 </ul>
 </blockquote>
 <h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><p>箭头函数的<code>this</code>指向就可以理解为传统面向对象语言的<code>this</code>啦。它会根据外层的作用域来决定<code>this</code>，即取决于外层的函数作用域或全局作用域，且<strong>箭头函数的绑定无法修改</strong></p>
-<p>今天的总结就到这里啦<br><img src="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>今天的总结就到这里啦<br><img src="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg" alt="在这里插入图片描述"></p>
 
           
         
@@ -1518,7 +1518,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-21 23:52:30" itemprop="dateModified" datetime="2019-03-21T23:52:30+08:00">2019-03-21</time>
+                <time title="Geändert am: 2019-03-22 00:34:31" itemprop="dateModified" datetime="2019-03-22T00:34:31+08:00">2019-03-22</time>
               
             
           </span>
@@ -1563,7 +1563,7 @@
 <h5 id="异步任务（asynchronous）"><a href="#异步任务（asynchronous）" class="headerlink" title="异步任务（asynchronous）"></a>异步任务（asynchronous）</h5><blockquote>
 <p>不进入主线程、而进入”<strong>任务队列</strong>“（task queue）的任务，只有”<strong>任务队列</strong>“通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</p>
 </blockquote>
-<h4 id="函数执行栈"><a href="#函数执行栈" class="headerlink" title="函数执行栈"></a>函数执行栈</h4><p><img src="https://img-blog.csdnimg.cn/20190306111456446.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="函数执行栈"><a href="#函数执行栈" class="headerlink" title="函数执行栈"></a>函数执行栈</h4><p><img src="https://pic.superbed.cn/item/5c93bcca3a213b0417da3c67" alt="在这里插入图片描述"></p>
 <p>函数的嵌套调用就是通过函数执行栈。每嵌套一层向栈中推入函数信息，得到返回值后出栈</p>
 <h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>而主要的用户创建的对象就存放在堆中。<strong>内存泄漏定位的主要区域就在这里</strong>。</p>
 <h3 id="Mark-and-Sweep（标记扫描）算法"><a href="#Mark-and-Sweep（标记扫描）算法" class="headerlink" title="Mark-and-Sweep（标记扫描）算法"></a>Mark-and-Sweep（标记扫描）算法</h3><p>大部分垃圾回收机制的算法均称为<code>mark-and-sweep</code>，由以下几部分组成</p>
@@ -1572,7 +1572,7 @@
 <li>所有的 <code>roots</code> 被检查和标记为激活（即不是垃圾）。所有的子对象也被递归地检查。从<code>root</code>开始的所有对象如果是可达的，它就不被当作垃圾。</li>
 <li>所有未被标记的内存会被当做垃圾，收集器现在可以释放内存，归还给操作系统了。</li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/2019030611151282.gif" alt="在这里插入图片描述"></p>
+<p><img src="https://pic.superbed.cn/item/5c93bcee3a213b0417da3dae" alt="在这里插入图片描述"></p>
 <blockquote>
 <p>不需要的引用是指开发者明知内存引用不再需要，却由于某些原因，它仍被留在激活的<code>root</code>树中。在<code>JavaScript</code>中，不需要的引用是保留在代码中的变量，它不再需要，却指向一块本该被释放的内存。</p>
 </blockquote>
@@ -1588,7 +1588,7 @@
 <h4 id="DOM引用"><a href="#DOM引用" class="headerlink" title="DOM引用"></a>DOM引用</h4><p>当需要删除DOM的引用时候注意一点：同一份DOM一般拥有两份引用：DOM树和字典</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elements = &#123;</span><br><span class="line">    button: <span class="built_in">document</span>.getElementById(<span class="string">'button'</span>),</span><br><span class="line">    image: <span class="built_in">document</span>.getElementById(<span class="string">'image'</span>)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doStuff</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    elements.image.src = <span class="string">'http://example.com/image_name.png'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeImage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// The image is a direct child of the body element.</span></span><br><span class="line">    <span class="built_in">document</span>.body.removeChild(<span class="built_in">document</span>.getElementById(<span class="string">'image'</span>));</span><br><span class="line">    <span class="comment">// At this point, we still have a reference to #button in the</span></span><br><span class="line">    <span class="comment">//global elements object. In other words, the button element is</span></span><br><span class="line">    <span class="comment">//still in memory and cannot be collected by the GC.</span></span><br><span class="line">    elements.img = <span class="literal">null</span>		<span class="comment">// tell the engine to collect the memory</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>还有一个额外的考虑，当涉及 DOM 树内部或叶子节点的引用时，必须考虑这一点。假设你在 JavaScript 代码中保留了对 table 特定单元格（<code>&lt;td&gt;</code>）的引用。有一天，你决定从 DOM 中删除该 table，但扔保留着对该单元格的引用。直观地来看，可以假设 GC 将收集除了该单元格之外所有的内容。实际上，这不会发生的：该单元格是该 table 的子节点，并且 children 保持着对它们 parents 的引用。也就是说，在 JavaScript 代码中对单元格的引用会导致整个表都保留在内存中的。保留 DOM 元素的引用时，需要仔细考虑。</p>
-<p>好啦今天的话题就讲到这里<br><img src="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>好啦今天的话题就讲到这里<br><img src="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg" alt="在这里插入图片描述"></p>
 
           
         
@@ -1909,7 +1909,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-22 00:03:39" itemprop="dateModified" datetime="2019-03-22T00:03:39+08:00">2019-03-22</time>
+                <time title="Geändert am: 2019-03-22 00:32:30" itemprop="dateModified" datetime="2019-03-22T00:32:30+08:00">2019-03-22</time>
               
             
           </span>
@@ -1960,10 +1960,10 @@
 <p>所以在同源策略限制的条件之下，我们至少可以防止一些低端的<code>CSRF</code>，不至于让<code>cookie</code>这么轻易的暴露在其他不明网站的攻击下</p>
 <h5 id="DOM查询"><a href="#DOM查询" class="headerlink" title="DOM查询"></a>DOM查询</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HTML</span></span><br><span class="line">&lt;iframe name=<span class="string">"yinhang"</span> src=<span class="string">"www.yinhang.com"</span>&gt;&lt;/iframe&gt;</span><br><span class="line"><span class="comment">// JS</span></span><br><span class="line"><span class="comment">// 由于没有同源策略的限制，钓鱼网站可以直接拿到别的网站的Dom</span></span><br><span class="line"><span class="keyword">const</span> iframe = <span class="built_in">window</span>.frames[<span class="string">'yinhang'</span>]</span><br><span class="line"><span class="keyword">const</span> node = iframe.document.getElementById(<span class="string">'你输入账号密码的Input'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`拿到了这个<span class="subst">$&#123;node&#125;</span>，我还拿不到你刚刚输入的账号密码吗`</span>)</span><br></pre></td></tr></table></figure>
 <p>若无同源策略限制，那么攻击者可以轻易的获取其他网站的DOM，并将其存至自己的<code>iframe</code>之中掩人耳目，借此盗取你的敏感信息。</p>
-<h4 id="怎么着才算跨域？"><a href="#怎么着才算跨域？" class="headerlink" title="怎么着才算跨域？"></a>怎么着才算跨域？</h4><p><img src="https://img-blog.csdnimg.cn/20190320002620480.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h4 id="怎么着才算跨域？"><a href="#怎么着才算跨域？" class="headerlink" title="怎么着才算跨域？"></a>怎么着才算跨域？</h4><p><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avuvexpij30o805smyu.jpg" alt="域名的组成"></p>
 <p><strong>同源策略是指“协议”、“域名”、“端口”三者相同。即使两个不同的域名指向同一个<code>ip</code>地址亦非同源</strong></p>
 <p>咱们可以通过这张图做个例子</p>
-<p><img src="https://img-blog.csdnimg.cn/20190320002842847.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avvq3n5zj30mz0mrmze.jpg" alt="在这里插入图片描述"></p>
 <h4 id="这些跨域咱也没办法"><a href="#这些跨域咱也没办法" class="headerlink" title="这些跨域咱也没办法"></a>这些跨域咱也没办法</h4><blockquote>
 <ol>
 <li><p>协议和端口不同那咱们再咋操作也没办法</p>
@@ -2012,7 +2012,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> a.fullstackjavascript.cn</span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> b.fullstackjavascript.cn</span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.html</span></span><br><span class="line">&lt;iframe src=<span class="string">"http://b.fullstackjavascript.cn:4000/b.html"</span> </span><br><span class="line">        frameborder=<span class="string">"0"</span> id=<span class="string">"frame"</span></span><br><span class="line">        onload=<span class="string">"load()"</span></span><br><span class="line">&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.domain = <span class="string">'fullstackjavascript.cn'</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(frame.contentWindow.name);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ b.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  document.domain = 'fullstackjavascript.cn';</span></span><br><span class="line"><span class="regexp">  var name = 'jw';  </span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>访问<a href="http://a.fullstackjavascript.cn:3000/a.html,发现是可以拿到另一个页面中的值" target="_blank" rel="noopener">http://a.fullstackjavascript.cn:3000/a.html,发现是可以拿到另一个页面中的值</a></p>
+<p>访问<code>http://a.fullstackjavascript.cn:3000/a.html</code>发现是可以拿到另一个页面中的值</p>
 </blockquote>
 <h4 id="location-hash"><a href="#location-hash" class="headerlink" title="location.hash"></a>location.hash</h4><p>通过三方域完成</p>
 <p>三个页面hash1,hash2,hash3。hash1和hash2是同域下，hash3在独立域下。</p>
@@ -2020,10 +2020,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hash1.html</span></span><br><span class="line">&lt;iframe src=<span class="string">"http://a.fullstackjavascript.cn:3000/hash3.html#iloveyou"</span> frameborder=<span class="string">"0"</span>&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">window</span>.onhashchange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(location.hash);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ hash2.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  let hash = location.hash;</span></span><br><span class="line"><span class="regexp">  let data;</span></span><br><span class="line"><span class="regexp">  if(hash === '#iloveyoue')&#123;</span></span><br><span class="line"><span class="regexp">    data = 'idontloveyou'</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">  let frame = document.createElement('iframe');</span></span><br><span class="line">  frame.src = `http://a.fullstackjavascript.cn:3000/hash3.html#$&#123;data&#125;`;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ hash3.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  let hash = location.hash;</span></span><br><span class="line"><span class="regexp">  window.parent.parent.location.hash = hash </span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
 <h4 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h4><p>还是有三个页面a,b,c。a和b是同域下的,c自己一个域。a先引用c,c将想表达的内容放到name,属性上之后,a改变引用路径,改成引用b,此时name属性不会被删除,因为a,b是同域的,所以可以直接获取。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.html</span></span><br><span class="line">&lt;iframe src=<span class="string">"http://a.fullstackjavascript.cn:4000/c.html"</span> id=<span class="string">"myFrame"</span> onload=<span class="string">"load()"</span> frameborder=<span class="string">"0"</span>&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">let</span> first = <span class="literal">true</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(first)&#123;</span><br><span class="line">      myFrame.src = <span class="string">'http://b.fullstackjavascript.cn:3000/c.html'</span>;</span><br><span class="line">      first = <span class="literal">false</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">let</span> name = myFrame.contentWindow.name;</span><br><span class="line">      <span class="built_in">console</span>.log(name);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ c.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  window.name = '我爱你'</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
-<p>作者：凌晨夏沫</p>
-<p>链接：<a href="https://juejin.im/post/5b17cc7d5188257d9f24c430" target="_blank" rel="noopener">https://juejin.im/post/5b17cc7d5188257d9f24c430</a></p>
-<p>来源：掘金</p>
-<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 
           
         

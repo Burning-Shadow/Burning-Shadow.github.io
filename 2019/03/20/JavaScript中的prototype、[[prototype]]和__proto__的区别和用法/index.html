@@ -105,13 +105,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="显式原型&amp;amp;隐式原型显式原型：prototype隐式原型：__proto__ Important __proto__是每个对象都具有的属性 prototype是Function独有的属性Tips 对象的隐式原型的值为其对应构造函数的显式原型的值 fn.__proto__ === Function.prototype   函数的prototype属性是定义时自动添加的。默认为{} 对象的__p">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019022822050917.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-03-21T15:44:13.121Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c93bda83a213b0417da42a9">
+<meta property="og:image" content="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg">
+<meta property="og:updated_time" content="2019-03-21T16:37:22.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的prototype、[[prototype]]和__proto__的区别和用法">
 <meta name="twitter:description" content="显式原型&amp;amp;隐式原型显式原型：prototype隐式原型：__proto__ Important __proto__是每个对象都具有的属性 prototype是Function独有的属性Tips 对象的隐式原型的值为其对应构造函数的显式原型的值 fn.__proto__ === Function.prototype   函数的prototype属性是定义时自动添加的。默认为{} 对象的__p">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2019022822050917.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c93bda83a213b0417da42a9">
 
 
 
@@ -353,7 +353,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-21 23:44:13" itemprop="dateModified" datetime="2019-03-21T23:44:13+08:00">2019-03-21</time>
+                <time title="Geändert am: 2019-03-22 00:37:22" itemprop="dateModified" datetime="2019-03-22T00:37:22+08:00">2019-03-22</time>
               
             
           </span>
@@ -410,7 +410,7 @@
 <li>不过需要注意的一点是，<strong>已经被实例化的对象</strong><code>__proto__</code>属性指向其构造函数的<code>prototype</code>。</li>
 <li>另外一个特殊的对象<code>Object</code>。作为所有对象的父类他的原型的<code>__proto__</code>属性指向<code>null</code></li>
 </ul>
-<p><img src="https://img-blog.csdnimg.cn/2019022822050917.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>如此我们就可以看得懂那张经典的原型链图解啦</p>
+<p><img src="https://pic.superbed.cn/item/5c93bda83a213b0417da42a9" alt="在这里插入图片描述"><br>如此我们就可以看得懂那张经典的原型链图解啦</p>
 <h3 id="从原理讨论原型链的用处"><a href="#从原理讨论原型链的用处" class="headerlink" title="从原理讨论原型链的用处"></a>从原理讨论原型链的用处</h3><h4 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h4><p><code>typeof</code>作为《JavaScript高级程序设计》中首推的判断类型方法无疑是大多数人的选择。不过令人烦恼的是我们发现当碰到<code>Array</code>、<code>Function</code>等类型时他均返回一个<code>Object</code>。这就有点气人了。所以机智的玩家们采取了<code>Object.prototype.toString.call(obj)</code>方法来识别对象类型。他会返回一个<code>&quot;[object Type]&quot;</code>的东西来告诉你所指对象的类型。</p>
 <p>此处就用到了原型链必不可少的<code>prototype</code>。通过改变<code>this</code>指针指向将我们所要验证类型的对象。以完成类型的检验</p>
 <h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><p>除去<code>typeof</code>外我们还有另一个方法：<code>instanceof</code></p>
@@ -418,7 +418,7 @@
 <p><code>instanceof</code>这个方法用于判断某实例是否从属于某种类型，同时也可以判断一个实例是否是其父类型或者祖先类型的实例。举个栗子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Son.prototype = <span class="keyword">new</span> Father();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> son = <span class="keyword">new</span> Son();</span><br><span class="line">son <span class="keyword">instanceof</span> Son  <span class="comment">//true</span></span><br><span class="line">son <span class="keyword">instanceof</span> Father  <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
 <p>看见没，只要你是这一家子的人（实例）那你无论走哪这祖宗祠堂（原型链上的老东西们）都认你。那么他们是如何判断你是不是这家的儿孙呢？当然是原型链。我们来试着写一串伪代码来进行验证<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">new_instance_of</span>(<span class="params">leftVaule, rightVaule</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">let</span> rightProto = rightVaule.prototype; <span class="comment">// 取右表达式的 prototype 值</span></span><br><span class="line">    leftVaule = leftVaule.__proto__; <span class="comment">// 取左表达式的__proto__值</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    	<span class="keyword">if</span> (leftVaule === <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;	</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (leftVaule === rightProto) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">        &#125; </span><br><span class="line">        leftVaule = leftVaule.__proto__ </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>如此这般，通过原型链认祖归宗。咱们看看是否有用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new_instance_of(son, Son)	<span class="comment">// true</span></span><br><span class="line">new_instance_of(son, Father)	<span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
-<p>今天的内容就这么多<br><img src="https://img-blog.csdnimg.cn/20190228221554780.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4NzIyMDk3,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>今天的内容就这么多<br><img src="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg" alt="在这里插入图片描述"></p>
 
       
     </div>
