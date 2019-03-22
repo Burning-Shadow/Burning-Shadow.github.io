@@ -107,7 +107,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c9459b83a213b0417df2980">
 <meta property="og:image" content="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg">
-<meta property="og:updated_time" content="2019-03-22T04:38:53.728Z">
+<meta property="og:updated_time" content="2019-03-22T04:53:53.625Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的this解析">
 <meta name="twitter:description" content="默认绑定独立函数调用时遵循默认绑定的原则。一般情况下若无其他规则出现则默认将this绑定到全局对象上。123456function foo()&amp;#123;	var a = 3;	console.log(this.a)&amp;#125;var a = 2;foo()	// 2 隐式绑定若调用位置有上下文对象就遵循隐式绑定（如example.foo()）12345678function foo()&amp;#123">
@@ -353,7 +353,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-22 12:38:53" itemprop="dateModified" datetime="2019-03-22T12:38:53+08:00">2019-03-22</time>
+                <time title="Geändert am: 2019-03-22 12:53:53" itemprop="dateModified" datetime="2019-03-22T12:53:53+08:00">2019-03-22</time>
               
             
           </span>
@@ -399,7 +399,12 @@
 </blockquote>
 <h5 id="参数传递所引起的隐式丢失"><a href="#参数传递所引起的隐式丢失" class="headerlink" title="参数传递所引起的隐式丢失"></a>参数传递所引起的隐式丢失</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>,log(a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dooFoo</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">	fn()	<span class="comment">// 调用位置</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>,  <span class="attr">foo</span>:foo&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'global'</span></span><br><span class="line">dooFoo(obj.foo)		<span class="comment">// 'global'</span></span><br></pre></td></tr></table></figure>
 <p>我们分析一下。作为参数传递进<code>dooFoo</code>的<code>obj.foo</code>，引擎会对其进行<code>RHS</code>搜索。不信我们删掉<code>foo</code>看一下<br><img src="https://pic.superbed.cn/item/5c9459b83a213b0417df2980" alt="在这里插入图片描述"></p>
-<p>喏，这个<code>ReferenceError</code>的报错就能充分说明问题了。<br>既然是<code>RHS</code>那么我们会得到一个<code>foo</code>函数的引用。但是此引用是脱离了上下文的，自然会发生隐式丢失。</p>
+<p>喏，这个<code>ReferenceError</code>的报错就能充分说明问题了。</p>
+<blockquote>
+<p>不成功的<code>RHS</code>引用会导致抛出 <code>ReferenceError</code> 异常。</p>
+<p>不成功的 <code>LHS</code> 引用会导致自动隐式地创建一个全局变量(非严格模式下)。该变量使用 <code>LHS</code> 引用的目标作为标识符，或者抛 出 <code>ReferenceError</code> 异常(严格模式下)。</p>
+</blockquote>
+<p>既然是<code>RHS</code>那么我们会得到一个<code>foo</code>函数的引用。但是此引用是脱离了上下文的，自然会发生隐式丢失。</p>
 <p><strong><code>JavaScript</code>的内置库函数也一样，所以少用这种传入参数的方式，容易造成隐式丢失</strong></p>
 <h3 id="显式绑定"><a href="#显式绑定" class="headerlink" title="显式绑定"></a>显式绑定</h3><p>隐式绑定这种由JavaScript内部机制造成的宫斗剧一般的勾心斗角显然不适合我这种单纯的boy。而正好有另一种绑定方式，简单粗暴易懂，让人一眼看出<code>this</code>作用域。</p>
 <h4 id="apply、call"><a href="#apply、call" class="headerlink" title="apply、call"></a>apply、call</h4><p>在用此方法之前我建议好兄弟们去看一下这俩函数的<a href="https://blog.csdn.net/qq_38722097/article/details/88126276" target="_blank" rel="noopener">相关内容</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>,log(a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>: <span class="number">2</span>&#125;</span><br><span class="line">foo.call(obj)	<span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
