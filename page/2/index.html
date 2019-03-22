@@ -190,7 +190,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -218,7 +218,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -305,6 +305,473 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript之深浅拷贝/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/20/JavaScript之深浅拷贝/" class="post-title-link" itemprop="url">JavaScript之深浅拷贝</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-20 02:39:48" itemprop="dateCreated datePublished" datetime="2019-03-20T02:39:48+08:00">2019-03-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-22 14:41:13" itemprop="dateModified" datetime="2019-03-22T14:41:13+08:00">2019-03-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>首先咱们先理一下这玩意儿的概念</p>
+<blockquote>
+<p>浅拷贝：将对象的各个属性进行依次复制，并不会进行递归复制，也就是说<strong>只会赋值目标对象的第一层属性</strong>。</p>
+<p>深拷贝：<strong>递归拷贝目标对象的所有属性</strong>。</p>
+</blockquote>
+<p>咱们可以这么理解：浅拷贝就像人口普查，只往上看这一代。深拷贝则是入党审核，你家庭案底都得查得清清楚楚。</p>
+<p>那么咱们正式开始</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>当我们需要大量复制某些对象而其却可以完全独立，互不干扰的时候我们就需要用到拷贝。</p>
+<p>而深拷贝还是浅拷贝则需要根据我们实际需要而定。如果涉及到继承之类的东西我们当然需要深层拷贝。而如果只是属性方面的复制还是推荐使用浅拷贝。</p>
+<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><h4 id="JQ中的-extend-obj"><a href="#JQ中的-extend-obj" class="headerlink" title="JQ中的$.extend({}, obj)"></a>JQ中的$.extend({}, obj)</h4><p>这个就不再多说咯，调用官方API就可以轻松完成。不过如果小伙伴们使用框架，比如自带DOM渲染的Vue，由于他是MVVM框架，尽量避免直接操作DOM，所以大部分玩家不会选择直接引入jq。所以我们下面介绍一下其他的实现方式</p>
+<h4 id="for-in暴力赋值"><a href="#for-in暴力赋值" class="headerlink" title="for in暴力赋值"></a>for in暴力赋值</h4><p>最简单的方法就是通过<code>for...in</code>循环遍历赋值。如此我们不会误将引用赋给另一个对象，自然也不用担心对象之间的独立性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowCopy</span>(<span class="params">source, target = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> key;</span><br><span class="line">    <span class="keyword">for</span> (key <span class="keyword">in</span> source) &#123;</span><br><span class="line">        <span class="keyword">if</span> (source.hasOwnProperty(key)) &#123;</span><br><span class="line">            target[key] = source[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 里边我们涉及到了一个函数：<code>hasOwnProperty()</code>。他可以<strong>防止向上继续进行拷贝，只对本层处理</strong>。</p>
+<h4 id="Object-assign-target-obj1-obj2-…"><a href="#Object-assign-target-obj1-obj2-…" class="headerlink" title="Object.assign(target, obj1, obj2, ….)"></a>Object.assign(target, obj1, obj2, ….)</h4><ul>
+<li><code>target</code>：目标对象</li>
+<li><code>obj1</code>：源对象1</li>
+<li><code>obj2</code>：源对象2</li>
+</ul>
+<p>其作用是将源对象的属性复制到目标对象中去。</p>
+<p>这东西主要用来将多个对象的属性合并到一个对象上去，但是咱们在这里也可以用走浅拷贝。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">name</span>: <span class="string">'程序猿'</span>, <span class="attr">age</span>:&#123;<span class="attr">child</span>: <span class="number">12</span>&#125; &#125;</span><br><span class="line"><span class="keyword">let</span> copy = <span class="built_in">Object</span>.assign(&#123;&#125;, obj);</span><br><span class="line">copy.name = <span class="string">'单身狗'</span></span><br><span class="line">copy.age.child = <span class="number">24</span></span><br><span class="line"><span class="built_in">console</span>.log(obj) <span class="comment">// &#123; name: '程序猿', age:&#123;child: 24&#125; &#125;  当用来修改的属性包含对象时就会统一改变。</span></span><br></pre></td></tr></table></figure>
+<p>这个例子就可以形象地说明这东西的特点啦：</p>
+<p>有没有注意到，<strong>我们第一层的属性（<code>name</code>、<code>age</code>）独立，而第二层的属性（<code>child</code>）则未能完成上面提到的“互不干扰”。</strong>这不正好符合我们的思路吗</p>
+<p>如果需要深层拷贝的话，咱加个递归不就好了吗~(<code>4.2</code>)</p>
+<h4 id="展开运算符（…）"><a href="#展开运算符（…）" class="headerlink" title="展开运算符（…）"></a>展开运算符（…）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">    age: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = &#123;...a&#125;</span><br><span class="line">a.age = <span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><h4 id="for-in循环递归"><a href="#for-in循环递归" class="headerlink" title="for in循环递归"></a>for in循环递归</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params"> source </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> target = <span class="built_in">Array</span>.isArray( source ) ? [] : &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">var</span> k <span class="keyword">in</span> source ) &#123;</span><br><span class="line">        <span class="keyword">if</span> ( <span class="keyword">typeof</span> source[ k ] === <span class="string">'object'</span> ) &#123;</span><br><span class="line">            target[ k ] = deepCopy( source[ k ] )</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            target[ k ] = source[ k ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Object-assign循环递归"><a href="#Object-assign循环递归" class="headerlink" title="Object.assign循环递归"></a>Object.assign循环递归</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params"> source </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, target)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> source)&#123;</span><br><span class="line">        target[key] = deepCopy(source[key])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="开挂法"><a href="#开挂法" class="headerlink" title="开挂法"></a>开挂法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> copy = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj));</span><br></pre></td></tr></table></figure>
+<p>将对象转化为<code>json</code>字符串再转换为<code>json</code>对象。<strong>但是有两个弊端：</strong></p>
+<ul>
+<li>若你的对象里有函数，那你这函数没法被拷贝下来</li>
+<li>无法拷贝<code>obj</code>原型链上的属性和方法。</li>
+</ul>
+<h3 id="刨根问底"><a href="#刨根问底" class="headerlink" title="刨根问底"></a>刨根问底</h3><h4 id="深浅拷贝——堆和栈的区别"><a href="#深浅拷贝——堆和栈的区别" class="headerlink" title="深浅拷贝——堆和栈的区别"></a>深浅拷贝——堆和栈的区别</h4><p>身前拷贝的主要区别还是内存中的存储类型不同。</p>
+<blockquote>
+<p><strong>基本类型</strong>（<code>undefined</code>、<code>boolean</code>、<code>number</code>、<code>string</code>、<code>null</code>）<strong>存放在栈中</strong></p>
+<p><strong>引用类型</strong>（<code>object</code>、<code>Array</code>、<code>function</code>）则<strong>存放在堆中</strong></p>
+</blockquote>
+<p>为什么说这个呢？咱们细细道来</p>
+<h5 id="基本数据类型不可变"><a href="#基本数据类型不可变" class="headerlink" title="基本数据类型不可变"></a>基本数据类型不可变</h5><p><strong>所有的基本数据类型的值都不可更改的</strong>：任何方法都无法改变一个原始值。</p>
+<p>可能有的Boy会问：我这么操作不也就改了吗</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">12</span>;</span><br><span class="line">num = <span class="number">13</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num)		<span class="comment">// 13</span></span><br></pre></td></tr></table></figure>
+<p>可是事实上这是对基本类型的重新赋值，并不算更改。</p>
+<p><strong>基于以上，引用类型的变量实际上是一个存放在栈内存的指针，指向堆内存中的地址。</strong></p>
+<blockquote>
+<p>另外，基本类型的值比较是值的比较</p>
+<p>引用类型的值比较是引用地址的比较（即使其中的属性、各索引元素完全相等亦不相等。只有引用基于同一个基对象时才算相等）</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/我所了解的跨域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/20/我所了解的跨域/" class="post-title-link" itemprop="url">我所了解的跨域</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-20 02:30:29" itemprop="dateCreated datePublished" datetime="2019-03-20T02:30:29+08:00">2019-03-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-22 14:40:40" itemprop="dateModified" datetime="2019-03-22T14:40:40+08:00">2019-03-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h3><p>由于<strong>浏览器的同源策略</strong>限制，<del>导致了我们无法跨域获取数据</del>。呸，是获取数据之后浏览器出于安全考虑将信息拦截。</p>
+<p>那么什么是同源策略？</p>
+<blockquote>
+<p>同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。这是一个用于隔离潜在恶意文件的重要安全机制。</p>
+</blockquote>
+<h4 id="同源策略的用处"><a href="#同源策略的用处" class="headerlink" title="同源策略的用处"></a>同源策略的用处</h4><h5 id="接口请求"><a href="#接口请求" class="headerlink" title="接口请求"></a>接口请求</h5><p>由于服务端<code>Server</code>会给登陆过的你发送一个<code>cookie</code>用以身份验证，以保证你一段时间内不需要每次都进行重复的登陆。可是若无同源策略的限制，那么当你打开其他网站时，他们亦可以通过你的主机向给你发送<code>cookie</code>的网站（咱们假装他叫<code>A</code>）服务端发送请求。</p>
+<p>之后如你所想，他们也会得到一个<code>cookie</code>。这东西相当于是别人拿到了你的身份证一样而你却完全不知情。如此一来，若是<code>A</code>网站是一些敏感的信息网站甚至是银行的网站，那么发生什么事情咱都不敢想。</p>
+<p>这是典型的<code>CSRF</code>攻击。</p>
+<blockquote>
+<p><code>CSRF</code>：<code>Cross Site Request Forgy</code>——跨站请求伪造。</p>
+<p>在其他网站对目标网站的请求是在管理员不知情的情况下完成的</p>
+</blockquote>
+<p>所以在同源策略限制的条件之下，我们至少可以防止一些低端的<code>CSRF</code>，不至于让<code>cookie</code>这么轻易的暴露在其他不明网站的攻击下</p>
+<h5 id="DOM查询"><a href="#DOM查询" class="headerlink" title="DOM查询"></a>DOM查询</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HTML</span></span><br><span class="line">&lt;iframe name=<span class="string">"yinhang"</span> src=<span class="string">"www.yinhang.com"</span>&gt;&lt;/iframe&gt;</span><br><span class="line"><span class="comment">// JS</span></span><br><span class="line"><span class="comment">// 由于没有同源策略的限制，钓鱼网站可以直接拿到别的网站的Dom</span></span><br><span class="line"><span class="keyword">const</span> iframe = <span class="built_in">window</span>.frames[<span class="string">'yinhang'</span>]</span><br><span class="line"><span class="keyword">const</span> node = iframe.document.getElementById(<span class="string">'你输入账号密码的Input'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`拿到了这个<span class="subst">$&#123;node&#125;</span>，我还拿不到你刚刚输入的账号密码吗`</span>)</span><br></pre></td></tr></table></figure>
+<p>若无同源策略限制，那么攻击者可以轻易的获取其他网站的DOM，并将其存至自己的<code>iframe</code>之中掩人耳目，借此盗取你的敏感信息。</p>
+<h4 id="怎么着才算跨域？"><a href="#怎么着才算跨域？" class="headerlink" title="怎么着才算跨域？"></a>怎么着才算跨域？</h4><p><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avuvexpij30o805smyu.jpg" alt="域名的组成"></p>
+<p><strong>同源策略是指“协议”、“域名”、“端口”三者相同。即使两个不同的域名指向同一个<code>ip</code>地址亦非同源</strong></p>
+<p>咱们可以通过这张图做个例子</p>
+<p><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avvq3n5zj30mz0mrmze.jpg" alt="在这里插入图片描述"></p>
+<h4 id="这些跨域咱也没办法"><a href="#这些跨域咱也没办法" class="headerlink" title="这些跨域咱也没办法"></a>这些跨域咱也没办法</h4><blockquote>
+<ol>
+<li><p>协议和端口不同那咱们再咋操作也没办法</p>
+</li>
+<li><p>即使ip相同，你端口、协议和域名不匹配照样不行</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="那咋办"><a href="#那咋办" class="headerlink" title="那咋办"></a>那咋办</h3><h4 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h4><p>由于<code>&lt;script&gt;</code>标签不受跨域限制，所以我们可以得到从其他来源动态产生的<code>JSON</code>数据。</p>
+<p>但是！！！！！<strong>JSONP请求一定需要对方的服务器支持！！！！！！</strong></p>
+<h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><ul>
+<li><p>声明一个回调函数，其函数名(如show)当做参数值，要传递给跨域请求数据的服务器，函数形参为要获取目标数据(服务器返回的data)。</p>
+</li>
+<li><p>创建一个<code>&lt;script&gt;</code>标签，把那个跨域的API数据接口地址，赋值给script的<code>src</code>，还要在这个地址中向服务器传递该函数名（可以通过问号传参:<code>?callback=show</code>）。</p>
+</li>
+<li><p>服务器接收到请求后，需要进行特殊的处理：把传递进来的函数名和它需要给你的数据拼接成一个字符串,例如：传递进去的函数名是<code>show</code>，它准备好的数据是<code>show(&#39;我不爱你&#39;)</code>。</p>
+</li>
+<li><p>最后服务器把准备的数据通过HTTP协议返回给客户端，客户端再调用执行之前声明的回调函数（<code>show</code>），对返回的数据进行操作。</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Client</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonp</span>(<span class="params">&#123; url, params, callback &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>)</span><br><span class="line">    <span class="built_in">window</span>[callback] = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">      resolve(data)</span><br><span class="line">      <span class="built_in">document</span>.body.removeChild(script)</span><br><span class="line">    &#125;</span><br><span class="line">    params = &#123; ...params, callback &#125; <span class="comment">// wd=b&amp;callback=show</span></span><br><span class="line">    <span class="keyword">let</span> arrs = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> params) &#123;</span><br><span class="line">      arrs.push(<span class="string">`<span class="subst">$&#123;key&#125;</span>=<span class="subst">$&#123;params[key]&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    script.src = <span class="string">`<span class="subst">$&#123;url&#125;</span>?<span class="subst">$&#123;arrs.join(<span class="string">'&amp;'</span>)&#125;</span>`</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">jsonp(&#123;</span><br><span class="line">  url: <span class="string">'http://localhost:3000/say'</span>,</span><br><span class="line">  params: &#123; <span class="attr">wd</span>: <span class="string">'Iloveyou'</span> &#125;,</span><br><span class="line">  callback: <span class="string">'show'</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Server</span></span><br><span class="line"><span class="keyword">let</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">let</span> app = express()</span><br><span class="line">app.get(<span class="string">'/say'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> &#123; wd, callback &#125; = req.query</span><br><span class="line">  <span class="built_in">console</span>.log(wd) <span class="comment">// Iloveyou</span></span><br><span class="line">  <span class="built_in">console</span>.log(callback) <span class="comment">// show</span></span><br><span class="line">  res.end(<span class="string">`<span class="subst">$&#123;callback&#125;</span>('我不爱你')`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>兼容性好，可解决主流浏览器的跨域数据访问</p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p>只支持get方式。可能会受到XSS攻击</p>
+<h4 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h4><p>实现<code>CORS</code>的重点在于后端，而前端则像往常一样发送数据即可。但是发送时会出现两种情况：<strong>简单请求</strong>&amp;<strong>复杂请求</strong></p>
+<h5 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h5><p>同时满足以下两大条件即是简单请求</p>
+<blockquote>
+<p>条件1：<strong>使用方法为<code>GET</code>、<code>POST</code>、<code>HEAD</code>之一</strong></p>
+<p>条件2：<strong><code>Content-Type</code>值为<code>text/plain</code>或<code>multipart/form-data</code>或`application/x-www-form-urlencoded</strong>`</p>
+</blockquote>
+<h5 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h5><p>不符合简单请求的就是复杂请求啦</p>
+<p><strong>复杂请求的<code>CORS</code>会在正是通信之前增加一次<code>HTTP</code>查询请求。称为<u>预检</u>。该请求通过<code>option</code>方法来打听服务端是否允许跨域请求</strong></p>
+<h4 id="Node中间代理"><a href="#Node中间代理" class="headerlink" title="Node中间代理"></a>Node中间代理</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> request = <span class="built_in">require</span>(<span class="string">'request'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(express.static(<span class="string">'./public'</span>))</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> url = <span class="string">'http://192.168.1.111:8080'</span> + req.url;</span><br><span class="line">    req.pipe(request(url)).pipe(res);</span><br><span class="line">    process.env.PORT = process.env.PORT || <span class="number">8080</span>;</span><br><span class="line">&#125;);</span><br><span class="line">app.listen(process.env.PORT || <span class="number">8080</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"开始监听"</span> + <span class="string">"......"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>如此就可以完成啦。作为一个中间件转发请求<code>node</code>代理成功地避开了浏览器和服务器之间交互的冲突，将锅甩给了可以无障碍通信的服务器。我们只需要访问本地端口就可以啦。</p>
+<h4 id="nginx反向代理"><a href="#nginx反向代理" class="headerlink" title="nginx反向代理"></a>nginx反向代理</h4><p>使用<code>nginx</code>反向代理实现跨域，是最简单的跨域方式。只需要修改<code>nginx</code>的配置即可解决跨域问题，支持所有浏览器，支持<code>session</code>，不需要修改任何代码，并且不会影响服务器性能。</p>
+<p>实现思路：通过<code>nginx</code>配置一个代理服务器（域名与<code>domain1</code>相同，端口不同）做跳板机，反向代理访问<code>domain2</code>接口，并且可以顺便修改<code>cookie</code>中<code>domain</code>信息，方便当前域<code>cookie</code>写入，实现跨域登录。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// nginx/nginx.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen       <span class="number">81</span>;</span><br><span class="line">    server_name  www.domain1.com;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass   http:<span class="comment">//www.domain2.com:8080;  #反向代理</span></span><br><span class="line">        proxy_cookie_domain www.domain2.com www.domain1.com; #修改cookie里域名</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line"></span><br><span class="line">        # 当用webpack-dev-server等中间件代理接口访问nignx时，此时无浏览器参与，故没有同源限制，下面的跨域配置可不启用</span><br><span class="line">        add_header Access-Control-Allow-Origin http:<span class="comment">//www.domain1.com;  #当前端只跨域不带cookie时，可为*</span></span><br><span class="line">        add_header Access-Control-Allow-Credentials <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后通过命令行<code>nginx -s reload</code>启动<code>nginx</code></p>
+<h4 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h4><p>通过这个咱们可以实现服务端和客户端的双向通信，真正的平等对话。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端页面</span></span><br><span class="line"><span class="keyword">let</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">'ws://localhost:3000'</span>);</span><br><span class="line"></span><br><span class="line">socket.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    socket.send(<span class="string">'你好'</span>);</span><br><span class="line">&#125;</span><br><span class="line">socket.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e.data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// node后端</span></span><br><span class="line"><span class="keyword">let</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">let</span> app = express();</span><br><span class="line"><span class="keyword">let</span> WebSocket = <span class="built_in">require</span>(<span class="string">'ws'</span>);</span><br><span class="line"><span class="keyword">let</span> wss = <span class="keyword">new</span> WebSocket.Server(&#123;<span class="attr">port</span>:<span class="number">3000</span>&#125;);</span><br><span class="line">wss.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">ws</span>) </span>&#123;</span><br><span class="line">  ws.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">    ws.send(<span class="string">'你好'</span>)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="postMessage"><a href="#postMessage" class="headerlink" title="postMessage"></a>postMessage</h4><p><code>window.postMessage()</code>是HTML5的一个接口，专注<strong>实现不同窗口不同页面的跨域通讯。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;button @click=<span class="string">"postMessage"</span>&gt;给http:<span class="comment">//crossDomain.com:9099发消息&lt;/button&gt;</span></span><br><span class="line">    &lt;iframe name=<span class="string">"crossDomainIframe"</span> src=<span class="string">"http://crossdomain.com:9099"</span>&gt;&lt;/iframe&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  mounted () &#123;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, (e) =&gt; &#123;</span><br><span class="line">      <span class="comment">// 这里一定要对来源做校验</span></span><br><span class="line">      <span class="keyword">if</span> (e.origin === <span class="string">'http://crossdomain.com:9099'</span>) &#123;</span><br><span class="line">        <span class="comment">// 来自http://crossdomain.com:9099的结果回复</span></span><br><span class="line">        <span class="built_in">console</span>.log(e.data)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="comment">// 向http://crossdomain.com:9099发消息</span></span><br><span class="line">    postMessage () &#123;</span><br><span class="line">      <span class="keyword">const</span> iframe = <span class="built_in">window</span>.frames[<span class="string">'crossDomainIframe'</span>]</span><br><span class="line">      iframe.postMessage(<span class="string">'我是[http://localhost:9099], 麻烦你查一下你那边有没有id为app的Dom'</span>, <span class="string">'http://crossdomain.com:9099'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    我是http:<span class="comment">//crossdomain.com:9099</span></span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  mounted () &#123;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, (e) =&gt; &#123;</span><br><span class="line">      <span class="comment">// 这里一定要对来源做校验</span></span><br><span class="line">      <span class="keyword">if</span> (e.origin === <span class="string">'http://localhost:9099'</span>) &#123;</span><br><span class="line">        <span class="comment">// http://localhost:9099发来的信息</span></span><br><span class="line">        <span class="built_in">console</span>.log(e.data)</span><br><span class="line">        <span class="comment">// e.source可以是回信的对象，其实就是http://localhost:9099窗口对象(window)的引用</span></span><br><span class="line">        <span class="comment">// e.origin可以作为targetOrigin</span></span><br><span class="line">        e.source.postMessage(<span class="string">`我是[http://crossdomain.com:9099]，我知道了兄弟，这就是你想知道的结果：<span class="subst">$&#123;<span class="built_in">document</span>.getElementById(<span class="string">'app'</span>) ? <span class="string">'有id为app的Dom'</span> : <span class="string">'没有id为app的Dom'</span>&#125;</span>`</span>, e.origin);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="document-domain"><a href="#document-domain" class="headerlink" title="document.domain"></a>document.domain</h4><p>这个咱们得让两个页面同属于一个域下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> a.fullstackjavascript.cn</span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> b.fullstackjavascript.cn</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.html</span></span><br><span class="line">&lt;iframe src=<span class="string">"http://b.fullstackjavascript.cn:4000/b.html"</span> </span><br><span class="line">        frameborder=<span class="string">"0"</span> id=<span class="string">"frame"</span></span><br><span class="line">        onload=<span class="string">"load()"</span></span><br><span class="line">&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.domain = <span class="string">'fullstackjavascript.cn'</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(frame.contentWindow.name);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ b.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  document.domain = 'fullstackjavascript.cn';</span></span><br><span class="line"><span class="regexp">  var name = 'jw';  </span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>访问<code>http://a.fullstackjavascript.cn:3000/a.html</code>发现是可以拿到另一个页面中的值</p>
+</blockquote>
+<h4 id="location-hash"><a href="#location-hash" class="headerlink" title="location.hash"></a>location.hash</h4><p>通过三方域完成</p>
+<p>三个页面hash1,hash2,hash3。hash1和hash2是同域下，hash3在独立域下。</p>
+<p>我们通过hash1页面用<code>iframe</code>引入<code>hash3</code>页面,可以在引入时给<code>hash3</code>页面传递<code>hash</code>值，<code>hash3</code>接到<code>hash</code>值后算出需要返回结果,在创建<code>iframe</code>引入<code>hash2</code>把结果通过<code>hash</code>的方式传递给<code>hash2</code>，<code>hash2</code>和<code>hash1</code>是同域的，<code>hash2</code>可以直接操控<code>hash1</code>的值,此时<code>hash1</code>页面可以监控<code>hash</code>值的变化来获取<code>hash2</code>的数据。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hash1.html</span></span><br><span class="line">&lt;iframe src=<span class="string">"http://a.fullstackjavascript.cn:3000/hash3.html#iloveyou"</span> frameborder=<span class="string">"0"</span>&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">window</span>.onhashchange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(location.hash);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ hash2.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  let hash = location.hash;</span></span><br><span class="line"><span class="regexp">  let data;</span></span><br><span class="line"><span class="regexp">  if(hash === '#iloveyoue')&#123;</span></span><br><span class="line"><span class="regexp">    data = 'idontloveyou'</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">  let frame = document.createElement('iframe');</span></span><br><span class="line">  frame.src = `http://a.fullstackjavascript.cn:3000/hash3.html#$&#123;data&#125;`;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ hash3.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  let hash = location.hash;</span></span><br><span class="line"><span class="regexp">  window.parent.parent.location.hash = hash </span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h4><p>还是有三个页面a,b,c。a和b是同域下的,c自己一个域。a先引用c,c将想表达的内容放到name,属性上之后,a改变引用路径,改成引用b,此时name属性不会被删除,因为a,b是同域的,所以可以直接获取。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.html</span></span><br><span class="line">&lt;iframe src=<span class="string">"http://a.fullstackjavascript.cn:4000/c.html"</span> id=<span class="string">"myFrame"</span> onload=<span class="string">"load()"</span> frameborder=<span class="string">"0"</span>&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">let</span> first = <span class="literal">true</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(first)&#123;</span><br><span class="line">      myFrame.src = <span class="string">'http://b.fullstackjavascript.cn:3000/c.html'</span>;</span><br><span class="line">      first = <span class="literal">false</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">let</span> name = myFrame.contentWindow.name;</span><br><span class="line">      <span class="built_in">console</span>.log(name);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ c.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  window.name = '我爱你'</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -359,14 +826,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-17 21:02:26" itemprop="dateCreated datePublished" datetime="2019-03-17T21:02:26+08:00">2019-03-17</time>
+              <time title="Created: 2019-03-17 21:02:26" itemprop="dateCreated datePublished" datetime="2019-03-17T21:02:26+08:00">2019-03-17</time>
             
 
             
@@ -381,9 +848,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:42:41" itemprop="dateModified" datetime="2019-03-22T14:42:41+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 16:23:25" itemprop="dateModified" datetime="2019-03-22T16:23:25+08:00">2019-03-22</time>
               
             
           </span>
@@ -397,10 +864,10 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a></span>
 
                 
                 
@@ -548,14 +1015,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-17 21:01:32" itemprop="dateCreated datePublished" datetime="2019-03-17T21:01:32+08:00">2019-03-17</time>
+              <time title="Created: 2019-03-17 21:01:32" itemprop="dateCreated datePublished" datetime="2019-03-17T21:01:32+08:00">2019-03-17</time>
             
 
             
@@ -570,9 +1037,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 00:04:03" itemprop="dateModified" datetime="2019-03-22T00:04:03+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 00:04:03" itemprop="dateModified" datetime="2019-03-22T00:04:03+08:00">2019-03-22</time>
               
             
           </span>
@@ -773,14 +1240,14 @@ x: 2
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-17 20:13:53" itemprop="dateCreated datePublished" datetime="2019-03-17T20:13:53+08:00">2019-03-17</time>
+              <time title="Created: 2019-03-17 20:13:53" itemprop="dateCreated datePublished" datetime="2019-03-17T20:13:53+08:00">2019-03-17</time>
             
 
             
@@ -795,9 +1262,9 @@ x: 2
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:42:28" itemprop="dateModified" datetime="2019-03-22T14:42:28+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:42:28" itemprop="dateModified" datetime="2019-03-22T14:42:28+08:00">2019-03-22</time>
               
             
           </span>
@@ -811,7 +1278,7 @@ x: 2
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
@@ -955,14 +1422,14 @@ x: 2
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-17 20:00:50" itemprop="dateCreated datePublished" datetime="2019-03-17T20:00:50+08:00">2019-03-17</time>
+              <time title="Created: 2019-03-17 20:00:50" itemprop="dateCreated datePublished" datetime="2019-03-17T20:00:50+08:00">2019-03-17</time>
             
 
             
@@ -977,9 +1444,9 @@ x: 2
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:39:43" itemprop="dateModified" datetime="2019-03-22T14:39:43+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:39:43" itemprop="dateModified" datetime="2019-03-22T14:39:43+08:00">2019-03-22</time>
               
             
           </span>
@@ -993,7 +1460,7 @@ x: 2
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1134,14 +1601,14 @@ x: 2
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-16 16:13:33" itemprop="dateCreated datePublished" datetime="2019-03-16T16:13:33+08:00">2019-03-16</time>
+              <time title="Created: 2019-03-16 16:13:33" itemprop="dateCreated datePublished" datetime="2019-03-16T16:13:33+08:00">2019-03-16</time>
             
 
             
@@ -1156,9 +1623,9 @@ x: 2
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:43:19" itemprop="dateModified" datetime="2019-03-22T14:43:19+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:43:19" itemprop="dateModified" datetime="2019-03-22T14:43:19+08:00">2019-03-22</time>
               
             
           </span>
@@ -1172,7 +1639,7 @@ x: 2
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
@@ -1347,14 +1814,14 @@ x: 2
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-16 10:05:30" itemprop="dateCreated datePublished" datetime="2019-03-16T10:05:30+08:00">2019-03-16</time>
+              <time title="Created: 2019-03-16 10:05:30" itemprop="dateCreated datePublished" datetime="2019-03-16T10:05:30+08:00">2019-03-16</time>
             
 
             
@@ -1369,9 +1836,9 @@ x: 2
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:43:03" itemprop="dateModified" datetime="2019-03-22T14:43:03+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:43:03" itemprop="dateModified" datetime="2019-03-22T14:43:03+08:00">2019-03-22</time>
               
             
           </span>
@@ -1385,7 +1852,7 @@ x: 2
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
@@ -1582,14 +2049,14 @@ x: 2
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-16 09:30:33" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
+              <time title="Created: 2019-03-16 09:30:33" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
             
 
             
@@ -1604,9 +2071,9 @@ x: 2
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:39:52" itemprop="dateModified" datetime="2019-03-22T14:39:52+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:39:52" itemprop="dateModified" datetime="2019-03-22T14:39:52+08:00">2019-03-22</time>
               
             
           </span>
@@ -1620,7 +2087,7 @@ x: 2
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1807,14 +2274,14 @@ x: 2
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-16 09:25:47" itemprop="dateCreated datePublished" datetime="2019-03-16T09:25:47+08:00">2019-03-16</time>
+              <time title="Created: 2019-03-16 09:25:47" itemprop="dateCreated datePublished" datetime="2019-03-16T09:25:47+08:00">2019-03-16</time>
             
 
             
@@ -1829,9 +2296,9 @@ x: 2
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:41:03" itemprop="dateModified" datetime="2019-03-22T14:41:03+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:41:03" itemprop="dateModified" datetime="2019-03-22T14:41:03+08:00">2019-03-22</time>
               
             
           </span>
@@ -1845,7 +2312,7 @@ x: 2
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1957,410 +2424,11 @@ x: 2
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/鸭子模型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/15/鸭子模型/" class="post-title-link" itemprop="url">鸭子模型？？？</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-15 20:53:48" itemprop="dateCreated datePublished" datetime="2019-03-15T20:53:48+08:00">2019-03-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-22 14:41:58" itemprop="dateModified" datetime="2019-03-22T14:41:58+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近在网上看到一个概念：“鸭子模型”，出于好奇搜一下然后就有了这篇水文，各位看一下图个乐呵就好了</p>
-<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>如果它走起来像鸭子，而且叫起来像鸭子，那么它就是鸭子<br>也就是说，<strong>我们只关注对象行为而不关注对象本身</strong></p>
-<h4 id="推论"><a href="#推论" class="headerlink" title="推论"></a>推论</h4><ul>
-<li><strong>凡是这样签名的方法：object.method(arg1, arg2, …)的方法，都可以采用method.apply(object, [arg1, arg2, …])进行调研。</strong></li>
-<li><strong>array的某些方法（不会修改array状态）可以使用arguments以Array.prototype.method.apply(arguments,[arg1, arg2, …])的方式调用。</strong><br>前者是将array当作arguments（鸭子）<br>后者是将argument当成array（鸭子）</li>
-</ul>
-<p>eg:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>, [<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>]));</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]；</span><br><span class="line"><span class="built_in">Array</span>.prototype.push.apply(arr, [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(arr);</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="built_in">Array</span>.prototype.slice.apply(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(arr);</span><br><span class="line">&#125;)(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>利用鸭子类型的思想，我们不必借助超类型的帮助，就能轻松地在动态类型语言中实现一个原则：“面向接口编程，而不是面向实现编程”。例如，一个对象若有push和pop方法，并且这些方法提供了正确的实现，它就可以被当作栈来使用。一个对象如果有length属性，也可以依照下标来存取属性（最好还要拥有slice和splice等方法），这个对象就可以被当作数组来使用。</p>
-</li>
-<li><p>在静态类型语言中，要实现“面向接口编程”并不是一件容易的事情，往往要通过抽象类或者接口等将对象进行向上转型。当对象的真正类型被隐藏在它的超类型身后，这些对象才能在类型检查系统的“监视”之下互相被替换使用。只有当对象能够被互相替换使用，才能体现出对象多态性的价值。</p>
-</li>
-<li><p>我们将伪数组转换为数组的方法也是鸭子类型：</p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = <span class="built_in">Array</span>.prototype.slice.apply(&#123;<span class="number">0</span>:<span class="number">1</span>,<span class="number">1</span>:<span class="number">2</span>,<span class="number">2</span>:<span class="number">3</span>,<span class="attr">length</span>:<span class="number">3</span>&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(arr));    <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<p><strong>鸭子类型和隐式接口有那么一点点类似，它扩大了多态的概念。</strong></p>
-<p>Ps:<strong>上面的内容都是我抄大佬的！</strong><br>原文地址链接在这里<a href="http://www.cnblogs.com/happyframework/p/3239790.html" target="_blank" rel="noopener">Javascript：由 “鸭子类型” 得出来的推论</a>，看完记得给大佬点个赞。<br>典故在这里：<a href="http://www.cnblogs.com/zhangceblogs/p/9400544.html" target="_blank" rel="noopener">鸭子模式的由来</a></p>
-<p>最近UML课程在学射击模式好像也谈到了，等我学会了再更一点吧~</p>
-<hr>
-<p>今天看到了零一篇博客，正好可以用来例证我们最开始所说的“<strong>如果它走起来像鸭子并且叫声像鸭子那么它就是鸭子</strong>”的霸王理论。话不多说上代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> duck = &#123;    <span class="comment">//鸭子</span></span><br><span class="line">    duckSinging:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"嘎"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;；</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> chicken = &#123;    <span class="comment">//鸡</span></span><br><span class="line">    duckSinging:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"嘎"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> choir = [];    <span class="comment">//合唱团</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> joinChoir = <span class="function"><span class="keyword">function</span>(<span class="params">animal</span>)</span>&#123;    <span class="comment">//加入合唱团的方法</span></span><br><span class="line">    <span class="keyword">if</span>(animal &amp;&amp; animal.duckSinging() === <span class="string">"嘎"</span>)&#123;</span><br><span class="line">        choir.push(animal);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"恭喜加入合唱团"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>;i&lt;<span class="number">999</span>;i++)&#123;    <span class="comment">//加入999只鸭子</span></span><br><span class="line">    joinChoir(duck);</span><br><span class="line">&#125;</span><br><span class="line">joinChoir(chicken);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(choir.length);    <span class="comment">//1000    现在凑齐了1000只可以嘎嘎叫的动物，不用管它是不是鸭子</span></span><br></pre></td></tr></table></figure>
-<p>说实话我还是改了一部分的，原博主的判断条件有点问题，我也给他评论了，暂时就这样吧</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/JavaScript中的map和reduce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/15/JavaScript中的map和reduce/" class="post-title-link" itemprop="url">JavaScript中的map和reduce</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-15 20:27:00" itemprop="dateCreated datePublished" datetime="2019-03-15T20:27:00+08:00">2019-03-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-22 14:39:28" itemprop="dateModified" datetime="2019-03-22T14:39:28+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>以前看js都是云里雾里的，后来学了一些Java感觉稍微能看懂一些，恰逢又回头看到了以前关于js在有道云上的一些笔记，决定做一个关于map和reduce的分析</p>
-<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><ul>
-<li>map一般来说针对数组进行操作。但是进行了一个很好的封装使得读者可以清晰的看到被操作数组，以及对数组内每个元素进行操作的函数。我们先看一个小例子：</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*1*/</span></span><br><span class="line">arr.map(<span class="function"><span class="keyword">function</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;); <span class="comment">// [1, 4, 9, 16, 25, 36, 49, 64, 81]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*2*/</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>];</span><br><span class="line"><span class="keyword">var</span> result = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;arr.length; i++) &#123;</span><br><span class="line">    result.push(f(arr[i]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>诺，二者的原理其实并无两样，只不过map将函数进行了抽象化使得读者更加清晰的将结果视为：把f(x)作用在Array的每一个元素并把结果生成一个新的Array</p>
-<p><strong>划重点！！！！！</strong><br><strong>我等初学者可以勉强将map视为一个for循环，而其中的方法（函数）则代表了我们要对数组中每个元素进行处理所用到的方法（函数）</strong></p>
-<p>最后放一个将字符串转化为整数的小方法给大家看一下啦</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>];</span><br><span class="line"><span class="keyword">var</span> r;</span><br><span class="line">r = arr.map(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;<span class="keyword">return</span> <span class="built_in">parseInt</span>(x);&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h2><p>不知道在座的各位有没有学过数据结构，记不记得里边的广义表章节。</p>
-<p>总之其中有一个广义表的存储方法名为<strong>头尾链表存储结构</strong>。叫的花哨其实没那么难懂。即使将广义表分为头尾两部分头部为值，尾部为指针指向后边的元素。后边的元素继续细分为头尾，以此类推<br><img src="https://pic.superbed.cn/item/5c93be583a213b0417da4761" alt="这里写图片描述"></p>
-<p><img src="https://pic.superbed.cn/item/5c93be8e3a213b0417da4949" alt="这里写图片描述"></p>
-<p>对没错就这么个玩意儿~为了省事我直接把PPT截了个图，大伙儿凑合着看啊</p>
-<ul>
-<li><strong>那么这东西跟reduce有啥关系？</strong><ul>
-<li>reduce规定<strong>必须接受两个参数</strong>。reduce()<strong>把结果继续和序列的下一个元素做累计计算</strong></li>
-<li>效果就这样：<strong>[x1, x2, x3, x4].reduce(f) = f(f(f(x1, x2), x3), x4);</strong>—-像不像上面说到的广义表头尾链表存储结构倒过来（当然你得把最终的一个元素改成两个）？</li>
-</ul>
-</li>
-</ul>
-<p>有啥用？先来个简单的。对数组进行求和</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>];</span><br><span class="line">arr.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;); 	<span class="comment">// 25</span></span><br></pre></td></tr></table></figure>
-<p>看到没，效果是不是让你们想起了递归操作？没错。我只考虑前两个元素相加，后边的咱先放下不管。如此如此……就成了嘛~</p>
-<p>不光如此，reduce还能将数组中的一组数转化为一个大整数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>];</span><br><span class="line">arr.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * <span class="number">10</span> + y;</span><br><span class="line">&#125;); 		<span class="comment">// 13579</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>最后放一个不使用parseInt()利用map和reduce将字符串数组转化为整数的例子<ul>
-<li>Tips：想办法把一个字符串13579先变成Array——[1, 3, 5, 7, 9]，再利用reduce()就可以写出一个把字符串转换为Number的函数。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">string2int</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//split()分割字符串返回的是一个数组；</span></span><br><span class="line">    <span class="keyword">var</span> arr = s.split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">return</span> arr.map(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">          <span class="comment">//js的弱类型转换，‘-’会将字符串转变为数字，</span></span><br><span class="line">          <span class="comment">//x (乘) 1也是一个道理，但这样为何不直接return s (乘) 1呢;</span></span><br><span class="line">          <span class="keyword">return</span> x<span class="number">-0</span>;</span><br><span class="line">    &#125;).reduce(<span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">       <span class="keyword">return</span> x*<span class="number">10</span>+y;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Vorherige Seite"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2402,8 +2470,8 @@ x: 2
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -2427,8 +2495,10 @@ x: 2
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -2483,7 +2553,7 @@ x: 2
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -2491,7 +2561,7 @@ x: 2
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

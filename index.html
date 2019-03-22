@@ -190,7 +190,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -218,7 +218,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -305,6 +305,425 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/Vuex初体验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/22/Vuex初体验/" class="post-title-link" itemprop="url">Vuex初体验</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-22 16:27:19 / Modified: 16:29:52" itemprop="dateCreated datePublished" datetime="2019-03-22T16:27:19+08:00">2019-03-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="全局引入"><a href="#全局引入" class="headerlink" title="全局引入"></a>全局引入</h3><p><code>main.js</code>中引入<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex</span></span><br><span class="line"><span class="string">Vue.use(Vuex)</span></span><br><span class="line"><span class="string">new Vue(&#123;</span></span><br><span class="line">	el: '#app',</span><br><span class="line">	router,</span><br><span class="line">	components:&#123;...&#125;,</span><br><span class="line">	template: <span class="string">'...'</span>,</span><br><span class="line">	store</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><ul>
+<li>state 用来数据共享数据存储</li>
+<li>mutation 用来注册改变数据状态</li>
+<li>getters 用来对共享数据进行过滤操作</li>
+<li>action 解决异步改变共享数据<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">	<span class="comment">// 全局状态</span></span><br><span class="line">	state: &#123;</span><br><span class="line">		count: <span class="number">0</span></span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 修改state的必要途径</span></span><br><span class="line">	mutations: &#123;</span><br><span class="line">		increment(state, n) &#123;</span><br><span class="line">			<span class="comment">// 传入参数state是对state部分的引用</span></span><br><span class="line">			state.count += n</span><br><span class="line">		&#125;,</span><br><span class="line">		decrement(state, n) &#123;</span><br><span class="line">			state.count -= n</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 只读属性，存放过滤方法</span></span><br><span class="line">	getters: &#123;</span><br><span class="line">		myCount(state)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="string">`current count is <span class="subst">$&#123;state.count&#125;</span>`</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 存放业务逻辑</span></span><br><span class="line">	actions: &#123;</span><br><span class="line">		myIncrease(context, obj)&#123;</span><br><span class="line">			context.commit(<span class="string">'increment'</span>, <span class="number">4</span>)</span><br><span class="line">		&#125;,</span><br><span class="line">		myDecrease(context)&#123;</span><br><span class="line">			context.commit(<span class="string">'decrement'</span>, <span class="number">2</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>不过大家注意一点，<code>actions</code>中我们引用<code>mutations</code>中的方法时用到了 <strong><code>commit</code>，它就像Vue中的<code>$emit</code>一样，用于发布任务，而<code>mutations</code>中的方法则监听调用自己的地方，时刻准备为其服务</strong></p>
+<h3 id="组件引入"><a href="#组件引入" class="headerlink" title="组件引入"></a>组件引入</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imoprt &#123; mapState &#125; <span class="keyword">from</span> <span class="string">'vuex</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>我们通过<code>computed</code>属性进行实时监测（本例中使用解构赋值）。如此就可以在页面中使用<code>state</code>中的值了。</li>
+<li>而方法的传递则需要我们进行<code>commit</code>调用。当然使用<code>this.methodName()</code>调用亦可<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"increase"</span>&gt;</span>Add<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"decrease"</span>&gt;</span>Minus<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123;mapMutations, mapActions, mapState, mapGetter&#125;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span>&#123;</span></span><br><span class="line"><span class="undefined">	......</span></span><br><span class="line"><span class="undefined">	computed: &#123;</span></span><br><span class="line"><span class="javascript">		...mapState([<span class="string">'count'</span>])</span></span><br><span class="line"><span class="undefined">	&#125;,</span></span><br><span class="line"><span class="undefined">	methods: &#123;</span></span><br><span class="line"><span class="javascript">		<span class="comment">// 声明引入actions和mutations中的方法</span></span></span><br><span class="line"><span class="javascript">		...mapMutations([<span class="string">'increment'</span>, <span class="string">'decrement'</span>]),</span></span><br><span class="line"><span class="javascript">		...mapActions([<span class="string">'myIncrease'</span>, <span class="string">'myDecrease'</span>]),</span></span><br><span class="line"><span class="undefined">	</span></span><br><span class="line"><span class="javascript">		<span class="keyword">async</span> increse()&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">const</span> products = <span class="keyword">await</span> </span></span><br><span class="line"><span class="javascript">				<span class="keyword">this</span>.$store.commit(<span class="string">'increment'</span>, <span class="number">1</span>)</span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.increment(1)		亦可</span></span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.$store.state.count++</span></span></span><br><span class="line"><span class="undefined">		</span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.myIncrease(&#123;id: 123&#125;)</span></span></span><br><span class="line"><span class="undefined">		&#125;,</span></span><br><span class="line"><span class="javascript">		<span class="keyword">async</span> decrese()&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">const</span> products = <span class="keyword">await</span> </span></span><br><span class="line"><span class="javascript">				<span class="keyword">this</span>.$store.commit(<span class="string">'decrement'</span>, <span class="number">2</span>)</span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.decrement(2)		亦可</span></span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.$store.state.count--</span></span></span><br><span class="line"><span class="undefined">	</span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.myDecrease()</span></span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面列举的三种方法传递的方法中，我们发现通过<code>this.$store.state.count++</code>方式调用时无法令<code>Detected Vue</code>记录，因为他跳过了<code>mutation</code>直接对<code>state</code>数据进行操作，自然无法进行记录</p>
+<ul>
+<li>如果你仅仅是想完成count的加减，我推荐你使用<code>action</code>。毕竟是逻辑代码，更方便读者理解。真正的使用方式比如通过此方式从后台调用数据<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">actions: &#123;</span><br><span class="line">	<span class="keyword">async</span> myIncrease(context) &#123;</span><br><span class="line">		context.commit(<span class="string">'increment'</span>)	<span class="comment">// 调用mutations中的increment方法</span></span><br><span class="line">		<span class="keyword">const</span> products = <span class="keyword">await</span> axios.get(......)</span><br><span class="line">		<span class="keyword">return</span> products</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// component</span></span><br><span class="line">methods: &#123;</span><br><span class="line">	...mapActions([<span class="string">'myIncrease'</span>, <span class="string">'myDecrease'</span>]),</span><br><span class="line">	<span class="keyword">async</span> increase()&#123;</span><br><span class="line">		<span class="keyword">const</span> products = <span class="keyword">await</span> <span class="keyword">this</span>.myIncrease();</span><br><span class="line">		<span class="comment">// do Some Thing</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>我们将Vuex的实例放在<code>main.js</code>中显然不是明智之举，所以我们不妨新建一个<code>store</code>文件夹，将其主题存至<code>store</code>中的<code>index.js</code>中（如此一来我们只需要引入<code>./store/index</code>即可完成）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">	<span class="comment">// 全局状态</span></span><br><span class="line">	state: &#123;</span><br><span class="line">		count: <span class="number">0</span></span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 修改state的必要途径</span></span><br><span class="line">	mutations: &#123;</span><br><span class="line">		increment(state, n) &#123;</span><br><span class="line">			<span class="comment">// 传入参数state是对state部分的引用</span></span><br><span class="line">			state.count += n</span><br><span class="line">		&#125;,</span><br><span class="line">		decrement(state, n) &#123;</span><br><span class="line">			state.count -= n</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 只读属性，存放过滤方法</span></span><br><span class="line">	getters: &#123;</span><br><span class="line">		myCount(state)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="string">`current count is <span class="subst">$&#123;state.count&#125;</span>`</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 存放业务逻辑</span></span><br><span class="line">	actions: &#123;</span><br><span class="line">		myIncrease(context, obj)&#123;</span><br><span class="line">			context.commit(<span class="string">'increment'</span>, <span class="number">4</span>)</span><br><span class="line">		&#125;,</span><br><span class="line">		myDecrease(context)&#123;</span><br><span class="line">			context.commit(<span class="string">'decrement'</span>, <span class="number">2</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store/index'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	el: <span class="string">'#app'</span>,</span><br><span class="line">	router,</span><br><span class="line">	components: &#123;....&#125;,</span><br><span class="line">	template: <span class="string">'....'</span>,</span><br><span class="line">	store</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>之后记得在<code>main.js</code>之中引用哦<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> module1 = &#123;</span><br><span class="line">	state: &#123;....&#125;,</span><br><span class="line">	mutations: &#123;....&#125;,</span><br><span class="line">	....</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> module1</span><br></pre></td></tr></table></figure></p>
+<p>同时，如果你的业务分为多种模块，那么也可以在<code>store</code>文件夹下建立相应的js文件，将其暴露出来即可<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Module1 <span class="keyword">from</span> <span class="string">'./module1'</span></span><br><span class="line"><span class="keyword">import</span> Module2 <span class="keyword">from</span> <span class="string">'./module2'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">	modules:&#123;</span><br><span class="line">		Module1, Module2</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure></p>
+<p>而同时，在组建之中我们需要用隐射调用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">computed:&#123;</span><br><span class="line">	...mapState(&#123;</span><br><span class="line">		count: <span class="function"><span class="params">state</span>=&gt;</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> state.app.count</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg" alt="在这里插入图片描述"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/Vue中的$emit、$on和v-on/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/22/Vue中的$emit、$on和v-on/" class="post-title-link" itemprop="url">Vue中的$emit、$on和v-on</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-22 16:25:28 / Modified: 16:30:21" itemprop="dateCreated datePublished" datetime="2019-03-22T16:25:28+08:00">2019-03-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>由于本人才疏学浅本文章参考了诸多大神的想法，会在文末贴上原文地址</p>
+<h3 id="on-amp-amp-emit"><a href="#on-amp-amp-emit" class="headerlink" title="$on &amp;&amp; $ emit"></a>$on &amp;&amp; $ emit</h3><blockquote>
+<p><code>$emit(eventName, [...args])</code>：触发事件<br><code>$on(eventName, callBack)</code>：监听事件</p>
+</blockquote>
+<p>如果把<code>Vue</code>看成一个家庭（相当于一个单独的<code>components</code>)，女主人一直在家里指派<code>($emit)</code>男人做事，而男人则一直监听<code>($on)</code>着女士的指派<code>($emit)里eventName</code>所触发的事件消息，一旦 <code>$emit</code> 事件一触发，<code>$on</code> 则监听到 <code>$emit</code> 所派发的事件，派发出的命令和执行派执命令所要做的事都是一一对应的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &lt;p @click=<span class="string">'emit'</span>&gt;&#123;&#123;msg&#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;p @click='emitOther'&gt;&#123;&#123;msg2&#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'demo'</span>,</span><br><span class="line">  data () &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">         msg : <span class="string">'点击后女人派发洗东西事件'</span>,</span><br><span class="line">         msg2 : <span class="string">'点击后女人派发开车事件'</span>,</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created () &#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">this</span>.$on([<span class="string">'wash_Goods'</span>,<span class="string">'drive_Car'</span>],(arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'事真多'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">this</span>.$on(<span class="string">'wash_Goods'</span>,(arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(arg)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">this</span>.$on(<span class="string">'drive_Car'</span>,(...arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(BMW,Ferrari)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods : &#123;</span><br><span class="line">      emit () &#123;</span><br><span class="line">         <span class="keyword">this</span>.$emit(<span class="string">'wash_Goods'</span>,<span class="string">'fish'</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      emitOther () &#123;</span><br><span class="line">         <span class="keyword">this</span>.$emit(<span class="string">'drive_Car'</span>,[<span class="string">'BMW'</span>,<span class="string">'Ferrari'</span>])</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如本例所示，我们可以将要监听的事件统一写到一个数组中，方便我们做一个类似于过滤器的统一处理。比如例子里的<code>this.$on([&#39;wash_Goods&#39;,&#39;drive_Car&#39;],(arg)=&gt; { console.log(&#39;事真多&#39;)})</code>就类似于过滤器之类的机制，可以对“麻烦的女人”指派（<code>emit</code>）的事件进行一个统一的监听（<code>on</code>）并处理（<code>****真麻烦！</code>）。</p>
+<p>我们平时在开源库里使用的框架中都有无限下拉组件，那么我们一起跟随大神“混元霹雳手”的视角去看一下这类组件的实现<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;slot name=<span class="string">"list"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-donetip"</span> v-show=<span class="string">"!isLoading &amp;&amp; isDone"</span>&gt;</span><br><span class="line">            &lt;slot&gt;没有更多数据了&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-loading"</span> v-show=<span class="string">"isLoading"</span>&gt;</span><br><span class="line">            &lt;slot&gt;加载中&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/babel"</span>&gt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                isLoading: <span class="literal">false</span>,</span><br><span class="line">                isDone: <span class="literal">false</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        props: &#123;</span><br><span class="line">            onInfinite: &#123;</span><br><span class="line">                type: <span class="built_in">Function</span>,</span><br><span class="line">                required: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            distance : &#123;</span><br><span class="line">                type : <span class="built_in">Number</span>,</span><br><span class="line">                <span class="keyword">default</span>：<span class="number">100</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            init() &#123;</span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'loadedDone'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">this</span>.isDone = <span class="literal">true</span>;</span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'finishLoad'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;,</span><br><span class="line">            scrollHandler() &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.isLoading || <span class="keyword">this</span>.isDone) <span class="keyword">return</span>;</span><br><span class="line">                <span class="keyword">let</span> baseHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.offsetHeight : <span class="keyword">this</span>.scrollview.offsetHeight</span><br><span class="line">                <span class="keyword">let</span> moreHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollHeight : <span class="keyword">this</span>.scrollview.scrollHeight;</span><br><span class="line">                <span class="keyword">let</span> scrollTop = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollTop : <span class="keyword">this</span>.scrollview.scrollTop</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (baseHeight + scrollTop + <span class="keyword">this</span>.distance &gt; moreHeight) &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">this</span>.onInfinite()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted() &#123;</span><br><span class="line">            <span class="keyword">this</span>.scrollview = <span class="built_in">window</span></span><br><span class="line">            <span class="keyword">this</span>.scrollview.addEventListener(<span class="string">'scroll'</span>, <span class="keyword">this</span>.scrollHandler, <span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">this</span>.$nextTick(<span class="keyword">this</span>.init);</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>对下拉组件加载加更的组件进行了一个简单的封装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data 参数解释：</span><br></pre></td></tr></table></figure>
+<ul>
+<li>isLoading <code>false 代表正在执行下拉加载获取更多数据的标识</code>，<code>true代表数据加载完毕</code></li>
+<li>isDone <code>false 代表数据没有全完加载完毕</code>，<code>true 代表数据已经全部加载完毕</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">props 参数解释：</span><br></pre></td></tr></table></figure>
+<ul>
+<li>onInfinite <code>父组件向子组件传入当滚动到底部时执行加载数据的函数</code></li>
+<li>distance <code>距离滚动到底部的设定值</code></li>
+</ul>
+<h4 id="从此组件中，我们进行每一步的分析"><a href="#从此组件中，我们进行每一步的分析" class="headerlink" title="从此组件中，我们进行每一步的分析"></a>从此组件中，我们进行每一步的分析</h4><ul>
+<li><p>在<code>mounted</code>的时候，对<code>window</code>对像进行了一个滚动监听，监听的函数为<code>scrollHandler</code></p>
+<ul>
+<li><p>当<code>isLoading，isDone</code>任何一个为true时则退出 </p>
+<ul>
+<li><code>isloading</code>为<code>true</code>时防止多次同样加载，必须等待加载完毕</li>
+<li><code>isDone</code>为<code>true</code>时说明所有数据已经加载完成，没有必要再执行<code>scrollHandler</code></li>
+</ul>
+</li>
+<li><p>同时在$nextTick中进行了初始化监听 </p>
+<ul>
+<li><code>loadedDone</code> 一旦组件实例$emit(‘loadedDone’)事件时，执行回调，放开加载权限</li>
+<li><code>finishLoad</code> 一旦组件实例$emit(‘finishLoad’)事件时，执行回调，放开加载权限</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>再看看 scrollHandler函数里发生了什么 </p>
+<ul>
+<li><p><code>if (this.isLoading || this.isDone) return;</code> 一旦一者为true，则退出，原因在mounted已经叙述过了</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (baseHeight + scrollTop + this.distance &gt; moreHeight)</span><br></pre></td></tr></table></figure>
+<p> 当在window对象上监听scroll事件时，当滚动到底部的时候执行 </p>
+<ul>
+<li><code>this.isLoading = true;</code>防止重复监听</li>
+<li><code>this.onInfinite()</code>执行加载数据函数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="父组件中调用infinite-scroll组件"><a href="#父组件中调用infinite-scroll组件" class="headerlink" title="父组件中调用infinite-scroll组件"></a>父组件中调用<code>infinite-scroll</code>组件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">          &lt;infinite-scroll :on-infinite=<span class="string">'loadData'</span> ref=<span class="string">'infinite'</span>&gt;</span><br><span class="line">               &lt;ul slot=<span class="string">'list'</span>&gt;</span><br><span class="line">                  &lt;li v-<span class="keyword">for</span>=<span class="string">'n in Number'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">               &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">          &lt;/i</span>nfinite-scroll&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/babel"</span>&gt;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'InfiniteScroll'</span> <span class="keyword">from</span> <span class="string">'.......'</span> <span class="comment">//引入infinitescroll.vue文件</span></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">         data () &#123;</span><br><span class="line">           <span class="keyword">return</span> &#123;</span><br><span class="line">              <span class="built_in">Number</span> : <span class="number">10</span></span><br><span class="line">           &#125;</span><br><span class="line">         &#125;,</span><br><span class="line">         methods : &#123;</span><br><span class="line">           loadData () &#123;</span><br><span class="line">             setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.Number = <span class="number">20</span></span><br><span class="line">                <span class="keyword">this</span>.$refs.infinite.$emit(<span class="string">'loadDone'</span>)</span><br><span class="line">             &#125;,<span class="number">1000</span>) </span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当滑到底部的时候，infinite-scroll 组件组件内部会执行传入的<code>:on-infinite=&#39;loadData&#39;</code>函数 同时在内部也会把 Loading 设置为 true，防止重复执行。</p>
+<p>在这里用<code>this.$refs.infinite</code>拿到<code>infinite-scroll</code>组件的实例，同时触发事件之前在组件中 <code>$on</code> 已经监听着的事件，在一秒后进行改变数据，同时发出<code>loadDone</code>事情，告诉组件内部去执行<code>loadDone</code>的监听回调，数据已经全部加载完毕，设置<code>this.isDone = true；</code> 一旦<code>isDone</code>或者<code>isLoading</code>一者为<code>true</code>，则一直保持<code>return退出状态</code>。</p>
+<p><strong>$emit 和 $on 必须都在实例上进行触发和监听。</strong></p>
+<h2 id="由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！"><a href="#由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！" class="headerlink" title="由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！"></a>由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！</h2><h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h3><blockquote>
+<p><code>v-on</code>作用在引入子组件后的父组件模板，用来监听子组件释放的事件</p>
+<p><code>$on</code>和<code>$emit</code>则只能作用在事件名一一对应的<strong>同一个组件实例中</strong></p>
+</blockquote>
+<p>父组件中的<code>“v-on:”</code>之后绑定事件名+回调函数<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">demo</span> <span class="attr">v-on:eventName</span>=<span class="string">"callBack"</span>&gt;</span><span class="tag">&lt;/<span class="name">demo</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>而子组件中则通过绑定触发事件的函数来将消息传回至父组件中（以此来触发父组件的回调函数）</p>
+<blockquote>
+<p>个人理解是，所谓的信息传递只不过是事件被触发后进行的某事件名的传递，以告诉父组件此事件被触发，之后父组件则得到此消息（主要是事件名）确定了此事件绑定的回调函数，并对其进行调用<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"emit"</span>&gt;</span>点我给父组件传递消息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">export default &#123;</span><br><span class="line">	name: 'demo',</span><br><span class="line">	methods: &#123;</span><br><span class="line">		emit() &#123;</span><br><span class="line">			this.$emit('eventName')</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>我们举个栗子</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"counter-event-example"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; total &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">v-on:increment</span>=<span class="string">"incrementTotal"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">v-on:increment</span>=<span class="string">"incrementTotal"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">Vue.component(<span class="string">'button-counter'</span>, &#123;</span></span><br><span class="line"><span class="xml">  template: '<span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"incrementCounter"</span>&gt;</span>&#123;&#123; counter &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span>',</span></span><br><span class="line"><span class="javascript">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      counter: 0</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="javascript">    incrementCounter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.counter += <span class="number">1</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.$emit(<span class="string">'increment'</span>)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">&#125;)</span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">  el: <span class="string">'#counter-event-example'</span>,</span></span><br><span class="line"><span class="undefined">  data: &#123;</span></span><br><span class="line"><span class="undefined">    total: 0</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="javascript">    incrementTotal: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.total += <span class="number">1</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如此例所示，在<code>counter-event-example</code>父组件里，声明了两个<code>button-count</code>的实列，<strong>通过 <code>data</code> 用闭包的形式，让两者的数据都是单独享用的</strong>，而且<code>v-on</code> 所监听的 <code>eventName</code> 都是当前自己实列中的 <code>$emit</code> 触发的事件，但是回调都是公用的一个 <code>incrementTotal</code> 函数，因为个实例所触发后都是执行一种操作！<br>PS:</p>
+<ul>
+<li><code>v-on</code>声明在父组件中，你可以理解为一直抱着手机等你女神回消息的你：<code>&lt;waiting v-on:call-repair=&quot;repair&quot;&gt;&lt;/waiting&gt;</code>。</li>
+<li><code>emit</code>则在子组件中，一般通过某些动作触发调用对应函数，然后完成对信息的传递。比如你女神需要你给她修电脑的时候，她会在你俩尘封已久的聊天框上<code>click</code>一下：<code>&lt;div @click=&quot;callRepair&quot;&gt;会修电脑的人&lt;/div&gt;</code>，而她的<code>methods</code>中必定有一个名为<code>call-repair</code>的方法，通过<code>this.$emit()</code>【没错，人家什么东西（参数）都不会给你，只会单纯的派遣任务，让你知道<code>call-repair</code>事件被触发，需要你调用你的<code>repair</code>方法】让你触发<code>repair</code>方法完成操作。</li>
+</ul>
+<p>说到最后话题有点悲伤，不过也告诉我们相处应该讲究方法，如果你一开始将其视为自己的“女神（子组件）”百般呵护，单向输出，也怪不得人家调用<code>$emit</code>，只在用得到你的时候触发。</p>
+<p>下一章我们会讲到更加“健康”的关系：<code>v-model</code>。双向沟通，相濡以沫才是正确的方式</p>
+<p>最后，感谢掘金的“混元霹雳手”大大，他的博客给了我非常多的灵感，并且我引用了他的2个例子。<a href="https://juejin.im/user/580327ee0e3dd900570cf3ab" target="_blank" rel="noopener">大佬博客传送门在这里</a>。</p>
+<p>今天就到这里啦<br><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg" alt="在这里插入图片描述"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -359,14 +778,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-21 20:32:08" itemprop="dateCreated datePublished" datetime="2019-03-21T20:32:08+08:00">2019-03-21</time>
+              <time title="Created: 2019-03-21 20:32:08" itemprop="dateCreated datePublished" datetime="2019-03-21T20:32:08+08:00">2019-03-21</time>
             
 
             
@@ -381,9 +800,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:42:15" itemprop="dateModified" datetime="2019-03-22T14:42:15+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:42:15" itemprop="dateModified" datetime="2019-03-22T14:42:15+08:00">2019-03-22</time>
               
             
           </span>
@@ -397,7 +816,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
@@ -568,14 +987,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-21 19:34:47" itemprop="dateCreated datePublished" datetime="2019-03-21T19:34:47+08:00">2019-03-21</time>
+              <time title="Created: 2019-03-21 19:34:47" itemprop="dateCreated datePublished" datetime="2019-03-21T19:34:47+08:00">2019-03-21</time>
             
 
             
@@ -590,9 +1009,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:39:18" itemprop="dateModified" datetime="2019-03-22T14:39:18+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:39:18" itemprop="dateModified" datetime="2019-03-22T14:39:18+08:00">2019-03-22</time>
               
             
           </span>
@@ -606,7 +1025,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -761,14 +1180,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 13:59:41" itemprop="dateCreated datePublished" datetime="2019-03-20T13:59:41+08:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 13:59:41" itemprop="dateCreated datePublished" datetime="2019-03-20T13:59:41+08:00">2019-03-20</time>
             
 
             
@@ -783,9 +1202,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:41:31" itemprop="dateModified" datetime="2019-03-22T14:41:31+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:41:31" itemprop="dateModified" datetime="2019-03-22T14:41:31+08:00">2019-03-22</time>
               
             
           </span>
@@ -799,7 +1218,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -973,14 +1392,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:26:59" itemprop="dateCreated datePublished" datetime="2019-03-20T11:26:59+08:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 11:26:59" itemprop="dateCreated datePublished" datetime="2019-03-20T11:26:59+08:00">2019-03-20</time>
             
 
             
@@ -995,9 +1414,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:38:54" itemprop="dateModified" datetime="2019-03-22T14:38:54+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:38:54" itemprop="dateModified" datetime="2019-03-22T14:38:54+08:00">2019-03-22</time>
               
             
           </span>
@@ -1011,7 +1430,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1201,14 +1620,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:21:54" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:54+08:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 11:21:54" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:54+08:00">2019-03-20</time>
             
 
             
@@ -1223,9 +1642,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:40:17" itemprop="dateModified" datetime="2019-03-22T14:40:17+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:40:17" itemprop="dateModified" datetime="2019-03-22T14:40:17+08:00">2019-03-22</time>
               
             
           </span>
@@ -1239,7 +1658,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1433,14 +1852,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:21:23" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:23+08:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 11:21:23" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:23+08:00">2019-03-20</time>
             
 
             
@@ -1455,9 +1874,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 15:59:26" itemprop="dateModified" datetime="2019-03-22T15:59:26+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 15:59:26" itemprop="dateModified" datetime="2019-03-22T15:59:26+08:00">2019-03-22</time>
               
             
           </span>
@@ -1471,7 +1890,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1640,14 +2059,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:20:19" itemprop="dateCreated datePublished" datetime="2019-03-20T11:20:19+08:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 11:20:19" itemprop="dateCreated datePublished" datetime="2019-03-20T11:20:19+08:00">2019-03-20</time>
             
 
             
@@ -1662,9 +2081,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:39:10" itemprop="dateModified" datetime="2019-03-22T14:39:10+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:39:10" itemprop="dateModified" datetime="2019-03-22T14:39:10+08:00">2019-03-22</time>
               
             
           </span>
@@ -1678,7 +2097,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1854,14 +2273,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:19:38" itemprop="dateCreated datePublished" datetime="2019-03-20T11:19:38+08:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 11:19:38" itemprop="dateCreated datePublished" datetime="2019-03-20T11:19:38+08:00">2019-03-20</time>
             
 
             
@@ -1876,9 +2295,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:40:26" itemprop="dateModified" datetime="2019-03-22T14:40:26+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-22 14:40:26" itemprop="dateModified" datetime="2019-03-22T14:40:26+08:00">2019-03-22</time>
               
             
           </span>
@@ -1892,7 +2311,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -2008,478 +2427,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript之深浅拷贝/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/20/JavaScript之深浅拷贝/" class="post-title-link" itemprop="url">JavaScript之深浅拷贝</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-20 02:39:48" itemprop="dateCreated datePublished" datetime="2019-03-20T02:39:48+08:00">2019-03-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-22 14:41:13" itemprop="dateModified" datetime="2019-03-22T14:41:13+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>首先咱们先理一下这玩意儿的概念</p>
-<blockquote>
-<p>浅拷贝：将对象的各个属性进行依次复制，并不会进行递归复制，也就是说<strong>只会赋值目标对象的第一层属性</strong>。</p>
-<p>深拷贝：<strong>递归拷贝目标对象的所有属性</strong>。</p>
-</blockquote>
-<p>咱们可以这么理解：浅拷贝就像人口普查，只往上看这一代。深拷贝则是入党审核，你家庭案底都得查得清清楚楚。</p>
-<p>那么咱们正式开始</p>
-<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>当我们需要大量复制某些对象而其却可以完全独立，互不干扰的时候我们就需要用到拷贝。</p>
-<p>而深拷贝还是浅拷贝则需要根据我们实际需要而定。如果涉及到继承之类的东西我们当然需要深层拷贝。而如果只是属性方面的复制还是推荐使用浅拷贝。</p>
-<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><h4 id="JQ中的-extend-obj"><a href="#JQ中的-extend-obj" class="headerlink" title="JQ中的$.extend({}, obj)"></a>JQ中的$.extend({}, obj)</h4><p>这个就不再多说咯，调用官方API就可以轻松完成。不过如果小伙伴们使用框架，比如自带DOM渲染的Vue，由于他是MVVM框架，尽量避免直接操作DOM，所以大部分玩家不会选择直接引入jq。所以我们下面介绍一下其他的实现方式</p>
-<h4 id="for-in暴力赋值"><a href="#for-in暴力赋值" class="headerlink" title="for in暴力赋值"></a>for in暴力赋值</h4><p>最简单的方法就是通过<code>for...in</code>循环遍历赋值。如此我们不会误将引用赋给另一个对象，自然也不用担心对象之间的独立性</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowCopy</span>(<span class="params">source, target = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> key;</span><br><span class="line">    <span class="keyword">for</span> (key <span class="keyword">in</span> source) &#123;</span><br><span class="line">        <span class="keyword">if</span> (source.hasOwnProperty(key)) &#123;</span><br><span class="line">            target[key] = source[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 里边我们涉及到了一个函数：<code>hasOwnProperty()</code>。他可以<strong>防止向上继续进行拷贝，只对本层处理</strong>。</p>
-<h4 id="Object-assign-target-obj1-obj2-…"><a href="#Object-assign-target-obj1-obj2-…" class="headerlink" title="Object.assign(target, obj1, obj2, ….)"></a>Object.assign(target, obj1, obj2, ….)</h4><ul>
-<li><code>target</code>：目标对象</li>
-<li><code>obj1</code>：源对象1</li>
-<li><code>obj2</code>：源对象2</li>
-</ul>
-<p>其作用是将源对象的属性复制到目标对象中去。</p>
-<p>这东西主要用来将多个对象的属性合并到一个对象上去，但是咱们在这里也可以用走浅拷贝。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">name</span>: <span class="string">'程序猿'</span>, <span class="attr">age</span>:&#123;<span class="attr">child</span>: <span class="number">12</span>&#125; &#125;</span><br><span class="line"><span class="keyword">let</span> copy = <span class="built_in">Object</span>.assign(&#123;&#125;, obj);</span><br><span class="line">copy.name = <span class="string">'单身狗'</span></span><br><span class="line">copy.age.child = <span class="number">24</span></span><br><span class="line"><span class="built_in">console</span>.log(obj) <span class="comment">// &#123; name: '程序猿', age:&#123;child: 24&#125; &#125;  当用来修改的属性包含对象时就会统一改变。</span></span><br></pre></td></tr></table></figure>
-<p>这个例子就可以形象地说明这东西的特点啦：</p>
-<p>有没有注意到，<strong>我们第一层的属性（<code>name</code>、<code>age</code>）独立，而第二层的属性（<code>child</code>）则未能完成上面提到的“互不干扰”。</strong>这不正好符合我们的思路吗</p>
-<p>如果需要深层拷贝的话，咱加个递归不就好了吗~(<code>4.2</code>)</p>
-<h4 id="展开运算符（…）"><a href="#展开运算符（…）" class="headerlink" title="展开运算符（…）"></a>展开运算符（…）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">    age: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = &#123;...a&#125;</span><br><span class="line">a.age = <span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><h4 id="for-in循环递归"><a href="#for-in循环递归" class="headerlink" title="for in循环递归"></a>for in循环递归</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params"> source </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> target = <span class="built_in">Array</span>.isArray( source ) ? [] : &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">var</span> k <span class="keyword">in</span> source ) &#123;</span><br><span class="line">        <span class="keyword">if</span> ( <span class="keyword">typeof</span> source[ k ] === <span class="string">'object'</span> ) &#123;</span><br><span class="line">            target[ k ] = deepCopy( source[ k ] )</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            target[ k ] = source[ k ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Object-assign循环递归"><a href="#Object-assign循环递归" class="headerlink" title="Object.assign循环递归"></a>Object.assign循环递归</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params"> source </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> target = <span class="built_in">Object</span>.assign(&#123;&#125;, target)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> source)&#123;</span><br><span class="line">        target[key] = deepCopy(source[key])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="开挂法"><a href="#开挂法" class="headerlink" title="开挂法"></a>开挂法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> copy = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj));</span><br></pre></td></tr></table></figure>
-<p>将对象转化为<code>json</code>字符串再转换为<code>json</code>对象。<strong>但是有两个弊端：</strong></p>
-<ul>
-<li>若你的对象里有函数，那你这函数没法被拷贝下来</li>
-<li>无法拷贝<code>obj</code>原型链上的属性和方法。</li>
-</ul>
-<h3 id="刨根问底"><a href="#刨根问底" class="headerlink" title="刨根问底"></a>刨根问底</h3><h4 id="深浅拷贝——堆和栈的区别"><a href="#深浅拷贝——堆和栈的区别" class="headerlink" title="深浅拷贝——堆和栈的区别"></a>深浅拷贝——堆和栈的区别</h4><p>身前拷贝的主要区别还是内存中的存储类型不同。</p>
-<blockquote>
-<p><strong>基本类型</strong>（<code>undefined</code>、<code>boolean</code>、<code>number</code>、<code>string</code>、<code>null</code>）<strong>存放在栈中</strong></p>
-<p><strong>引用类型</strong>（<code>object</code>、<code>Array</code>、<code>function</code>）则<strong>存放在堆中</strong></p>
-</blockquote>
-<p>为什么说这个呢？咱们细细道来</p>
-<h5 id="基本数据类型不可变"><a href="#基本数据类型不可变" class="headerlink" title="基本数据类型不可变"></a>基本数据类型不可变</h5><p><strong>所有的基本数据类型的值都不可更改的</strong>：任何方法都无法改变一个原始值。</p>
-<p>可能有的Boy会问：我这么操作不也就改了吗</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">12</span>;</span><br><span class="line">num = <span class="number">13</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num)		<span class="comment">// 13</span></span><br></pre></td></tr></table></figure>
-<p>可是事实上这是对基本类型的重新赋值，并不算更改。</p>
-<p><strong>基于以上，引用类型的变量实际上是一个存放在栈内存的指针，指向堆内存中的地址。</strong></p>
-<blockquote>
-<p>另外，基本类型的值比较是值的比较</p>
-<p>引用类型的值比较是引用地址的比较（即使其中的属性、各索引元素完全相等亦不相等。只有引用基于同一个基对象时才算相等）</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/我所了解的跨域/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/20/我所了解的跨域/" class="post-title-link" itemprop="url">我所了解的跨域</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-20 02:30:29" itemprop="dateCreated datePublished" datetime="2019-03-20T02:30:29+08:00">2019-03-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-22 14:40:40" itemprop="dateModified" datetime="2019-03-22T14:40:40+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h3><p>由于<strong>浏览器的同源策略</strong>限制，<del>导致了我们无法跨域获取数据</del>。呸，是获取数据之后浏览器出于安全考虑将信息拦截。</p>
-<p>那么什么是同源策略？</p>
-<blockquote>
-<p>同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。这是一个用于隔离潜在恶意文件的重要安全机制。</p>
-</blockquote>
-<h4 id="同源策略的用处"><a href="#同源策略的用处" class="headerlink" title="同源策略的用处"></a>同源策略的用处</h4><h5 id="接口请求"><a href="#接口请求" class="headerlink" title="接口请求"></a>接口请求</h5><p>由于服务端<code>Server</code>会给登陆过的你发送一个<code>cookie</code>用以身份验证，以保证你一段时间内不需要每次都进行重复的登陆。可是若无同源策略的限制，那么当你打开其他网站时，他们亦可以通过你的主机向给你发送<code>cookie</code>的网站（咱们假装他叫<code>A</code>）服务端发送请求。</p>
-<p>之后如你所想，他们也会得到一个<code>cookie</code>。这东西相当于是别人拿到了你的身份证一样而你却完全不知情。如此一来，若是<code>A</code>网站是一些敏感的信息网站甚至是银行的网站，那么发生什么事情咱都不敢想。</p>
-<p>这是典型的<code>CSRF</code>攻击。</p>
-<blockquote>
-<p><code>CSRF</code>：<code>Cross Site Request Forgy</code>——跨站请求伪造。</p>
-<p>在其他网站对目标网站的请求是在管理员不知情的情况下完成的</p>
-</blockquote>
-<p>所以在同源策略限制的条件之下，我们至少可以防止一些低端的<code>CSRF</code>，不至于让<code>cookie</code>这么轻易的暴露在其他不明网站的攻击下</p>
-<h5 id="DOM查询"><a href="#DOM查询" class="headerlink" title="DOM查询"></a>DOM查询</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HTML</span></span><br><span class="line">&lt;iframe name=<span class="string">"yinhang"</span> src=<span class="string">"www.yinhang.com"</span>&gt;&lt;/iframe&gt;</span><br><span class="line"><span class="comment">// JS</span></span><br><span class="line"><span class="comment">// 由于没有同源策略的限制，钓鱼网站可以直接拿到别的网站的Dom</span></span><br><span class="line"><span class="keyword">const</span> iframe = <span class="built_in">window</span>.frames[<span class="string">'yinhang'</span>]</span><br><span class="line"><span class="keyword">const</span> node = iframe.document.getElementById(<span class="string">'你输入账号密码的Input'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`拿到了这个<span class="subst">$&#123;node&#125;</span>，我还拿不到你刚刚输入的账号密码吗`</span>)</span><br></pre></td></tr></table></figure>
-<p>若无同源策略限制，那么攻击者可以轻易的获取其他网站的DOM，并将其存至自己的<code>iframe</code>之中掩人耳目，借此盗取你的敏感信息。</p>
-<h4 id="怎么着才算跨域？"><a href="#怎么着才算跨域？" class="headerlink" title="怎么着才算跨域？"></a>怎么着才算跨域？</h4><p><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avuvexpij30o805smyu.jpg" alt="域名的组成"></p>
-<p><strong>同源策略是指“协议”、“域名”、“端口”三者相同。即使两个不同的域名指向同一个<code>ip</code>地址亦非同源</strong></p>
-<p>咱们可以通过这张图做个例子</p>
-<p><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avvq3n5zj30mz0mrmze.jpg" alt="在这里插入图片描述"></p>
-<h4 id="这些跨域咱也没办法"><a href="#这些跨域咱也没办法" class="headerlink" title="这些跨域咱也没办法"></a>这些跨域咱也没办法</h4><blockquote>
-<ol>
-<li><p>协议和端口不同那咱们再咋操作也没办法</p>
-</li>
-<li><p>即使ip相同，你端口、协议和域名不匹配照样不行</p>
-</li>
-</ol>
-</blockquote>
-<h3 id="那咋办"><a href="#那咋办" class="headerlink" title="那咋办"></a>那咋办</h3><h4 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h4><p>由于<code>&lt;script&gt;</code>标签不受跨域限制，所以我们可以得到从其他来源动态产生的<code>JSON</code>数据。</p>
-<p>但是！！！！！<strong>JSONP请求一定需要对方的服务器支持！！！！！！</strong></p>
-<h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><ul>
-<li><p>声明一个回调函数，其函数名(如show)当做参数值，要传递给跨域请求数据的服务器，函数形参为要获取目标数据(服务器返回的data)。</p>
-</li>
-<li><p>创建一个<code>&lt;script&gt;</code>标签，把那个跨域的API数据接口地址，赋值给script的<code>src</code>，还要在这个地址中向服务器传递该函数名（可以通过问号传参:<code>?callback=show</code>）。</p>
-</li>
-<li><p>服务器接收到请求后，需要进行特殊的处理：把传递进来的函数名和它需要给你的数据拼接成一个字符串,例如：传递进去的函数名是<code>show</code>，它准备好的数据是<code>show(&#39;我不爱你&#39;)</code>。</p>
-</li>
-<li><p>最后服务器把准备的数据通过HTTP协议返回给客户端，客户端再调用执行之前声明的回调函数（<code>show</code>），对返回的数据进行操作。</p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Client</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonp</span>(<span class="params">&#123; url, params, callback &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>)</span><br><span class="line">    <span class="built_in">window</span>[callback] = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">      resolve(data)</span><br><span class="line">      <span class="built_in">document</span>.body.removeChild(script)</span><br><span class="line">    &#125;</span><br><span class="line">    params = &#123; ...params, callback &#125; <span class="comment">// wd=b&amp;callback=show</span></span><br><span class="line">    <span class="keyword">let</span> arrs = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> params) &#123;</span><br><span class="line">      arrs.push(<span class="string">`<span class="subst">$&#123;key&#125;</span>=<span class="subst">$&#123;params[key]&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    script.src = <span class="string">`<span class="subst">$&#123;url&#125;</span>?<span class="subst">$&#123;arrs.join(<span class="string">'&amp;'</span>)&#125;</span>`</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">jsonp(&#123;</span><br><span class="line">  url: <span class="string">'http://localhost:3000/say'</span>,</span><br><span class="line">  params: &#123; <span class="attr">wd</span>: <span class="string">'Iloveyou'</span> &#125;,</span><br><span class="line">  callback: <span class="string">'show'</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Server</span></span><br><span class="line"><span class="keyword">let</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">let</span> app = express()</span><br><span class="line">app.get(<span class="string">'/say'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> &#123; wd, callback &#125; = req.query</span><br><span class="line">  <span class="built_in">console</span>.log(wd) <span class="comment">// Iloveyou</span></span><br><span class="line">  <span class="built_in">console</span>.log(callback) <span class="comment">// show</span></span><br><span class="line">  res.end(<span class="string">`<span class="subst">$&#123;callback&#125;</span>('我不爱你')`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
-<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>兼容性好，可解决主流浏览器的跨域数据访问</p>
-<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p>只支持get方式。可能会受到XSS攻击</p>
-<h4 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h4><p>实现<code>CORS</code>的重点在于后端，而前端则像往常一样发送数据即可。但是发送时会出现两种情况：<strong>简单请求</strong>&amp;<strong>复杂请求</strong></p>
-<h5 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h5><p>同时满足以下两大条件即是简单请求</p>
-<blockquote>
-<p>条件1：<strong>使用方法为<code>GET</code>、<code>POST</code>、<code>HEAD</code>之一</strong></p>
-<p>条件2：<strong><code>Content-Type</code>值为<code>text/plain</code>或<code>multipart/form-data</code>或`application/x-www-form-urlencoded</strong>`</p>
-</blockquote>
-<h5 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h5><p>不符合简单请求的就是复杂请求啦</p>
-<p><strong>复杂请求的<code>CORS</code>会在正是通信之前增加一次<code>HTTP</code>查询请求。称为<u>预检</u>。该请求通过<code>option</code>方法来打听服务端是否允许跨域请求</strong></p>
-<h4 id="Node中间代理"><a href="#Node中间代理" class="headerlink" title="Node中间代理"></a>Node中间代理</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> request = <span class="built_in">require</span>(<span class="string">'request'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line">app.use(express.static(<span class="string">'./public'</span>))</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> url = <span class="string">'http://192.168.1.111:8080'</span> + req.url;</span><br><span class="line">    req.pipe(request(url)).pipe(res);</span><br><span class="line">    process.env.PORT = process.env.PORT || <span class="number">8080</span>;</span><br><span class="line">&#125;);</span><br><span class="line">app.listen(process.env.PORT || <span class="number">8080</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"开始监听"</span> + <span class="string">"......"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>如此就可以完成啦。作为一个中间件转发请求<code>node</code>代理成功地避开了浏览器和服务器之间交互的冲突，将锅甩给了可以无障碍通信的服务器。我们只需要访问本地端口就可以啦。</p>
-<h4 id="nginx反向代理"><a href="#nginx反向代理" class="headerlink" title="nginx反向代理"></a>nginx反向代理</h4><p>使用<code>nginx</code>反向代理实现跨域，是最简单的跨域方式。只需要修改<code>nginx</code>的配置即可解决跨域问题，支持所有浏览器，支持<code>session</code>，不需要修改任何代码，并且不会影响服务器性能。</p>
-<p>实现思路：通过<code>nginx</code>配置一个代理服务器（域名与<code>domain1</code>相同，端口不同）做跳板机，反向代理访问<code>domain2</code>接口，并且可以顺便修改<code>cookie</code>中<code>domain</code>信息，方便当前域<code>cookie</code>写入，实现跨域登录。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// nginx/nginx.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen       <span class="number">81</span>;</span><br><span class="line">    server_name  www.domain1.com;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass   http:<span class="comment">//www.domain2.com:8080;  #反向代理</span></span><br><span class="line">        proxy_cookie_domain www.domain2.com www.domain1.com; #修改cookie里域名</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line"></span><br><span class="line">        # 当用webpack-dev-server等中间件代理接口访问nignx时，此时无浏览器参与，故没有同源限制，下面的跨域配置可不启用</span><br><span class="line">        add_header Access-Control-Allow-Origin http:<span class="comment">//www.domain1.com;  #当前端只跨域不带cookie时，可为*</span></span><br><span class="line">        add_header Access-Control-Allow-Credentials <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最后通过命令行<code>nginx -s reload</code>启动<code>nginx</code></p>
-<h4 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h4><p>通过这个咱们可以实现服务端和客户端的双向通信，真正的平等对话。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端页面</span></span><br><span class="line"><span class="keyword">let</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">'ws://localhost:3000'</span>);</span><br><span class="line"></span><br><span class="line">socket.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    socket.send(<span class="string">'你好'</span>);</span><br><span class="line">&#125;</span><br><span class="line">socket.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e.data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// node后端</span></span><br><span class="line"><span class="keyword">let</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">let</span> app = express();</span><br><span class="line"><span class="keyword">let</span> WebSocket = <span class="built_in">require</span>(<span class="string">'ws'</span>);</span><br><span class="line"><span class="keyword">let</span> wss = <span class="keyword">new</span> WebSocket.Server(&#123;<span class="attr">port</span>:<span class="number">3000</span>&#125;);</span><br><span class="line">wss.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">ws</span>) </span>&#123;</span><br><span class="line">  ws.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">    ws.send(<span class="string">'你好'</span>)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="postMessage"><a href="#postMessage" class="headerlink" title="postMessage"></a>postMessage</h4><p><code>window.postMessage()</code>是HTML5的一个接口，专注<strong>实现不同窗口不同页面的跨域通讯。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;button @click=<span class="string">"postMessage"</span>&gt;给http:<span class="comment">//crossDomain.com:9099发消息&lt;/button&gt;</span></span><br><span class="line">    &lt;iframe name=<span class="string">"crossDomainIframe"</span> src=<span class="string">"http://crossdomain.com:9099"</span>&gt;&lt;/iframe&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  mounted () &#123;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, (e) =&gt; &#123;</span><br><span class="line">      <span class="comment">// 这里一定要对来源做校验</span></span><br><span class="line">      <span class="keyword">if</span> (e.origin === <span class="string">'http://crossdomain.com:9099'</span>) &#123;</span><br><span class="line">        <span class="comment">// 来自http://crossdomain.com:9099的结果回复</span></span><br><span class="line">        <span class="built_in">console</span>.log(e.data)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="comment">// 向http://crossdomain.com:9099发消息</span></span><br><span class="line">    postMessage () &#123;</span><br><span class="line">      <span class="keyword">const</span> iframe = <span class="built_in">window</span>.frames[<span class="string">'crossDomainIframe'</span>]</span><br><span class="line">      iframe.postMessage(<span class="string">'我是[http://localhost:9099], 麻烦你查一下你那边有没有id为app的Dom'</span>, <span class="string">'http://crossdomain.com:9099'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    我是http:<span class="comment">//crossdomain.com:9099</span></span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  mounted () &#123;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, (e) =&gt; &#123;</span><br><span class="line">      <span class="comment">// 这里一定要对来源做校验</span></span><br><span class="line">      <span class="keyword">if</span> (e.origin === <span class="string">'http://localhost:9099'</span>) &#123;</span><br><span class="line">        <span class="comment">// http://localhost:9099发来的信息</span></span><br><span class="line">        <span class="built_in">console</span>.log(e.data)</span><br><span class="line">        <span class="comment">// e.source可以是回信的对象，其实就是http://localhost:9099窗口对象(window)的引用</span></span><br><span class="line">        <span class="comment">// e.origin可以作为targetOrigin</span></span><br><span class="line">        e.source.postMessage(<span class="string">`我是[http://crossdomain.com:9099]，我知道了兄弟，这就是你想知道的结果：<span class="subst">$&#123;<span class="built_in">document</span>.getElementById(<span class="string">'app'</span>) ? <span class="string">'有id为app的Dom'</span> : <span class="string">'没有id为app的Dom'</span>&#125;</span>`</span>, e.origin);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="document-domain"><a href="#document-domain" class="headerlink" title="document.domain"></a>document.domain</h4><p>这个咱们得让两个页面同属于一个域下。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> a.fullstackjavascript.cn</span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> b.fullstackjavascript.cn</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.html</span></span><br><span class="line">&lt;iframe src=<span class="string">"http://b.fullstackjavascript.cn:4000/b.html"</span> </span><br><span class="line">        frameborder=<span class="string">"0"</span> id=<span class="string">"frame"</span></span><br><span class="line">        onload=<span class="string">"load()"</span></span><br><span class="line">&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.domain = <span class="string">'fullstackjavascript.cn'</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(frame.contentWindow.name);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ b.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  document.domain = 'fullstackjavascript.cn';</span></span><br><span class="line"><span class="regexp">  var name = 'jw';  </span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>访问<code>http://a.fullstackjavascript.cn:3000/a.html</code>发现是可以拿到另一个页面中的值</p>
-</blockquote>
-<h4 id="location-hash"><a href="#location-hash" class="headerlink" title="location.hash"></a>location.hash</h4><p>通过三方域完成</p>
-<p>三个页面hash1,hash2,hash3。hash1和hash2是同域下，hash3在独立域下。</p>
-<p>我们通过hash1页面用<code>iframe</code>引入<code>hash3</code>页面,可以在引入时给<code>hash3</code>页面传递<code>hash</code>值，<code>hash3</code>接到<code>hash</code>值后算出需要返回结果,在创建<code>iframe</code>引入<code>hash2</code>把结果通过<code>hash</code>的方式传递给<code>hash2</code>，<code>hash2</code>和<code>hash1</code>是同域的，<code>hash2</code>可以直接操控<code>hash1</code>的值,此时<code>hash1</code>页面可以监控<code>hash</code>值的变化来获取<code>hash2</code>的数据。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hash1.html</span></span><br><span class="line">&lt;iframe src=<span class="string">"http://a.fullstackjavascript.cn:3000/hash3.html#iloveyou"</span> frameborder=<span class="string">"0"</span>&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="built_in">window</span>.onhashchange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(location.hash);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ hash2.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  let hash = location.hash;</span></span><br><span class="line"><span class="regexp">  let data;</span></span><br><span class="line"><span class="regexp">  if(hash === '#iloveyoue')&#123;</span></span><br><span class="line"><span class="regexp">    data = 'idontloveyou'</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">  let frame = document.createElement('iframe');</span></span><br><span class="line">  frame.src = `http://a.fullstackjavascript.cn:3000/hash3.html#$&#123;data&#125;`;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ hash3.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  let hash = location.hash;</span></span><br><span class="line"><span class="regexp">  window.parent.parent.location.hash = hash </span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h4><p>还是有三个页面a,b,c。a和b是同域下的,c自己一个域。a先引用c,c将想表达的内容放到name,属性上之后,a改变引用路径,改成引用b,此时name属性不会被删除,因为a,b是同域的,所以可以直接获取。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.html</span></span><br><span class="line">&lt;iframe src=<span class="string">"http://a.fullstackjavascript.cn:4000/c.html"</span> id=<span class="string">"myFrame"</span> onload=<span class="string">"load()"</span> frameborder=<span class="string">"0"</span>&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">let</span> first = <span class="literal">true</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">load</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(first)&#123;</span><br><span class="line">      myFrame.src = <span class="string">'http://b.fullstackjavascript.cn:3000/c.html'</span>;</span><br><span class="line">      first = <span class="literal">false</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">let</span> name = myFrame.contentWindow.name;</span><br><span class="line">      <span class="built_in">console</span>.log(name);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ c.html</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  window.name = '我爱你'</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Nächste Seite"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2521,8 +2473,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -2546,8 +2498,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -2602,7 +2556,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -2610,7 +2564,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
