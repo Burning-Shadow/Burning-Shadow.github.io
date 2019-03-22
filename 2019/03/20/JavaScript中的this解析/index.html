@@ -98,20 +98,21 @@
 
 
 
-  <meta name="description" content="默认绑定独立函数调用时遵循默认绑定的原则。一般情况下若无其他规则出现则默认将this绑定到全局对象上。123456function foo()&amp;#123;	var a = 3;	console.log(this.a)&amp;#125;var a = 2;foo()	// 2 隐式绑定若调用位置有上下文对象就遵循隐式绑定（如example.foo()）12345678function foo()&amp;#123">
+  <meta name="description" content="一张图放在前面  默认绑定独立函数调用时遵循默认绑定的原则。一般情况下若无其他规则出现则默认将this绑定到全局对象上。123456function foo()&amp;#123;	var a = 3;	console.log(this.a)&amp;#125;var a = 2;foo()	// 2 隐式绑定若调用位置有上下文对象就遵循隐式绑定（如example.foo()）12345678function f">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript中的this解析">
 <meta property="og:url" content="http://yoursite.com/2019/03/20/JavaScript中的this解析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="默认绑定独立函数调用时遵循默认绑定的原则。一般情况下若无其他规则出现则默认将this绑定到全局对象上。123456function foo()&amp;#123;	var a = 3;	console.log(this.a)&amp;#125;var a = 2;foo()	// 2 隐式绑定若调用位置有上下文对象就遵循隐式绑定（如example.foo()）12345678function foo()&amp;#123">
+<meta property="og:description" content="一张图放在前面  默认绑定独立函数调用时遵循默认绑定的原则。一般情况下若无其他规则出现则默认将this绑定到全局对象上。123456function foo()&amp;#123;	var a = 3;	console.log(this.a)&amp;#125;var a = 2;foo()	// 2 隐式绑定若调用位置有上下文对象就遵循隐式绑定（如example.foo()）12345678function f">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c946ad83a213b0417dfd9ca">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c9459b83a213b0417df2980">
 <meta property="og:image" content="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg">
-<meta property="og:updated_time" content="2019-03-22T04:53:53.625Z">
+<meta property="og:updated_time" content="2019-03-22T04:56:15.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的this解析">
-<meta name="twitter:description" content="默认绑定独立函数调用时遵循默认绑定的原则。一般情况下若无其他规则出现则默认将this绑定到全局对象上。123456function foo()&amp;#123;	var a = 3;	console.log(this.a)&amp;#125;var a = 2;foo()	// 2 隐式绑定若调用位置有上下文对象就遵循隐式绑定（如example.foo()）12345678function foo()&amp;#123">
-<meta name="twitter:image" content="https://pic.superbed.cn/item/5c9459b83a213b0417df2980">
+<meta name="twitter:description" content="一张图放在前面  默认绑定独立函数调用时遵循默认绑定的原则。一般情况下若无其他规则出现则默认将this绑定到全局对象上。123456function foo()&amp;#123;	var a = 3;	console.log(this.a)&amp;#125;var a = 2;foo()	// 2 隐式绑定若调用位置有上下文对象就遵循隐式绑定（如example.foo()）12345678function f">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c946ad83a213b0417dfd9ca">
 
 
 
@@ -353,7 +354,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-22 12:53:53" itemprop="dateModified" datetime="2019-03-22T12:53:53+08:00">2019-03-22</time>
+                <time title="Geändert am: 2019-03-22 12:56:15" itemprop="dateModified" datetime="2019-03-22T12:56:15+08:00">2019-03-22</time>
               
             
           </span>
@@ -387,7 +388,9 @@
       
 
       
-        <h3 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h3><p><strong>独立函数调用</strong>时遵循默认绑定的原则。一般情况下若无其他规则出现则默认将<code>this</code>绑定到全局对象上。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">foo()	<span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+        <p>一张图放在前面</p>
+<p><img src="https://pic.superbed.cn/item/5c946ad83a213b0417dfd9ca" alt="this绑定"></p>
+<h3 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h3><p><strong>独立函数调用</strong>时遵循默认绑定的原则。一般情况下若无其他规则出现则默认将<code>this</code>绑定到全局对象上。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">foo()	<span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h3><p>若调用位置有上下文对象就遵循隐式绑定（如example.foo()）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>,  <span class="attr">foo</span>:foo&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'global'</span></span><br><span class="line">obj.foo()		<span class="comment">// 2</span></span><br><span class="line"><span class="keyword">var</span> bar = obj.foo</span><br><span class="line">bar()		<span class="comment">// 'global</span></span><br></pre></td></tr></table></figure></p>
 <p>如图。之前我们直接调用<code>foo</code>函数时因为其具有上下文对象，所以正确打印，<code>this</code>此时正指向此对象(<code>obj</code>)。<br>可是之后的<code>bar</code>为什么又无法正确打印出对应的结果呢？<br>首先我们看，题目中用一个变量<code>bar</code>存储了<code>obj.foo</code>。所以为完成此赋值操作引擎会对<code>obj.foo</code>进行<code>RHS</code>查找，并找出其对应的键<code>foo</code>。继而再对值<code>foo</code>进行<code>RHS</code>查找，得到<code>foo</code>函数。<br>可是此时对其进行调用时，由于无上下文对象（<code>bar</code>本身的调用并不是靠”<code>.</code>“出来的）所以就造成了隐式丢失。故采取默认绑定规则，绑定在全局的<code>a</code>上。<br>或者我们换一种说法：<code>bar</code>引用的时<code>foo</code>函数本身。因而此时的<code>bar</code>其实是一个不带任何修饰的函数调用，自然采取默认绑定规则。</p>
 <p>Ps：隐式丢失后会默认绑定在<code>window</code>上</p>
