@@ -338,6 +338,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/forEach_for-in_for-of/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/16/forEach_for-in_for-of/" class="post-title-link" itemprop="url">JavaScript中的循环方法——forEach、for-in和for-of</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-16 09:25:47" itemprop="dateCreated datePublished" datetime="2019-03-16T09:25:47+08:00">2019-03-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-22 14:41:03" itemprop="dateModified" datetime="2019-03-22T14:41:03+08:00">2019-03-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。它的解释器被称为JavaScript引擎，为浏览器的一部分，广泛用于客户端的脚本语言，最早是在HTML（标准通用标记语言下的一个应用）网页上使用，用来给HTML网页增加动态功能。</p>
+<p>JavaScript诞生已经有20多年了，我们一直使用的用来循环一个数组的方法是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index = <span class="number">0</span>; index &lt; myArray.length; index++) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h2><p>自从JavaScript5起，我们开始可以使用内置的<code>forEach</code>方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myArray.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="短处"><a href="#短处" class="headerlink" title="短处"></a>短处</h3><p>无法中断循环（使用语句）</p>
+<h2 id="for-in循环"><a href="#for-in循环" class="headerlink" title="for-in循环"></a>for-in循环</h2><p>为了解决<code>forEach</code>无法中断的问题我们可以使用<code>for-in</code></p>
+<p><code>for-in</code>循环实际是为循环<code>”enumerable“</code>对象而设计的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> obj) &#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"obj."</span> + prop + <span class="string">" = "</span> + obj[prop]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">// "obj.a = 1"</span></span><br><span class="line"><span class="comment">// "obj.b = 2"</span></span><br><span class="line"><span class="comment">// "obj.c = 3"</span></span><br></pre></td></tr></table></figure>
+<p>你也可以用它来循环一个数组：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> myArray) &#123; <span class="comment">// 不推荐这样</span></span><br><span class="line">	<span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><u>不推荐用<code>for-in</code>来循环一个数组，因为，不像对象，数组的<code>index</code>跟普通的对象属性不一样，是重要的数值序列指标。</u></p>
+<p><strong>总之，<code>for–in</code>是用来循环带有字符串key的对象的方法</strong>。</p>
+<h2 id="for-of循环"><a href="#for-of循环" class="headerlink" title="for-of循环"></a>for-of循环</h2><p><code>ES6</code>里引入了一种新的循环方法，它就是<code>for-of</code>循环，它既比传统的<code>for</code>循环简洁，同时弥补了<code>forEach</code>和<code>for-in</code>循环的短板。</p>
+<p>我们看一下它的<code>for-of</code>的语法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> value <span class="keyword">of</span> myArray) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>for-of</code>的语法看起来跟<code>for-in</code>很相似，但它的功能却丰富的多，它能循环很多东西。</p>
+<p><strong><code>for-of</code>循环使用例子</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> iterable = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 10</span></span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"><span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
+<p>我们可以使用来替代，这样它就变成了在循环里的不可修改的静态变量</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> iterable = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> value <span class="keyword">of</span> iterable) &#123;</span><br><span class="line"><span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 10</span></span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"><span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
+<p><strong>循环一个字符串：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> iterable = <span class="string">"boo"</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// "b"</span></span><br><span class="line"><span class="comment">// "o"</span></span><br><span class="line"><span class="comment">// "o"</span></span><br><span class="line"><span class="keyword">let</span> iterable = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>([<span class="number">0x00</span>, <span class="number">0xff</span>]);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 255</span></span><br><span class="line"><span class="keyword">let</span> iterable = <span class="keyword">new</span> <span class="built_in">Map</span>([[<span class="string">"a"</span>, <span class="number">1</span>], [<span class="string">"b"</span>, <span class="number">2</span>], [<span class="string">"c"</span>, <span class="number">3</span>]]);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> entry <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(entry);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// [a, 1]</span></span><br><span class="line"><span class="comment">// [b, 2]</span></span><br><span class="line"><span class="comment">// [c, 3]</span></span><br><span class="line"><span class="keyword">let</span> iterable = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>]);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<p><strong>循环一个 DOM collection</strong>：</p>
+<p>循环一个<code>DOM collections</code>，比如 <code>NodeList</code>，之前我们讨论过 如何循环一个<code>NodeList</code> ，现在方便了，可以直接使用<code>for-of</code>循环：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Note: This will only work in platforms that have</span></span><br><span class="line"><span class="comment">// implemented NodeList.prototype[Symbol.iterator]</span></span><br><span class="line"><span class="keyword">let</span> articleParagraphs = <span class="built_in">document</span>.querySelectorAll(<span class="string">"article &gt; p"</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> paragraph <span class="keyword">of</span> articleParagraphs) &#123;</span><br><span class="line">	paragraph.classList.add(<span class="string">"read"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>循环一个拥有enumerable属性的对象</strong></p>
+<p><code>for–of</code>循环并不能直接使用在普通的对象上，但如果我们按对象所拥有的属性进行循环，可使用内置的<code>Object.keys()</code>方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">of</span> <span class="built_in">Object</span>.keys(someObject)) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(key + <span class="string">": "</span> + someObject[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>循环一个生成器(generators)</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fibonacci</span>(<span class="params"></span>) </span>&#123; <span class="comment">// a generator function</span></span><br><span class="line">	<span class="keyword">let</span> [prev, curr] = [<span class="number">0</span>, <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">		[prev, curr] = [curr, prev + curr];</span><br><span class="line">		<span class="keyword">yield</span> curr;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> n <span class="keyword">of</span> fibonacci()) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(n);</span><br><span class="line">	<span class="comment">// truncate the sequence at 1000</span></span><br><span class="line">	<span class="keyword">if</span> (n &gt;= <span class="number">1000</span>) </span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>转自脚本之家。没找到作者大大名姓。不过还是分享一下以备后用~</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/鸭子模型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -770,7 +973,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>

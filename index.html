@@ -338,6 +338,262 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/flex布局/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/22/flex布局/" class="post-title-link" itemprop="url">Unbenannt</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-22 23:02:09 / Geändert am: 23:12:01" itemprop="dateCreated datePublished" datetime="2019-03-22T23:02:09+08:00">2019-03-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="display-Flex"><a href="#display-Flex" class="headerlink" title="display:Flex"></a>display:Flex</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><ul>
+<li>flex是Flexible Box的缩写，即“弹性布局”</li>
+<li><strong>设置display:flex;属性后，子元素的float,clear和vertical-align属性将不再起作用</strong></li>
+<li>此属性既适用于块级元素也适用于行内元素</li>
+</ul>
+<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>display属性为flex的元素称为<strong>容器</strong>，其所有子元素则为<strong>容器成员</strong>，称为flex item（flex项目）。</p>
+<p>容器默认有x,y两条轴：水平的称为主轴（main axis），竖直的称为交叉轴（cross axis），其余详细信息我们用一幅图来演示</p>
+<p><img src="https://pic.superbed.cn/item/5c94f9f33a213b0417e5bfc1" alt></p>
+<ul>
+<li>了解了这些之后我们看一下flex的一些子属性：<ul>
+<li>flex-direction　　容器内项目的排列方向(默认横向排列)　　</li>
+<li>flex-wrap　　容器内项目换行方式</li>
+<li>flex-flow　　以上两个属性的简写方式</li>
+<li>justify-content　　项目在主轴上的对齐方式</li>
+<li>align-items　　项目在交叉轴上如何对齐</li>
+<li>align-content　　定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用</li>
+</ul>
+</li>
+</ul>
+<p>接下来我们对这些属性做一个详细的介绍</p>
+<ul>
+<li>flex-direction:<ul>
+<li>row(默认)沿水平主轴由左向右排列</li>
+<li>row-reverse沿水平主轴由右向左排列</li>
+<li>column沿垂直主轴由上到下</li>
+<li>column-reverse沿垂直主轴由下到上</li>
+</ul>
+</li>
+<li>flex-warp：<ul>
+<li>nowrap（默认）：不换行</li>
+<li>wrap：换行，第一行在上方</li>
+<li>wrap-reverse：换行，第一行在下方</li>
+</ul>
+</li>
+<li>flex-flow:<ul>
+<li>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap</li>
+<li>flex-flow:<flex-direction> || <flex-wrap></flex-wrap></flex-direction></li>
+</ul>
+</li>
+<li><p>justify-content：</p>
+<ul>
+<li>话不多说上图<br><img src="https://img-blog.csdn.net/20180617202022711?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzUzNjYy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"><br><img src="https://pic.superbed.cn/item/5c94fa493a213b0417e5c2f7" alt="image"></li>
+</ul>
+</li>
+<li><p>align-items：</p>
+<ul>
+<li>flex-start：交叉轴的起点对齐。</li>
+<li>flex-end：交叉轴的终点对齐。</li>
+<li>center：交叉轴的中点对齐。</li>
+<li>baseline: 项目的第一行文字的基线对齐。</li>
+<li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。<br><img src="https://pic.superbed.cn/item/5c94fab73a213b0417e5c6d5" alt="image"></li>
+</ul>
+</li>
+<li>align-content:<ul>
+<li>flex-start：与交叉轴的起点对齐。</li>
+<li>flex-end：与交叉轴的终点对齐。</li>
+<li>center：与交叉轴的中点对齐。</li>
+<li>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</li>
+<li>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</li>
+<li>stretch（默认值）：轴线占满整个交叉轴。<br><img src="https://pic.superbed.cn/item/5c94fad23a213b0417e5c7ce" alt="image"><h4 id="项目（子元素）同样也有属性"><a href="#项目（子元素）同样也有属性" class="headerlink" title="项目（子元素）同样也有属性"></a>项目（子元素）同样也有属性</h4></li>
+</ul>
+</li>
+<li>order：<ul>
+<li>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。<br><img src="https://pic.superbed.cn/item/5c94faed3a213b0417e5c92f" alt="image"></li>
+</ul>
+</li>
+<li>flex-grow：<ul>
+<li>flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大<br><img src="https://pic.superbed.cn/item/5c94fb0c3a213b0417e5ca5d" alt="image"></li>
+</ul>
+</li>
+<li>flex-shrink<ul>
+<li>flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br><img src="https://pic.superbed.cn/item/5c94fb1e3a213b0417e5cb74" alt="image"><br>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。</li>
+</ul>
+</li>
+</ul>
+<p><strong>负值对该属性无效。</strong></p>
+<ul>
+<li>flex-basis<ul>
+<li>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</li>
+<li>它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  flex-basis: &lt;length&gt; | auto; /* default auto */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>flex属性<ul>
+<li>flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选</li>
+<li>该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。</li>
+</ul>
+</li>
+<li>建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。</li>
+<li>align-self：<ul>
+<li><strong>align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</strong></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/Vuex初体验/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2237,213 +2493,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript中的内存泄露/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/20/JavaScript中的内存泄露/" class="post-title-link" itemprop="url">JavaScript中的内存泄露</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-20 11:19:38" itemprop="dateCreated datePublished" datetime="2019-03-20T11:19:38+08:00">2019-03-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-22 14:40:26" itemprop="dateModified" datetime="2019-03-22T14:40:26+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><code>js</code>如同其他高级语言一样都有垃圾回收机制，会周期性的检查之前分配的内存是否可达，帮助开发者管理内存。对不可达的内存通过算法确定、标记并适时回收。</p>
-<p>而内存泄露则可以理解为当应用程序不再需要占用内存时，由于某些原因操作系统未回收其内存。</p>
-<h3 id="堆？栈？队列？"><a href="#堆？栈？队列？" class="headerlink" title="堆？栈？队列？"></a>堆？栈？队列？</h3><h4 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h4><p>由于<code>js</code>是单线程，所以所有的任务都需要排队。学过操作系统的都知道单线程最大的浪费就是输入输出时的等待，所以<code>JavaScript</code>设计者采取了另一种策略：主线程忽略<code>IO</code>设备，挂起处于等待中的任务，先运行它后面的任务。等到<code>IO</code>设备返回结果后再讲挂起任务继续执行下去</p>
-<h5 id="同步任务（synchronous）"><a href="#同步任务（synchronous）" class="headerlink" title="同步任务（synchronous）"></a>同步任务（synchronous）</h5><blockquote>
-<p>在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务</p>
-</blockquote>
-<h5 id="异步任务（asynchronous）"><a href="#异步任务（asynchronous）" class="headerlink" title="异步任务（asynchronous）"></a>异步任务（asynchronous）</h5><blockquote>
-<p>不进入主线程、而进入”<strong>任务队列</strong>“（task queue）的任务，只有”<strong>任务队列</strong>“通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</p>
-</blockquote>
-<h4 id="函数执行栈"><a href="#函数执行栈" class="headerlink" title="函数执行栈"></a>函数执行栈</h4><p><img src="https://pic.superbed.cn/item/5c93bcca3a213b0417da3c67" alt="在这里插入图片描述"></p>
-<p>函数的嵌套调用就是通过函数执行栈。每嵌套一层向栈中推入函数信息，得到返回值后出栈</p>
-<h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>而主要的用户创建的对象就存放在堆中。<strong>内存泄漏定位的主要区域就在这里</strong>。</p>
-<h3 id="Mark-and-Sweep（标记扫描）算法"><a href="#Mark-and-Sweep（标记扫描）算法" class="headerlink" title="Mark-and-Sweep（标记扫描）算法"></a>Mark-and-Sweep（标记扫描）算法</h3><p>大部分垃圾回收机制的算法均称为<code>mark-and-sweep</code>，由以下几部分组成</p>
-<ul>
-<li>垃圾回收器创建了一个“<code>roots</code>”列表。<code>Roots</code>通常是代码中全局变量的引用。<code>JavaScript</code> 中,“<code>window</code>”对象是一个全局变量，被当作<code>root</code>。<code>window</code>对象总是存在，因此垃圾回收器可以检查它和它的所有子对象是否存在（即不是垃圾）；</li>
-<li>所有的 <code>roots</code> 被检查和标记为激活（即不是垃圾）。所有的子对象也被递归地检查。从<code>root</code>开始的所有对象如果是可达的，它就不被当作垃圾。</li>
-<li>所有未被标记的内存会被当做垃圾，收集器现在可以释放内存，归还给操作系统了。</li>
-</ul>
-<p><img src="https://pic.superbed.cn/item/5c93bcee3a213b0417da3dae" alt="在这里插入图片描述"></p>
-<blockquote>
-<p>不需要的引用是指开发者明知内存引用不再需要，却由于某些原因，它仍被留在激活的<code>root</code>树中。在<code>JavaScript</code>中，不需要的引用是保留在代码中的变量，它不再需要，却指向一块本该被释放的内存。</p>
-</blockquote>
-<h3 id="举几个栗子"><a href="#举几个栗子" class="headerlink" title="举几个栗子"></a>举几个栗子</h3><h4 id="意外的全局变量"><a href="#意外的全局变量" class="headerlink" title="意外的全局变量"></a>意外的全局变量</h4><h5 id="粗心"><a href="#粗心" class="headerlink" title="粗心"></a>粗心</h5><p>如果定义时忘记了<code>var</code>那么引擎会自动帮你创建一个全局变量。虽然无伤大雅还是尽量避免的好</p>
-<h5 id="this创建的意外"><a href="#this创建的意外" class="headerlink" title="this创建的意外"></a>this创建的意外</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">this</span>.a = <span class="string">"accidental global"</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="闭包-amp-amp-定时器"><a href="#闭包-amp-amp-定时器" class="headerlink" title="闭包&amp;&amp;定时器"></a>闭包&amp;&amp;定时器</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> theThing = <span class="literal">null</span>; </span><br><span class="line"><span class="keyword">var</span> replaceThing = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; </span><br><span class="line">  <span class="keyword">var</span> originalThing = theThing; </span><br><span class="line">  <span class="keyword">var</span> unused = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">if</span> (originalThing) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"hi"</span>); </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;; </span><br><span class="line"> </span><br><span class="line">  theThing = &#123; </span><br><span class="line">    longStr: <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1000000</span>).join(<span class="string">'*'</span>), </span><br><span class="line">    someMethod: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; </span><br><span class="line">      <span class="built_in">console</span>.log(someMessage); </span><br><span class="line">    &#125; </span><br><span class="line">  &#125;; </span><br><span class="line">&#125;; </span><br><span class="line"> </span><br><span class="line">setInterval(replaceThing, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-<p>代码片段做了一件事情：每次调用<code>replaceThing</code>，<code>theThing</code>得到一个包含一个大数组和一个新闭包（<code>someMethod</code>）的新对象。同时，变量<code>unused</code>是一个引用<code>originalThing</code>的闭包（先前的<code>replaceThing</code>又调用了<code>theThing</code>）。思绪混乱了吗？</p>
-<blockquote>
-<p>一旦一个作用域被创建为闭包，那么它的父作用域将被共享</p>
-</blockquote>
-<p>最重要的事情是，闭包的作用域一旦创建，它们有同样的父级作用域，作用域是共享的。<code>someMethod()</code>可以通过<code>theThing</code>使用，<code>someMethod()</code>与<code>unused</code>分享闭包作用域，尽管<code>unused</code>从未使用。它引用的<code>originalThing</code>迫使它保留在内存中（防止被回收）。当这段代码反复运行，就会看到内存占用不断上升，垃圾回收器（<code>GC</code>）并无法降低内存占用。本质上，闭包的链表已经创建，每一个闭包作用域携带一个指向大数组的间接的引用，造成严重的内存泄露。</p>
-<p>当然，我们可以通过在<code>replaceThing</code>的最后添加<code>originalThing = null</code>来修复此问题。</p>
-<h4 id="DOM引用"><a href="#DOM引用" class="headerlink" title="DOM引用"></a>DOM引用</h4><p>当需要删除DOM的引用时候注意一点：同一份DOM一般拥有两份引用：DOM树和字典</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> elements = &#123;</span><br><span class="line">    button: <span class="built_in">document</span>.getElementById(<span class="string">'button'</span>),</span><br><span class="line">    image: <span class="built_in">document</span>.getElementById(<span class="string">'image'</span>)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doStuff</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    elements.image.src = <span class="string">'http://example.com/image_name.png'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeImage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// The image is a direct child of the body element.</span></span><br><span class="line">    <span class="built_in">document</span>.body.removeChild(<span class="built_in">document</span>.getElementById(<span class="string">'image'</span>));</span><br><span class="line">    <span class="comment">// At this point, we still have a reference to #button in the</span></span><br><span class="line">    <span class="comment">//global elements object. In other words, the button element is</span></span><br><span class="line">    <span class="comment">//still in memory and cannot be collected by the GC.</span></span><br><span class="line">    elements.img = <span class="literal">null</span>		<span class="comment">// tell the engine to collect the memory</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>还有一个额外的考虑，当涉及 DOM 树内部或叶子节点的引用时，必须考虑这一点。假设你在 JavaScript 代码中保留了对 table 特定单元格（<code>&lt;td&gt;</code>）的引用。有一天，你决定从 DOM 中删除该 table，但扔保留着对该单元格的引用。直观地来看，可以假设 GC 将收集除了该单元格之外所有的内容。实际上，这不会发生的：该单元格是该 table 的子节点，并且 children 保持着对它们 parents 的引用。也就是说，在 JavaScript 代码中对单元格的引用会导致整个表都保留在内存中的。保留 DOM 元素的引用时，需要仔细考虑。</p>
-<p>好啦今天的话题就讲到这里<br><img src="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg" alt="在这里插入图片描述"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2492,7 +2541,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
