@@ -107,7 +107,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c94f5683a213b0417e591d4">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c93bda83a213b0417da42a9">
-<meta property="og:updated_time" content="2019-03-22T14:51:34.436Z">
+<meta property="og:updated_time" content="2019-03-22T14:57:34.867Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 instanceof 和 typeof 原理">
 <meta name="twitter:description" content="typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，type">
@@ -196,7 +196,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -224,7 +224,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -241,7 +241,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>A propos</a>
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Über</a>
 
   </li>
         
@@ -258,7 +258,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -275,7 +275,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -292,7 +292,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -380,14 +380,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-03-16 09:30:33" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
+              <time title="Erstellt: 2019-03-16 09:30:33" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
             
 
             
@@ -402,9 +402,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Updated at: 2019-03-22 22:51:34" itemprop="dateModified" datetime="2019-03-22T22:51:34+08:00">2019-03-22</time>
+                <time title="Geändert am: 2019-03-22 22:57:34" itemprop="dateModified" datetime="2019-03-22T22:57:34+08:00">2019-03-22</time>
               
             
           </span>
@@ -418,10 +418,10 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript深究-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript深究 —— 原理篇</span></a></span>
 
                 
                 
@@ -470,9 +470,12 @@
 <p><code>null</code>：所有机器码均为0<br><code>undefined</code>：用 −2^30 整数来表示<br>所以，<code>typeof</code> 在判断 <code>null</code> 的时候就出现问题了，<strong>由于<code>null</code>的所有机器码均为0，因此直接被当做了对象来看待</strong>。<br>然而用 <code>instanceof</code> 来判断的话</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> <span class="keyword">instanceof</span> <span class="literal">null</span> <span class="comment">// TypeError: Right-hand side of 'instanceof' is not an object</span></span><br></pre></td></tr></table></figure>
 <p><code>null</code> 直接被判断为不是<code>object</code>，这也是<code>JavaScript</code>的历史遗留<code>bug</code>，可以参考<code>typeof</code>。</p>
-<h3 id="神奇的null"><a href="#神奇的null" class="headerlink" title="神奇的null"></a>神奇的null</h3><p><img src="https://pic.superbed.cn/item/5c94f5683a213b0417e591d4" alt="神奇的null"></p>
+<h3 id="番外篇——神奇的null（有坑，未填）"><a href="#番外篇——神奇的null（有坑，未填）" class="headerlink" title="番外篇——神奇的null（有坑，未填）"></a>番外篇——神奇的null（有坑，未填）</h3><p><img src="https://pic.superbed.cn/item/5c94f5683a213b0417e591d4" alt="神奇的null"></p>
 <ul>
-<li>当我们<strong>在控制台输入 <code>null == undefined</code> 时会打印 <code>true</code></strong> 。因为<strong><code>undefined</code> 派生自 <code>null</code></strong>。所以当换成全等符号后值就变成了<code>false</code>。</li>
+<li>当我们<strong>在控制台输入 <code>null == undefined</code> 时会打印 <code>true</code></strong> 。因为<strong><code>undefined</code> 派生自 <code>null</code></strong>。所以当换成全等符号后值就变成了<code>false</code>。<ul>
+<li>有意思的一点是，将二者强转为<code>Number</code>型时<code>null</code>值为<code>0</code>而<code>undefined</code>值为<code>NaN</code>。</li>
+</ul>
+</li>
 <li><p>而作为基本类型之一的<code>null</code>，当用户打印<code>null instanceof null</code>时却报了错（<code>TypeError: Right-hand side of &#39;instanceof&#39; is not an object</code>），这也是<code>JavaScript</code>历史遗留的<code>bug</code>，为了防止修复造成的更多<code>bug</code>所以一直没有修复…</p>
 </li>
 <li><p>而当我们在控制台输入 <code>null instanceof Object</code> 时则会打印 <code>false</code> ，这和咱们输入 <code>typeof null</code> 的值 <code>&quot;object&quot;</code>大相径庭，具体原理我也没摸清，以后再填坑吧。</p>
@@ -605,10 +608,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table Des Matières
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Ensemble
+            Übersicht
           </li>
         </ul>
       
@@ -631,7 +634,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">22</span>
-                    <span class="site-state-item-name">articles</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -657,8 +660,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
-                    <span class="site-state-item-name">categories</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -734,7 +739,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#typeof实现原理"><span class="nav-number">1.</span> <span class="nav-text">typeof实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#神奇的null"><span class="nav-number">1.1.</span> <span class="nav-text">神奇的null</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#instanceof-实现原理"><span class="nav-number">2.</span> <span class="nav-text">instanceof 实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#typeof实现原理"><span class="nav-number">1.</span> <span class="nav-text">typeof实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#番外篇——神奇的null（有坑，未填）"><span class="nav-number">1.1.</span> <span class="nav-text">番外篇——神奇的null（有坑，未填）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#instanceof-实现原理"><span class="nav-number">2.</span> <span class="nav-text">instanceof 实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -767,7 +772,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -775,7 +780,7 @@
 
 
 
-  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
