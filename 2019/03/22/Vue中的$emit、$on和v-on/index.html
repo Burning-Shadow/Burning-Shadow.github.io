@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="由于本人才疏学浅本文章参考了诸多大神的想法，会在文末贴上原文地址 $on &amp;amp;&amp;amp; $ emit $emit(eventName, [...args])：触发事件$on(eventName, callBack)：监听事件  如果把Vue看成一个家庭（相当于一个单独的components)，女主人一直在家里指派($emit)男人做事，而男人则一直监听($on)着女士的指派($emit)里">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue中的$emit、$on和v-on">
+<meta property="og:url" content="http://yoursite.com/2019/03/22/Vue中的$emit、$on和v-on/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="由于本人才疏学浅本文章参考了诸多大神的想法，会在文末贴上原文地址 $on &amp;amp;&amp;amp; $ emit $emit(eventName, [...args])：触发事件$on(eventName, callBack)：监听事件  如果把Vue看成一个家庭（相当于一个单独的components)，女主人一直在家里指派($emit)男人做事，而男人则一直监听($on)着女士的指派($emit)里">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg">
+<meta property="og:updated_time" content="2019-03-22T08:30:21.500Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue中的$emit、$on和v-on">
+<meta name="twitter:description" content="由于本人才疏学浅本文章参考了诸多大神的想法，会在文末贴上原文地址 $on &amp;amp;&amp;amp; $ emit $emit(eventName, [...args])：触发事件$on(eventName, callBack)：监听事件  如果把Vue看成一个家庭（相当于一个单独的components)，女主人一直在家里指派($emit)男人做事，而男人则一直监听($on)着女士的指派($emit)里">
+<meta name="twitter:image" content="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/22/Vue中的$emit、$on和v-on/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Vue中的$emit、$on和v-on | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>A propos</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/Vue中的$emit、$on和v-on/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue中的$emit、$on和v-on
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-03-22 16:25:28 / Updated at: 16:30:21" itemprop="dateCreated datePublished" datetime="2019-03-22T16:25:28+08:00">2019-03-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由于本人才疏学浅本文章参考了诸多大神的想法，会在文末贴上原文地址</p>
+<h3 id="on-amp-amp-emit"><a href="#on-amp-amp-emit" class="headerlink" title="$on &amp;&amp; $ emit"></a>$on &amp;&amp; $ emit</h3><blockquote>
+<p><code>$emit(eventName, [...args])</code>：触发事件<br><code>$on(eventName, callBack)</code>：监听事件</p>
+</blockquote>
+<p>如果把<code>Vue</code>看成一个家庭（相当于一个单独的<code>components</code>)，女主人一直在家里指派<code>($emit)</code>男人做事，而男人则一直监听<code>($on)</code>着女士的指派<code>($emit)里eventName</code>所触发的事件消息，一旦 <code>$emit</code> 事件一触发，<code>$on</code> 则监听到 <code>$emit</code> 所派发的事件，派发出的命令和执行派执命令所要做的事都是一一对应的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &lt;p @click=<span class="string">'emit'</span>&gt;&#123;&#123;msg&#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;p @click='emitOther'&gt;&#123;&#123;msg2&#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'demo'</span>,</span><br><span class="line">  data () &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">         msg : <span class="string">'点击后女人派发洗东西事件'</span>,</span><br><span class="line">         msg2 : <span class="string">'点击后女人派发开车事件'</span>,</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created () &#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">this</span>.$on([<span class="string">'wash_Goods'</span>,<span class="string">'drive_Car'</span>],(arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'事真多'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">this</span>.$on(<span class="string">'wash_Goods'</span>,(arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(arg)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">this</span>.$on(<span class="string">'drive_Car'</span>,(...arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(BMW,Ferrari)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods : &#123;</span><br><span class="line">      emit () &#123;</span><br><span class="line">         <span class="keyword">this</span>.$emit(<span class="string">'wash_Goods'</span>,<span class="string">'fish'</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      emitOther () &#123;</span><br><span class="line">         <span class="keyword">this</span>.$emit(<span class="string">'drive_Car'</span>,[<span class="string">'BMW'</span>,<span class="string">'Ferrari'</span>])</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如本例所示，我们可以将要监听的事件统一写到一个数组中，方便我们做一个类似于过滤器的统一处理。比如例子里的<code>this.$on([&#39;wash_Goods&#39;,&#39;drive_Car&#39;],(arg)=&gt; { console.log(&#39;事真多&#39;)})</code>就类似于过滤器之类的机制，可以对“麻烦的女人”指派（<code>emit</code>）的事件进行一个统一的监听（<code>on</code>）并处理（<code>****真麻烦！</code>）。</p>
+<p>我们平时在开源库里使用的框架中都有无限下拉组件，那么我们一起跟随大神“混元霹雳手”的视角去看一下这类组件的实现<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;slot name=<span class="string">"list"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-donetip"</span> v-show=<span class="string">"!isLoading &amp;&amp; isDone"</span>&gt;</span><br><span class="line">            &lt;slot&gt;没有更多数据了&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-loading"</span> v-show=<span class="string">"isLoading"</span>&gt;</span><br><span class="line">            &lt;slot&gt;加载中&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/babel"</span>&gt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                isLoading: <span class="literal">false</span>,</span><br><span class="line">                isDone: <span class="literal">false</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        props: &#123;</span><br><span class="line">            onInfinite: &#123;</span><br><span class="line">                type: <span class="built_in">Function</span>,</span><br><span class="line">                required: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            distance : &#123;</span><br><span class="line">                type : <span class="built_in">Number</span>,</span><br><span class="line">                <span class="keyword">default</span>：<span class="number">100</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            init() &#123;</span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'loadedDone'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">this</span>.isDone = <span class="literal">true</span>;</span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'finishLoad'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;,</span><br><span class="line">            scrollHandler() &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.isLoading || <span class="keyword">this</span>.isDone) <span class="keyword">return</span>;</span><br><span class="line">                <span class="keyword">let</span> baseHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.offsetHeight : <span class="keyword">this</span>.scrollview.offsetHeight</span><br><span class="line">                <span class="keyword">let</span> moreHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollHeight : <span class="keyword">this</span>.scrollview.scrollHeight;</span><br><span class="line">                <span class="keyword">let</span> scrollTop = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollTop : <span class="keyword">this</span>.scrollview.scrollTop</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (baseHeight + scrollTop + <span class="keyword">this</span>.distance &gt; moreHeight) &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">this</span>.onInfinite()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted() &#123;</span><br><span class="line">            <span class="keyword">this</span>.scrollview = <span class="built_in">window</span></span><br><span class="line">            <span class="keyword">this</span>.scrollview.addEventListener(<span class="string">'scroll'</span>, <span class="keyword">this</span>.scrollHandler, <span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">this</span>.$nextTick(<span class="keyword">this</span>.init);</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>对下拉组件加载加更的组件进行了一个简单的封装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data 参数解释：</span><br></pre></td></tr></table></figure>
+<ul>
+<li>isLoading <code>false 代表正在执行下拉加载获取更多数据的标识</code>，<code>true代表数据加载完毕</code></li>
+<li>isDone <code>false 代表数据没有全完加载完毕</code>，<code>true 代表数据已经全部加载完毕</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">props 参数解释：</span><br></pre></td></tr></table></figure>
+<ul>
+<li>onInfinite <code>父组件向子组件传入当滚动到底部时执行加载数据的函数</code></li>
+<li>distance <code>距离滚动到底部的设定值</code></li>
+</ul>
+<h4 id="从此组件中，我们进行每一步的分析"><a href="#从此组件中，我们进行每一步的分析" class="headerlink" title="从此组件中，我们进行每一步的分析"></a>从此组件中，我们进行每一步的分析</h4><ul>
+<li><p>在<code>mounted</code>的时候，对<code>window</code>对像进行了一个滚动监听，监听的函数为<code>scrollHandler</code></p>
+<ul>
+<li><p>当<code>isLoading，isDone</code>任何一个为true时则退出 </p>
+<ul>
+<li><code>isloading</code>为<code>true</code>时防止多次同样加载，必须等待加载完毕</li>
+<li><code>isDone</code>为<code>true</code>时说明所有数据已经加载完成，没有必要再执行<code>scrollHandler</code></li>
+</ul>
+</li>
+<li><p>同时在$nextTick中进行了初始化监听 </p>
+<ul>
+<li><code>loadedDone</code> 一旦组件实例$emit(‘loadedDone’)事件时，执行回调，放开加载权限</li>
+<li><code>finishLoad</code> 一旦组件实例$emit(‘finishLoad’)事件时，执行回调，放开加载权限</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>再看看 scrollHandler函数里发生了什么 </p>
+<ul>
+<li><p><code>if (this.isLoading || this.isDone) return;</code> 一旦一者为true，则退出，原因在mounted已经叙述过了</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (baseHeight + scrollTop + this.distance &gt; moreHeight)</span><br></pre></td></tr></table></figure>
+<p> 当在window对象上监听scroll事件时，当滚动到底部的时候执行 </p>
+<ul>
+<li><code>this.isLoading = true;</code>防止重复监听</li>
+<li><code>this.onInfinite()</code>执行加载数据函数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="父组件中调用infinite-scroll组件"><a href="#父组件中调用infinite-scroll组件" class="headerlink" title="父组件中调用infinite-scroll组件"></a>父组件中调用<code>infinite-scroll</code>组件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">          &lt;infinite-scroll :on-infinite=<span class="string">'loadData'</span> ref=<span class="string">'infinite'</span>&gt;</span><br><span class="line">               &lt;ul slot=<span class="string">'list'</span>&gt;</span><br><span class="line">                  &lt;li v-<span class="keyword">for</span>=<span class="string">'n in Number'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">               &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">          &lt;/i</span>nfinite-scroll&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/babel"</span>&gt;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'InfiniteScroll'</span> <span class="keyword">from</span> <span class="string">'.......'</span> <span class="comment">//引入infinitescroll.vue文件</span></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">         data () &#123;</span><br><span class="line">           <span class="keyword">return</span> &#123;</span><br><span class="line">              <span class="built_in">Number</span> : <span class="number">10</span></span><br><span class="line">           &#125;</span><br><span class="line">         &#125;,</span><br><span class="line">         methods : &#123;</span><br><span class="line">           loadData () &#123;</span><br><span class="line">             setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.Number = <span class="number">20</span></span><br><span class="line">                <span class="keyword">this</span>.$refs.infinite.$emit(<span class="string">'loadDone'</span>)</span><br><span class="line">             &#125;,<span class="number">1000</span>) </span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当滑到底部的时候，infinite-scroll 组件组件内部会执行传入的<code>:on-infinite=&#39;loadData&#39;</code>函数 同时在内部也会把 Loading 设置为 true，防止重复执行。</p>
+<p>在这里用<code>this.$refs.infinite</code>拿到<code>infinite-scroll</code>组件的实例，同时触发事件之前在组件中 <code>$on</code> 已经监听着的事件，在一秒后进行改变数据，同时发出<code>loadDone</code>事情，告诉组件内部去执行<code>loadDone</code>的监听回调，数据已经全部加载完毕，设置<code>this.isDone = true；</code> 一旦<code>isDone</code>或者<code>isLoading</code>一者为<code>true</code>，则一直保持<code>return退出状态</code>。</p>
+<p><strong>$emit 和 $on 必须都在实例上进行触发和监听。</strong></p>
+<h2 id="由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！"><a href="#由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！" class="headerlink" title="由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！"></a>由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！</h2><h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h3><blockquote>
+<p><code>v-on</code>作用在引入子组件后的父组件模板，用来监听子组件释放的事件</p>
+<p><code>$on</code>和<code>$emit</code>则只能作用在事件名一一对应的<strong>同一个组件实例中</strong></p>
+</blockquote>
+<p>父组件中的<code>“v-on:”</code>之后绑定事件名+回调函数<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">demo</span> <span class="attr">v-on:eventName</span>=<span class="string">"callBack"</span>&gt;</span><span class="tag">&lt;/<span class="name">demo</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>而子组件中则通过绑定触发事件的函数来将消息传回至父组件中（以此来触发父组件的回调函数）</p>
+<blockquote>
+<p>个人理解是，所谓的信息传递只不过是事件被触发后进行的某事件名的传递，以告诉父组件此事件被触发，之后父组件则得到此消息（主要是事件名）确定了此事件绑定的回调函数，并对其进行调用<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"emit"</span>&gt;</span>点我给父组件传递消息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">export default &#123;</span><br><span class="line">	name: 'demo',</span><br><span class="line">	methods: &#123;</span><br><span class="line">		emit() &#123;</span><br><span class="line">			this.$emit('eventName')</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>我们举个栗子</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"counter-event-example"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; total &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">v-on:increment</span>=<span class="string">"incrementTotal"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">v-on:increment</span>=<span class="string">"incrementTotal"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">Vue.component(<span class="string">'button-counter'</span>, &#123;</span></span><br><span class="line"><span class="xml">  template: '<span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"incrementCounter"</span>&gt;</span>&#123;&#123; counter &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span>',</span></span><br><span class="line"><span class="javascript">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      counter: 0</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="javascript">    incrementCounter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.counter += <span class="number">1</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.$emit(<span class="string">'increment'</span>)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">&#125;)</span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">  el: <span class="string">'#counter-event-example'</span>,</span></span><br><span class="line"><span class="undefined">  data: &#123;</span></span><br><span class="line"><span class="undefined">    total: 0</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="javascript">    incrementTotal: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.total += <span class="number">1</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如此例所示，在<code>counter-event-example</code>父组件里，声明了两个<code>button-count</code>的实列，<strong>通过 <code>data</code> 用闭包的形式，让两者的数据都是单独享用的</strong>，而且<code>v-on</code> 所监听的 <code>eventName</code> 都是当前自己实列中的 <code>$emit</code> 触发的事件，但是回调都是公用的一个 <code>incrementTotal</code> 函数，因为个实例所触发后都是执行一种操作！<br>PS:</p>
+<ul>
+<li><code>v-on</code>声明在父组件中，你可以理解为一直抱着手机等你女神回消息的你：<code>&lt;waiting v-on:call-repair=&quot;repair&quot;&gt;&lt;/waiting&gt;</code>。</li>
+<li><code>emit</code>则在子组件中，一般通过某些动作触发调用对应函数，然后完成对信息的传递。比如你女神需要你给她修电脑的时候，她会在你俩尘封已久的聊天框上<code>click</code>一下：<code>&lt;div @click=&quot;callRepair&quot;&gt;会修电脑的人&lt;/div&gt;</code>，而她的<code>methods</code>中必定有一个名为<code>call-repair</code>的方法，通过<code>this.$emit()</code>【没错，人家什么东西（参数）都不会给你，只会单纯的派遣任务，让你知道<code>call-repair</code>事件被触发，需要你调用你的<code>repair</code>方法】让你触发<code>repair</code>方法完成操作。</li>
+</ul>
+<p>说到最后话题有点悲伤，不过也告诉我们相处应该讲究方法，如果你一开始将其视为自己的“女神（子组件）”百般呵护，单向输出，也怪不得人家调用<code>$emit</code>，只在用得到你的时候触发。</p>
+<p>下一章我们会讲到更加“健康”的关系：<code>v-model</code>。双向沟通，相濡以沫才是正确的方式</p>
+<p>最后，感谢掘金的“混元霹雳手”大大，他的博客给了我非常多的灵感，并且我引用了他的2个例子。<a href="https://juejin.im/user/580327ee0e3dd900570cf3ab" target="_blank" rel="noopener">大佬博客传送门在这里</a>。</p>
+<p>今天就到这里啦<br><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/21/Vue中实现下拉加载组件/" rel="next" title="Vue中实现下拉加载组件">
+                <i class="fa fa-chevron-left"></i> Vue中实现下拉加载组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/22/Vuex初体验/" rel="prev" title="Vuex初体验">
+                Vuex初体验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ensemble
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">articles</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:2485999859@qq.com" title="E-Mail &rarr; mailto:2485999859@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#on-amp-amp-emit"><span class="nav-number">1.</span> <span class="nav-text">$on &amp;&amp; $ emit</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#从此组件中，我们进行每一步的分析"><span class="nav-number">1.1.</span> <span class="nav-text">从此组件中，我们进行每一步的分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#父组件中调用infinite-scroll组件"><span class="nav-number">1.1.1.</span> <span class="nav-text">父组件中调用infinite-scroll组件</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！"><span class="nav-number"></span> <span class="nav-text">由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#v-on"><span class="nav-number">1.</span> <span class="nav-text">v-on</span></a></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
