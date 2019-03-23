@@ -98,19 +98,20 @@
 
 
 
-  <meta name="description" content="玩过原型链继承（类继承）的娃应该都用过var instance = new Class()之类的代码。但是你真的了解new吗？ 大家都知道new操作符用作实例化，但是实例化的过程中除去返回对象它还做了什么？ 执行__proto__链接123function Student()&amp;#123;&amp;#125;var student = new Student();console.log(student);">
+  <meta name="description" content="前言玩过原型链继承（类继承）的娃应该都用过var instance = new Class()之类的代码。但是你真的了解new吗？ 大家都知道new操作符用作实例化，但是实例化的过程中除去返回对象它还做了什么？ 绑定this到实例12345678function Student(name)&amp;#123;    console.log(&apos;赋值前-this&apos;, this);    this.name =">
+<meta name="keywords" content="new操作符,实现原理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript中的new操作符">
 <meta property="og:url" content="http://yoursite.com/2019/03/21/JavaScript中的new操作符/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="玩过原型链继承（类继承）的娃应该都用过var instance = new Class()之类的代码。但是你真的了解new吗？ 大家都知道new操作符用作实例化，但是实例化的过程中除去返回对象它还做了什么？ 执行__proto__链接123function Student()&amp;#123;&amp;#125;var student = new Student();console.log(student);">
+<meta property="og:description" content="前言玩过原型链继承（类继承）的娃应该都用过var instance = new Class()之类的代码。但是你真的了解new吗？ 大家都知道new操作符用作实例化，但是实例化的过程中除去返回对象它还做了什么？ 绑定this到实例12345678function Student(name)&amp;#123;    console.log(&apos;赋值前-this&apos;, this);    this.name =">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://pic.superbed.cn/item/5c93c7493a213b0417da821a">
-<meta property="og:updated_time" content="2019-03-23T03:17:37.087Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c95e71f3a213b0417ef5ccf">
+<meta property="og:updated_time" content="2019-03-23T08:06:45.737Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的new操作符">
-<meta name="twitter:description" content="玩过原型链继承（类继承）的娃应该都用过var instance = new Class()之类的代码。但是你真的了解new吗？ 大家都知道new操作符用作实例化，但是实例化的过程中除去返回对象它还做了什么？ 执行__proto__链接123function Student()&amp;#123;&amp;#125;var student = new Student();console.log(student);">
-<meta name="twitter:image" content="https://pic.superbed.cn/item/5c93c7493a213b0417da821a">
+<meta name="twitter:description" content="前言玩过原型链继承（类继承）的娃应该都用过var instance = new Class()之类的代码。但是你真的了解new吗？ 大家都知道new操作符用作实例化，但是实例化的过程中除去返回对象它还做了什么？ 绑定this到实例12345678function Student(name)&amp;#123;    console.log(&apos;赋值前-this&apos;, this);    this.name =">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c95e71f3a213b0417ef5ccf">
 
 
 
@@ -386,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-23 11:17:37" itemprop="dateModified" datetime="2019-03-23T11:17:37+08:00">2019-03-23</time>
+                <time title="Geändert am: 2019-03-23 16:06:45" itemprop="dateModified" datetime="2019-03-23T16:06:45+08:00">2019-03-23</time>
               
             
           </span>
@@ -438,27 +439,41 @@
       
 
       
-        <p>玩过原型链继承（类继承）的娃应该都用过<code>var instance = new Class()</code>之类的代码。但是你真的了解<code>new</code>吗？</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>玩过原型链继承（类继承）的娃应该都用过<code>var instance = new Class()</code>之类的代码。但是你真的了解<code>new</code>吗？</p>
 <p>大家都知道<code>new</code>操作符用作实例化，但是实例化的过程中除去返回对象它还做了什么？</p>
-<h3 id="执行-proto-链接"><a href="#执行-proto-链接" class="headerlink" title="执行__proto__链接"></a>执行<code>__proto__</code>链接</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> student = <span class="keyword">new</span> Student();</span><br><span class="line"><span class="built_in">console</span>.log(student);</span><br></pre></td></tr></table></figure>
-<p><img src="https://pic.superbed.cn/item/5c93c7493a213b0417da821a" alt="控制台输出"></p>
-<p>我们由此可以得知</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">student.constructor === Student</span><br><span class="line">Student.prototype.constructor === Student</span><br></pre></td></tr></table></figure>
 <h3 id="绑定this到实例"><a href="#绑定this到实例" class="headerlink" title="绑定this到实例"></a>绑定this到实例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'赋值前-this'</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'赋值后-this'</span>, <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> student = <span class="keyword">new</span> Student(<span class="string">'Ming'</span>);</span><br><span class="line"><span class="comment">// 赋值前-this  Student&#123;&#125;</span></span><br><span class="line"><span class="comment">// 赋值后-this  Student&#123;name: "Ming"&#125;</span></span><br></pre></td></tr></table></figure>
 <p>由此可见，<code>new</code>操作符将构造函数<code>Student</code>中的<code>this</code>指向了<code>new Student()</code>生成的对象<code>student</code>。</p>
-<p>### </p>
-<blockquote>
-<ol>
-<li>创建一个全新的对象</li>
-<li>这个对象会被执行<code>[[Prototype]]</code>（<code>__proto__</code>）链接</li>
-<li>生成的新对象会绑定到函数调用的<code>this</code></li>
-<li>通过<code>new</code>创建的每个对象将最终被<code>[[Prototype]]</code>链接到这个函数的<code>prototype</code>对象上。</li>
-<li>如果函数没有返回对象类型<code>object</code>（包含<code>Function</code>、<code>Array</code>、<code>dDte</code>、<code>RegExp</code>、<code>Error</code>），那么<code>new</code>表达式中的函数调用会自动返回这个新的对象</li>
-</ol>
-</blockquote>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模拟实现 new 操作符</span></span><br><span class="line"><span class="comment"> * @param  &#123;Function&#125; ctor [构造函数]</span></span><br><span class="line"><span class="comment"> * @return &#123;Object|Function|Regex|Date|Error&#125;      [返回结果]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newOperator</span>(<span class="params">ctor</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> ctor !== <span class="string">'function'</span>)&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="string">'newOperator function the first param must be a function'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ES6 new.target 是指向构造函数</span></span><br><span class="line">    newOperator.target = ctor;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 1.创建一个全新的对象，</span></span><br><span class="line">    <span class="comment">// 2.并且执行[[Prototype]]链接</span></span><br><span class="line">    <span class="comment">// 4.通过`new`创建的每个对象将最终被`[[Prototype]]`链接到这个函数的`prototype`对象上。</span></span><br><span class="line">    <span class="keyword">var</span> newObj = <span class="built_in">Object</span>.create(ctor.prototype);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ES5 arguments转成数组 当然也可以用ES6 [...arguments], Aarry.from(arguments);</span></span><br><span class="line">    <span class="comment">// 除去ctor构造函数的其余参数</span></span><br><span class="line">    <span class="keyword">var</span> argsArr = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 3.生成的新对象会绑定到函数调用的`this`。</span></span><br><span class="line">    <span class="comment">// 获取到ctor函数返回结果</span></span><br><span class="line">    <span class="keyword">var</span> ctorReturnResult = ctor.apply(newObj, argsArr);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 小结4 中这些类型中合并起来只有Object和Function两种类型 typeof null 也是'object'所以要不等于null，排除null</span></span><br><span class="line">    <span class="keyword">var</span> isObject = <span class="keyword">typeof</span> ctorReturnResult === <span class="string">'object'</span> &amp;&amp; ctorReturnResult !== <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">var</span> isFunction = <span class="keyword">typeof</span> ctorReturnResult === <span class="string">'function'</span>;</span><br><span class="line">    <span class="keyword">if</span>(isObject || isFunction)&#123;</span><br><span class="line">        <span class="keyword">return</span> ctorReturnResult;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 5.如果函数没有返回对象类型`Object`(包含`Functoin`, `Array`, `Date`, `RegExg`, `Error`)，那么`new`表达式中的函数调用会自动返回这个新的对象。</span></span><br><span class="line">    <span class="keyword">return</span> newObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如此这般，将对象执行<code>__proto__</code>链接，将新生成的对象绑定函数调用的<code>this</code>，并将其实例通过<code>__proto__</code>连接到构造函数的<code>prototype</code>上。</p>
-<p>而完成将实例连接到构造函数原型的工作正是由<code>Object.create(proto, [propertiesObject])</code>实现的。下面我们来正式讲一讲这东西</p>
+<h3 id="原型链连接"><a href="#原型链连接" class="headerlink" title="原型链连接"></a>原型链连接</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line">Test.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> t = <span class="keyword">new</span> Test(<span class="string">'yck'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(t.name) <span class="comment">// 'yck'</span></span><br><span class="line">t.sayName() <span class="comment">// 'yck'</span></span><br></pre></td></tr></table></figure>
+<p>通过<code>new</code>操作符将实例<code>t</code>与构造函数<code>Test</code>连接起来。</p>
+<p>通过<code>new</code>操作符将实例和构造函数连接起来。相当于<code>student.__proto__ = Student.prototype</code>。</p>
+<p>当然我们可以通过<code>setPrototypeOf</code>完成。有兴趣的boy可以了解一下。</p>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><h4 id="原始值"><a href="#原始值" class="headerlink" title="原始值"></a>原始值</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> t = <span class="keyword">new</span> Test(<span class="string">'yck'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(t.name) <span class="comment">// 'yck'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>构造函数如果返回原始值（虽然例子中只有返回了 1，但是你可以试试其他的原始值，结果还是一样的），那么这个返回值毫无意义</strong></li>
+</ul>
+<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">// Test &#123; name: 'yck' &#125;</span></span><br><span class="line">  <span class="keyword">return</span> &#123; <span class="attr">age</span>: <span class="number">26</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> t = <span class="keyword">new</span> Test(<span class="string">'yck'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(t) <span class="comment">// &#123; age: 26 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(t.name) <span class="comment">// 'undefined'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>构造函数如果返回值为对象，那么这个返回值会被正常使用</strong></li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模拟实现 new 操作符</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params">Con, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line">  <span class="built_in">Object</span>.setPrototypeOf(obj, Con.prototype)</span><br><span class="line">  <span class="keyword">let</span> result = Con.apply(obj, args)</span><br><span class="line">  <span class="keyword">return</span> result <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? result : obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们通过以下几步完成了<code>new</code>操作符的实现</p>
+<ul>
+<li>函数接受不定量的参数，第一个参数为构造函数，接下来的参数被构造函数使用</li>
+<li>内部创建一个空对象</li>
+<li>因为<code>obj</code>对象需要访问到构造函数原型链上的属性，所以我们通过<code>setPrototype</code>将两者联系起来（相当于<code>obj.__proto__ = Con.prototype</code>）</li>
+<li>将<code>obj</code>绑定到构造函数上，并传入剩余的参数</li>
+<li>判断构造函数返回值是否为对象，若是则使用构造函数返回的值，否则返回<code>obj</code></li>
+</ul>
+<p>咱们来试一下这DIY的东西好不好用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Constructor</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">constructor</span>.prototype.fun = function()&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a = create(Constructor, <span class="string">'jack'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.superbed.cn/item/5c95e71f3a213b0417ef5ccf" alt></p>
+<p>有没有发现，和咱们之前的一模一样欸。所以这东西就到此结束。</p>
+<p>最后总结一下</p>
+<ul>
+<li>将<code>this</code>绑定到实例</li>
+<li>原型链连接</li>
+<li>返回值为对象</li>
+</ul>
 
       
     </div>
@@ -479,6 +494,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/new操作符/" rel="tag"># new操作符</a>
+          
+            <a href="/tags/实现原理/" rel="tag"># 实现原理</a>
+          
+        </div>
       
 
       
@@ -640,7 +663,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">schlagwörter</span>
                   
                 </div>
@@ -704,7 +731,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#执行-proto-链接"><span class="nav-number">1.</span> <span class="nav-text">执行__proto__链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定this到实例"><span class="nav-number">2.</span> <span class="nav-text">绑定this到实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定this到实例"><span class="nav-number">2.</span> <span class="nav-text">绑定this到实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型链连接"><span class="nav-number">3.</span> <span class="nav-text">原型链连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">4.</span> <span class="nav-text">返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原始值"><span class="nav-number">4.1.</span> <span class="nav-text">原始值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象"><span class="nav-number">4.2.</span> <span class="nav-text">对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">5.</span> <span class="nav-text">实现</span></a></li></ol></div>
             
 
           </div>
