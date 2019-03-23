@@ -321,6 +321,887 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript中的闭包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/20/JavaScript中的闭包/" class="post-title-link" itemprop="url">JavaScript中的闭包</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-20 11:26:59" itemprop="dateCreated datePublished" datetime="2019-03-20T11:26:59+08:00">2019-03-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-22 14:38:54" itemprop="dateModified" datetime="2019-03-22T14:38:54+08:00">2019-03-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>其实这个专题之前就写过一些东西，不过当时属实是个小老弟，非常生涩而且里边的东西都是复制粘贴来的。想表达的东西很多但是都没有表达清楚。所以面临面试的我打算重新总结一番，当作一个回顾吧</p>
+<h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>什么是闭包？</p>
+<blockquote>
+<p>MDN：包是函数和生命该函数的词法环境的组合</p>
+</blockquote>
+<blockquote>
+<p>Tyler McGinnis：子函数在其父级变量环境上“关闭”的概念</p>
+</blockquote>
+<blockquote>
+<p>w3cschool：词法表示包括不被计算的变量的函数。也就是说，函数可以使用函数之外定义的变量</p>
+</blockquote>
+<blockquote>
+<p>阮一峰：能读取其他函数内部变量的函数</p>
+</blockquote>
+<blockquote>
+<p>简书某博主：一个函数访问了他的外部变量</p>
+</blockquote>
+<blockquote>
+<p>《你所不知道的JavaScript》：当函数可以<strong>记住</strong>并<strong>访问</strong>所在的词法作用域时，就产生了闭包——即使函数是在当前词法作用域之外执行</p>
+</blockquote>
+<p>从我个人理解上来看《你所不知道的JavaScript》一书给出的定义最适合我们理解。因此我们着重以其思路进行判断</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(a)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> bar</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> baz = foo()</span><br><span class="line"></span><br><span class="line">baz()		<span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>如图，<code>foo</code>执行后将<code>bar</code>作为返回赋给了<code>baz</code>，使得<code>bar</code>得以在自己定义的语法作用域之外的地方执行。</p>
+<p>这并不是最神奇的地方。我们之前提到了<code>js</code>的垃圾回收机制，当调用结束后会自动回收内存。但是闭包会阻止这一过程的进行。此例中按理说<code>foo</code>不会再使用，<strong>但是给<code>baz</code>赋值时，引擎通过<code>RHS</code>查找的会查找<code>foo</code>的地址，此过程就阻止了<code>foo</code>的回收。</strong>归根到底还是由于<code>bar</code>本身的调用使得<code>foo</code>的内部作用域仍在被引用，此引用就叫闭包</p>
+<blockquote>
+<p>函数在别处被调用时也是闭包——跳出本来的作用域到其他作用域完成其功能</p>
+</blockquote>
+<h4 id="加上循环再试试"><a href="#加上循环再试试" class="headerlink" title="加上循环再试试"></a>加上循环再试试</h4><p>《JavaScript高级程序设计》书中提到了一个很有趣的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( i )</span><br><span class="line">    &#125;, i*<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 10s内每秒打印一个10</span></span><br></pre></td></tr></table></figure>
+<p>我们上边讲到了作用域的向上查找方式，以及块作用域的定义</p>
+<p>延迟函数的回调会在循环结束时才执行。<code>Why?</code>因为其缺陷在于我们试图假设循环中的每个迭代都在运行时都会自己捕获一个<code>i</code>的副本。但事实上尽管循环中的10个函数都是在各个迭代中分别定义的，可其共享一个作用域，而此作用域中只有一个<code>i</code></p>
+<h4 id="到底怎么办"><a href="#到底怎么办" class="headerlink" title="到底怎么办"></a>到底怎么办</h4><p>由上述可知<strong>我们需要更多的闭包作用域</strong>！尤其是每个迭代都需要一个闭包作用域，如此才可以实现<code>i</code>的迭代</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log( i )</span><br><span class="line">        &#125;, i*<span class="number">1000</span>)</span><br><span class="line">    &#125;)(i)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 正确打印</span></span><br></pre></td></tr></table></figure>
+<h5 id="第一个咋错了？"><a href="#第一个咋错了？" class="headerlink" title="第一个咋错了？"></a>第一个咋错了？</h5><p><img src="https://pic.superbed.cn/item/5c93bb153a213b0417da2fee" alt="在这里插入图片描述"><br>首先是错误输出案例。</p>
+<p>我们从上一篇博客中知道函数作用域包括<strong>参数</strong>、<strong>变量</strong>以及<strong>方法</strong>。所以我们将同一个作用域中的这些部分包含在一个圈内（为了省事我就不画全局作用域啦）</p>
+<p>①中包含了传入参数<code>i</code>（每次循环都会被迭代，所以下方<code>i*1000</code>中的<code>i</code>也会同步更新。）和函数<code>setTimeout</code>。</p>
+<p>②作用域中则是<code>timer</code>内部的<code>i</code>。由于此作用域中未定义此变量，所以引擎会向上级作用域讨要这个<code>i</code>的值。而闭包的特点前面我们讲过（<strong>尽管循环中的10个函数都是在各个迭代中分别定义的，可其共享一个作用域，而此作用域中只有一个<code>i</code></strong>），所以只能得到循环结束后的结果10作为<code>i</code>的值。</p>
+<h5 id="那这个为啥又对了？"><a href="#那这个为啥又对了？" class="headerlink" title="那这个为啥又对了？"></a>那这个为啥又对了？</h5><p><img src="https://pic.superbed.cn/item/5c93bb4f3a213b0417da3195" alt="在这里插入图片描述"><br>我们前面说到<code>IIFE(Immediately Invoked Function Expression，立即执行函数表达式)</code>模式会创建全新的作用域。所以在两层作用域之间嵌套一层，就可以实现参数的传递啦。</p>
+<p><strong>第①层</strong>依旧平平无奇，只有传入的迭代变量<code>i</code>以及那个<code>IIFE</code></p>
+<p><strong>第②层</strong>就有猫腻啦！我们将上一层的迭代变量作为参数传入了这个立即执行函数表达式，如此即可保证变量的同步更新</p>
+<p><strong>第③层</strong>则是遵循之前我们所讲，向上一层作用域寻求变量<code>i</code>。由于上一层（②层）的<code>i</code>是作为参数传入（可以理解为实时更新），所以自然可以取到正确的值咯~</p>
+<h5 id="简化"><a href="#简化" class="headerlink" title="简化"></a>简化</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( i )</span><br><span class="line">    &#125;, i*<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 正确打印</span></span><br></pre></td></tr></table></figure>
+<p>是的没错！我们可以使用<code>let</code>偷个懒！上一篇关于作用域的博客我们已经讲过了，<code>let</code>会创建一个块作用域，这个块作用域就像是传统面向对象中的一样，没有这么多勾心斗角，只有无尽的岁月安好。所以说版本的进步真的是我等的一大福音啊。</p>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>说了这么多咱们最后总结一下使用闭包的优缺点</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>可以读取函数内部变量</li>
+<li>可以让这些变量始终保存在内存中（闭包默认会保持其所引用的环境变量）</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>闭包会默认保持其所引用的环境变量。这可能导致内存泄露<ul>
+<li>解决方法：推出前务必将不再需要的变量值设为空，方便垃圾回收机制回收</li>
+</ul>
+</li>
+<li>可以在父函数外部改变函数内部变量的值，造成安全隐患。</li>
+</ul>
+<p>好了今天的话题我们就讲到这里<br><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg" alt="告辞"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript中的作用域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/20/JavaScript中的作用域/" class="post-title-link" itemprop="url">JavaScript中的作用域</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-20 11:21:54" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:54+08:00">2019-03-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-22 14:40:17" itemprop="dateModified" datetime="2019-03-22T14:40:17+08:00">2019-03-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><h3 id="LHS和RHS"><a href="#LHS和RHS" class="headerlink" title="LHS和RHS"></a>LHS和RHS</h3><blockquote>
+<p>若查找的目的是对变量进行赋值则引擎会使用LHS查询</p>
+<p>若目的是获取变量的值则使用LHS查询</p>
+</blockquote>
+<p>如题，<strong>LHS查询</strong>的目的是对变量赋值，则可以理解为<strong>寻找变量的容器本身</strong></p>
+<p>而<strong>RHS查询</strong>则应理解为<code>retrieve his source value</code>（<strong>取其源值</strong>）</p>
+<p>我们可以简单的理解为<code>LHS</code>是赋值语句左边部分，注重的是变量本身。而<code>RHS</code>则是赋值语句右边部分，注重的是所要赋给变量的值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( a+b )</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span></span><br><span class="line">foo(<span class="number">2</span>)		<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<p>此例中执行<code>foo</code>时，引擎会从当前作用域（<code>foo</code>作用域）寻找<code>b</code>，对其进行<code>RHS</code>引用。而作用域中自然无法找到，所以引擎会向上级作用域，本例中也就是全局作用域进行查找。若可以找到<code>b</code>则对其进行<code>RHS</code>引用，未找到则报错（<code>ReferenceError</code>）</p>
+<blockquote>
+<p><code>ReferenceError</code>同作用域判别失败有关</p>
+<p><code>TypeError</code>则代表作用域判别成功，但对结果的操作是非法的</p>
+</blockquote>
+<h3 id="词法阶段"><a href="#词法阶段" class="headerlink" title="词法阶段"></a>词法阶段</h3><p>我们刚才提到了作用域，为了帮助理解我们举个栗子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>)</span>&#123;				<span class="comment">// ①</span></span><br><span class="line">    <span class="keyword">var</span> b = a * <span class="number">2</span>				<span class="comment">// ②</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">c</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a, b, c)	<span class="comment">// ③</span></span><br><span class="line">    &#125;</span><br><span class="line">    bar(b * <span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line">foo(<span class="number">2</span>)		<span class="comment">// 2, 4, 12</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>①包含着整个全局作用域，其中只有1个标识符：<code>foo</code></p>
+<p>②包含着<code>foo</code>所创建的作用域，其中有3个标识符：<code>a</code>、<code>bar</code>和<code>b</code></p>
+<p>③包含着<code>bar</code>所创建的作用域，其中只有1个标识符：<code>c</code></p>
+</blockquote>
+<p>由此可知，所谓的作用域包含了参数（<code>arguments</code>）、变量（<code>variable</code>）、方法（<code>function</code>）。</p>
+<p>当我们进行<code>LHS</code>或<code>RHS</code>查找时，若本层作用域中未找到则会自动向上，直至顶层的全局作用域。<code>RHS</code>未找到则报<code>ReferenceError</code>，而<code>LHS</code>未找到则会自动帮你创建一个全局的变量供你使用</p>
+<h3 id="欺骗词法作用域"><a href="#欺骗词法作用域" class="headerlink" title="欺骗词法作用域"></a>欺骗词法作用域</h3><h4 id="eval"><a href="#eval" class="headerlink" title="eval()"></a>eval()</h4><p><code>eval</code>函数可以接受一个字符串作为参数。神奇之处在于他会<strong>将其中的内容视为好像在书写时就存在于此位置的代码</strong>。</p>
+<p>在执行<code>eval(str)</code>之后的代码时，引擎并不在意代码<code>str</code>是以动态形式插入进来的，只会像往常一般，遵循着一层层向上的词法作用域进行查找。这就造成了一个隐患：<strong>欺骗词法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">str, a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">eval</span>(str)</span><br><span class="line">    <span class="built_in">console</span>.log(a, b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span></span><br><span class="line">foo(<span class="string">"var b = 3"</span>, <span class="number">1</span>)		<span class="comment">// 1, 3</span></span><br></pre></td></tr></table></figure>
+<p>如此例所示，<code>eval</code>会将原本的词法作用域进行修改，使得本来要向父级作用域进行<code>RHS</code>查找的变量<code>b</code>可以被操控改变为任何值。更加严重的是，若<code>b</code>处于该作用域父级的同时还处于全局作用域的子级，那么我们将无法在此作用域中找到正确的<code>b</code></p>
+<h4 id="with"><a href="#with" class="headerlink" title="with"></a>with</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">with</span>(obj)&#123;</span><br><span class="line">        a = <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">foo(o1)</span><br><span class="line"><span class="built_in">console</span>.log(o1.a)	<span class="comment">// 2	o1.a值被改变</span></span><br><span class="line"></span><br><span class="line">foo(o2)</span><br><span class="line"><span class="built_in">console</span>.log(o2.a)	<span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(a)		<span class="comment">// 2 —— a被泄漏到了全局作用域上</span></span><br></pre></td></tr></table></figure>
+<p><code>foo</code>函数中的<code>with</code>看似是对变量<code>a</code>进行了简单的词法引用，实际却是一个<code>LHS</code>引用，并将2赋值给<code>o1.a</code>。</p>
+<p>可是<code>a</code>又是怎么被泄漏变成一个全局变量的呢？</p>
+<blockquote>
+<p><code>with</code>可以将一个没有属性或有多个属性的对象处理为一个<strong>完全隔离的此法作用域</strong>。因此此对象的属性也会被处理为定义在此作用域中的词法标识符</p>
+</blockquote>
+<p>当我们传递<code>o1</code>给<code>with</code>时，<code>with</code>所声明的作用域为<code>o1</code>。而此作用域中含一个<code>a</code>。单我们将<code>o2</code>作为作用域时其中无<code>a</code>，因此执行<code>a = 2</code>时自动创建了一个全局变量</p>
+<h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><blockquote>
+<p>函数作用域：属于这个函数的全部变量都可以在整个函数的范围内使用及复用</p>
+</blockquote>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><h4 id="隐藏"><a href="#隐藏" class="headerlink" title="隐藏"></a>隐藏</h4><p>由于函数作用域的存在导致了我们想要访问函数的内部方法或变量时无法绕过该函数，那么我们不妨换一种思路：<strong>将想要封装的代码块用函数包裹起来就可以完成“隐藏”功能</strong></p>
+<p>本着<strong>最小特权原则</strong>，我们应该尽可能少的暴露必要内容，以防止别处对其的调用或更改。将其存储至函数中可以使得该方法更加安全，保证其私密性</p>
+<h4 id="规避冲突"><a href="#规避冲突" class="headerlink" title="规避冲突"></a>规避冲突</h4><p>由于我们每层都会有一个存储参数、变量与方法的作用域，而不同作用域之间可以有同名变量，所以我们可以利用这一点，将一些同名而不同意义的变量存储至不同作用域，以防止其被覆盖</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>上述我们提到了通过函数封装代码块，但是想要调用里边的方法时却无法绕开这个函数，这也造成了这个函数的名称本身污染了所在作用域。其次，必须显式的通过函数名才能调用这个函数，完成其中代码的运行。所以我们渴望<strong>一种不需要函数名就能直接运行其中代码的数据结构</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">3</span></span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>我们在函数外边嵌套了一个<code>()</code>，函数就会被当作一个<strong>函数表达式</strong>，而非一个<strong>函数声明</strong>来处理</p>
+<blockquote>
+<p>函数声明和函数表达式之间最重要的区别是它们的名称标识符将会绑定在何处</p>
+</blockquote>
+<p><strong>函数表达式</strong>的特殊之处在于他不像函数声明一般被绑定在所在作用域，而是<strong>被绑定在函数表达式自身的函数中</strong>。也就是说该函数表达式中的代码只能在所在位置中访问，而无法被外部作用于访问</p>
+<h2 id="块作用域"><a href="#块作用域" class="headerlink" title="块作用域"></a>块作用域</h2><h3 id="JavaScript中的问题"><a href="#JavaScript中的问题" class="headerlink" title="JavaScript中的问题"></a>JavaScript中的问题</h3><p><code>js</code>中没有块级作用域的体现，而我们所最熟悉的循环代码事实上虽然实现了功能，但是并不符合传统面向对象对于块级作用域的理解</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当使用<code>var</code>声明变量时，因为<code>js</code>中特殊的变量提升机制，导致它写在哪里都一样，因为其最终都会属于外部作用域。要确保没有在其他地方意外使用<code>i</code>只能靠自觉</p>
+<h3 id="with-1"><a href="#with-1" class="headerlink" title="with"></a>with</h3><p>用<code>with</code>创建出的作用域仅在<code>with</code>声明作用域中有效</p>
+<h3 id="try…catch"><a href="#try…catch" class="headerlink" title="try…catch"></a>try…catch</h3><p><code>try...catch</code>中的<code>catch</code>分句也会创建一个块级作用域。</p>
+<h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><p><code>let</code>声明的变量隐式劫持了所在的块级作用域</p>
+<h3 id><a href="#" class="headerlink" title="{}"></a>{}</h3><p>同时为了解决此问题我们可以将希望拥有独立作用域的代码块外嵌套一层大括号，以此达到外部作用域无法访问的目的</p>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p><code>const</code>也会创建块级作用域变量。但其创建的变量无法修改</p>
+<h2 id="声明提升"><a href="#声明提升" class="headerlink" title="声明提升"></a>声明提升</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a)</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>	<span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>只有声明（无论是变量声明还是函数声明）会被提升，赋值（<code>a = 2</code>）仍会被留在原地</li>
+<li>函数会被首先提升，然后才是变量</li>
+</ul>
+<p>今天我们讲的内容一定要记在小本子上背牢了。下次咱们会讲闭包，没有今天关于作用域的概念将会寸步难行~<br><img src="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg" alt="在这里插入图片描述"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript中的prototype、[[prototype]]和__proto__的区别和用法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/20/JavaScript中的prototype、[[prototype]]和__proto__的区别和用法/" class="post-title-link" itemprop="url">JavaScript中的prototype、[[prototype]]和__proto__的区别和用法</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-20 11:21:23" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:23+08:00">2019-03-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-23 11:18:31" itemprop="dateModified" datetime="2019-03-23T11:18:31+08:00">2019-03-23</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="显式原型-amp-隐式原型"><a href="#显式原型-amp-隐式原型" class="headerlink" title="显式原型&amp;隐式原型"></a>显式原型&amp;隐式原型</h3><p>显式原型：<code>prototype</code><br>隐式原型：<code>__proto__</code></p>
+<h4 id="Important"><a href="#Important" class="headerlink" title="Important"></a>Important</h4><ul>
+<li><code>__proto__</code>是每个对象都具有的属性</li>
+<li><code>prototype</code>是<code>Function</code>独有的属性<h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h4></li>
+<li>对象的隐式原型的值为其对应构造函数的显式原型的值<ul>
+<li><code>fn.__proto__ === Function.prototype</code></li>
+</ul>
+</li>
+<li>函数的<code>prototype</code>属性是定义时自动添加的。默认为<code>{}</code></li>
+<li>对象的<code>__proto__</code>属性是创建对象时自动添加的，默认值为其构造函数的<code>prototype</code></li>
+<li><code>Object.prototype.__proto__ === null</code></li>
+</ul>
+<h4 id="说了这么多和-prototype-有什么关系"><a href="#说了这么多和-prototype-有什么关系" class="headerlink" title="说了这么多和[[prototype]]有什么关系?"></a>说了这么多和<code>[[prototype]]</code>有什么关系?</h4><p>其实<code>[[prototype]]</code>和<code>__proto__</code>意义相同，均表示对象的内部属性，其值指向对象原型。前者在一些书籍、规范中表示一个对象的原型属性，后者则是在浏览器实现中指向对象原型。</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>作用方面来讲当然是实现继承了。其中最经典的共享属性方法的原型链继承。其中必不可少的属性就是<code>__protoo__</code>和<code>prototype</code>。</p>
+<p>我们举个栗子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Son.prototype = <span class="keyword">new</span> Father();</span><br></pre></td></tr></table></figure></p>
+<p>如此即实现了继承<br>我们可以写代码进行验证<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo.prototype.__proto__ === Bar.prototype  <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p>符合上述第三条规则，所以可以通过此方法完成函数的继承。<br><strong>注意，此为原型链继承，其中的方法鱼属性为此链上的所有实例所共享</strong></p>
+<h3 id="教你手撸原型链"><a href="#教你手撸原型链" class="headerlink" title="教你手撸原型链"></a>教你手撸原型链</h3><p>原型链无非就是一堆继承关系：</p>
+<ul>
+<li>我们只需要将儿子原型的<code>__proto__</code>属性指向父亲的<code>prototype</code>属性，构造函数的<code>prototype</code>属性的<code>constructor</code>属性指向其本身即可。</li>
+<li>不过需要注意的一点是，<strong>已经被实例化的对象</strong><code>__proto__</code>属性指向其构造函数的<code>prototype</code>。</li>
+<li>另外一个特殊的对象<code>Object</code>。作为所有对象的父类他的原型的<code>__proto__</code>属性指向<code>null</code></li>
+</ul>
+<p><img src="https://pic.superbed.cn/item/5c93bda83a213b0417da42a9" alt="在这里插入图片描述"><br>如此我们就可以看得懂那张经典的原型链图解啦</p>
+<h3 id="从原理讨论原型链的用处"><a href="#从原理讨论原型链的用处" class="headerlink" title="从原理讨论原型链的用处"></a>从原理讨论原型链的用处</h3><h4 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h4><p><code>typeof</code>作为《JavaScript高级程序设计》中首推的判断类型方法无疑是大多数人的选择。不过令人烦恼的是我们发现当碰到<code>Array</code>、<code>Function</code>等类型时他均返回一个<code>Object</code>。这就有点气人了。所以机智的玩家们采取了<code>Object.prototype.toString.call(obj)</code>方法来识别对象类型。他会返回一个<code>&quot;[object Type]&quot;</code>的东西来告诉你所指对象的类型。</p>
+<p>此处就用到了原型链必不可少的<code>prototype</code>。通过改变<code>this</code>指针指向将我们所要验证类型的对象。以完成类型的检验</p>
+<h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><p>除去<code>typeof</code>外我们还有另一个方法：<code>instanceof</code></p>
+<p>看过我之前转载的关于typeof与instanceof原理的好兄弟估计会猜到我要说什么,不过我还是要继续BB。</p>
+<p><code>instanceof</code>这个方法用于判断某实例是否从属于某种类型，同时也可以判断一个实例是否是其父类型或者祖先类型的实例。举个栗子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Son.prototype = <span class="keyword">new</span> Father();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> son = <span class="keyword">new</span> Son();</span><br><span class="line">son <span class="keyword">instanceof</span> Son  <span class="comment">//true</span></span><br><span class="line">son <span class="keyword">instanceof</span> Father  <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p>看见没，只要你是这一家子的人（实例）那你无论走哪这祖宗祠堂（原型链上的老东西们）都认你。那么他们是如何判断你是不是这家的儿孙呢？当然是原型链。我们来试着写一串伪代码来进行验证<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">new_instance_of</span>(<span class="params">leftVaule, rightVaule</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">let</span> rightProto = rightVaule.prototype; <span class="comment">// 取右表达式的 prototype 值</span></span><br><span class="line">    leftVaule = leftVaule.__proto__; <span class="comment">// 取左表达式的__proto__值</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    	<span class="keyword">if</span> (leftVaule === <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;	</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (leftVaule === rightProto) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">        &#125; </span><br><span class="line">        leftVaule = leftVaule.__proto__ </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如此这般，通过原型链认祖归宗。咱们看看是否有用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new_instance_of(son, Son)	<span class="comment">// true</span></span><br><span class="line">new_instance_of(son, Father)	<span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="最后唠两句"><a href="#最后唠两句" class="headerlink" title="最后唠两句"></a>最后唠两句</h3><p>上边那张原型链的图想必大家也可以手撸了。但是作为构造函数的基类，<code>Function</code>还和其他引用类型不太一样</p>
+<p><img src="https://pic.superbed.cn/item/5c94950c3a213b0417e18b36" alt></p>
+<p>如图，我们在控制台输入<code>Foo.__proto__ === Function.prototype</code>后打印结果为<code>true</code>。所以我们可以理解为 <strong>所有函数都是<code>Function</code>的实例。</strong></p>
+<p>今天的内容就这么多<br><img src="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg" alt="在这里插入图片描述"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript中的this解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/20/JavaScript中的this解析/" class="post-title-link" itemprop="url">JavaScript中的this解析</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-20 11:20:19" itemprop="dateCreated datePublished" datetime="2019-03-20T11:20:19+08:00">2019-03-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-22 14:39:10" itemprop="dateModified" datetime="2019-03-22T14:39:10+08:00">2019-03-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一张图放在前面</p>
+<p><img src="https://pic.superbed.cn/item/5c946ad83a213b0417dfd9ca" alt="this绑定"></p>
+<h3 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h3><p><strong>独立函数调用</strong>时遵循默认绑定的原则。一般情况下若无其他规则出现则默认将<code>this</code>绑定到全局对象上。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">foo()	<span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h3><p>若调用位置有上下文对象就遵循隐式绑定（如example.foo()）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>,  <span class="attr">foo</span>:foo&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'global'</span></span><br><span class="line">obj.foo()		<span class="comment">// 2</span></span><br><span class="line"><span class="keyword">var</span> bar = obj.foo</span><br><span class="line">bar()		<span class="comment">// 'global</span></span><br></pre></td></tr></table></figure></p>
+<p>如图。之前我们直接调用<code>foo</code>函数时因为其具有上下文对象，所以正确打印，<code>this</code>此时正指向此对象(<code>obj</code>)。<br>可是之后的<code>bar</code>为什么又无法正确打印出对应的结果呢？<br>首先我们看，题目中用一个变量<code>bar</code>存储了<code>obj.foo</code>。所以为完成此赋值操作引擎会对<code>obj.foo</code>进行<code>RHS</code>查找，并找出其对应的键<code>foo</code>。继而再对值<code>foo</code>进行<code>RHS</code>查找，得到<code>foo</code>函数。<br>可是此时对其进行调用时，由于无上下文对象（<code>bar</code>本身的调用并不是靠”<code>.</code>“出来的）所以就造成了隐式丢失。故采取默认绑定规则，绑定在全局的<code>a</code>上。<br>或者我们换一种说法：<code>bar</code>引用的时<code>foo</code>函数本身。因而此时的<code>bar</code>其实是一个不带任何修饰的函数调用，自然采取默认绑定规则。</p>
+<p>Ps：隐式丢失后会默认绑定在<code>window</code>上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"global"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">afun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>,  <span class="attr">foo</span>:foo&#125;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="string">'innerglobal'</span></span><br><span class="line">    obj.foo()		<span class="comment">// 2</span></span><br><span class="line">    <span class="keyword">var</span> bar = obj.foo</span><br><span class="line">    bar()		<span class="comment">// 'global</span></span><br><span class="line">&#125;</span><br><span class="line">afun()</span><br><span class="line"><span class="number">2</span></span><br><span class="line">global</span><br></pre></td></tr></table></figure>
+<h4 id="这题怎么解决"><a href="#这题怎么解决" class="headerlink" title="这题怎么解决"></a>这题怎么解决</h4><p>上面我们讲到了，隐式绑定的规则说通俗一点就是必须用”<code>.</code>“操作符将其函数与相应对象绑定。所以我们改成这样就可以啦<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>,  <span class="attr">foo</span>:foo&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'global'</span></span><br><span class="line">obj.foo()		<span class="comment">// 2</span></span><br><span class="line"><span class="keyword">var</span> bar = obj</span><br><span class="line">bar.foo()		    <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<p>此例中前半部分都一样。一直进行<code>RHS</code>查找，直到将<code>obj</code>的调用地址赋给<code>bar</code>。也就是说<code>bar</code>此时具有了一个<code>obj</code>的引用。在此后通过<code>.</code>操作符操作时就不会再发生上面所说的隐式丢失了.</p>
+<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><blockquote>
+<p>对象属性引用链只有上一层或者说最后一层再调用位置中起作用</p>
+</blockquote>
+<h5 id="参数传递所引起的隐式丢失"><a href="#参数传递所引起的隐式丢失" class="headerlink" title="参数传递所引起的隐式丢失"></a>参数传递所引起的隐式丢失</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>,log(a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dooFoo</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">	fn()	<span class="comment">// 调用位置</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>,  <span class="attr">foo</span>:foo&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'global'</span></span><br><span class="line">dooFoo(obj.foo)		<span class="comment">// 'global'</span></span><br></pre></td></tr></table></figure>
+<p>我们分析一下。作为参数传递进<code>dooFoo</code>的<code>obj.foo</code>，引擎会对其进行<code>RHS</code>搜索。不信我们删掉<code>foo</code>看一下<br><img src="https://pic.superbed.cn/item/5c9459b83a213b0417df2980" alt="在这里插入图片描述"></p>
+<p>喏，这个<code>ReferenceError</code>的报错就能充分说明问题了。</p>
+<blockquote>
+<p>不成功的<code>RHS</code>引用会导致抛出 <code>ReferenceError</code> 异常。</p>
+<p>不成功的 <code>LHS</code> 引用会导致自动隐式地创建一个全局变量(非严格模式下)。该变量使用 <code>LHS</code> 引用的目标作为标识符，或者抛 出 <code>ReferenceError</code> 异常(严格模式下)。</p>
+</blockquote>
+<p>既然是<code>RHS</code>那么我们会得到一个<code>foo</code>函数的引用。但是此引用是脱离了上下文的，自然会发生隐式丢失。</p>
+<p><strong><code>JavaScript</code>的内置库函数也一样，所以少用这种传入参数的方式，容易造成隐式丢失</strong></p>
+<h3 id="显式绑定"><a href="#显式绑定" class="headerlink" title="显式绑定"></a>显式绑定</h3><p>隐式绑定这种由JavaScript内部机制造成的宫斗剧一般的勾心斗角显然不适合我这种单纯的boy。而正好有另一种绑定方式，简单粗暴易懂，让人一眼看出<code>this</code>作用域。</p>
+<h4 id="apply、call"><a href="#apply、call" class="headerlink" title="apply、call"></a>apply、call</h4><p>在用此方法之前我建议好兄弟们去看一下这俩函数的<a href="https://blog.csdn.net/qq_38722097/article/details/88126276" target="_blank" rel="noopener">相关内容</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>,log(a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>: <span class="number">2</span>&#125;</span><br><span class="line">foo.call(obj)	<span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>但是显式绑定仍然无法解决丢失绑定问题</strong></p>
+<h4 id="硬绑定"><a href="#硬绑定" class="headerlink" title="硬绑定"></a>硬绑定</h4><h5 id="创建一个可以重复使用的辅助函数"><a href="#创建一个可以重复使用的辅助函数" class="headerlink" title="创建一个可以重复使用的辅助函数"></a>创建一个可以重复使用的辅助函数</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">something</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a, something)</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.a + something</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bind</span>(<span class="params">fn, obj</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> fn.apply(obj, <span class="built_in">arguments</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b = bar(<span class="number">3</span>)	<span class="comment">// 2 3</span></span><br><span class="line"><span class="built_in">console</span>.log(b)	<span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+<p>如图，我们每次在<code>bind</code>函数上将传入的函数硬性绑定在其对象上，如此一来无论如何调用<code>bar</code>，都会手动在<code>obj</code>上调用<code>fn</code></p>
+<h5 id="Function-prototype-bind"><a href="#Function-prototype-bind" class="headerlink" title="Function.prototype.bind"></a>Function.prototype.bind</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">something</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a, something)</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.a + something</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">a</span>:<span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b = bar(<span class="number">3</span>)	<span class="comment">// 2 3</span></span><br><span class="line"><span class="built_in">console</span>.log(b)	<span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+<p><code>bind()</code>会返回一个硬编码的新函数，它会把你指定的参数设置为<code>this</code>的上下文并调用原始函数</p>
+<h4 id="API调用参数指定this"><a href="#API调用参数指定this" class="headerlink" title="API调用参数指定this"></a>API调用参数指定this</h4><p>一些函数会提供一个可选参数作为你的“上下文”，以达到确保回调函数使用指定<code>this</code>的目的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">el</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(el, <span class="keyword">this</span>.id)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">id</span>:<span class="string">'awesome'</span>&#125;</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].forEach(foo, obj)</span><br></pre></td></tr></table></figure></p>
+<h3 id="new绑定"><a href="#new绑定" class="headerlink" title="new绑定"></a>new绑定</h3><h4 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h4><blockquote>
+<p>JavaScript中没有构造函数，只有对函数的构造调用<br>发生函数的构造调用时，自动执行以下操作</p>
+<ul>
+<li>创建一个全新的对象</li>
+<li>此对象会被执行<code>[[prototype]]</code>链接</li>
+<li>此新对象会绑定到函数调用的<code>this</code></li>
+<li>执行此函数代码</li>
+<li>若函数无返回值，则自动返回这个新对象<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.a = <span class="number">1</span></span><br><span class="line">	<span class="keyword">this</span>.b = <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> instance = <span class="keyword">new</span> fun()</span><br><span class="line"><span class="built_in">console</span>.log(instance.a)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><p>箭头函数的<code>this</code>指向就可以理解为传统面向对象语言的<code>this</code>啦。它会根据外层的作用域来决定<code>this</code>，即取决于外层的函数作用域或全局作用域，且<strong>箭头函数的绑定无法修改</strong></p>
+<p>今天的总结就到这里啦<br><img src="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg" alt="在这里插入图片描述"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript中的内存泄露/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1576,869 +2457,6 @@ x: 2
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/JavaScript中的call和apply/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/17/JavaScript中的call和apply/" class="post-title-link" itemprop="url">JavaScript中的call和apply</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-17 20:00:50" itemprop="dateCreated datePublished" datetime="2019-03-17T20:00:50+08:00">2019-03-17</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-22 14:39:43" itemprop="dateModified" datetime="2019-03-22T14:39:43+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>call</code>和<code>apply</code>均用于<code>this</code>值绑定，区别在于参数列表</p>
-<blockquote>
-<p><code>Function.apply(thisObj, args)</code><br><code>Function.call(thisObj, [param1[, param2 [, param3 [... [,paramN]]]]])</code></p>
-</blockquote>
-<p>前者传入参数列表（<code>arguments</code>），后者挨个向里边放参数</p>
-<p><code>call</code>、<code>apply</code>方法可以将一个函数的对象上下文从出事的上下文改编为由<code>thisObj</code>指定的新对象</p>
-<p>此章作为<a href="https://blog.csdn.net/qq_38722097/article/details/88125450" target="_blank" rel="noopener">this指向</a>章节的补充<br><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg" alt="在这里插入图片描述"></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/ES6中的Symbol/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/16/ES6中的Symbol/" class="post-title-link" itemprop="url">ES6中的Symbol</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-16 16:13:33" itemprop="dateCreated datePublished" datetime="2019-03-16T16:13:33+08:00">2019-03-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-22 14:43:19" itemprop="dateModified" datetime="2019-03-22T14:43:19+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p><code>Symbol</code>函数前不能使用<code>new</code>命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种<strong>类似于字符串的数据类型。</strong></p>
-</li>
-<li><p><code>Symbol</code>函数可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。</p>
-</li>
-<li><p><code>Symbol</code>函数的参数只是表示对当前 Symbol 值的描述，因此相同参数的<code>Symbol</code>函数的返回值是不相等的。</p>
-</li>
-<li><p><code>Symbol</code>值不能与其他类型的值进行运算，会报错。</p>
-</li>
-<li><p><code>Symbol</code>值也可以转为布尔值，但是不能转为数值。</p>
-</li>
-<li><p><strong><code>Symbol</code>值一般用作属性名，以防止某个键被覆盖或改写。</strong></p>
-<ul>
-<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line">a[mySymbol] = <span class="string">'Hello!'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  [mySymbol]: <span class="string">'Hello!'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, mySymbol, &#123; <span class="attr">value</span>: <span class="string">'Hello!'</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上写法都得到同样结果</span></span><br><span class="line">a[mySymbol] <span class="comment">// "Hello!"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>但是<code>Symbol</code>值作为对象的属性名时不能用点运算符：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">const</span> a = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">a.mySymbol = <span class="string">'Hello!'</span>;</span><br><span class="line">a[mySymbol] <span class="comment">// undefined</span></span><br><span class="line">a[<span class="string">'mySymbol'</span>] <span class="comment">// "Hello!"</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>在对象内部使用<code>Symbol</code>值定义属性时，<code>Symbol</code>值必须放在方括号中</p>
-<ul>
-<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  [s]: <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123; ... &#125;	<span class="comment">// 或是对象增强写法： [s](arg) &#123; ... &#125;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj[s](<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="属性名的遍历"><a href="#属性名的遍历" class="headerlink" title="属性名的遍历"></a>属性名的遍历</h3><p>作为属性名的<code>Symbol</code>值和其他字符串类型的键不同，无法通过<code>for...in</code>、<code>for...of</code>循环中，也不会被<code>Object.keys()</code>、<code>Object.getOwnPropertyNames()</code>、<code>JSON.stringify()</code>返回。</p>
-<p><strong>它通过<code>Object.getOwnPropertySymbols</code>方法返回指定对象的所有<code>Symbol</code>属性名（返回一个数组）</strong></p>
-<p>故<u>通过此方法可以为对象定义一些非私有的、但又希望只用于内部的方法</u></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> size = <span class="built_in">Symbol</span>(<span class="string">'size'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Collection</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>[size] = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  add(item) &#123;</span><br><span class="line">    <span class="keyword">this</span>[<span class="keyword">this</span>[size]] = item;</span><br><span class="line">    <span class="keyword">this</span>[size]++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> sizeOf(instance) &#123;</span><br><span class="line">    <span class="keyword">return</span> instance[size];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> x = <span class="keyword">new</span> Collection();</span><br><span class="line">Collection.sizeOf(x) <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">x.add(<span class="string">'foo'</span>);</span><br><span class="line">Collection.sizeOf(x) <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.keys(x) <span class="comment">// ['0']</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyNames(x) <span class="comment">// ['0']</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertySymbols(x) <span class="comment">// [Symbol(size)]</span></span><br></pre></td></tr></table></figure>
-<p>另一个新的 API，<strong><code>Reflect.ownKeys</code>方法可以返回所有类型的键名，包括常规键名和 Symbol 键名</strong>。</p>
-<h3 id="模块的Singleton模式"><a href="#模块的Singleton模式" class="headerlink" title="模块的Singleton模式"></a>模块的Singleton模式</h3><p><code>Singleton</code>模式指的是调用一个类，任何时候返回的都是同一个实例。</p>
-<p>对于<code>node</code>来讲，模块文件可以看作是一个类，为了保证每次执行此模块文件返回的都是同一个实例，我们常把实例放到顶层对象<code>global</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mod.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.foo = <span class="string">'hello'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!global._foo) &#123;</span><br><span class="line">  global._foo = <span class="keyword">new</span> A();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = global._foo;</span><br></pre></td></tr></table></figure>
-<p>然后加载上边的<code>mod.js</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="built_in">require</span>(<span class="string">'./mod.js'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a.foo);</span><br></pre></td></tr></table></figure>
-<p><strong>但问题是我们必须令引用<code>mod.js</code>的诸多文件既可以使用，又无法修改</strong></p>
-<p>为防止此情况的发生，我们可以使用<code>Symbol</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mod.js</span></span><br><span class="line"><span class="keyword">const</span> FOO_KEY = <span class="built_in">Symbol</span>(<span class="string">'foo'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.foo = <span class="string">'hello'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!global[FOO_KEY]) &#123;</span><br><span class="line">  global[FOO_KEY] = <span class="keyword">new</span> A();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = global[FOO_KEY];</span><br></pre></td></tr></table></figure>
-<p>若键名使用<code>Symbol</code>方法生成，那么外部将无法引用这个值，自然也无法改写。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/ES6中的Promise/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/16/ES6中的Promise/" class="post-title-link" itemprop="url">ES6中的Promise</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-16 10:05:30" itemprop="dateCreated datePublished" datetime="2019-03-16T10:05:30+08:00">2019-03-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-22 14:43:03" itemprop="dateModified" datetime="2019-03-22T14:43:03+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="提要"><a href="#提要" class="headerlink" title="提要"></a>提要</h3><p>为解决传统异步所造成的回调地狱，社区提出了<code>Promise</code>方案并最终将其写入了语言标准。<strong>其用法如其名——承诺：即非立即兑现，通过<code>then</code>方法调用其状态，通过<code>catch</code>捕获错误。</strong></p>
-<h3 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h3><ul>
-<li><code>Pending</code>：进行中</li>
-<li><code>Fulfilled</code>：已成功</li>
-<li><code>Rejected</code>：已失败</li>
-</ul>
-<p><code>Promise</code>的另一个特性是<strong>无法改变</strong>。正如其英文寓意一样，一旦状态改变就无法继续更改。故我们将<code>Fulfilled</code>和<code>Rejected</code>统一称为<code>Resolved</code>（已定型）</p>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>当然<code>Promise</code>也有一些缺点：</p>
-<ul>
-<li>一旦创建立即执行，无法中途取消。</li>
-<li>若不设置回调函数则其内部错误不会抛向外部</li>
-<li><code>Pending</code>状态时无法知道目前进展到哪一阶段（开始或即将完成）</li>
-</ul>
-<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'Create a Promise'</span>)</span><br><span class="line">    resolve(<span class="string">'success'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'After new Promise'</span>)</span><br><span class="line">p.then(<span class="function"><span class="params">val</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(val)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a Promise</span></span><br><span class="line"><span class="comment">// success</span></span><br><span class="line"><span class="comment">// After new Promise</span></span><br><span class="line"><span class="comment">// Promise &#123;&lt;resolved&gt;: undefined&#125;</span></span><br></pre></td></tr></table></figure>
-<p>如图，我们创建<code>promise</code>时其会立即执行，一旦状态发生改变那么立即调用<code>then</code>方法中的函数。</p>
-<p>没看出来？咱们加个定时器试试</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params">ms</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Running Immediately'</span>)</span><br><span class="line">        setTimeout(resolve, ms, <span class="string">'done'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">timeout(<span class="number">100</span>).then(<span class="function"><span class="params">val</span>=&gt;</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(val)</span><br><span class="line">&#125;,err=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// Running Immediately</span></span><br><span class="line"><span class="comment">// Promise &#123;&lt;pending&gt;&#125;</span></span><br><span class="line"><span class="comment">// done</span></span><br></pre></td></tr></table></figure>
-<p>看到了吧，只要状态一旦改变那么会立即执行<code>then</code>方法。我们平日所写的<code>ajax</code>函数从此也再不需要进行嵌套回调了</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getJSON = <span class="function">(<span class="params">url</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> client = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">        client.open(<span class="string">'GET'</span>, url)</span><br><span class="line">        client.onreadystatechange = handler</span><br><span class="line">        client.responseType = <span class="string">'json'</span></span><br><span class="line">        client.setRequestHeader(<span class="string">'Accept'</span>, <span class="string">'application/json'</span>)</span><br><span class="line">        client.send()</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">handler</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.readyState !== <span class="number">4</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.status === <span class="number">200</span>)&#123;</span><br><span class="line">                resolve(<span class="keyword">this</span>.response)</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="keyword">this</span>.statusText))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> promise</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看，我们只需要将<code>ajax</code>函数包装并返回<code>promise</code>，就可以得到其状态了。调用更简单，<code>then</code>方法随时接收<code>promise</code>所返回的<code>resolve</code>或<code>reject</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">getJSON(<span class="string">'/admin/getIndentify'</span>).then( <span class="function"><span class="params">json</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'json has already resolved,the data is:\n'</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(json)</span><br><span class="line">&#125;, err =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="状态传递"><a href="#状态传递" class="headerlink" title="状态传递"></a>状态传递</h4><p>如果是<code>promise</code>之间相互调用那么被调用者的状态会决定调用者的状态</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">    setTimeout( <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'fail'</span>))  </span><br><span class="line">    &#125;, <span class="number">3000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">var</span> p2 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout( <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      resolve(p1)  </span><br><span class="line">    &#125;, <span class="number">4000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">p2.then( <span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result)</span><br><span class="line">&#125;).then( <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Promise &#123;&lt;pending&gt;&#125;</span></span><br><span class="line"><span class="comment">// （3s之后）</span></span><br><span class="line"><span class="comment">// Uncaught (in promise) Error: fail</span></span><br><span class="line"><span class="comment">//     at setTimeout (&lt;anonymous&gt;:3:14)</span></span><br></pre></td></tr></table></figure>
-<p>3s后 p1 状态为<code>reject</code>，p2 在1s之后改变，<code>resolve</code>返回的时 p1。<strong>由于 p2 返回的是另一个<code>Promise</code>，导致 p2 的状态无效，所以 p1 的状态决定了 p2 的状态。</strong>故后面的<code>then</code>语句都变成了针对 p1 的。最后通过<code>then</code>抛出错误。</p>
-<p>Ps：上面的错误是在3s之后抛出，因为得到 p1 状态后 p2 就不再执行，自然那 4s 也就不用等了</p>
-<h4 id="then"><a href="#then" class="headerlink" title="then()"></a>then()</h4><p><strong><code>then</code>方法的作用是为<code>Promise</code>实例添加状态改变时的回调函数。</strong></p>
-<p><code>Promise.prototype.then()</code>方法返回的是一个新的<code>Promise</code>实例，故可以采用链式写法。</p>
-<p>通过链式调用我们就可以完成步骤顺序调用</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getJSON(<span class="string">'/admin/getUrl'</span>).then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">    getJSON(data.commentURL)</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">comments</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(comments)</span><br><span class="line">&#125;,(err)=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="catch"><a href="#catch" class="headerlink" title="catch()"></a>catch()</h4><p><strong><code>catch</code>方法用于指定发生错误时的回调函数</strong>，是<code>.then(null, rejection)</code>的简写</p>
-<blockquote>
-<p><code>reject</code>方法的作用等同于抛出错误。若<code>Promise</code>状态已变为<code>Resolved</code>，再抛出错误是无效的</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    resolve(<span class="string">'ok'</span>)</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'test'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">p.then(<span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(val)</span><br><span class="line">&#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// ok</span></span><br><span class="line"><span class="comment">// 之后的错误并没有被抛出，因为在其创建之前promise状态就已改变</span></span><br></pre></td></tr></table></figure>
-<p>其他不再赘述，我们重点说一下其具体用法：<strong>冒泡性质</strong></p>
-<p><code>Promise</code>对象的错误具有冒泡性质，会一直想后传递，直到被捕获为止。即，错误总是会被下一个<code>catch</code>捕获。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getJSON(<span class="string">'/admin/getUrl'</span>).then( <span class="function"><span class="params">data</span> =&gt;</span>&#123;</span><br><span class="line">    getJSON(data.commentURL)</span><br><span class="line">&#125;).then( <span class="function"><span class="params">comments</span> =&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(comments)</span><br><span class="line">&#125;).catch( <span class="function"><span class="params">err</span> =&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 处理前面3个Promise产生的错误</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>一般来说不要在<code>then</code>方法中定义<code>Rejected</code>状态的回调参数，利用<code>catch</code>方法可以捕获所有之前所产生的错误</p>
-<p>但是注意，<strong>一定要记得写<code>catch</code>。否则<code>Promise</code>对象抛出的错误不会传递到外层代码</strong></p>
-<h5 id="自定义方法之done"><a href="#自定义方法之done" class="headerlink" title="自定义方法之done()"></a>自定义方法之done()</h5><p>无论<code>Promise</code>对象的回调链以<code>then</code>还是<code>catch</code>解为，只要最后一个方法抛出错误，都有可能无法捕捉到（<code>Promise</code>内部的错误不会冒泡到全局）。故我们提供一个<code>done</code>方法，它总是处于回调链的尾端，保证抛出任何可能出现的错误</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">asyncFunc()</span><br><span class="line">	.then(f1)</span><br><span class="line">	.catch(r1)</span><br><span class="line">	.then(f2)</span><br><span class="line">	.done()</span><br></pre></td></tr></table></figure>
-<p>其实现如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.prototype.done = <span class="function"><span class="keyword">function</span>(<span class="params">onFulfilled, onRejected</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.then(onFulfilled, onRejected)</span><br><span class="line">        .catch(<span class="function"><span class="keyword">function</span>(<span class="params">resson</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 抛出一个全局错误</span></span><br><span class="line">        setTimeout( <span class="function"><span class="params">()</span>=&gt;</span>&#123; <span class="keyword">throw</span> reason&#125;, <span class="number">0</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="自定义方法之finally"><a href="#自定义方法之finally" class="headerlink" title="自定义方法之finally()"></a>自定义方法之finally()</h5><p>不论<code>Promise</code>对象最后状态如何都会执行的操作我们放在<code>finally</code>中。比如使用<code>finally</code>关掉服务器</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server.listen(<span class="number">8080</span>)</span><br><span class="line">  .then( <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// run test</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .finally(server.stop)</span><br></pre></td></tr></table></figure>
-<p><strong>其实现如下</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.prototype.finally = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> P = <span class="keyword">this</span>.constructor</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.then(</span><br><span class="line">    	val =&gt; P.resolve(callback()).then(<span class="function"><span class="params">()</span> =&gt;</span> val),</span><br><span class="line">        reason =&gt; P.resolve(callback()).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;<span class="keyword">throw</span> reason&#125;)</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all()"></a>Promise.all()</h4><p>将多个<code>Promise</code>实例包装成一个新的<code>Promise</code>实例，参数不一定为数组，只要有<code>Iterator</code>接口且返回的每个成员都是<code>promise</code>即可。</p>
-<p>当数组中<strong>所有</strong>实例状态都已改变时新实例状态才会跟着改变</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise = [<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">13</span>].map(<span class="function"><span class="params">id</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getJSON(<span class="string">'admin/'</span> + id + <span class="string">'.json'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.all(promise).then(<span class="function"><span class="params">posts</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// ....</span></span><br><span class="line">&#125;).catch(<span class="function"><span class="params">err</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// ....</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>当上面6个<code>promise</code>的状态都变为<code>fulfilled</code>或其中一个变为<code>rejected</code>才会调用<code>Promise.all()</code>后的函数</p>
-<h4 id="Promise-race"><a href="#Promise-race" class="headerlink" title="Promise.race()"></a>Promise.race()</h4><p>与上面的不同，但凡有一个参数状态改变，实例状态就会跟着改变。<strong>那个率先改变的参数的返回值就是传递给实例的参数</strong></p>
-<h3 id="Promise-resolve"><a href="#Promise-resolve" class="headerlink" title="Promise.resolve()"></a>Promise.resolve()</h3><p><strong>通过<code>Promise.resolve()</code>方法可以将现有对象转换为<code>Promise</code>对象</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve(<span class="string">'foo'</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">    resolve(<span class="string">'foo'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>当然，参数可能是多种形式。对各种形式的参数处理方式不同</p>
-<h4 id="参数为Promise实例"><a href="#参数为Promise实例" class="headerlink" title="参数为Promise实例"></a>参数为Promise实例</h4><p>不做修改，直接返回</p>
-<h4 id="参数为thenable对象"><a href="#参数为thenable对象" class="headerlink" title="参数为thenable对象"></a>参数为thenable对象</h4><blockquote>
-<p><code>thenable</code>对象是具有<code>then</code>方法的对象</p>
-</blockquote>
-<p><code>Promise.resolve</code>方法会将此对象转为<code>Promise</code>对象，然后立即执行<code>thenable</code>对象的<code>then</code>方法</p>
-<h4 id="参数是原始值或不具then方法"><a href="#参数是原始值或不具then方法" class="headerlink" title="参数是原始值或不具then方法"></a>参数是原始值或不具then方法</h4><p><code>Promise.resolve</code>方法会直接返回一个新的，状态为<code>fulfilled</code>的<code>Promise</code>对象</p>
-<h4 id="无参"><a href="#无参" class="headerlink" title="无参"></a>无参</h4><p>直接返回一个状态为<code>fulfilled</code>的对象</p>
-<h3 id="Promise-reject"><a href="#Promise-reject" class="headerlink" title="Promise.reject()"></a>Promise.reject()</h3><p>生成一个状态为<code>rejected</code>的<code>Promise</code>对象的实例，</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/浅谈instanceof和typeof原理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/16/浅谈instanceof和typeof原理/" class="post-title-link" itemprop="url">浅谈 instanceof 和 typeof 原理</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-16 09:30:33" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-23 11:19:01" itemprop="dateModified" datetime="2019-03-23T11:19:01+08:00">2019-03-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="typeof实现原理"><a href="#typeof实现原理" class="headerlink" title="typeof实现原理"></a>typeof实现原理</h2><p><code>typeof</code> 一般被用于判断一个变量的类型，我们可以利用 <code>typeof</code> 来判断<code>number</code>,  <code>string</code>,  <code>object</code>,<code>boolean</code>,  <code>function</code>, <code>undefined</code>,  <code>symbol</code> 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 <code>object</code> 类型的数据的时候，<code>typeof</code>能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，<strong><code>typeof</code>在判断一个 <code>object</code>的数据的时候只能告诉我们这个数据是 <code>object</code>, 而不能细致的具体到是哪一种 <code>object</code></strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'abc'</span>);</span><br><span class="line"><span class="keyword">typeof</span> s === <span class="string">'object'</span><span class="comment">// true</span></span><br><span class="line">s <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>要想判断一个数据具体是哪一种 <code>object</code> 的时候，我们需要利用 <code>instanceof</code> 这个操作符来判断，这个我们后面会说到。<br>来谈谈关于 <code>typeof</code> 的原理吧，我们可以先想一个很有意思的问题，<code>js</code> 在底层是怎么存储数据的类型信息呢？或者说，一个 <code>js</code> 的变量，在它的底层实现中，它的类型信息是怎么实现的呢？<br>其实，<strong>js 在底层存储变量的时候，会在变量的机器码的低位1-3位存储其类型信息</strong></p>
-<ul>
-<li>000：对象</li>
-<li>010：浮点数</li>
-<li>100：字符串</li>
-<li>110：布尔</li>
-<li>1：整数</li>
-</ul>
-<p>but, 对于 <code>undefined</code> 和 <code>null</code> 来说，这两个值的信息存储是有点特殊的。</p>
-<p><code>null</code>：所有机器码均为0<br><code>undefined</code>：用 −2^30 整数来表示<br>所以，<code>typeof</code> 在判断 <code>null</code> 的时候就出现问题了，<strong>由于<code>null</code>的所有机器码均为0，因此直接被当做了对象来看待</strong>。<br>然而用 <code>instanceof</code> 来判断的话</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> <span class="keyword">instanceof</span> <span class="literal">null</span> <span class="comment">// TypeError: Right-hand side of 'instanceof' is not an object</span></span><br></pre></td></tr></table></figure>
-<p><code>null</code> 直接被判断为不是<code>object</code>，这也是<code>JavaScript</code>的历史遗留<code>bug</code>，可以参考<code>typeof</code>。</p>
-<h3 id="番外篇——神奇的null（有坑，未填）"><a href="#番外篇——神奇的null（有坑，未填）" class="headerlink" title="番外篇——神奇的null（有坑，未填）"></a>番外篇——神奇的null（有坑，未填）</h3><p><img src="https://pic.superbed.cn/item/5c94f5683a213b0417e591d4" alt="神奇的null"></p>
-<ul>
-<li>当我们<strong>在控制台输入 <code>null == undefined</code> 时会打印 <code>true</code></strong> 。因为<strong><code>undefined</code> 派生自 <code>null</code></strong>。所以当换成全等符号后值就变成了<code>false</code>。<ul>
-<li>有意思的一点是，将二者强转为<code>Number</code>型时<code>null</code>值为<code>0</code>而<code>undefined</code>值为<code>NaN</code>。</li>
-</ul>
-</li>
-<li><p>而作为基本类型之一的<code>null</code>，当用户打印<code>null instanceof null</code>时却报了错（<code>TypeError: Right-hand side of &#39;instanceof&#39; is not an object</code>），这也是<code>JavaScript</code>历史遗留的<code>bug</code>，为了防止修复造成的更多<code>bug</code>所以一直没有修复…</p>
-</li>
-<li><p>而当我们在控制台输入 <code>null instanceof Object</code> 时则会打印 <code>false</code> ，这和咱们输入 <code>typeof null</code> 的值 <code>&quot;object&quot;</code>大相径庭，具体原理我也没摸清，以后再填坑吧。</p>
-</li>
-</ul>
-<p>因此在用 <code>typeof</code> 来判断变量类型的时候，我们需要注意，<strong>最好是用 <code>typeof</code> 来判断基本数据类型（包括<code>symbol</code>），避免对 <code>null</code> 的判断</strong>。</p>
-<p>还有一个不错的判断类型的方法，就是<strong><code>Object.prototype.toString</code></strong>，我们可以利用这个方法来对一个变量的类型来进行比较准确的判断</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="number">1</span>) <span class="comment">// "[object Number]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="string">'hi'</span>) <span class="comment">// "[object String]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(&#123;<span class="attr">a</span>:<span class="string">'hi'</span>&#125;) <span class="comment">// "[object Object]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([<span class="number">1</span>,<span class="string">'a'</span>]) <span class="comment">// "[object Array]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">true</span>) <span class="comment">// "[object Boolean]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;) <span class="comment">// "[object Function]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">null</span>) <span class="comment">// "[object Null]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">undefined</span>) <span class="comment">// "[object Undefined]"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">Symbol</span>(<span class="number">1</span>)) <span class="comment">// "[object Symbol]"</span></span><br></pre></td></tr></table></figure>
-<h2 id="instanceof-实现原理"><a href="#instanceof-实现原理" class="headerlink" title="instanceof 实现原理"></a>instanceof 实现原理</h2><p>之前我们提到了<code>instanceof</code>来判断对象的具体类型，其实<code>instanceof</code>主要的作用就是判断一个实例是否属于某种类型</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> nicole = <span class="keyword">new</span> person()</span><br><span class="line">nicole <span class="keyword">instanceof</span> person <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>当然，<code>instanceof</code>也可以判断一个实例是否是其父类型或者祖先类型的实例。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> programmer = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">programmer.prototype = <span class="keyword">new</span> person()</span><br><span class="line"><span class="keyword">let</span> nicole = <span class="keyword">new</span> programmer()</span><br><span class="line">nicole <span class="keyword">instanceof</span> person <span class="comment">// true</span></span><br><span class="line">nicole <span class="keyword">instanceof</span> programmer <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>这是<code>instanceof</code>的用法，但是<code>instanceof</code>的原理是什么呢？根据<code>ECMAScript</code>语言规范，我梳理了一下大概的思路，然后整理了一段代码如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">new_instance_of</span>(<span class="params">leftVaule, rightVaule</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">let</span> rightProto = rightVaule.prototype; <span class="comment">// 取右表达式的 prototype 值</span></span><br><span class="line">    leftVaule = leftVaule.__proto__; <span class="comment">// 取左表达式的__proto__值</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    	<span class="keyword">if</span> (leftVaule === <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;	</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (leftVaule === rightProto) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">        &#125; </span><br><span class="line">        leftVaule = leftVaule.__proto__ </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其实 <strong><code>instanceof</code>主要的实现原理就是只要右边变量的 prototype 在左边变量的原型链上即可。因此，<code>instanceof</code>在查找的过程中会遍历左边变量的原型链，直到找到右边变量的<code>prototype</code>，如果查找失败，则会返回 <code>false</code></strong>，告诉我们左边变量并非是右边变量的实例。<br>看几个很有趣的例子</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Function</span> <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">// true</span></span><br><span class="line">Foo <span class="keyword">instanceof</span> Foo <span class="comment">// false</span></span><br><span class="line">Foo <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">// true</span></span><br><span class="line">Foo <span class="keyword">instanceof</span> <span class="built_in">Function</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>要想全部理解<code>instanceof</code>的原理，除了我们刚刚提到的实现原理，我们还需要知道 <code>JavaScript</code>的原型继承原理。</p>
-<p>关于原型继承的原理，我简单用一张图来表示</p>
-<p><img src="https://pic.superbed.cn/item/5c93bda83a213b0417da42a9" alt="一张图搞懂原型链"></p>
-<p>我们知道每个 JavaScript 对象均有一个隐式的<code>__proto__</code>原型属性，而显式的原型属性是<code>prototype</code>，只有 <code>Object.prototype.__proto__</code> 属性在未修改的情况下为<code>null</code>值。根据图上的原理，我们来梳理上面提到的几个有趣的<code>instanceof</code>使用的例子。</p>
-<ul>
-<li><code>Object instanceof Object</code><ul>
-<li>由图可知，<code>Object</code>的<code>prototype</code>属性是<code>Object.prototype</code>, 而由于<code>Object</code>本身是一个函数，由 <code>Function</code>所创建，所以<code>Object.__proto__</code>的值是<code>Function.prototype</code>，而<code>Function.prototype</code>的<code>__proto__</code>属性是<code>Object.prototype</code>，所以我们可以判断出，<code>Object instanceof Object</code>的结果是<code>true</code>。用代码简单的表示一下</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">leftValue = <span class="built_in">Object</span>.__proto__ = <span class="built_in">Function</span>.prototype;</span><br><span class="line">rightValue = <span class="built_in">Object</span>.prototype;</span><br><span class="line"><span class="comment">// 第一次判断</span></span><br><span class="line">leftValue != rightValue</span><br><span class="line">leftValue = <span class="built_in">Function</span>.prototype.__proto__ = <span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="comment">// 第二次判断</span></span><br><span class="line">leftValue === rightValue</span><br><span class="line"><span class="comment">// 返回 true</span></span><br></pre></td></tr></table></figure>
-<p><code>Function instanceof Function</code>和<code>Function instanceof Object</code>的运行过程与<code>Object instanceof Object</code>类似，故不再详说。</p>
-<ul>
-<li><code>Foo instanceof Foo</code><ul>
-<li><code>Foo</code>函数的<code>prototype</code>属性是<code>Foo.prototype</code>，而 <code>Foo</code>的<code>__proto__</code> 属性是<code>Function.prototype</code>，由图可知，<code>Foo</code>的原型链上并没有<code>Foo.prototype</code>，因此<code>Foo instanceof Foo</code>也就返回<code>false</code> 。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">leftValue = Foo, rightValue = Foo</span><br><span class="line">leftValue = Foo.__proto = <span class="built_in">Function</span>.prototype</span><br><span class="line">rightValue = Foo.prototype</span><br><span class="line"><span class="comment">// 第一次判断</span></span><br><span class="line">leftValue != rightValue</span><br><span class="line">leftValue = <span class="built_in">Function</span>.prototype.__proto__ = <span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="comment">// 第二次判断</span></span><br><span class="line">leftValue != rightValue</span><br><span class="line">leftValue = <span class="built_in">Object</span>.prototype = <span class="literal">null</span></span><br><span class="line"><span class="comment">// 第三次判断</span></span><br><span class="line">leftValue === <span class="literal">null</span></span><br><span class="line"><span class="comment">// 返回 false</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>Foo instanceof Object</code></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">leftValue = Foo, rightValue = <span class="built_in">Object</span></span><br><span class="line">leftValue = Foo.__proto__ = <span class="built_in">Function</span>.prototype</span><br><span class="line">rightValue = <span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="comment">// 第一次判断</span></span><br><span class="line">leftValue != rightValue</span><br><span class="line">leftValue = <span class="built_in">Function</span>.prototype.__proto__ = <span class="built_in">Object</span>.prototype</span><br><span class="line"><span class="comment">// 第二次判断</span></span><br><span class="line">leftValue === rightValue</span><br><span class="line"><span class="comment">// 返回 true</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>Foo instanceof Function</code></li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">leftValue = Foo, rightValue = <span class="built_in">Function</span></span><br><span class="line">leftValue = Foo.__proto__ = <span class="built_in">Function</span>.prototype</span><br><span class="line">rightValue = <span class="built_in">Function</span>.prototype</span><br><span class="line"><span class="comment">// 第一次判断</span></span><br><span class="line">leftValue === rightValue</span><br><span class="line"><span class="comment">// 返回 true</span></span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>简单来说，我们使用<code>typeof</code>来判断基本数据类型是<code>ok</code>的，不过需要注意当用<code>typeof</code>来判断<code>null</code>类型时的问题，如果想要判断一个对象的具体类型可以考虑用<code>instanceof</code>，但是<code>instanceof</code>也可能判断不准确，比如一个数组，他可以被<code>instanceof</code>判断为<code>Object</code>所以我们要想比较准确的判断对象实例的类型时，可以采取 <code>Object.prototype.toString.call</code>方法。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2487,7 +2505,7 @@ x: 2
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
@@ -2520,7 +2538,9 @@ x: 2
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
@@ -2559,7 +2579,15 @@ x: 2
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">schlagwörter</span>
                   
                 </div>
