@@ -190,7 +190,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -218,7 +218,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
 
   </li>
         
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -305,6 +305,218 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript中的事件循环&消息队列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/20/JavaScript中的事件循环&消息队列/" class="post-title-link" itemprop="url">JavaScript中的事件循环&消息队列</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-03-20 13:59:41" itemprop="dateCreated datePublished" datetime="2019-03-20T13:59:41+08:00">2019-03-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-03-23 11:17:50" itemprop="dateModified" datetime="2019-03-23T11:17:50+08:00">2019-03-23</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>作为一门设计初衷为了处理浏览器网页交互（<code>DOM</code>操作、<code>UI</code>动画等）的语言，<code>JavaScript</code>只能被设计为单线程（否则多个线程同时处理<code>DOM</code>那将会造成混乱）。</p>
+<p>可是写过<code>JavaScript</code>代码的人都用过定时器、<code>ajax</code>、事件绑定等。如果是单线程那岂不是无法完成这些异步请求？</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>其实，<code>JavaScript</code>单线程指的是浏览器中负责解释和执行<code>JavaScript</code>代码的只有一个线程——<strong><code>JavaScript</code>引擎线程。</strong>除了他之外浏览器还有其他四个线程：</p>
+<ul>
+<li>事件触发线程</li>
+<li>定时器触发线程</li>
+<li>异步<code>http</code>请求线程</li>
+<li><code>GUI</code>渲染线程</li>
+</ul>
+<p>当遇到计时器、DOM事件监听或是网络请求时，<code>JS</code>引擎会将其交给<code>webapi</code>，也就是浏览器提供的相应线程。而JS引擎则继续后边的其他任务，以此方式实现<strong>异步非阻塞。</strong></p>
+<p>在此咱们不得不讲一下<code>setTimeout</code>（<code>setInterval</code>）函数。这东西没咱们想象的那么准，原因就在于当事件结束后他会将相应的回调函数（<code>callback</code>）交还给 <strong>消息队列</strong>。而消息队列中排列着其他的任务，只有轮到它才会被执行。<strong>所以<code>setTimeout</code>只能保证其在<code>ms</code>毫秒 <u>之后</u> 执行。</strong></p>
+<h3 id="事件循环与消息队列"><a href="#事件循环与消息队列" class="headerlink" title="事件循环与消息队列"></a>事件循环与消息队列</h3><h4 id="什么是消息队列"><a href="#什么是消息队列" class="headerlink" title="什么是消息队列"></a>什么是消息队列</h4><p>众所周知<code>JavaScript</code>中的存储区域分为堆区、栈区、还有消息队列区。</p>
+<ul>
+<li><strong>堆区存放用户创建的对象</strong>。（内训泄露定位的主要区域也在这里。）</li>
+<li><strong>栈区则是用来处理函数执行（所以又称为执行栈）</strong>。每嵌套一层向栈中推入函数信息，得到返回值后出栈。主代码块<strong>依次</strong>进入执行栈，依次执行。</li>
+<li><strong>而消息队列则是用来处理异步任务</strong>。每当出现异步调用事件时都会将其入队，<u>执行完毕后</u>再由<strong>任务队列</strong>通知主线程，让<code>JS</code>引擎接管此事件。</li>
+</ul>
+<h4 id="什么是事件循环"><a href="#什么是事件循环" class="headerlink" title="什么是事件循环"></a>什么是事件循环</h4><p>当执行栈为空时（JS引擎线程空闲），事件触发线程会从消息队列中取出一个任务（异步的回调函数）放入执行栈中执行。执行完毕后执行栈再次为空，事件触发线程会重复上一步操作，继续从消息队列中取出一个任务。此机制被称为事件循环（<code>event loop</code>）机制。</p>
+<p>我们不妨举个例子来看看其操作流程：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'timer 1 over'</span>)</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'timer 2 over'</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">// script end</span></span><br><span class="line"><span class="comment">// timer 2 over</span></span><br><span class="line"><span class="comment">// timer 1 over</span></span><br></pre></td></tr></table></figure>
+<p>本例中我们先顺序执行同步代码，从消息队列中依次进入执行栈执行，依次打印<code>script start</code>，<code>script end</code>。</p>
+<p>而两个<code>setTimeout</code>作为异步代码，分别由定时器触发线程进行监控，时间到后再将其推入消息队列中。</p>
+<p>当函数执行栈空时从消息队列中取任务执行。由于”<code>timer 2 over</code>“先入队所以先被取出，<code>timer 1 over</code>同理。</p>
+<h3 id="宏任务-amp-微任务"><a href="#宏任务-amp-微任务" class="headerlink" title="宏任务&amp;微任务"></a>宏任务&amp;微任务</h3><p>上边这些个机制事实上在ES5已经够用了。但是ES6会有一些问题。因为其引入了新的异步机制——<code>Promise</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timer over'</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">// script end</span></span><br><span class="line"><span class="comment">// promise1</span></span><br><span class="line"><span class="comment">// promise2</span></span><br><span class="line"><span class="comment">// timer over</span></span><br></pre></td></tr></table></figure>
+<p>为什么<code>promise1</code>和<code>promise2</code>在“<code>timer over</code>”之前打印？</p>
+<p>这里就要引入宏任务（<code>macrotask</code>）和微任务（<code>microotask</code>）。</p>
+<ul>
+<li>上面提到的一切事件（同步代码块、<code>setTimeout</code>、<code>setInterval</code>等）都是宏任务</li>
+<li>而微任务则是<code>Promise</code>和<code>process.nextTick</code></li>
+</ul>
+<p>顺序的话还是同步事件优先级最高，而这些异步事件其次<strong>。机制同样是事件循环</strong>。</p>
+<p>当执行宏任务时遇到<code>Promise</code>等，会创建微任务（<code>.then()</code>里的回调），并加入微任务队列队尾。</p>
+<p>microtask必然是在某个宏任务执行的时候创建的，而在下一个宏任务开始之前，浏览器会对页面重新渲染(<code>task</code> &gt;&gt; <code>渲染</code> &gt;&gt; <code>下一个task</code>(从任务队列中取一个))。同时，在上一个宏任务执行完成后，渲染页面之前，会执行当前微任务队列中的所有微任务。</p>
+<blockquote>
+<p>在某一个<code>macrotask</code>执行完后，在重新渲染与开始下一个宏任务之前，就会将在它执行期间产生的所有microtask都执行完毕（在渲染前）。</p>
+</blockquote>
+<blockquote>
+<p>在node环境下，<code>process.nextTick</code>的优先级高于<code>Promise</code>，也就是说：在宏任务结束后会先执行微任务队列中的<code>nextTickQueue</code>，然后才会执行微任务中的<code>Promise</code>。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -359,14 +571,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:26:59" itemprop="dateCreated datePublished" datetime="2019-03-20T11:26:59+08:00">2019-03-20</time>
+              <time title="Post created: 2019-03-20 11:26:59" itemprop="dateCreated datePublished" datetime="2019-03-20T11:26:59+08:00">2019-03-20</time>
             
 
             
@@ -381,9 +593,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:38:54" itemprop="dateModified" datetime="2019-03-22T14:38:54+08:00">2019-03-22</time>
+                <time title="Updated at: 2019-03-22 14:38:54" itemprop="dateModified" datetime="2019-03-22T14:38:54+08:00">2019-03-22</time>
               
             
           </span>
@@ -397,7 +609,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -587,14 +799,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:21:54" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:54+08:00">2019-03-20</time>
+              <time title="Post created: 2019-03-20 11:21:54" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:54+08:00">2019-03-20</time>
             
 
             
@@ -609,9 +821,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:40:17" itemprop="dateModified" datetime="2019-03-22T14:40:17+08:00">2019-03-22</time>
+                <time title="Updated at: 2019-03-22 14:40:17" itemprop="dateModified" datetime="2019-03-22T14:40:17+08:00">2019-03-22</time>
               
             
           </span>
@@ -625,7 +837,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -819,14 +1031,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:21:23" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:23+08:00">2019-03-20</time>
+              <time title="Post created: 2019-03-20 11:21:23" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:23+08:00">2019-03-20</time>
             
 
             
@@ -841,9 +1053,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-23 11:18:31" itemprop="dateModified" datetime="2019-03-23T11:18:31+08:00">2019-03-23</time>
+                <time title="Updated at: 2019-03-23 11:18:31" itemprop="dateModified" datetime="2019-03-23T11:18:31+08:00">2019-03-23</time>
               
             
           </span>
@@ -857,7 +1069,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
@@ -1026,14 +1238,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:20:19" itemprop="dateCreated datePublished" datetime="2019-03-20T11:20:19+08:00">2019-03-20</time>
+              <time title="Post created: 2019-03-20 11:20:19" itemprop="dateCreated datePublished" datetime="2019-03-20T11:20:19+08:00">2019-03-20</time>
             
 
             
@@ -1048,9 +1260,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:39:10" itemprop="dateModified" datetime="2019-03-22T14:39:10+08:00">2019-03-22</time>
+                <time title="Updated at: 2019-03-22 14:39:10" itemprop="dateModified" datetime="2019-03-22T14:39:10+08:00">2019-03-22</time>
               
             
           </span>
@@ -1064,7 +1276,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1240,14 +1452,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:19:38" itemprop="dateCreated datePublished" datetime="2019-03-20T11:19:38+08:00">2019-03-20</time>
+              <time title="Post created: 2019-03-20 11:19:38" itemprop="dateCreated datePublished" datetime="2019-03-20T11:19:38+08:00">2019-03-20</time>
             
 
             
@@ -1262,9 +1474,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:40:26" itemprop="dateModified" datetime="2019-03-22T14:40:26+08:00">2019-03-22</time>
+                <time title="Updated at: 2019-03-22 14:40:26" itemprop="dateModified" datetime="2019-03-22T14:40:26+08:00">2019-03-22</time>
               
             
           </span>
@@ -1278,7 +1490,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1447,14 +1659,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 02:39:48" itemprop="dateCreated datePublished" datetime="2019-03-20T02:39:48+08:00">2019-03-20</time>
+              <time title="Post created: 2019-03-20 02:39:48" itemprop="dateCreated datePublished" datetime="2019-03-20T02:39:48+08:00">2019-03-20</time>
             
 
             
@@ -1469,9 +1681,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:41:13" itemprop="dateModified" datetime="2019-03-22T14:41:13+08:00">2019-03-22</time>
+                <time title="Updated at: 2019-03-22 14:41:13" itemprop="dateModified" datetime="2019-03-22T14:41:13+08:00">2019-03-22</time>
               
             
           </span>
@@ -1485,7 +1697,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1667,14 +1879,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 02:30:29" itemprop="dateCreated datePublished" datetime="2019-03-20T02:30:29+08:00">2019-03-20</time>
+              <time title="Post created: 2019-03-20 02:30:29" itemprop="dateCreated datePublished" datetime="2019-03-20T02:30:29+08:00">2019-03-20</time>
             
 
             
@@ -1689,9 +1901,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:40:40" itemprop="dateModified" datetime="2019-03-22T14:40:40+08:00">2019-03-22</time>
+                <time title="Updated at: 2019-03-22 14:40:40" itemprop="dateModified" datetime="2019-03-22T14:40:40+08:00">2019-03-22</time>
               
             
           </span>
@@ -1705,7 +1917,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1914,14 +2126,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-17 21:02:26" itemprop="dateCreated datePublished" datetime="2019-03-17T21:02:26+08:00">2019-03-17</time>
+              <time title="Post created: 2019-03-17 21:02:26" itemprop="dateCreated datePublished" datetime="2019-03-17T21:02:26+08:00">2019-03-17</time>
             
 
             
@@ -1936,9 +2148,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 16:23:25" itemprop="dateModified" datetime="2019-03-22T16:23:25+08:00">2019-03-22</time>
+                <time title="Updated at: 2019-03-22 16:23:25" itemprop="dateModified" datetime="2019-03-22T16:23:25+08:00">2019-03-22</time>
               
             
           </span>
@@ -1952,7 +2164,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a></span>
@@ -2103,14 +2315,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-17 21:01:32" itemprop="dateCreated datePublished" datetime="2019-03-17T21:01:32+08:00">2019-03-17</time>
+              <time title="Post created: 2019-03-17 21:01:32" itemprop="dateCreated datePublished" datetime="2019-03-17T21:01:32+08:00">2019-03-17</time>
             
 
             
@@ -2125,9 +2337,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 00:04:03" itemprop="dateModified" datetime="2019-03-22T00:04:03+08:00">2019-03-22</time>
+                <time title="Updated at: 2019-03-22 00:04:03" itemprop="dateModified" datetime="2019-03-22T00:04:03+08:00">2019-03-22</time>
               
             
           </span>
@@ -2275,193 +2487,11 @@ x: 2
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/Vue项目中关于axios跨域的设置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/17/Vue项目中关于axios跨域的设置/" class="post-title-link" itemprop="url">Vue项目中关于axios跨域的设置</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-17 20:13:53" itemprop="dateCreated datePublished" datetime="2019-03-17T20:13:53+08:00">2019-03-17</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-22 14:42:28" itemprop="dateModified" datetime="2019-03-22T14:42:28+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>config</code>文件夹中的<code>dev.env.js</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">proxyTable: &#123;</span><br><span class="line">    <span class="string">'/api'</span>: &#123;</span><br><span class="line">        target: <span class="string">'http://192.168.1.1:80'</span>, <span class="comment">// api代理服务器地址</span></span><br><span class="line">        changeOrigin: <span class="literal">true</span>, <span class="comment">// 允许跨域</span></span><br><span class="line">        secure: <span class="literal">false</span>,</span><br><span class="line">        pathRewrite: &#123;</span><br><span class="line">            <span class="string">'^/api'</span>: <span class="string">'/'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>target</code>是我们要将请求发送的靶向目标。此选项可以理解为我们的<code>node</code>后台为我们作了一次正向代理，以此避免了跨域。</p>
-<p><code>config</code>文件夹中的<code>index.js</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> devEnv = <span class="built_in">require</span>(<span class="string">'./dev.env'</span>)</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    dev: &#123;</span><br><span class="line">        <span class="comment">// Paths</span></span><br><span class="line">        assetsSubDirectory: <span class="string">'static'</span>,</span><br><span class="line">        assetsPublicPath: <span class="string">'/'</span>,</span><br><span class="line">        proxyTable: devEnv.proxyTable,</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//....</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如此我们每次只需要更改<code>dev.env.js</code>文件夹中的<code>target</code>项即可。</p>
-<p>使用<code>axios</code>跨域时候我们需要在<code>main.js</code>中声明</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line">Vue.prototype.$axios = Axios</span><br></pre></td></tr></table></figure>
-<p>发送请求时别忘了<code>$</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$axios(&#123;</span><br><span class="line">    <span class="comment">// ....</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Vorherige Seite"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Nächste Seite"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Page précédente"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Page suivante"></i></a>
   </nav>
 
 
@@ -2505,8 +2535,8 @@ x: 2
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">articles</span>
                   </a>
                 </div>
               
@@ -2541,7 +2571,7 @@ x: 2
                       
                     
                     <span class="site-state-item-count">8</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -2587,8 +2617,12 @@ x: 2
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">tags</span>
                   
                 </div>
               
@@ -2667,7 +2701,7 @@ x: 2
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -2675,7 +2709,7 @@ x: 2
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
