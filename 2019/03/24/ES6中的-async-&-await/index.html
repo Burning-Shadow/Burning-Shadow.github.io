@@ -102,11 +102,11 @@
 <meta name="keywords" content="async,await">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6中的 async &amp; await">
-<meta property="og:url" content="http://yoursite.com/2019/03/23/ES6中的-async-&-await/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/03/24/ES6中的-async-&-await/index.html">
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="async/await 是 ES7 引入的新的异步代码 规范，它提供了一种新的编写异步代码的方式，这种方式在语法层面提供了一种形式上非常接近于同步代码的异步非阻塞代码风格，在此之前我们使用的多是异步回调、 Promise 模式。 从实现上来看 async/await 是在 生成器、Promise 基础上构建出来的新语法：以 生成器 实现流程控制，以 Promise 实现异步控制。 Node 自 v">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-24T14:50:10.744Z">
+<meta property="og:updated_time" content="2019-03-24T15:01:47.893Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6中的 async &amp; await">
 <meta name="twitter:description" content="async/await 是 ES7 引入的新的异步代码 规范，它提供了一种新的编写异步代码的方式，这种方式在语法层面提供了一种形式上非常接近于同步代码的异步非阻塞代码风格，在此之前我们使用的多是异步回调、 Promise 模式。 从实现上来看 async/await 是在 生成器、Promise 基础上构建出来的新语法：以 生成器 实现流程控制，以 Promise 实现异步控制。 Node 自 v">
@@ -116,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/23/ES6中的-async-&-await/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/24/ES6中的-async-&-await/">
 
 
 
@@ -325,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/23/ES6中的-async-&-await/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/ES6中的-async-&-await/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siir">
@@ -368,25 +368,9 @@
                 
               
 
-              <time title="Erstellt: 2019-03-23 11:47:41" itemprop="dateCreated datePublished" datetime="2019-03-23T11:47:41+08:00">2019-03-23</time>
+              <time title="Erstellt: 2019-03-24 23:01:47" itemprop="dateCreated datePublished" datetime="2019-03-24T23:01:47+08:00">2019-03-24</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-24 22:50:10" itemprop="dateModified" datetime="2019-03-24T22:50:10+08:00">2019-03-24</time>
-              
             
           </span>
 
@@ -478,6 +462,7 @@
 <p>代码中的每次 <code>getSize</code> 调用都需要等待上一次调用完成，同样是一种性能浪费。同样的功能，用这样的方式会更合适：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">retriveSize</span>(<span class="params">imgs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.all(imgs.map(<span class="function"><span class="params">img</span> =&gt;</span> getSize(img)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这实际上已经回退到了 Promise 模式，所以为了写出良好的 async/await 代码，建议还是认真学习学习 Promise 模式</p>
+<p>原为地址：<a href="https://juejin.im/post/5b4220f46fb9a04f8a216b31" target="_blank" rel="noopener">https://juejin.im/post/5b4220f46fb9a04f8a216b31</a></p>
 
       
     </div>
@@ -516,8 +501,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/22/flex布局/" rel="next" title="Flex布局">
-                <i class="fa fa-chevron-left"></i> Flex布局
+              <a href="/2019/03/24/ES6中的-Generator/" rel="next" title="ES6中的 Generator">
+                <i class="fa fa-chevron-left"></i> ES6中的 Generator
               </a>
             
           </div>
@@ -525,10 +510,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/23/ES6 中的 for-of 和 Iterator/" rel="prev" title="ES6 中的 for-of 和 Iterator">
-                ES6 中的 for-of 和 Iterator <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
