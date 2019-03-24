@@ -190,7 +190,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -218,7 +218,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -359,14 +359,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-24 15:33:11 / Geändert am: 20:01:54" itemprop="dateCreated datePublished" datetime="2019-03-24T15:33:11+08:00">2019-03-24</time>
+              <time title="Created: 2019-03-24 15:33:11 / Modified: 20:44:22" itemprop="dateCreated datePublished" datetime="2019-03-24T15:33:11+08:00">2019-03-24</time>
             
 
             
@@ -385,7 +385,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
@@ -424,66 +424,18 @@
 
       
         
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天讨论的新特性让我非常兴奋，因为这个特性是 ES6 中最神奇的特性。</p>
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天讨论的新特性让我非常兴奋，因为这个特性是 ES6 中最神奇的特性。</p>
 <p>这里的“神奇”意味着什么呢？对于初学者来说，该特性与以往的 JS 完全不同，甚至有些晦涩难懂。从某种意义上说，它完全改变了这门语言的通常行为，这不是“神奇”是什么呢。</p>
 <p>不仅如此，该特性还可以简化程序代码，将复杂的“回调堆栈”改成线性执行的形式。</p>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><ul>
-<li>通常的函数以 <code>function</code> 创建生成器，但 Generator 函数以 <code>function*</code> 创建。</li>
-<li>在 Generator 函数内部，<code>yield</code> 是一个关键字，和 <code>return</code> 有点像。不同点在于，所有函数（包括 Generator 函数）都只能返回一次，而在 Generator 函数中可以 yield 任意次。<em>yield 表达式暂停了 Generator 函数的执行，然后可以从暂停的地方恢复执行。</em></li>
-</ul>
-<p>常见的函数不能暂停执行，而 Generator 函数可以，这就是这两者最大的区别。</p>
-<h4 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h4><p>迭代器（<code>Iterator</code>）表示可以被遍历迭代的对象，以编程的方式返回集合中的下一项，迭代器对象都拥有<code>next()</code>方法，返回<code>{value:&#39;&#39;,done:bool}</code>，<code>value</code>表示当前迭代位置的返回值，<code>done</code>表示是否迭代结束，结束时其值为<code>false</code>。</p>
-<p>迭代对象之所以可被迭代是因为其有<code>Symbol(Symbol.iterator)</code>属性。如果有什么疑问可以参考上一章。</p>
-<h4 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h4><p>生成器（<code>Generator</code>）是一个返回迭代器对象（<code>Iterator</code>）的函数</p>
-<ul>
-<li>使用<code>function* funName(){}</code>创建</li>
-<li>使用声称其表达式创建生成器：<code>let iterator = function* (){}</code></li>
-<li>函数体中使用<code>yield</code>关键字定义每次迭代器调用<code>next()</code>返回的<code>value</code>结果。<code>yield</code>指令相当于起到暂停代码执行的作用。只有在迭代器调用<code>next()</code>时，才会出发下一个<code>yield</code>继续执行</li>
-<li>迭代完<code>yield</code>后，下一次迭代会返回<code>return</code>的值。如果<code>return</code>在中间，则迭代到<code>return</code>行后直接跳出。</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">createIterator</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">123</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> iterator = createIterator()</span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()) <span class="comment">//&#123;value: 1, done: false&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()) <span class="comment">//&#123;value: 2, done: false&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()) <span class="comment">//&#123;value: 3, done: false&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()) <span class="comment">//&#123;value: 123, done: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()) <span class="comment">//&#123;value: undefined, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>当我们调用一个<code>Generator</code>函数时并没有立即执行，而是返回了一个<code>generator</code>对象，也就是上边的<code>iterator</code></p>
-<p>。此时函数就立即暂停在函数代码的第一个<code>yield</code>处。</p>
-<p>当我们每次调用<code>Generator</code>对象的<code>.next()</code>方法时，函数就开始执行，直至遇到下一个<code>yield</code>表达式为止。</p>
-<p>所以我们每次调用<code>iterator.next()</code>时都会得到一个不同的字符串，这些字符串都是在函数内部通过<code>yield</code>表达式产生的值。</p>
-<hr>
-<p>从技术层面上讲，每当<code>Generator</code>函数执行遇到<code>yield</code>表达式时，函数的栈帧 – 本地变量，函数参数，临时值和当前执行的位置，就从堆栈移除，但是<code>Generator</code>对象保留了对该栈帧的引用，所以下次调用<code>.next()</code>方法时，就可以恢复并继续执行。</p>
-<p>值得提醒的是<code>Generator</code>并不是多线程。在支持多线程的语言中，同一时间可以执行多段代码，并伴随着执行资源的竞争，执行结果的不确定性和较好的性能。而<code>Generator</code>函数并不是这样，当一个<code>Generator</code>函数执行时，它与其调用者都在同一线程中执行，每次执行顺序都是确定的，有序的，并且执行顺序不会发生改变。与线程不同，<code>Generator</code>函数可以在内部的<code>yield</code>的标志点暂停执行。</p>
-<h3 id="迭代器-Iterator"><a href="#迭代器-Iterator" class="headerlink" title="迭代器 Iterator"></a>迭代器 Iterator</h3><p>通过上篇文章，我们知道<strong>迭代器并不是 ES6 的一个内置的类，而只是作为语言的一个扩展点</strong>，你可以通过实现 <code>[Symbol.iterator]()</code> 和 <code>.next()</code> 方法来定义一个迭代器。</p>
-<p>但是，实现一个接口还是需要写一些代码的，下面我们来看看在实际中如何实现一个迭代器，以实现一个 <code>range</code> 迭代器为例，该迭代器只是简单地从一个数累加到另一个数，有点像 C 语言中的 <code>for (;;)</code> 循环。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This should "ding" three times</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> value <span class="keyword">of</span> range(<span class="number">0</span>, <span class="number">3</span>)) &#123;</span><br><span class="line">  alert(<span class="string">"Ding! at floor #"</span> + value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在有一个解决方案，就是使用 ES6 的类。（如果你对 <code>class</code> 语法还不熟悉，不要紧，我会在将来的文章中介绍。）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RangeIterator</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(start, stop) &#123;</span><br><span class="line">    <span class="keyword">this</span>.value = start;</span><br><span class="line">    <span class="keyword">this</span>.stop = stop;</span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="built_in">Symbol</span>.iterator]() &#123; <span class="keyword">return</span> <span class="keyword">this</span>; &#125;</span><br><span class="line">  next() &#123;</span><br><span class="line">    <span class="keyword">var</span> value = <span class="keyword">this</span>.value;</span><br><span class="line">    <span class="keyword">if</span> (value &lt; <span class="keyword">this</span>.stop) &#123;</span><br><span class="line">      <span class="keyword">this</span>.value++;</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">done</span>: <span class="literal">false</span>, <span class="attr">value</span>: value&#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">done</span>: <span class="literal">true</span>, <span class="attr">value</span>: <span class="literal">undefined</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Return a new iterator that counts up from 'start' to 'stop'.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">range</span>(<span class="params">start, stop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> RangeIterator(start, stop);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这种实现方式与 <a href="http://gafter.blogspot.com/2007/07/internal-versus-external-iterators.html" target="_blank" rel="noopener">Java</a> 和 <a href="https://schani.wordpress.com/2014/06/06/generators-in-swift/" target="_blank" rel="noopener">Swift</a> 的实现方式类似，看上去还不错，但还不能说上面代码就完全正确，代码没有任何 Bug？这很难说。我们看不到任何传统的 <code>for (;;)</code> 循环代码：迭代器的协议迫使我们将循环拆散了。</p>
-<p>不过我们如果通过<code>Generator</code>函数实现迭代器那么就会容易很多</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">range</span>(<span class="params">start, stop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = start; i &lt; stop; i++)</span><br><span class="line">    <span class="keyword">yield</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面这 4 行代码就可以完全替代之前的那个 23 行的实现，替换掉整个 <code>RangeIterator</code> 类，这是因为 Generator 天生就是迭代器，所有的 Generator 都原生实现了 <code>.next()</code> 和 <code>[Symbol.iterator]()</code> 方法。你只需要实现其中的循环逻辑就够了。</p>
-<p>我们可以使用作为迭代器的 Generator 的哪些功能呢？</p>
-<ul>
-<li><strong>使任何对象可遍历</strong> – 编写一个 Genetator 函数去遍历 <code>this</code>，每遍历到一个值就 yield 一下，然后将该 Generator 函数作为要遍历的对象上的 <code>[Symbol.iterator]</code> 方法的实现。</li>
-<li><strong>简化返回数组的函数</strong> – 假如有一个每次调用时都返回一个数组的函数，比如：</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Divide the one-dimensional array 'icons'</span></span><br><span class="line"><span class="comment">// into arrays of length 'rowLength'.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">splitIntoRows</span>(<span class="params">icons, rowLength</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> rows = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; icons.length; i += rowLength) &#123;</span><br><span class="line">    rows.push(icons.slice(i, i + rowLength));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> rows;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用<code>Generator</code>可以简化这类函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">splitIntoRows</span>(<span class="params">icons, rowLength</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; icons.length; i += rowLength) &#123;</span><br><span class="line">    <span class="keyword">yield</span> icons.slice(i, i + rowLength);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这两者唯一的区别在于，前者在调用时计算出了所有结果并用一个数组返回，后者返回的是一个迭代器，结果是在需要的时候才进行计算，然后一个一个地返回。</p>
-<ul>
-<li><strong>无穷大的结果集</strong> – 我们不能构建一个无穷大的数组，但是我们可以返回一个生成无尽序列的 Generator，并且每个调用者都可以从中获取到任意多个需要的值。</li>
-<li><strong>重构复杂的循环</strong> – 你是否想将一个复杂冗长的函数重构为两个简单的函数？Generator 是你重构工具箱中一把新的瑞士军刀。对于一个复杂的循环，我们可以将生成数据集那部分代码重构为一个 Generator 函数，然后用 <code>for-of</code> 遍历：<code>for (var data of myNewGenerator(args))</code>。</li>
-<li><strong>构建迭代器的工具</strong> – ES6 并没有提供一个可扩展的库，来对数据集进行 <code>filter</code> 和 <code>map</code> 等操作，但 Generator 可以用几行代码就实现这类功能。</li>
-</ul>
-<p>例如，假设你需要在<code>Nodelist</code>上实现与 <code>Array.prototype.filter</code> 同样的功能的方法。小菜一碟的事：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">filter</span>(<span class="params">test, iterable</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> item <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">    <span class="keyword">if</span> (test(item))</span><br><span class="line">      <span class="keyword">yield</span> item;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>所以，Generator 很实用吧？当然，这是实现自定义迭代器最简单直接的方式，并且，在 ES6 中，迭代器是数据集和循环的新标准。</p>
-<p>但，这还不是 Generator 的全部功能。</p>
-<h3 id="分段式代码"><a href="#分段式代码" class="headerlink" title="分段式代码"></a>分段式代码</h3><p>当我们需要手动控制异步进程时，可以通过将<code>Promise</code>和<code>Generator</code>结合起来实现</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异步ajax代码</span></span><br><span class="line"><span class="keyword">var</span> getJSON = <span class="function">(<span class="params">url</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> client = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">        client.open(<span class="string">'GET'</span>, url)</span><br><span class="line">        client.onreadystatechange = handler</span><br><span class="line">        client.responseType = <span class="string">'json'</span></span><br><span class="line">        client.setRequestHeader(<span class="string">'Accept'</span>, <span class="string">'application/json'</span>)</span><br><span class="line">        client.send()</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">handler</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.readyState !== <span class="number">4</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.status === <span class="number">200</span>)&#123;</span><br><span class="line">                resolve(<span class="keyword">this</span>.response)</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="keyword">this</span>.statusText))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> promise</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 迭代器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> (a = getJSON(<span class="string">'http://www.baidu.com'</span>))</span><br><span class="line">    <span class="comment">// 这里你可以干一些其他事情</span></span><br><span class="line">    <span class="keyword">yield</span> a.then(<span class="function"><span class="params">json</span> =&gt;</span> &#123;</span><br><span class="line">    	<span class="keyword">this</span>.$refs.dom.src = json.src</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = fun()</span><br><span class="line">a.next()	<span class="comment">// 发送异步请求</span></span><br><span class="line">a.next()	<span class="comment">// 更新DOM</span></span><br></pre></td></tr></table></figure>
-<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>在服务器端，现在就可以直接在 io.js 中使用 Generator（或者在 NodeJs 中以 <code>--harmony</code> 启动参数来启动 Node）。</p>
-<p>在浏览器端，目前只有 Firefox 27 和 Chrome 39 以上的版本才支持 Generator，如果想直接在 Web 上使用，你可以使用 <a href="http://babeljs.io/" target="_blank" rel="noopener">Babel</a> 或 Google 的 <a href="https://github.com/google/traceur-compiler#what-is-traceur" target="_blank" rel="noopener">Traceur</a> 将 ES6 代码转换为 Web 友好的 ES5 代码。</p>
-<p>一些题外话：JS 版本的 Generator 最早是由<code>Brendan Eich</code>实现，他借鉴了 <a href="https://www.python.org/dev/peps/pep-0255/" target="_blank" rel="noopener">Python Generator</a> 的实现，该实现的灵感来自 <a href="http://www.cs.arizona.edu/icon/" target="_blank" rel="noopener">Icon</a>，早在 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.7" target="_blank" rel="noopener">2006 年</a>的 Firefox 2.0 就吸纳了 Generator。但标准化的道路是坎坷的，一路下来，其语法和行为都发生了很多改变，Firefox 和 Chrome 中的 ES6 Generator 是由 <a href="http://wingolog.org/" target="_blank" rel="noopener">Andy Wingo</a> 实现 ，这项工作是由 Bloomberg 赞助的。</p>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/24/ES6中的-Generator/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -576,14 +528,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-23 23:58:17" itemprop="dateCreated datePublished" datetime="2019-03-23T23:58:17+08:00">2019-03-23</time>
+              <time title="Created: 2019-03-23 23:58:17" itemprop="dateCreated datePublished" datetime="2019-03-23T23:58:17+08:00">2019-03-23</time>
             
 
             
@@ -598,9 +550,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-24 00:17:34" itemprop="dateModified" datetime="2019-03-24T00:17:34+08:00">2019-03-24</time>
+                <time title="Modified: 2019-03-24 20:43:28" itemprop="dateModified" datetime="2019-03-24T20:43:28+08:00">2019-03-24</time>
               
             
           </span>
@@ -614,7 +566,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
@@ -653,96 +605,19 @@
 
       
         
-          
-            <p>前面讲述完<strong>传输层</strong>，接下来开始讲<strong>应用层</strong>的协议。从哪里开始讲呢，就从咱们最常用的 HTTP 协议开始。</p>
+          <p>前面讲述完<strong>传输层</strong>，接下来开始讲<strong>应用层</strong>的协议。从哪里开始讲呢，就从咱们最常用的 HTTP 协议开始。</p>
 <p>HTTP 协议，几乎是每个人上网用的第一个协议，同时也是很容易被人忽略的协议。</p>
 <p>既然说看新闻，咱们就先登录 <a href="http://www.163.com/" target="_blank" rel="noopener">http://www.163.com</a> 。</p>
 <p><a href="http://www.163.com/" target="_blank" rel="noopener">http://www.163.com</a> 是个 URL，叫作<strong>统一资源定位符</strong>。之所以叫统一，是因为它是有格式的。HTTP 称为协议，<a href="http://www.163.com/" target="_blank" rel="noopener">www.163.com</a> 是一个域名，表示互联网上的一个位置。有的 URL 会有更详细的位置标识，例如 <a href="http://www.163.com/index.html" target="_blank" rel="noopener">http://www.163.com/index.html</a> 。正是因为这个东西是统一的，所以当你把这样一个字符串输入到浏览器的框里的时候，浏览器才知道如何进行统一处理。</p>
-<h3 id="HTTP-请求的准备"><a href="#HTTP-请求的准备" class="headerlink" title="HTTP 请求的准备"></a>HTTP 请求的准备</h3><p>浏览器会将 <a href="http://www.163.com/" target="_blank" rel="noopener">www.163.com</a> 这个域名发送给 DNS 服务器，让它解析为 IP 地址。有关 DNS 的过程，其实非常复杂，这个在后面专门介绍 DNS 的时候，我会详细描述，这里我们先不管，反正它会被解析成为 IP 地址。那接下来是发送 HTTP 请求吗？</p>
-<p>不是的，HTTP 是基于 TCP 协议的，当然是要先建立 TCP 连接了，怎么建立呢？还记得第 11 节讲过的三次握手吗？</p>
-<p>目前使用的 HTTP 协议大部分都是 1.1。在 1.1 的协议里面，默认是开启了<code>Keep-Alive</code>的，这样建立的 TCP 连接，就可以在多次请求中复用。</p>
-<p>学习了 TCP 之后，你应该知道，TCP 的三次握手和四次挥手，还是挺费劲的。如果好不容易建立了连接，然后就做了一点儿事情就结束了，有点儿浪费人力和物力。</p>
-<h3 id="HTTP-请求的构建"><a href="#HTTP-请求的构建" class="headerlink" title="HTTP 请求的构建"></a>HTTP 请求的构建</h3><p>建立了连接以后，浏览器就要发送 HTTP 的请求。</p>
-<p>请求的格式就像这样。</p>
-<p><img src="https://pic.superbed.cn/item/5c96595c3a213b0417f549fc" alt></p>
-<p>HTTP 的报文大概分为三大部分。第一部分是<strong>请求行</strong>，第二部分是请求的<strong>首部</strong>，第三部分才是请求的<strong>正文实体</strong>。</p>
-<h4 id="第一部分：请求行"><a href="#第一部分：请求行" class="headerlink" title="第一部分：请求行"></a>第一部分：请求行</h4><p>​    在请求行中，URL 就是 <a href="http://www.163.com/" target="_blank" rel="noopener">http://www.163.com</a> ，版本为 HTTP 1.1。这里要说一下的，就是方法。方法有几种类型。</p>
-<p>​    对于访问网页来讲，最常用的类型就是<strong>GET</strong>。顾名思义，GET 就是去服务器获取一些资源。对于访问网页来讲，要获取的资源往往是一个页面。其实也有很多其他的格式，比如说返回一个 JSON 字符串，到底要返回什么，是由服务器端的实现决定的。</p>
-<p>​    例如，在云计算中，如果我们的服务器端要提供一个基于 HTTP 协议的 API，获取所有云主机的列表，这就会使用 GET 方法得到，返回的可能是一个 JSON 字符串。字符串里面是一个列表，列表里面是一项的云主机的信息。</p>
-<p>​    另外一种类型叫做<strong>POST</strong>。它需要主动告诉服务端一些信息，而非获取。要告诉服务端什么呢？一般会放在正文里面。正文可以有各种各样的格式。常见的格式也是 JSON。</p>
-<p>​    例如，我们下一节要讲的支付场景，客户端就需要把“我是谁？我要支付多少？我要买啥？”告诉服务器，这就需要通过 POST 方法。</p>
-<p>​    再如，在云计算里，如果我们的服务器端，要提供一个基于 HTTP 协议的创建云主机的 API，也会用到 POST 方法。这个时候往往需要将“我要创建多大的云主机？多少 CPU 多少内存？多大硬盘？”这些信息放在 JSON 字符串里面，通过 POST 的方法告诉服务器端。</p>
-<p>​    还有一种类型叫<strong>PUT</strong>，就是向指定资源位置上传最新内容。但是，HTTP 的服务器往往是不允许上传文件的，所以 PUT 和 POST 就都变成了要传给服务器东西的方法。</p>
-<p>​    在实际使用过程中，这两者还会有稍许的区别。POST 往往是用来创建一个资源的，而 PUT 往往是用来修改一个资源的。</p>
-<p>​    例如，云主机已经创建好了，我想对这个云主机打一个标签，说明这个云主机是生产环境的，另外一个云主机是测试环境的。那怎么修改这个标签呢？往往就是用 PUT 方法。</p>
-<p>​    再有一种常见的就是<strong>DELETE</strong>。这个顾名思义就是用来删除资源的。例如，我们要删除一个云主机，就会调用 DELETE 方法。</p>
-<h4 id="第二部分：首部字段"><a href="#第二部分：首部字段" class="headerlink" title="第二部分：首部字段"></a>第二部分：首部字段</h4><p>请求行下面就是我们的首部字段。首部是<code>key value</code>，通过冒号分隔。这里面，往往保存了一些非常重要的字段。</p>
-<p>例如，<strong><code>Accept-Charset</code></strong>，表示<strong>客户端可以接受的字符集</strong>。防止传过来的是另外的字符集，从而导致出现乱码。</p>
-<p>再如，<strong>Content-Type</strong>是指<strong>正文的格式</strong>。例如，我们进行 POST 的请求，如果正文是 JSON，那么我们就应该将这个值设置为 JSON。</p>
-<p>这里需要重点说一下的就是<strong>缓存</strong>。为啥要使用缓存呢？那是因为一个非常大的页面有很多东西。</p>
-<p>例如，我浏览一个商品的详情，里面有这个商品的价格、库存、展示图片、使用手册等等。商品的展示图片会保持较长时间不变，而库存会根据用户购买的情况经常改变。如果图片非常大，而库存数非常小，如果我们每次要更新数据的时候都要刷新整个页面，对于服务器的压力就会很大。</p>
-<p>对于这种高并发场景下的系统，在真正的业务逻辑之前，都需要有个接入层，将这些静态资源的请求拦在最外面。</p>
-<p>这个架构的图就像这样。</p>
-<p><img src="https://pic.superbed.cn/item/5c9659c33a213b0417f54d90" alt></p>
-<p>其中 DNS、CDN 我在后面的章节会讲。和这一节关系比较大的就是 Nginx 这一层，它如何处理 HTTP 协议呢？对于静态资源，有 Vanish 缓存层。当缓存过期的时候，才会访问真正的 Tomcat 应用集群。</p>
-<p>在 HTTP 头里面，<strong><code>Cache-control</code></strong>是用来<strong>控制缓存</strong>的。当客户端发送的请求中包含<code>max-age</code>指令时，如果判定缓存层中，资源的缓存时间数值比指定时间的数值小，那么客户端可以接受缓存的资源；当指定<code>max-age</code>值为 0，那么缓存层通常需要将请求转发给应用集群。</p>
-<p>另外，<strong><code>If-Modified-Since</code></strong>也是一个关于缓存的。也就是说，如果服务器的资源在某个时间之后更新了，那么客户端就应该下载最新的资源；如果没有更新，服务端会返回“<code>304 Not Modified</code>”的响应，那客户端就不用下载了，也会节省带宽。</p>
-<p>到此为止，我们仅仅是拼凑起了 HTTP 请求的报文格式，接下来，浏览器会把它交给下一层传输层。怎么交给传输层呢？其实也无非是用<code>Socket</code>这些东西，只不过用的浏览器里，这些程序不需要你自己写，有人已经帮你写好了。</p>
-<h3 id="HTTP-请求的发送"><a href="#HTTP-请求的发送" class="headerlink" title="HTTP 请求的发送"></a>HTTP 请求的发送</h3><p>HTTP 协议是基于 TCP 协议的，所以它使用面向连接的方式发送请求，通过<code>stream</code>二进制流的方式传给对方。当然，到了 TCP 层，它会把二进制流变成一个的报文段发送给服务器。</p>
-<p>在发送给每个报文段的时候，都需要对方有一个回应 ACK，来保证报文可靠地到达了对方。如果没有回应，那么 TCP 这一层会进行重新传输，直到可以到达。同一个包有可能被传了好多次，但是 HTTP 这一层不需要知道这一点，因为是 TCP 这一层在埋头苦干。</p>
-<p>TCP 层发送每一个报文的时候，都需要加上自己的地址（即源地址）和它想要去的地方（即目标地址），将这两个信息放到 IP 头里面，交给 IP 层进行传输。</p>
-<p>IP 层需要查看目标地址和自己是否是在同一个局域网。如果是，就发送 ARP 协议来请求这个目标地址对应的 MAC 地址，然后将源 MAC 和目标 MAC 放入 MAC 头，发送出去即可；如果不在同一个局域网，就需要发送到网关，还要需要发送 ARP 协议，来获取网关的 MAC 地址，然后将源 MAC 和网关 MAC 放入 MAC 头，发送出去。</p>
-<p>网关收到包发现 MAC 符合，取出目标 IP 地址，根据路由协议找到下一跳的路由器，获取下一跳路由器的 MAC 地址，将包发给下一跳路由器。</p>
-<p>这样路由器一跳一跳终于到达目标的局域网。这个时候，最后一跳的路由器能够发现，目标地址就在自己的某一个出口的局域网上。于是，在这个局域网上发送 ARP，获得这个目标地址的 MAC 地址，将包发出去。</p>
-<p>目标的机器发现 MAC 地址符合，就将包收起来；发现 IP 地址符合，根据 IP 头中协议项，知道自己上一层是 TCP 协议，于是解析 TCP 的头，里面有序列号，需要看一看这个序列包是不是我要的，如果是就放入缓存中然后返回一个 ACK，如果不是就丢弃。</p>
-<p>TCP 头里面还有端口号，HTTP 的服务器正在监听这个端口号。于是，目标机器自然知道是 HTTP 服务器这个进程想要这个包，于是将包发给 HTTP 服务器。HTTP 服务器的进程看到，原来这个请求是要访问一个网页，于是就把这个网页发给客户端。</p>
-<h3 id="HTTP-返回的构建"><a href="#HTTP-返回的构建" class="headerlink" title="HTTP 返回的构建"></a>HTTP 返回的构建</h3><p>HTTP 的返回报文也是有一定格式的。这也是基于 HTTP 1.1 的。</p>
-<p><img src="https://pic.superbed.cn/item/5c965a5e3a213b0417f55291" alt></p>
-<p>状态码会反应 HTTP 请求的结果。“200”意味着大吉大利；而我们最不想见的，就是“404”，也就是“服务端无法响应这个请求”。然后，短语会大概说一下原因。</p>
-<p>接下来是返回首部的<strong><code>key value</code></strong>。</p>
-<p>这里面，<strong><code>Retry-After</code></strong>表示，告诉客户端应该在多长时间以后再次尝试一下。“503 错误”是说“服务暂时不再和这个值配合使用”。</p>
-<p>在返回的头部里面也会有<strong><code>Content-Type</code></strong>，表示返回的是 HTML，还是 JSON。</p>
-<p>构造好了返回的 HTTP 报文，接下来就是把这个报文发送出去。还是交给 Socket 去发送，还是交给 TCP 层，让 TCP 层将返回的 HTML，也分成一个个小的段，并且保证每个段都可靠到达。</p>
-<p>这些段加上 TCP 头后会交给 IP 层，然后把刚才的发送过程反向走一遍。虽然两次不一定走相同的路径，但是逻辑过程是一样的，一直到达客户端。</p>
-<p>客户端发现 MAC 地址符合、IP 地址符合，于是就会交给 TCP 层。根据序列号看是不是自己要的报文段，如果是，则会根据 TCP 头中的端口号，发给相应的进程。这个进程就是浏览器，浏览器作为客户端也在监听某个端口。</p>
-<p>当浏览器拿到了 HTTP 的报文。发现返回“200”，一切正常，于是就从正文中将 HTML 拿出来。HTML 是一个标准的网页格式。浏览器只要根据这个格式，展示出一个绚丽多彩的网页。</p>
-<p>这就是一个正常的 HTTP 请求和返回的完整过程。</p>
-<h3 id="HTTP-2-0"><a href="#HTTP-2-0" class="headerlink" title="HTTP 2.0"></a>HTTP 2.0</h3><p>当然 HTTP 协议也在不断地进化过程中，在 HTTP1.1 基础上便有了 HTTP 2.0。</p>
-<p>HTTP 1.1 在应用层以纯文本的形式进行通信。每次通信都要带完整的 HTTP 的头，而且不考虑<code>pipeline</code>模式的话，每次的过程总是像上面描述的那样一去一回。这样在实时性、并发性上都存在问题。</p>
-<p>为了解决这些问题，HTTP 2.0 会对 HTTP 的头进行一定的压缩，将原来每次都要携带的大量<code>key value</code>在两端建立一个索引表，对相同的头只发送索引表中的索引。</p>
-<p>另外，HTTP 2.0 协议将一个 TCP 的连接中，切分成多个流，每个流都有自己的 ID，而且流可以是客户端发往服务端，也可以是服务端发往客户端。它其实只是一个虚拟的通道。流是有优先级的。</p>
-<p>HTTP 2.0 还将所有的传输信息分割为更小的消息和帧，并对它们采用二进制格式编码。常见的帧有<strong>Header 帧</strong>，用于传输 Header 内容，并且会开启一个新的流。再就是<strong>Data 帧</strong>，用来传输正文实体。多个 Data 帧属于同一个流。</p>
-<p>通过这两种机制，HTTP 2.0 的客户端可以将多个请求分到不同的流中，然后将请求内容拆成帧，进行二进制传输。这些帧可以打散乱序发送， 然后根据每个帧首部的流标识符重新组装，并且可以根据优先级，决定优先处理哪个流的数据。</p>
-<p>我们来举一个例子。</p>
-<p>假设我们的一个页面要发送三个独立的请求，一个获取<code>css</code>，一个获取<code>js</code>，一个获取图片<code>jpg</code>。如果使用 HTTP 1.1 就是串行的，但是如果使用 HTTP 2.0，就可以在一个连接里，客户端和服务端都可以同时发送多个请求或回应，而且不用按照顺序一对一对应。</p>
-<p><img src="https://pic.superbed.cn/item/5c965adb3a213b0417f55797" alt></p>
-<p>HTTP 2.0 其实是将三个请求变成三个流，将数据分成帧，乱序发送到一个 TCP 连接中。</p>
-<p><img src="https://pic.superbed.cn/item/5c965afd3a213b0417f55903" alt></p>
-<p>HTTP 2.0 成功解决了HTTP 1.1 的队首阻塞问题，同时，也不需要通过 HTTP 1.x 的<code>pipeline</code>机制用多条 TCP 连接来实现并行请求与响应；减少了 TCP 连接数对服务器性能的影响，同时将页面的多个数据 css、js、 jpg 等通过一个数据链接进行传输，能够加快页面组件的传输速度。</p>
-<h3 id="QUIC-协议的“城会玩”"><a href="#QUIC-协议的“城会玩”" class="headerlink" title="QUIC 协议的“城会玩”"></a>QUIC 协议的“城会玩”</h3><p>HTTP 2.0 虽然大大增加了并发性，但还是有问题的。因为 HTTP 2.0 也是基于 TCP 协议的，TCP协议在处理包时是有严格顺序的。</p>
-<p>当其中一个数据包遇到问题，TCP 连接需要等待这个包完成重传之后才能继续进行。虽然 HTTP 2.0 通过多个 stream，使得逻辑上一个 TCP 连接上的并行内容，进行多路数据的传输，然而这中间并没有关联的数据。一前一后，前面 stream 2 的帧没有收到，后面 stream 1 的帧也会因此阻塞。</p>
-<p>于是，就又到了从 TCP 切换到 UDP，进行“城会玩”的时候了。这就是 Google 的 QUIC 协议，接下来我们来看它是如何“城会玩”的。</p>
-<h4 id="机制一：自定义连接机制"><a href="#机制一：自定义连接机制" class="headerlink" title="机制一：自定义连接机制"></a>机制一：自定义连接机制</h4><p>我们都知道，一条 TCP 连接是由四元组标识的，分别是源 IP、源端口、目的 IP、目的端口。一旦一个元素发生变化时，就需要断开重连，重新连接。在移动互联情况下，当手机信号不稳定或者在 WIFI 和 移动网络切换时，都会导致重连，从而进行再次的三次握手，导致一定的时延。</p>
-<p>这在 TCP 是没有办法的，但是基于 UDP，就可以在 QUIC 自己的逻辑里面维护连接的机制，不再以四元组标识，而是以一个 64 位的随机数作为 ID 来标识，而且 UDP 是无连接的，所以当 IP 或者端口变化的时候，只要 ID 不变，就不需要重新建立连接。</p>
-<h4 id="机制二：自定义重传机制"><a href="#机制二：自定义重传机制" class="headerlink" title="机制二：自定义重传机制"></a>机制二：自定义重传机制</h4><p>前面我们讲过，TCP 为了保证可靠性，通过使用<strong>序号</strong>和<strong>应答</strong>机制，来解决顺序问题和丢包问题。</p>
-<p>任何一个序号的包发过去，都要在一定的时间内得到应答，否则一旦超时，就会重发这个序号的包。那怎么样才算超时呢？还记得我们提过的<strong>自适应重传算法</strong>吗？这个超时是通过<strong>采样往返时间 RTT</strong>不断调整的。</p>
-<p>其实，在 TCP 里面超时的采样存在不准确的问题。例如，发送一个包，序号为 100，发现没有返回，于是再发送一个 100，过一阵返回一个<code>ACK101</code>。这个时候客户端知道这个包肯定收到了，但是往返时间是多少呢？是 ACK 到达的时间减去后一个 100 发送的时间，还是减去前一个 100 发送的时间呢？事实是，第一种算法把时间算短了，第二种算法把时间算长了。</p>
-<p>QUIC 也有个序列号，是递增的。任何一个序列号的包只发送一次，下次就要加一了。例如，发送一个包，序号是 100，发现没有返回；再次发送的时候，序号就是 101 了；如果返回的<code>ACK 100</code>，就是对第一个包的响应。如果返回<code>ACK 101</code>就是对第二个包的响应，<code>RTT</code>计算相对准确。</p>
-<p>但是这里有一个问题，就是怎么知道包 100 和包 101 发送的是同样的内容呢？QUIC 定义了一个<code>offset</code>概念。<code>QUIC</code>既然是面向连接的，也就像 TCP 一样，是一个数据流，发送的数据在这个数据流里面有个偏移量<code>offset</code>，可以通过<code>offset</code>查看数据发送到了哪里，这样只要这个 offset 的包没有来，就要重发；如果来了，按照<code>offset</code>拼接，还是能够拼成一个流。</p>
-<p><img src="https://pic.superbed.cn/item/5c965bbc3a213b0417f55eda" alt></p>
-<h4 id="机制三：无阻塞的多路复用"><a href="#机制三：无阻塞的多路复用" class="headerlink" title="机制三：无阻塞的多路复用"></a>机制三：无阻塞的多路复用</h4><p>有了自定义的连接和重传机制，我们就可以解决上面 HTTP 2.0 的多路复用问题。</p>
-<p>同 HTTP 2.0 一样，同一条 QUIC 连接上可以创建多个 stream，来发送多个 HTTP 请求。但是，QUIC 是基于 UDP 的，一个连接上的多个 stream 之间没有依赖。这样，假如 stream2 丢了一个 UDP 包，后面跟着 stream3 的一个 UDP 包，虽然 stream2 的那个包需要重传，但是 stream3 的包无需等待，就可以发给用户。</p>
-<h4 id="机制四：自定义流量控制"><a href="#机制四：自定义流量控制" class="headerlink" title="机制四：自定义流量控制"></a>机制四：自定义流量控制</h4><p>TCP 的流量控制是通过<strong>滑动窗口协议</strong>。QUIC 的流量控制也是通过 window_update，来告诉对端它可以接受的字节数。但是 QUIC 的窗口是适应自己的多路复用机制的，不但在一个连接上控制窗口，还在一个连接中的每个 stream 控制窗口。</p>
-<p>还记得吗？在 TCP 协议中，接收端的窗口的起始点是下一个要接收并且 ACK 的包，即便后来的包都到了，放在缓存里面，窗口也不能右移，因为 TCP 的 ACK 机制是基于序列号的累计应答，一旦 ACK 了一个系列号，就说明前面的都到了，所以只要前面的没到，后面的到了也不能 ACK，就会导致后面的到了，也有可能超时重传，浪费带宽。</p>
-<p>QUIC 的 ACK 是基于 offset 的，每个 offset 的包来了，进了缓存，就可以应答，应答后就不会重发，中间的空挡会等待到来或者重发即可，而窗口的起始位置为当前收到的最大 offset，从这个 offset 到当前的 stream 所能容纳的最大缓存，是真正的窗口大小。显然，这样更加准确。</p>
-<p><img src="https://pic.superbed.cn/item/5c965bf53a213b0417f56115" alt></p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
-<li>HTTP 协议虽然很常用，也很复杂，重点记住 GET、POST、 PUT、DELETE 这几个方法，以及重要的首部字段；</li>
-<li>HTTP 2.0 通过头压缩、分帧、二进制编码、多路复用等技术提升性能；</li>
-<li>QUIC 协议通过基于 UDP 自定义的类似 TCP 的连接、重试、多路复用、流量控制技术，进一步提升性能。</li>
-</ul>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/23/HTTP协议-——-看个新闻原来这么麻烦/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -835,19 +710,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-23 22:14:06 / Geändert am: 23:56:46" itemprop="dateCreated datePublished" datetime="2019-03-23T22:14:06+08:00">2019-03-23</time>
+              <time title="Created: 2019-03-23 22:14:06" itemprop="dateCreated datePublished" datetime="2019-03-23T22:14:06+08:00">2019-03-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-24 20:43:09" itemprop="dateModified" datetime="2019-03-24T20:43:09+08:00">2019-03-24</time>
               
             
           </span>
@@ -861,7 +748,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
@@ -900,115 +787,17 @@
 
       
         
+          <p>既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种<strong>重传的策略</strong>，还需要有智慧，也就是说，这里面包含着<strong>大量的算法</strong>。</p>
+<p>数据既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种重传的策略，还需要有智慧，也就是说，这里面包含着大量的算法。下面我们来说道说道。</p>
+          <!--noindex-->
           
-            <p>既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种<strong>重传的策略</strong>，还需要有智慧，也就是说，这里面包含着<strong>大量的算法</strong>。</p>
-<h3 id="如何做个靠谱的人？"><a href="#如何做个靠谱的人？" class="headerlink" title="如何做个靠谱的人？"></a>如何做个靠谱的人？</h3><p>​    TCP 想成为一个成熟稳重的人，成为一个靠谱的人。那一个人怎么样才算靠谱呢？咱们工作中经常就有这样的场景，比如你交代给下属一个事情以后，下属到底能不能做到，做到什么程度，什么时候能够交付，往往就会有应答，有回复。这样，处理事情的过程中，一旦有异常，你也可以尽快知道，而不是交代完之后就石沉大海，过了一个月再问，他说，啊我不记得了。</p>
-<p>​    对应到网络协议上，就是客户端每发送的一个包，服务器端都应该有个回复，如果服务器端超过一定的时间没有回复，客户端就会重新发送这个包，直到有回复。</p>
-<p>​    这个发送应答的过程是什么样呢？可以是<strong>上一个收到了应答，再发送下一个</strong>。这种模式有点像两个人直接打电话，你一句，我一句。但是这种方式的缺点是效率比较低。如果一方在电话那头处理的时间比较长，这一头就要干等着，双方都没办法干其他事情。咱们在日常工作中也不是这样的，不能你交代你的下属办一件事情，就一直打着电话看着他做，而是应该他按照你的安排，先将事情记录下来，办完一件回复一件。在他办事情的过程中，你还可以同时交代新的事情，这样双方就并行了。</p>
-<p>​    如果使⽤这种模式，其实需要你和你的下属就不能靠脑⼦了，⽽是要都准备⼀个本⼦，你每交代下属⼀个事情，双方的本子都要记录⼀下。</p>
-<p>​    当你的下属做完⼀件事情，就回复你，做完了，你就在你的本⼦上将这个事情划去。同时你的本⼦上每件事情都有时限，如果超过了时限下属还没有回复，你就要主动重新交代⼀下：上次那件事情，你还没回复我，咋样啦？</p>
-<p>​    既然多件事情可以一起处理，那就需要给每个事情编个号，防止弄错了。例如，程序员平时看任务的时候，都会看 JIRA 的 ID，而不是每次都要描述一下具体的事情。在大部分情况下，对于事情的处理是按照顺序来的，先来的先处理，这就给应答和汇报工作带来了方便。等开周会的时候，每个程序员都可以将 JIRA ID 的列表拉出来，说以上的都做完了，⽽不⽤⼀个个说。</p>
-<h3 id="如何实现一个靠谱的协议？"><a href="#如何实现一个靠谱的协议？" class="headerlink" title="如何实现一个靠谱的协议？"></a>如何实现一个靠谱的协议？</h3><p>TCP 协议使用的也是同样的模式。为了保证顺序性，每一个包都有一个 ID。在建立连接的时候，会商定起始的 ID 是什么，然后按照 ID 一个个发送。为了保证不丢包，对于发送的包都要进行应答，但是这个应答也不是一个一个来的，而是会应答某个之前的 ID，表示都收到了，这种模式称为累计确认或者累计应答（<strong>cumulative acknowledgment</strong>）。</p>
-<p>为了记录所有发送的包和接收的包，TCP 也需要发送端和接收端分别都有缓存来保存这些记录。发送端的缓存里是按照包的 ID 一个个排列，根据处理的情况分成四个部分。</p>
-<p>第一部分：发送了并且已经确认的。这部分就是你交代下属的，并且也做完了的，应该划掉的。</p>
-<p>第二部分：发送了并且尚未确认的。这部分是你交代下属的，但是还没做完的，需要等待做完的回复之后，才能划掉。</p>
-<p>第三部分：没有发送，但是已经等待发送的。这部分是你还没有交代给下属，但是马上就要交代的。</p>
-<p>第四部分：没有发送，并且暂时还不会发送的。这部分是你还没有交代给下属，而且暂时还不会交代给下属的。</p>
-<p>这里面为什么要区分第三部分和第四部分呢？没交代的，一下子全交代了不就完了吗？</p>
-<p>这就是我们上一节提到的十个词口诀里的“流量控制，把握分寸”。作为项目管理人员，你应该根据以往的工作情况和这个员工反馈的能力、抗压力等，先在心中估测一下，这个人一天能做多少工作。如果工作布置少了，就会不饱和；如果工作布置多了，他就会做不完；如果你使劲逼迫，人家可能就要辞职了。</p>
-<p>到底一个员工能够同时处理多少事情呢？在 TCP 里，接收端会给发送端报一个窗口的大小，叫<strong>Advertised window</strong>。这个窗口的大小应该等于上面的第二部分加上第三部分，就是已经交代了没做完的加上马上要交代的。超过这个窗口的，接收端做不过来，就不能发送了。</p>
-<p>于是，发送端需要保持下面的数据结构。</p>
-<p><img src="https://pic.superbed.cn/item/5c96406c3a213b0417f3f55d" alt></p>
-<ul>
-<li><code>LastByteAcked</code>：第一部分和第二部分的分界线</li>
-<li><code>LastByteSent</code>：第二部分和第三部分的分界线</li>
-<li><code>LastByteAcked + AdvertisedWindow</code>： 第三部分和第四部分的分界线</li>
-</ul>
-<p>对于接收端来讲，它的缓存里记录的内容要简单一些。</p>
-<ul>
-<li>第一部分：接受并且确认过的。也就是我领导交代给我，并且我做完的。</li>
-<li>第二部分：还没接收，但是马上就能接收的。也即是我自己的能够接受的最大工作量。</li>
-<li>第三部分：还没接收，也没法接收的。也即超过工作量的部分，实在做不完。</li>
-</ul>
-<p>对应的数据结构如下</p>
-<p><img src="https://pic.superbed.cn/item/5c9653503a213b0417f4daf0" alt></p>
-<ul>
-<li><code>MaxRcvBuffer</code>最大缓存的量；</li>
-<li><code>LastByteRead</code> 之后是已经接收了，但是还没被应用层读取的；</li>
-<li><code>NextByteExpected</code> 是第一部分和第二部分的分界线。</li>
-</ul>
-<p>第二部分的窗口有多大呢？</p>
-<p><code>NextByteExpected</code>和<code>LastByteRead</code>的差其实是还没被应用层读取的部分占用掉的<code>MaxRcvBuffer</code>的量，我们定义为 A。</p>
-<p><code>AdvertisedWindow</code>其实是<code>MaxRcvBuffer</code>减去 A。</p>
-<p>也就是：<code>AdvertisedWindow = MaxRcvBuffer - ((NextByteExpected - 1) - LastByteRead)</code>。</p>
-<p>那第二部分和第三部分的分界线在哪里呢？<code>NextByteExpected</code>加<code>AdvertisedWindow</code>就是第二部分和第三部分的分界线，其实也就是<code>LastByteRead</code>加上<code>MaxRcvBuffer</code>。</p>
-<p>其中第二部分里面，由于受到的包可能不是顺序的，会出现空挡，只有和第一部分连续的，可以马上进行回复，中间空着的部分需要等待，哪怕后面的已经来了。</p>
-<h3 id="顺序问题与丢包问题"><a href="#顺序问题与丢包问题" class="headerlink" title="顺序问题与丢包问题"></a>顺序问题与丢包问题</h3><p>接下来我们结合一个例子来看。</p>
-<p>​    还是刚才的图，在发送端来看，1、2、3 已经发送并确认；4、5、6、7、8、9 都是发送了还没确认；10、11、12 是还没发出的；13、14、15 是接收方没有空间，不准备发的。</p>
-<p>​    在接收端来看，1、2、3、4、5 是已经完成 ACK，但是没读取的；6、7 是等待接收的；8、9 是已经接收，但是没有 ACK 的。</p>
-<p>发送端和接收端当前的状态如下：</p>
-<ul>
-<li>1、2、3 没有问题，双方达成了一致。</li>
-<li>4、5 接收方说 ACK 了，但是发送方还没收到，有可能丢了，有可能在路上。</li>
-<li>6、7、8、9 肯定都发了，但是 8、9 已经到了，但是 6、7 没到，出现了乱序，缓存着但是没办法 ACK。</li>
-</ul>
-<p>根据这个例子，我们可以知道，顺序问题和丢包问题都有可能发生，所以我们先来看<strong>确认与重发的机制</strong>。</p>
-<p>假设 4 的确认到了，不幸的是，5 的 ACK 丢了，6、7 的数据包丢了，这该怎么办呢？</p>
-<p>一种方法就是<strong>超时重试</strong>，也即对每一个发送了，但是没有 ACK 的包，都有设一个定时器，超过了一定的时间，就重新尝试。但是这个超时的时间如何评估呢？这个时间不宜过短，时间必须大于往返时间 RTT，否则会引起不必要的重传。也不宜过长，这样超时时间变长，访问就变慢了。</p>
-<p>估计往返时间，需要 TCP 通过采样 RTT 的时间，然后进行加权平均，算出一个值，而且这个值还是要不断变化的，因为网络状况不断的变化。除了采样 RTT，还要采样 RTT 的波动范围，计算出一个估计的超时时间。由于重传时间是不断变化的，我们称为<strong>自适应重传算法</strong>（<strong><code>Adaptive Retransmission Algorithm</code></strong>）。</p>
-<p>如果过一段时间，5、6、7 都超时了，就会重新发送。接收方发现 5 原来接收过，于是丢弃 5；6 收到了，发送 ACK，要求下一个是 7，7 不幸又丢了。当 7 再次超时的时候，有需要重传的时候，TCP 的策略是<strong>超时间隔加倍</strong>。<strong>每当遇到一次超时重传的时候，都会将下一次超时时间间隔设为先前值的两倍</strong>。<strong>两次超时，就说明网络环境差，不宜频繁反复发送。</strong></p>
-<p>超时触发重传存在的问题是，超时周期可能相对较长。那是不是可以有更快的方式呢？</p>
-<p>有一个可以快速重传的机制，当接收方收到一个序号大于下一个所期望的报文段时，就检测到了数据流中的一个间格，于是发送三个冗余的 ACK，客户端收到后，就在定时器过期之前，重传丢失的报文段。</p>
-<p>例如，接收方发现 6、8、9 都已经接收了，就是 7 没来，那肯定是丢了，于是发送三个 6 的 ACK，要求下一个是 7。客户端收到 3 个，就会发现 7 的确又丢了，不等超时，马上重发。</p>
-<p>还有一种方式称为<strong><code>Selective Acknowledgment</code></strong> （<strong><code>SACK</code></strong>）。这种方式需要在 TCP 头里加一个<code>SACK</code>的东西，可以将缓存的地图发送给发送方。例如可以发送<code>ACK6</code>、<code>SACK8</code>、<code>SACK9</code>，有了地图，发送方一下子就能看出来是 7 丢了。</p>
-<h3 id="流量控制问题"><a href="#流量控制问题" class="headerlink" title="流量控制问题"></a>流量控制问题</h3><p>我们再来看流量控制机制，在对于包的确认中，同时会携带一个窗口的大小。</p>
-<p>我们先假设窗口不变的情况，窗口始终为 9。4 的确认来的时候，会右移一个，这个时候第 13 个包也可以发送了。</p>
-<p><img src="https://pic.superbed.cn/item/5c9654c83a213b0417f4e830" alt></p>
-<p>这个时候，假设发送端发送过猛，会将第三部分的 10、11、12、13 全部发送完毕，之后就停止发送了，未发送可发送部分为 0。</p>
-<p><img src="https://pic.superbed.cn/item/5c9654eb3a213b0417f4e9db" alt></p>
-<p>当对于包 5 的确认到达的时候，在客户端相当于窗口再滑动了一格，这个时候，才可以有更多的包可以发送了，例如第 14 个包才可以发送。</p>
-<p><img src="https://pic.superbed.cn/item/5c9655743a213b0417f4ee7f" alt></p>
-<p>如果接收方实在处理的太慢，导致缓存中没有空间了，可以通过确认信息修改窗口的大小，甚至可以设置为 0，则发送方将暂时停止发送。</p>
-<p>我们假设一个极端情况，接收端的应用一直不读取缓存中的数据，当数据包 6 确认后，窗口大小就不能再是 9 了，就要缩小一个变为 8。</p>
-<p><img src="https://pic.superbed.cn/item/5c96559a3a213b0417f4efc5" alt></p>
-<p>这个新的窗口 8 通过 6 的确认消息到达发送端的时候，你会发现窗口没有平行右移，而是仅仅左面的边右移了，窗口的大小从 9 改成了 8。</p>
-<p><img src="https://pic.superbed.cn/item/5c9655bf3a213b0417f4f10f" alt></p>
-<p>如果接收端还是一直不处理数据，则随着确认的包越来越多，窗口越来越小，直到为 0。</p>
-<p><img src="https://pic.superbed.cn/item/5c9655d93a213b0417f4f22b" alt></p>
-<p>当这个窗口通过包 14 的确认到达发送端的时候，发送端的窗口也调整为 0，停止发送。</p>
-<p><img src="https://pic.superbed.cn/item/5c9656043a213b0417f50a62" alt></p>
-<p>如果这样的话，发送方会定时发送窗口探测数据包，看是否有机会调整窗口的大小。当接收方比较慢的时候，要防止低能窗口综合征，别空出一个字节来就赶快告诉发送方，然后马上又填满了，可以当窗口太小的时候，不更新窗口，直到达到一定大小，或者缓冲区一半为空，才更新窗口。</p>
-<p>这就是我们常说的流量控制。</p>
-<h3 id="拥塞控制问题"><a href="#拥塞控制问题" class="headerlink" title="拥塞控制问题"></a>拥塞控制问题</h3><p>最后，我们看一下拥塞控制的问题，也是通过窗口的大小来控制的，前面的滑动窗口 rwnd 是怕发送方把接收方缓存塞满，而拥塞窗口 cwnd，是怕把网络塞满。</p>
-<p>这里有一个公式 <code>LastByteSent - LastByteAcked &lt;= min {cwnd, rwnd}</code> ，是拥塞窗口和滑动窗口共同控制发送的速度。</p>
-<p>那发送方怎么判断网络是不是满呢？这其实是个挺难的事情，因为对于 TCP 协议来讲，他压根不知道整个网络路径都会经历什么，对他来讲就是一个黑盒。TCP 发送包常被比喻为往一个水管里面灌水，而 TCP 的拥塞控制就是在不堵塞，不丢包的情况下，尽量发挥带宽。</p>
-<p>水管有粗细，网络有带宽，也即每秒钟能够发送多少数据；水管有长度，端到端有时延。在理想状态下，水管里面水的量 = 水管粗细 x 水管长度。对于到网络上，通道的容量 = 带宽 × 往返延迟。</p>
-<p>如果我们设置发送窗口，使得发送但未确认的包为为通道的容量，就能够撑满整个管道。</p>
-<p><img src="https://pic.superbed.cn/item/5c9656523a213b0417f50d6e" alt></p>
-<p>如图所示，假设往返时间为 8s，去 4s，回 4s，每秒发送一个包，每个包 1024byte。已经过去了 8s，则 8 个包都发出去了，其中前 4 个包已经到达接收端，但是 ACK 还没有返回，不能算发送成功。5-8 后四个包还在路上，还没被接收。这个时候，整个管道正好撑满，在发送端，已发送未确认的为 8 个包，正好等于带宽，也即每秒发送 1 个包，乘以来回时间 8s。</p>
-<p>如果我们在这个基础上再调大窗口，使得单位时间内更多的包可以发送，会出现什么现象呢？</p>
-<p>我们来想，原来发送一个包，从一端到达另一端，假设一共经过四个设备，每个设备处理一个包时间耗费 1s，所以到达另一端需要耗费 4s，如果发送的更加快速，则单位时间内，会有更多的包到达这些中间设备，这些设备还是只能每秒处理一个包的话，多出来的包就会被丢弃，这是我们不想看到的。</p>
-<p>这个时候，我们可以想其他的办法，例如这个四个设备本来每秒处理一个包，但是我们在这些设备上加缓存，处理不过来的在队列里面排着，这样包就不会丢失，但是缺点是会增加时延，这个缓存的包，4s 肯定到达不了接收端了，如果时延达到一定程度，就会超时重传，也是我们不想看到的。</p>
-<p>于是 TCP 的拥塞控制主要来避免两种现象，<strong>包丢失</strong>和<strong>超时重传</strong>。一旦出现了这些现象就说明，发送速度太快了，要慢一点。但是一开始我怎么知道速度多快呢，我怎么知道应该把窗口调整到多大呢？</p>
-<p>如果我们通过漏斗往瓶子里灌水，我们就知道，不能一桶水一下子倒进去，肯定会溅出来，要一开始慢慢的倒，然后发现总能够倒进去，就可以越倒越快。这叫作慢启动。</p>
-<p>一条 TCP 连接开始，cwnd 设置为一个报文段，一次只能发送一个；当收到这一个确认的时候，cwnd 加一，于是一次能够发送两个；当这两个的确认到来的时候，每个确认 cwnd 加一，两个确认 cwnd 加二，于是一次能够发送四个；当这四个的确认到来的时候，每个确认 cwnd 加一，四个确认 cwnd 加四，于是一次能够发送八个。可以看出这是<strong>指数性的增长</strong>。</p>
-<p>涨到什么时候是个头呢？有一个值 ssthresh 为 65535 个字节，当超过这个值的时候，就要小心一点了，不能倒这么快了，可能快满了，再慢下来。</p>
-<p>每收到一个确认后，cwnd 增加 1/cwnd，我们接着上面的过程来，一次发送八个，当八个确认到来的时候，每个确认增加 1/8，八个确认一共 cwnd 增加 1，于是一次能够发送九个，变成了线性增长。</p>
-<p>但是线性增长还是增长，还是越来越多，直到有一天，水满则溢，出现了拥塞，这时候一般就会一下子降低倒水的速度，等待溢出的水慢慢渗下去。</p>
-<p>拥塞的一种表现形式是丢包，需要超时重传，这个时候，将 sshresh 设为 cwnd/2，将 cwnd 设为 1，重新开始慢启动。这真是一旦超时重传，马上回到解放前。但是这种方式太激进了，将一个高速的传输速度一下子停了下来，会造成网络卡顿。</p>
-<p>前面我们讲过<strong>快速重传算法</strong>。当接收端发现丢了一个中间包的时候，发送三次前一个包的 ACK，于是发送端就会快速的重传，不必等待超时再重传。TCP 认为这种情况不严重，因为大部分没丢，只丢了一小部分，cwnd 减半为 cwnd/2，然后 sshthresh = cwnd，当三个包返回的时候，cwnd = sshthresh + 3，也就是没有一夜回到解放前，而是还在比较高的值，呈线性增长。</p>
-<p><img src="https://pic.superbed.cn/item/5c9656923a213b0417f50f3e" alt></p>
-<p>就像前面说的一样，正是这种知进退，使得时延很重要的情况下，反而降低了速度。但是如果你仔细想一下，TCP 的拥塞控制主要来避免的两个现象都是有问题的。</p>
-<p><strong>第一个问题</strong>是丢包并不代表着通道满了，也可能是管子本来就漏水。例如公网上带宽不满也会丢包，这个时候就认为拥塞了，退缩了，其实是不对的。</p>
-<p><strong>第二个问题</strong>是 TCP 的拥塞控制要等到将中间设备都填充满了，才发生丢包，从而降低速度，这时候已经晚了。其实 TCP 只要填满管道就可以了，不应该接着填，直到连缓存也填满。</p>
-<p>为了优化这两个问题，后来有了<strong>TCP BBR 拥塞算法</strong>。它企图找到一个平衡点，就是通过不断的加快发送速度，将管道填满，但是不要填满中间设备的缓存，因为这样时延会增加，在这个平衡点可以很好的达到高带宽和低时延的平衡。</p>
-<p><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1d61rfigbj30l60e477u.jpg" alt></p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
-<li>顺序问题、丢包问题、流量控制都是通过滑动窗口来解决的。这就相当于你领导和你的工作备忘录，布置过的工作要有编号，干完了有反馈，活不能派太多，也不能太少。</li>
-<li>拥塞控制是通过拥塞窗口来解决的，相当于往管道里面倒水，快了容易溢出，慢了浪费带宽，要摸着石头过河，找到最优值。</li>
-</ul>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/23/TCP协议（下）-——-西出阳关多坎坷/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
     </div>
@@ -1101,19 +890,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-23 20:27:31 / Geändert am: 21:55:55" itemprop="dateCreated datePublished" datetime="2019-03-23T20:27:31+08:00">2019-03-23</time>
+              <time title="Created: 2019-03-23 20:27:31" itemprop="dateCreated datePublished" datetime="2019-03-23T20:27:31+08:00">2019-03-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-24 20:41:52" itemprop="dateModified" datetime="2019-03-24T20:41:52+08:00">2019-03-24</time>
               
             
           </span>
@@ -1127,7 +928,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
@@ -1166,81 +967,17 @@
 
       
         
-          
-            <p>​    上一节，我们讲的 UDP，基本上包括了传输层所必须的端口字段。它就像我们小时候一样简单，<strong>相信“网之初，性本善，不丢包，不乱序”。</strong></p>
+          <p>​    上一节，我们讲的 UDP，基本上包括了传输层所必须的端口字段。它就像我们小时候一样简单，<strong>相信“网之初，性本善，不丢包，不乱序”。</strong></p>
 <p>​    后来呢，我们都慢慢长大，了解了社会的残酷，变得复杂而成熟，就像 TCP 协议一样。它之所以这么复杂，那是因为它秉承的是“性恶论”。它天然认为网络环境是恶劣的，丢包、乱序、重传，拥塞都是常有的事情，一言不合就可能送达不了，因而要从算法层面来保证可靠性。</p>
-<h3 id="TCP-包头格式"><a href="#TCP-包头格式" class="headerlink" title="TCP 包头格式"></a>TCP 包头格式</h3><p><img src="https://pic.superbed.cn/item/5c96271b3a213b0417f29585" alt></p>
-<h4 id="端口号"><a href="#端口号" class="headerlink" title="端口号"></a>端口号</h4><p><strong>源端口号</strong>和<strong>目标端口号</strong>是不可少的，这一点和 UDP 是一样的。如果没有这两个端口号。数据就不知道应该发给哪个应用。</p>
-<h4 id="包的序号"><a href="#包的序号" class="headerlink" title="包的序号"></a>包的序号</h4><p>​    为什么要给包编号呢？当然是为了<strong>解决乱序</strong>的问题。不编好号怎么确认哪个应该先来，哪个应该后到呢。编号是为了解决乱序问题。既然是社会老司机，做事当然要稳重，一件件来，面临再复杂的情况，也临危不乱。</p>
-<h4 id="确认序号"><a href="#确认序号" class="headerlink" title="确认序号"></a>确认序号</h4><p>​    发出去的包应该有确认，要不然我怎么知道对方有没有收到呢？如果没有收到就应该重新发送，直到送达。这个可以<strong>解决不丢包的问题</strong>。作为老司机，做事当然要靠谱，答应了就要做到，暂时做不到也要有个回复。</p>
-<h4 id="连接状态"><a href="#连接状态" class="headerlink" title="连接状态"></a>连接状态</h4><p>​    TCP 是靠谱的协议，但是这不能说明它面临的网络环境好。<strong>从 IP 层面来讲，如果网络状况的确那么差，是没有任何可靠性保证的，而作为 IP 的上一层 TCP 也无能为力，唯一能做的就是更加努力，不断重传，通过各种算法保证</strong>。也就是说，对于 TCP 来讲，IP 层你丢不丢包，我管不着，但是我在我的层面上，会努力保证可靠性。</p>
-<p>​    另外还有一些状态位需要我们记住：</p>
-<ul>
-<li><strong>TCP 是面向连接的，因而双方要维护连接的状态，这些带状态位的包的发送，会引起双方的状态变更</strong>。<ul>
-<li><code>SYN</code>：发起一个连接</li>
-<li><code>ACK</code>：回复</li>
-<li><code>RST</code>：重联捷</li>
-<li><code>FIN</code>：结束连接</li>
-</ul>
-</li>
-</ul>
-<p>​        不像小时候，随便一个不认识的小朋友都能玩在一起，人大了，就变得礼貌，优雅而警觉，人与人遇到会互相热情的寒暄，离开会不舍的道别，但是人与人之间的信任会经过多次交互才能建立。</p>
-<h4 id="窗口大小"><a href="#窗口大小" class="headerlink" title="窗口大小"></a>窗口大小</h4><p>​    TCP 要做<strong>流量控制</strong>，通信双方各声明一个窗口，标识自己当前能够的处理能力，别发送的太快，撑死我，也别发的太慢，饿死我。</p>
-<p>​    作为老司机，做事情要有分寸，待人要把握尺度，既能适当提出自己的要求，又不强人所难。除了做流量控制以外，<strong>TCP 还会做拥塞控制</strong>，对于真正的通路堵车不堵车，它无能为力，唯一能做的就是控制自己，即<strong>控制发送的速度</strong>。不能改变世界，就改变自己嘛。</p>
-<h4 id="总结一下特点"><a href="#总结一下特点" class="headerlink" title="总结一下特点"></a>总结一下特点</h4><ul>
-<li>顺序问题 ，稳重不乱；</li>
-<li>丢包问题，承诺靠谱；</li>
-<li>连接维护，有始有终；</li>
-<li>流量控制，把握分寸；</li>
-<li>拥塞控制，知进知退。</li>
-</ul>
-<h3 id="TCP-的三次握手"><a href="#TCP-的三次握手" class="headerlink" title="TCP 的三次握手"></a>TCP 的三次握手</h3><p>TCP 的链接建立通常需要3次握手</p>
-<p>我们也常称为“<strong>请求 -&gt; 应答 -&gt; 应答之应答</strong>”的三个回合。</p>
-<h4 id="为啥三次？"><a href="#为啥三次？" class="headerlink" title="为啥三次？"></a>为啥三次？</h4><p>​    我们还是假设这个通路是非常不可靠的，A 要发起一个连接，当发了第一个请求杳无音信的时候，会有很多的可能性，比如第一个请求包丢了，再如没有丢，但是绕了弯路，超时了，还有 B 没有响应，不想和我连接。</p>
-<p>​    A 不能确认结果，于是再发，再发。终于，有一个请求包到了 B，但是请求包到了 B 的这个事情，目前 A 还是不知道的，A 还有可能再发。</p>
-<p>​    B 收到了请求包，就知道了 A 的存在，并且知道 A 要和它建立连接。如果 B 不乐意建立连接，则 A 会重试一阵后放弃，连接建立失败，没有问题；如果 B 是乐意建立连接的，则会发送应答包给 A。</p>
-<p>​    当然对于 B 来说，这个应答包也是一入网络深似海，不知道能不能到达 A。这个时候 B 自然不能认为连接是建立好了，因为应答包仍然会丢，会绕弯路，或者 A 已经挂了都有可能。</p>
-<p>​    而且这个时候 B 还能碰到一个诡异的现象就是，A 和 B 原来建立了连接，做了简单通信后，结束了连接。还记得吗？A 建立连接的时候，请求包重复发了几次，有的请求包绕了一大圈又回来了，B 会认为这也是一个正常的的请求的话，因此建立了连接，可以想象，这个连接不会进行下去，也没有个终结的时候，纯属单相思了。因而两次握手肯定不行。</p>
-<p>​    B 发送的应答可能会发送多次，但是只要一次到达 A，A 就认为连接已经建立了，因为对于 A 来讲，他的消息有去有回。A 会给 B 发送应答之应答，而 B 也在等这个消息，才能确认连接的建立，只有等到了这个消息，对于 B 来讲，才算它的消息有去有回。</p>
-<p>​    当然 A 发给 B 的应答之应答也会丢，也会绕路，甚至 B 挂了。按理来说，还应该有个应答之应答之应答，这样下去就没底了。所以四次握手是可以的，四十次都可以，关键四百次也不能保证就真的可靠了。只要双方的消息都有去有回，就基本可以了。</p>
-<p>​    好在大部分情况下，A 和 B 建立了连接之后，A 会马上发送数据的，一旦 A 发送数据，则很多问题都得到了解决。例如 A 发给 B 的应答丢了，当 A 后续发送的数据到达的时候，B 可以认为这个连接已经建立，或者 B 压根就挂了，A 发送的数据，会报错，说 B 不可达，A 就知道 B 出事情了。</p>
-<p>​    当然你可以说 A 比较坏，就是不发数据，建立连接后空着。我们在程序设计的时候，可以要求开启 keepalive 机制，即使没有真实的数据包，也有探活包。</p>
-<p>​    另外，你作为服务端 B 的程序设计者，对于 A 这种长时间不发包的客户端，可以主动关闭，从而空出资源来给其他客户端使用。</p>
-<h5 id="三次握手还有啥用"><a href="#三次握手还有啥用" class="headerlink" title="三次握手还有啥用"></a>三次握手还有啥用</h5><p>​    三次握手除了双方建立连接外，主要还是为了沟通一件事情，就是<strong>TCP 包的序号的问题</strong>。</p>
-<p>发起的包的序号起始是从哪个号开始的。为什么序号不能都从 1 开始呢？因为这样往往会出现冲突。</p>
-<p>​    例如，A 连上 B 之后，发送了 1、2、3 三个包，但是发送 3 的时候，中间丢了，或者绕路了，于是重新发送，后来 A 掉线了，重新连上 B 后，序号又从 1 开始，然后发送 2，但是压根没想发送 3，但是上次绕路的那个 3 又回来了，发给了 B，B 自然认为，这就是下一个包，于是发生了错误。</p>
-<p>​    因而，每个连接都要有不同的序号。这个序号的起始序号是随着时间变化的，可以看成一个 32 位的计数器，每 4ms 加一，如果计算一下，如果到重复，需要 4 个多小时，那个绕路的包早就死翘翘了，因为我们都知道 IP 包头里面有个 TTL，也即生存时间。</p>
-<p>​    A 要告诉 B，我这面发起的包的序号起始是从哪个号开始的，B 同样也要告诉 A，B</p>
-<p>​    好了，双方终于建立了信任，建立了连接。前面也说过，为了维护这个连接，双方都要维护一个状态机，在连接建立的过程中，双方的状态变化时序图就像这样。</p>
-<p><img src="https://pic.superbed.cn/item/5c9638c03a213b0417f368e1" alt></p>
-<p>一开始，客户端和服务端都处于 CLOSED 状态。先是服务端主动监听某个端口，处于 LISTEN 状态。然后客户端主动发起连接 SYN，之后处于 SYN-SENT 状态。服务端收到发起的连接，返回 SYN，并且 ACK 客户端的 SYN，之后处于 SYN-RCVD 状态。客户端收到服务端发送的 SYN 和 ACK 之后，发送 ACK 的 ACK，之后处于 ESTABLISHED 状态，因为它一发一收成功了。服务端收到 ACK 的 ACK 之后，处于 ESTABLISHED 状态，因为它也一发一收了。</p>
-<h3 id="TCP-四次挥手"><a href="#TCP-四次挥手" class="headerlink" title="TCP 四次挥手"></a>TCP 四次挥手</h3><p>​    好了，说完了连接，接下来说一说“拜拜”，好说好散。这常被称为四次挥手。</p>
-<p>A：B 啊，我不想玩了。</p>
-<p>B：哦，你不想玩了啊，我知道了。</p>
-<p>​    这个时候，还只是 A 不想玩了，也即 A 不会再发送数据，但是 B 能不能在 ACK 的时候，直接关闭呢？当然不可以了，很有可能 A 是发完了最后的数据就准备不玩了，但是 B 还没做完自己的事情，还是可以发送数据的，所以称为半关闭的状态。</p>
-<p>​    这个时候 A 可以选择不再接收数据了，也可以选择最后再接收一段数据，等待 B 也主动关闭。</p>
-<p>B：A 啊，好吧，我也不玩了，拜拜。</p>
-<p>A：好的，拜拜。</p>
-<p>​    这样整个连接就关闭了。但是这个过程有没有异常情况呢？当然有，上面是和平分手的场面。</p>
-<p>A 开始说“不玩了”，B 说“知道了”，这个回合，是没什么问题的，因为在此之前，双方还处于合作的状态，如果 A 说“不玩了”，没有收到回复，则 A 会重新发送“不玩了”。但是这个回合结束之后，就有可能出现异常情况了，因为已经有一方率先撕破脸。</p>
-<p>​    一种情况是，A 说完“不玩了”之后，直接跑路，是会有问题的，因为 B 还没有发起结束，而如果 A 跑路，B 就算发起结束，也得不到回答，B 就不知道该怎么办了。另一种情况是，A 说完“不玩了”，B直接跑路，也是有问题的，因为 A 不知道 B 是还有事情要处理，还是过一会儿会发送结束。</p>
-<p>​    那怎么解决这些问题呢？TCP 协议专门设计了几个状态来处理这些问题。我们来看断开连接的时候的<strong>状态时序图</strong>。</p>
-<p><img src="https://pic.superbed.cn/item/5c9639373a213b0417f36f10" alt></p>
-<p>断开的时候，我们可以看到，当 A 说“不玩了”，就进入<code>FIN_WAIT_1</code>的状态，B 收到“A 不玩”的消息后，发送知道了，就进入<code>CLOSE_WAIT</code>的状态。</p>
-<p>A 收到“B 说知道了”，就进入<code>FIN_WAIT_2</code>的状态，如果这个时候 B 直接跑路，则 A 将永远在这个状态。TCP 协议里面并没有对这个状态的处理，但是<code>Linux</code>有，可以调整<code>tcp_fin_timeout</code>这个参数，设置一个超时时间。</p>
-<p>如果 B 没有跑路，发送了“B 也不玩了”的请求到达 A 时，A 发送“知道 B 也不玩了”的<code>ACK</code>后，从<code>FIN_WAIT_2</code>状态结束，按说 A 可以跑路了，但是最后的这个<code>ACK</code>万一 B 收不到呢？则 B 会重新发一个“B 不玩了”，这个时候 A 已经跑路了的话，B 就再也收不到<code>ACK</code>了，因而 TCP 协议要求 A 最后等待一段时间 TIME_WAIT，这个时间要足够长，长到如果 B 没收到<code>ACK</code>的话，“B 说不玩了”会重发的，A 会重新发一个<code>ACK</code>并且足够时间到达 B。</p>
-<p>A 直接跑路还有一个问题是，A 的端口就直接空出来了，但是 B 不知道，B 原来发过的很多包很可能还在路上，如果 A 的端口被一个新的应用占用了，这个新的应用会收到上个连接中 B 发过来的包，虽然序列号是重新生成的，但是这里要上一个双保险，防止产生混乱，因而也需要等足够长的时间，等到原来 B 发送的所有的包都死翘翘，再空出端口来。</p>
-<p>等待的时间设为<code>2MSL</code>，<strong><code>MSL</code></strong>是<strong><code>Maximum Segment Lifetime</code></strong>，<strong>报文最大生存时间</strong>，它是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃。因为 TCP 报文基于是 IP 协议的，而 IP 头中有一个<code>TTL</code>域，是 IP 数据报可以经过的最大路由数，每经过一个处理他的路由器此值就减 1，当此值为 0 则数据报将被丢弃，同时发送<code>ICMP</code>报文通知源主机。协议规定<code>MSL</code>为 2 分钟，实际应用中常用的是 30 秒，1 分钟和 2 分钟等。</p>
-<p>还有一个异常情况就是，B 超过了<code>2MSL</code>的时间，依然没有收到它发的<code>FIN</code>的<code>ACK</code>，怎么办呢？按照<code>TCP</code>的原理，B 当然还会重发<code>FIN</code>，这个时候 A 再收到这个包之后，A 就表示，我已经在这里等了这么长时间了，已经仁至义尽了，之后的我就都不认了，于是就直接发送<code>RST</code>，B 就知道 A 早就跑了。</p>
-<h3 id="TCP-状态机"><a href="#TCP-状态机" class="headerlink" title="TCP 状态机"></a>TCP 状态机</h3><p>​    将连接建立和连接断开的两个时序状态图综合起来，就是这个著名的 TCP 的状态机。学习的时候比较建议将这个状态机和时序状态机对照着看，不然容易晕。</p>
-<p><img src="https://pic.superbed.cn/item/5c963a5c3a213b0417f38ed0" alt></p>
-<p>​    在这个图中，加黑加粗的部分，是上面说到的主要流程，其中阿拉伯数字的序号，是连接过程中的顺序，而大写中文数字的序号，是连接断开过程中的顺序。加粗的实线是客户端 A 的状态变迁，加粗的虚线是服务端 B 的状态变迁。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
-<li><code>TCP</code>包头很复杂，但是主要关注五个问题：顺序问题、丢包问题、连接维护、流量控制、拥塞控制</li>
-<li>连接的建立是经过三次握手，断开的时候四次挥手。一定要掌握状态图！！！</li>
-</ul>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/23/TCP协议（上）-——-因性恶而复杂/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1333,19 +1070,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-23 16:28:20 / Geändert am: 20:24:54" itemprop="dateCreated datePublished" datetime="2019-03-23T16:28:20+08:00">2019-03-23</time>
+              <time title="Created: 2019-03-23 16:28:20" itemprop="dateCreated datePublished" datetime="2019-03-23T16:28:20+08:00">2019-03-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-24 20:41:39" itemprop="dateModified" datetime="2019-03-24T20:41:39+08:00">2019-03-24</time>
               
             
           </span>
@@ -1359,7 +1108,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
@@ -1398,8 +1147,7 @@
 
       
         
-          
-            <p>作为传输层中的两个重要协议之一的<code>UDP</code>是面试时常考的几个考点之一，<code>UDP</code>在协议中的分量可不小，与<code>TCP</code>的关联也很强。二者相互配合撑起了一片天。</p>
+          <p>作为传输层中的两个重要协议之一的<code>UDP</code>是面试时常考的几个考点之一，<code>UDP</code>在协议中的分量可不小，与<code>TCP</code>的关联也很强。二者相互配合撑起了一片天。</p>
 <h3 id="TCP-amp-UDP-区别"><a href="#TCP-amp-UDP-区别" class="headerlink" title="TCP &amp; UDP 区别"></a>TCP &amp; UDP 区别</h3><blockquote>
 <p>TCP是面向连接的</p>
 <p>UDP是面向无连接的</p>
@@ -1410,56 +1158,15 @@
 <li>而无连接则是相信人性本善，直接进行数据收发</li>
 </ul>
 <p><strong>所谓的建立连接，是为了在客户端和服务端维护连接，而建立的一定的数据结构来维护双方交互状态，用这样的数据结构保证所谓的面向连接的特性</strong></p>
-<h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><ul>
-<li>TCP 提供可靠交付。通过 TCP 连接传输的数据，无差错、不丢失、不重复、并且按序到达，号称能做到那个连接维护的程序做的事情</li>
-<li>同时<code>TCP</code>是面向字节流的。发送的时候发的是一个流，没头没尾。IP 包可不是一个流，而是一个个的 IP 包。之所以变成了流，这也是 TCP 自己的状态维护做的事情。</li>
-<li><p>还有TCP 是可以有拥塞控制的。它意识到包丢弃了或者网络的环境不好了，就会根据情况调整自己的行为，看看是不是发快了，要不要发慢点。</p>
-<h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4></li>
-<li><p><code>UDP</code>继承了 IP包的特性，不保证不丢失，不保证按顺序到达。</p>
-</li>
-<li><code>UDP</code> 继承了 IP 的特性，基于数据报的，一个一个地发，一个一个地收。</li>
-<li><code>UDP</code>则不能进行拥塞控制，说<code>cnm</code>就<code>cnm</code>，绝不含糊。</li>
-</ul>
-<p>所以这俩的区别就是，<code>TCP</code>是松江，靠谱，道上人听了都认这么个靠谱老哥，而<code>UDP</code>则是李逵一类的性情中人，脑子一根筋，办事儿从不考虑后果。</p>
-<p>我们可以这样比喻，如果 MAC 层定义了本地局域网的传输行为，IP 层定义了整个网络端到端的传输行为，这两层基本定义了这样的基因：<u>网络传输是以包为单位的</u>，<strong>二层叫帧</strong>，<strong>网络层叫包</strong>，<strong>传输层叫段</strong>。</p>
-<p>我们笼统地称为包。包单独传输，自行选路，在不同的设备封装解封装，不保证到达。基于这个基因，生下来的孩子 UDP 完全继承了这些特性，几乎没有自己的思想。</p>
-<h3 id="UDP包头"><a href="#UDP包头" class="headerlink" title="UDP包头"></a>UDP包头</h3><p>当我们发送的<code>UDP</code>到达目标机器后，发现<code>MAC</code>地址匹配，于是就取下来，将剩下的包传给处理 IP 层的代码。把 IP 头取下来，发现目标 IP 匹配，接下来呢？这里面的数据包是给谁呢？</p>
-<p>发送的时候，我知道发送的是一个<code>UDP</code>的包。可是接收的机器怎么知道呢？</p>
-<p>所以 IP 头里有个8位协议，这里会存放里边的数据是 TCP 还是 UDP 。</p>
-<p>另外，无论应用程序写的使用 TCP 还是 UDP 传数据，都要监听一个端口。<strong>正是这个端口，用来区分应用程序</strong>。所以无论是 TCP 还是 UDP 包头里应该有的端口号，根据端口号，将数据交给相应的应用程序</p>
-<p><img src="https://pic.superbed.cn/item/5c95ff553a213b0417f097ef" alt></p>
-<p><code>UDP</code>除了端口号再没有其他的了，和下面谅解要讲的<code>TCP</code>头相比简直简单的一塌糊涂</p>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>第一，沟通简单，不需要一肚子花花肠子（大量的数据结构、处理逻辑、包头字段）。前提是它相信网络世界是美好的，秉承性善论，相信网络通路默认就是很容易送达的，不容易被丢弃的。</li>
-<li>第二，轻信他人。它不会建立连接，虽然有端口号，但是监听在这个地方，谁都可以传给他数据，他也可以传给任何人数据，甚至可以同时传给多个人数据。</li>
-<li>第三，愣头青，做事不懂权变。不知道什么时候该坚持，什么时候该退让。它不会根据网络的情况进行发包的拥塞控制，无论网络丢包丢成啥样了，它该怎么发还怎么发。</li>
-</ul>
-<h3 id="UDP的三大使用场景"><a href="#UDP的三大使用场景" class="headerlink" title="UDP的三大使用场景"></a>UDP的三大使用场景</h3><h4 id="需要资源少，在网络情况较好的内网，或者对于丢包不敏感的应用"><a href="#需要资源少，在网络情况较好的内网，或者对于丢包不敏感的应用" class="headerlink" title="需要资源少，在网络情况较好的内网，或者对于丢包不敏感的应用"></a>需要资源少，在网络情况较好的内网，或者对于丢包不敏感的应用</h4><p>​    这个比较好理解。比如你不会把重要的事儿比如统领军队交给李逵这个愣头青，但是在村里李逵杀个人啥的一般大哥都能摆平，闹就闹吧，出不了啥大事儿。</p>
-<p>​    我们在第四节讲的 DHCP 就是基于 UDP 协议的。一般的获取 IP 地址都是内网请求，而且一次获取不到 IP 又没事，过一会儿还有机会。我们讲过 PXE 可以在启动的时候自动安装操作系统，操作系统镜像的下载使用的 TFTP，这个也是基于 UDP 协议的。在还没有操作系统的时候，客户端拥有的资源很少，不适合维护一个复杂的状态机，而是因为是内网，一般也没啥问题。</p>
-<h4 id="不需要一对一沟通，建立连接，而是可以广播的应用"><a href="#不需要一对一沟通，建立连接，而是可以广播的应用" class="headerlink" title="不需要一对一沟通，建立连接，而是可以广播的应用"></a>不需要一对一沟通，建立连接，而是可以广播的应用</h4><p>​    这种事儿相当于可以公开拿出来讲的东西，比如社会主义核心价值观一样，放出来即使断章取义也是满满的正能量，不怕那些个歪门邪道。</p>
-<p>​    UDP 的不面向连接的功能，可以使得可以承载广播或者多播的协议。DHCP 就是一种广播的形式，就是基于 UDP 协议的，而广播包的格式前面说过了。</p>
-<p>​    对于多播，我们在讲 IP 地址的时候，讲过一个 D 类地址，也即组播地址，使用这个地址，可以将包组播给一批机器。当一台机器上的某个进程想监听某个组播地址的时候，需要发送 IGMP 包，所在网络的路由器就能收到这个包，知道有个机器上有个进程在监听这个组播地址。当路由器收到这个组播地址的时候，会将包转发给这台机器，这样就实现了跨路由器的组播。</p>
-<h4 id="需要处理速度快，时延低，可以容忍少数丢包，但是要求即便网络拥塞，也毫不退缩，一往无前的时候"><a href="#需要处理速度快，时延低，可以容忍少数丢包，但是要求即便网络拥塞，也毫不退缩，一往无前的时候" class="headerlink" title="需要处理速度快，时延低，可以容忍少数丢包，但是要求即便网络拥塞，也毫不退缩，一往无前的时候"></a>需要处理速度快，时延低，可以容忍少数丢包，但是要求即便网络拥塞，也毫不退缩，一往无前的时候</h4><p>​    记得曾国藩建立湘军的时候，专门招出生牛犊不怕虎的新兵，而不用那些“老油条”的八旗兵，就是因为八旗兵经历的事情多，遇到敌军不敢舍死忘生。</p>
-<p>​    同理，UDP 简单、处理速度快，不像 TCP 那样，操这么多的心，各种重传啊，保证顺序啊，前面的不收到，后面的没法处理啊。不然等这些事情做完了，时延早就上去了。而 TCP 在网络不好出现丢包的时候，拥塞控制策略会主动的退缩，降低发送速度，这就相当于本来环境就差，还自断臂膀，用户本来就卡，这下更卡了。</p>
-<p>​    当前很多应用都是要求低时延的，它们可不想用 TCP 如此复杂的机制，而是想根据自己的场景，实现自己的可靠和连接保证。例如，如果应用自己觉得，有的包丢了就丢了，没必要重传了，就可以算了，有的比较重要，则应用自己重传，而不依赖于 TCP。有的前面的包没到，后面的包到了，那就先给客户展示后面的嘛，干嘛非得等到齐了呢？如果网络不好，丢了包，那不能退缩啊，要尽快传啊，速度不能降下来啊，要挤占带宽，抢在客户失去耐心之前到达。</p>
-<p>​    由于 UDP 十分简单，基本啥都没做，也就给了应用“城会玩”的机会。就像在和平年代，每个人应该有独立的思考和行为，应该可靠并且礼让；但是如果在战争年代，往往不太需要过于独立的思考，而需要士兵简单服从命令就可以了。</p>
-<p>​    曾国藩说哪支部队需要诱敌牺牲，也就牺牲了，相当于包丢了就丢了。两军狭路相逢的时候，曾国藩说上，没有带宽也要上，这才给了曾国藩运筹帷幄，城会玩的机会。同理如果你实现的应用需要有自己的连接策略，可靠保证，时延要求，使用 UDP，然后再应用层实现这些是再好不过了。</p>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><h4 id="网页或-APP-的访问"><a href="#网页或-APP-的访问" class="headerlink" title="网页或 APP 的访问"></a>网页或 APP 的访问</h4><p>​    原来访问网页和手机 APP 都是基于 HTTP 协议的。HTTP 协议是基于 TCP 的，建立连接都需要多次交互，对于时延比较大的目前主流的移动互联网来讲，建立一次连接需要的时间会比较长，然而既然是移动中，TCP 可能还会断了重连，也是很耗时的。而且目前的 HTTP 协议，往往采取多个数据通道共享一个连接的情况，这样本来为了加快传输速度，但是 TCP 的严格顺序策略使得哪怕共享通道，前一个不来，后一个和前一个即便没关系，也要等着，时延也会加大。</p>
-<p>​    而<strong>QUIC</strong>（全称<strong>Quick UDP Internet Connections</strong>，<strong>快速 UDP 互联网连接</strong>）是 Google 提出的一种基于 UDP 改进的通信协议，其目的是降低网络通信的延迟，提供更好的用户互动体验。</p>
-<p>​    QUIC 在应用层上，会自己实现快速连接建立、减少重传时延，自适应拥塞控制，是应用层“城会玩”的代表。这一节主要是讲 UDP，QUIC 我们放到应用层去讲。</p>
-<h4 id="流媒体的协议"><a href="#流媒体的协议" class="headerlink" title="流媒体的协议"></a>流媒体的协议</h4><p>​    现在直播比较火，<strong>直播协议多使用 RTMP</strong>，这个协议我们后面的章节也会讲，而这个 RTMP 协议也是基于 TCP 的。TCP 的严格顺序传输要保证前一个收到了，下一个才能确认，如果前一个收不到，下一个就算包已经收到了，在缓存里面，也需要等着。对于直播来讲，这显然是不合适的，因为老的视频帧丢了其实也就丢了，就算再传过来用户也不在意了，他们要看新的了，如果老是没来就等着，卡顿了，新的也看不了，那就会丢失客户，所以直播，实时性比较比较重要，宁可丢包，也不要卡顿的。</p>
-<p>​    另外，对于丢包，其实对于视频播放来讲，有的包可以丢，有的包不能丢，因为视频的连续帧里面，有的帧重要，有的不重要，如果必须要丢包，隔几个帧丢一个，其实看视频的人不会感知，但是如果连续丢帧，就会感知了，因而在网络不好的情况下，应用希望选择性的丢帧。</p>
-<p>​    还有就是当网络不好的时候，TCP 协议会主动降低发送速度，这对本来当时就卡的看视频来讲是要命的，应该应用层马上重传，而不是主动让步。因而，<strong>很多直播应用，都基于 UDP 实现了自己的视频传输协议</strong>。</p>
-<h4 id="实时游戏"><a href="#实时游戏" class="headerlink" title="实时游戏"></a>实时游戏</h4><p>​    游戏有一个特点，就是实时性比较高。快一秒你干掉别人，慢一秒你被别人爆头，所以很多职业玩家会买非常专业的鼠标和键盘，争分夺秒。</p>
-<p>​    因而，实时游戏中客户端和服务端要建立长连接，来保证实时传输。但是游戏玩家很多，服务器却不多。由于维护 TCP 连接需要在内核维护一些数据结构，因而一台机器能够支撑的 TCP 连接数目是有限的，然后 UDP 由于是没有连接的，在异步 IO 机制引入之前，常常是应对海量客户端连接的策略。</p>
-<p>​    另外还是 TCP 的强顺序问题，对战的游戏，对网络的要求很简单，玩家通过客户端发送给服务器鼠标和键盘行走的位置，服务器会处理每个用户发送过来的所有场景，处理完再返回给客户端，客户端解析响应，渲染最新的场景展示给玩家。</p>
-<p>​    如果出现一个数据包丢失，所有事情都需要停下来等待这个数据包重发。客户端会出现等待接收数据，然而玩家并不关心过期的数据，激战中卡 1 秒，等能动了都已经死了。</p>
-<p>​    游戏对实时要求较为严格的情况下，采用自定义的可靠 UDP 协议，自定义重传策略，能够把丢包产生的延迟降到最低，尽量减少网络问题对游戏性造成的影响。</p>
-<h4 id="loT-物联网"><a href="#loT-物联网" class="headerlink" title="loT 物联网"></a>loT 物联网</h4><p>​    一方面，物联网领域终端资源少，很可能只是个内存非常小的嵌入式系统，而维护 TCP 协议代价太大；另一方面，物联网对实时性要求也很高，而 TCP 还是因为上面的那些原因导致时延大。Google 旗下的 Nest 建立 Thread Group，推出了物联网通信协议 Thread，就是基于 UDP 协议的。</p>
-<h4 id="移动通信领域"><a href="#移动通信领域" class="headerlink" title="移动通信领域"></a>移动通信领域</h4><p>​    在 4G 网络里，移动流量上网的数据面对的协议 GTP-U 是基于 UDP 的。因为移动网络协议比较复杂，而 GTP 协议本身就包含复杂的手机上线下线的通信协议。如果基于 TCP，TCP 的机制就显得非常多余，这部分协议我会在后面的章节单独讲解。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><strong>UDP 虽然简单，但它有简单的用法。它可以用在环境简单、需要多播、应用层自己控制传输的地方。例如 DHCP、VXLAN、QUIC 等。</strong></p>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/23/UDP协议 —— 因性善而简单/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1552,14 +1259,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-23 11:55:56" itemprop="dateCreated datePublished" datetime="2019-03-23T11:55:56+08:00">2019-03-23</time>
+              <time title="Created: 2019-03-23 11:55:56" itemprop="dateCreated datePublished" datetime="2019-03-23T11:55:56+08:00">2019-03-23</time>
             
 
             
@@ -1574,9 +1281,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-24 16:54:47" itemprop="dateModified" datetime="2019-03-24T16:54:47+08:00">2019-03-24</time>
+                <time title="Modified: 2019-03-24 20:43:53" itemprop="dateModified" datetime="2019-03-24T20:43:53+08:00">2019-03-24</time>
               
             
           </span>
@@ -1590,7 +1297,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
@@ -1629,106 +1336,17 @@
 
       
         
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><h4 id="先从遍历数组开始"><a href="#先从遍历数组开始" class="headerlink" title="先从遍历数组开始"></a>先从遍历数组开始</h4><p>在刚上手<code>js</code>的时候如果让你遍历数组你可能会像玩C语言一样<code>for(var index = 0; index &lt; myArray.length; index++)</code>。而从<code>ES5</code>之后我们可以使用内置的<code>forEach</code>方法，大大提升了代码的可读性（并没有）。</p>
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><h4 id="先从遍历数组开始"><a href="#先从遍历数组开始" class="headerlink" title="先从遍历数组开始"></a>先从遍历数组开始</h4><p>在刚上手<code>js</code>的时候如果让你遍历数组你可能会像玩C语言一样<code>for(var index = 0; index &lt; myArray.length; index++)</code>。而从<code>ES5</code>之后我们可以使用内置的<code>forEach</code>方法，大大提升了代码的可读性（并没有）。</p>
 <p><strong>而<code>forEach</code>有一个弊端，就是无法使用<code>break</code>跳出循环，也不能用<code>return</code>语句从闭包函数中返回</strong></p>
-<h4 id="那么-for-in-怎样"><a href="#那么-for-in-怎样" class="headerlink" title="那么 for-in 怎样"></a>那么 for-in 怎样</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> index <span class="keyword">in</span> myArray) &#123; <span class="comment">// 实际代码中不要这么做</span></span><br><span class="line">  <span class="built_in">console</span>.log(myArray[index]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样不好，因为：</p>
-<ul>
-<li><strong>上面代码中的 <code>index</code> 变量将会是 <code>&quot;0&quot;</code>、<code>&quot;1&quot;</code>、<code>&quot;3&quot;</code> 等这样的字符串，而并不是数值类型</strong>。如果你使用字符串的 <code>index</code> 去参与某些运算（<code>&quot;2&quot; + 1 == &quot;21&quot;</code>），运算结果可能会不符合预期。</li>
-<li><strong>不仅数组本身的元素将被遍历到，那些由用户添加的<a href="https://developer.mozilla.org/en-US/docs/Glossary/Expando" target="_blank" rel="noopener">附加（expando）元素</a>也将被遍历到</strong>，例如某数组有这样一个属性 <code>myArray.name</code>，那么在某次循环中将会出现 <code>index=&quot;name&quot;</code> 的情况。而且，<strong>甚至连数组原型链上的属性也可能被遍历到</strong>。</li>
-<li>最不可思议的是，<strong>在某些情况下，上面代码将会以任意顺序去遍历数组元素</strong>。</li>
-</ul>
-<p>简单来说，<code>for-in</code> 设计的目的是用于遍历包含键值对的对象，对数组并不是那么友好。</p>
-<blockquote>
-<p><code>for-in</code>被设计出来的初衷就是遍历对象的属性，所以才可能会波及元素的<strong>属性</strong>、<strong>原型链</strong>、</p>
-</blockquote>
-<h4 id="引入for-of"><a href="#引入for-of" class="headerlink" title="引入for-of"></a>引入for-of</h4><ul>
-<li><code>for-in</code>用于遍历对象的属性</li>
-<li><code>for-of</code>用于遍历数据 - 就像数组中的元素</li>
-</ul>
-<p>用这东西执行遍历操作显然好得多啦</p>
-<h4 id="适用方向"><a href="#适用方向" class="headerlink" title="适用方向"></a>适用方向</h4><h5 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h5><p>这个咱们就不多说啦</p>
-<h5 id="类数组的对象"><a href="#类数组的对象" class="headerlink" title="类数组的对象"></a>类数组的对象</h5><p>比如 DOM 对象的集合<code>NodeList</code></p>
-<h5 id="遍历字符串"><a href="#遍历字符串" class="headerlink" title="遍历字符串"></a>遍历字符串</h5><p>它将字符串看作是<code>Unicode</code>字符的集合</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> chr <span class="keyword">of</span> <span class="string">"😺😲"</span>) &#123;</span><br><span class="line">  alert(chr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="Map和Set对象"><a href="#Map和Set对象" class="headerlink" title="Map和Set对象"></a><code>Map</code>和<code>Set</code>对象</h5><ul>
-<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> uniqueWords = <span class="keyword">new</span> <span class="built_in">Set</span>(words);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> word <span class="keyword">of</span> uniqueWords) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(word);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> [key, value] <span class="keyword">of</span> phoneBookMap) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key + <span class="string">"'s phone number is: "</span> + value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="for-of-内部原理"><a href="#for-of-内部原理" class="headerlink" title="for-of 内部原理"></a>for-of 内部原理</h3><blockquote>
-<p>“好的艺术家复制，伟大的艺术家偷窃” —— 巴伯罗.毕加索</p>
-</blockquote>
-<p>被添加到 ES6 中的那些新特性并不是无章可循，大多数特性都已经被使用在其他语言中，而且事实也证明这些特性很有用。</p>
-<p>就拿 <code>for-of</code> 语句来说，在 C++、JAVA、C# 和 Python 中都存在类似的循环语句，并且用于遍历这门语言和其标准库中的各种数据结构。</p>
-<p>与其他语言中的 <code>for</code> 和 <code>foreach</code> 语句一样，<code>for-of</code> <strong>要求被遍历的对象实现特定的方法</strong>。<strong>所有的 <code>Array</code>、<code>Map</code> 和 <code>Set</code> 对象都有一个共性，那就是他们都实现了一个迭代器（iterator）方法。</strong></p>
-<p>这就像你可以为一个对象实现一个 <code>myObject.toString（）</code> 方法，来告知 JS 引擎如何将一个对象转换为字符串；你也可以为任何对象实现一个 <code>myObject[Symbol.iterator]()</code> 方法，来告知 JS 引擎如何去遍历该对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jQuery.prototype[<span class="built_in">Symbol</span>.iterator] = <span class="built_in">Array</span>.prototype[<span class="built_in">Symbol</span>.iterator];</span><br></pre></td></tr></table></figure>
-<p>你也许在想，为什么 <code>[Symbol.iterator]</code> 语法看起来如此奇怪？这句话到底是什么意思？问题的关键在于方法名，ES 标准委员会完全可以将该方法命名为 <code>iterator()</code>，但是，现有对象中可能已经存在名为“iterator”的方法，这将导致代码混乱，违背了最大兼容性原则。所以，标准委员会引入了 <code>Symbol</code>，而不仅仅是一个字符串，来作为方法名。</p>
-<p>标准委员会引入全新的 <code>Symbol</code>，比如 <code>Symbol.iterator</code>，是为了不与之前的代码冲突。唯一不足就是语法有点奇怪，但对于这个强大的新特性和完美的后向兼容来说，这个就显得微不足道了。</p>
-<p>一个拥有 <code>[Symbol.iterator]()</code> 方法的对象被认为是可遍历的（<code>iterable</code>）。在后面的文章中，我们将看到“可遍历对象”的概念贯穿在整个语言中，不仅在 <code>for-of</code> 语句中，而且在 <code>Map</code> 和 <code>Set</code> 的构造函数和析构（<code>Destructuring</code>）函数中，以及新的扩展操作符中，都将涉及到。</p>
-<h3 id="迭代器对象-Iterator"><a href="#迭代器对象-Iterator" class="headerlink" title="迭代器对象 Iterator"></a>迭代器对象 Iterator</h3><h4 id="Iterator-是什么"><a href="#Iterator-是什么" class="headerlink" title="Iterator 是什么"></a>Iterator 是什么</h4><p>遍历器（<code>Iterator</code>）就是一种统一的接口机制，用以处理不同的数据结构</p>
-<p>它是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署<code>Iterator</code>接口，就可以完成遍历操作（即依次处理该数据结构的所有成员）。</p>
-<p><code>Iterator</code>的作用有三个：</p>
-<ul>
-<li>一是为各种数据结构，提供一个统一的、简便的访问接口；</li>
-<li>二是使得数据结构的成员能够按某种次序排列；</li>
-<li>三是 ES6 创造了一种新的遍历命令<code>for...of</code>循环，Iterator 接口主要供<code>for...of</code>消费。</li>
-</ul>
-<h4 id="具备-Iterator-接口的数据结构"><a href="#具备-Iterator-接口的数据结构" class="headerlink" title="具备 Iterator 接口的数据结构"></a>具备 Iterator 接口的数据结构</h4><ul>
-<li><code>Array</code></li>
-<li><code>Map</code></li>
-<li><code>Set</code></li>
-<li><code>String</code></li>
-<li><code>TypedArray</code></li>
-<li>函数的<code>arguments</code>对象</li>
-<li><code>NodeList</code>对象</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line"><span class="keyword">let</span> iter = arr[<span class="built_in">Symbol</span>.iterator]();</span><br><span class="line"></span><br><span class="line">iter.next() <span class="comment">// &#123; value: 'a', done: false &#125;</span></span><br><span class="line">iter.next() <span class="comment">// &#123; value: 'b', done: false &#125;</span></span><br><span class="line">iter.next() <span class="comment">// &#123; value: 'c', done: false &#125;</span></span><br><span class="line">iter.next() <span class="comment">// &#123; value: undefined, done: true &#125;</span></span><br></pre></td></tr></table></figure>
-<p>对象（Object）之所以没有默认部署 Iterator 接口，是因为对象的哪个属性先遍历，哪个属性后遍历是不确定的，需要开发者手动指定。<strong>本质上，遍历器是一种线性处理，对于任何非线性的数据结构，部署遍历器接口，就等于部署一种线性转换</strong>。不过，严格地说，对象部署遍历器接口并不是很必要，因为这时对象实际上被当作 Map 结构使用，ES5 没有 Map 结构，而 ES6 原生提供了。</p>
-<p><strong>一个对象如果要具备可被<code>for...of</code>循环调用的 <code>Iterator</code> 接口，就必须在<code>Symbol.iterator</code>的属性上部署遍历器生成方法（原型链上的对象具有该方法也可）。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RangeIterator</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(start, stop) &#123;</span><br><span class="line">    <span class="keyword">this</span>.value = start;</span><br><span class="line">    <span class="keyword">this</span>.stop = stop;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  [<span class="built_in">Symbol</span>.iterator]() &#123; <span class="keyword">return</span> <span class="keyword">this</span>; &#125;</span><br><span class="line"></span><br><span class="line">  next() &#123;</span><br><span class="line">    <span class="keyword">var</span> value = <span class="keyword">this</span>.value;</span><br><span class="line">    <span class="keyword">if</span> (value &lt; <span class="keyword">this</span>.stop) &#123;</span><br><span class="line">      <span class="keyword">this</span>.value++;</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">done</span>: <span class="literal">false</span>, <span class="attr">value</span>: value&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="attr">done</span>: <span class="literal">true</span>, <span class="attr">value</span>: <span class="literal">undefined</span>&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">range</span>(<span class="params">start, stop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> RangeIterator(start, stop);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> value <span class="keyword">of</span> range(<span class="number">0</span>, <span class="number">3</span>)) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value); <span class="comment">// 0, 1, 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码是一个类部署 <code>Iterator</code> 接口的写法。<code>Symbol.iterator</code>属性对应一个函数，执行后返回当前对象的遍历器对象。</p>
-<h4 id="Iterator-怎么用"><a href="#Iterator-怎么用" class="headerlink" title="Iterator 怎么用"></a>Iterator 怎么用</h4><p>通常我们不会完完全全从头开始去实现一个迭代器（Iterator）对象，下一篇文章将告诉你为什么。但为了完整起见，让我们来看看一个迭代器对象具体是什么样的。（如果你跳过了本节，你将会错失某些技术细节。）</p>
-<p>就拿 <code>for-of</code> 语句来说，它首先调用被遍历集合对象的 <code>[Symbol.iterator]()</code> 方法，该方法返回一个迭代器对象，迭代器对象可以是拥有 <code>.next</code> 方法的任何对象；然后，在 <code>for-of</code> 的每次循环中，都将调用该迭代器对象上的 <code>.next</code> 方法。下面是一个最简单的迭代器对象：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> zeroesForeverIterator = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>.iterator]: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  next: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="attr">done</span>: <span class="literal">false</span>, <span class="attr">value</span>: <span class="number">0</span>&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>在上面代码中，每次调用 <code>.next()</code> 方法时都返回了同一个结果，该结果一方面告知 <code>for-of</code>语句循环遍历还没有结束，另一方面告知 <code>for-of</code> 语句本次循环的值为 <code>0</code>。这意味着 <code>for (value of zeroesForeverIterator) {}</code> 是一个死循环。当然，一个典型的迭代器不会如此简单。</p>
-<p>ES6 的迭代器通过 <code>.done</code> 和 <code>.value</code> 这两个属性来标识每次的遍历结果，这就是迭代器的设计原理，这与其他语言中的迭代器有所不同。在 Java 中，迭代器对象要分别使用 <code>.hasNext()</code>和 <code>.next()</code> 两个方法。在 Python 中，迭代器对象只有一个 <code>.next()</code> 方法，当没有可遍历的元素时将抛出一个 <code>StopIteration</code> 异常。但从根本上说，这三种设计都返回了相同的信息。</p>
-<p>迭代器对象可以还可以选择性地实现 <code>.return()</code> 和 <code>.throw(exc)</code> 这两个方法。如果由于异常或使用 <code>break</code> 和 <code>return</code> 操作符导致循环提早退出，那么迭代器的 <code>.return()</code> 方法将被调用，可以通过实现 <code>.return()</code> 方法来释放迭代器对象所占用的资源，但大多数迭代器都不需要实现这个方法。<code>throw(exc)</code> 更是一个特例：在遍历过程中该方法永远都不会被调用，关于这个方法，我会在下一篇文章详细介绍。</p>
-<p>现在我们知道了 <code>for-of</code> 的所有细节，那么我们可以简单地重写该语句。</p>
-<p>首先是 <code>for-of</code> 循环体：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (VAR <span class="keyword">of</span> ITERABLE) &#123;</span><br><span class="line">  STATEMENTS</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这只是一个语义化的实现，使用了一些底层方法和几个临时变量</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $iterator = ITERABLE[<span class="built_in">Symbol</span>.iterator]();</span><br><span class="line"><span class="keyword">var</span> $result = $iterator.next();</span><br><span class="line"><span class="keyword">while</span> (!$result.done) &#123;</span><br><span class="line">  VAR = $result.value;</span><br><span class="line">  STATEMENTS</span><br><span class="line">  $result = $iterator.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码并没有涉及到如何调用 <code>.return()</code> 方法，我们可以添加相应的处理，但我认为这样会影响我们对内部原理的理解。<code>for-of</code> 语句使用起来非常简单，但在其内部有非常多的细节。</p>
-<h4 id="用到-Iterator-接口的场合"><a href="#用到-Iterator-接口的场合" class="headerlink" title="用到 Iterator 接口的场合"></a>用到 Iterator 接口的场合</h4><h5 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h5><p>对数组和 Set 结构进行解构赋值时，会默认调用<code>Symbol.iterator</code>方法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">set</span> = new Set().add('a').add('b').add('c');</span><br><span class="line"></span><br><span class="line">let [x,y] = <span class="keyword">set</span>;</span><br><span class="line">// x='a'; y='b'</span><br><span class="line"></span><br><span class="line">let [first, ...rest] = <span class="keyword">set</span>;</span><br><span class="line">// first='a'; rest=['b','c'];</span><br></pre></td></tr></table></figure>
-<h5 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h5><p>扩展运算符（<code>...</code>）也会调用默认的 <code>Iterator</code> 接口。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 例一</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">'hello'</span>;</span><br><span class="line">[...str] <span class="comment">//  ['h','e','l','l','o']</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 例二</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line">[<span class="string">'a'</span>, ...arr, <span class="string">'d'</span>]</span><br><span class="line"><span class="comment">// ['a', 'b', 'c', 'd']</span></span><br></pre></td></tr></table></figure>
-<h5 id="yield"><a href="#yield" class="headerlink" title="yield*"></a>yield*</h5><p>（这里是<code>Generator</code>章节的内容。推荐先看下一篇博客）</p>
-<p><code>yield*</code>后面跟的是一个可遍历的结构，它会调用该结构的遍历器接口。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> generator = <span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">yield</span>* [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line">  <span class="keyword">yield</span> <span class="number">5</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> iterator = generator();</span><br><span class="line"></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: 1, done: false &#125;</span></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: 2, done: false &#125;</span></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: 3, done: false &#125;</span></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: 4, done: false &#125;</span></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: 5, done: false &#125;</span></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: undefined, done: true &#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="其他场合"><a href="#其他场合" class="headerlink" title="其他场合"></a>其他场合</h5><p>由于数组的遍历会调用遍历器接口，所以任何接受数组作为参数的场合，其实都调用了遍历器接口。下面是一些例子。</p>
-<ul>
-<li><code>for...of</code></li>
-<li><code>Array.from()</code></li>
-<li><code>Map()</code>, <code>Set()</code>, <code>WeakMap()</code>, <code>WeakSet()</code>（比如<code>new Map([[&#39;a&#39;,1],[&#39;b&#39;,2]])</code>）</li>
-<li><code>Promise.all()</code></li>
-<li><code>Promise.race()</code></li>
-</ul>
-<p>### </p>
-<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>目前，所有 Firefox 的 Release 版本都已经支持 <code>for-of</code> 语句。Chrome 默认禁用了该语句，你可以在地址栏输入 <code>chrome://flags</code> 进入设置页面，然后勾选其中的 “Experimental JavaScript” 选项。微软的 Spartan 浏览器也支持该语句，但是 IE 不支持。如果你想在 Web 开发中使用该语句，而且需要兼容 IE 和 Safari 浏览器，你可以使用 <a href="http://babeljs.io/" target="_blank" rel="noopener">Babel</a> 或 Google 的 <a href="https://github.com/google/traceur-compiler#what-is-traceur" target="_blank" rel="noopener">Traceur</a> 这类编译器，来将 ES6 代码转换为 Web 友好的 ES5 代码。</p>
-<p>对于服务器端，我们不需要任何编译器 – 可以在 io.js 中直接使用该语句，或者在 NodeJS 启动时使用 <code>--harmony</code> 启动选项。</p>
-<h3 id="done-true"><a href="#done-true" class="headerlink" title="{done: true}"></a>{done: true}</h3><p>到此，今天的话题已经结束，但对于 <code>for-of</code> 的话题还没有结束。</p>
-<p>在 ES6 中还有一个新对象，该对象可以与 <code>for-of</code> 语句完美地结合使用，今天我并没有提及该对象，因为这是下篇文章我们讨论的主题，我认为这个新对象是 ES6 中最大的特性。如果你还没有在 Python 或 C# 中接触过该对象，你会认为这太奇妙了，但这是编写一个迭代器的最简单的方法，而且它对代码重构非常有用，它还可能改变我们处理异步代码的方式。所以，接着关注我的下篇关于 Generator 的讨论。</p>
-<h3 id="下期预告：Generator-函数"><a href="#下期预告：Generator-函数" class="headerlink" title="下期预告：Generator 函数"></a>下期预告：Generator 函数</h3><p><code>Symbol.iterator</code>方法的最简单实现，还是使用下一章要介绍的<code>Generator</code>函数。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myIterable = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>.iterator]: <span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">[...myIterable] <span class="comment">// [1, 2, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者采用下面的简洁写法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  * [<span class="built_in">Symbol</span>.iterator]() &#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'hello'</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'world'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> x <span class="keyword">of</span> obj) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// "hello"</span></span><br><span class="line"><span class="comment">// "world"</span></span><br></pre></td></tr></table></figure>
-<p>上面代码中，<code>Symbol.iterator</code>方法几乎不用部署任何代码，只要用 yield 命令给出每一步的返回值即可。</p>
-<p>参考文章地址：<a href="http://bubkoo.com/2015/06/15/es6-in-depth-iterators-and-the-for-of-loop/" target="_blank" rel="noopener">http://bubkoo.com/2015/06/15/es6-in-depth-iterators-and-the-for-of-loop/</a></p>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/23/ES6 中的 for-of 和 Iterator/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1821,19 +1439,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-22 23:02:09 / Geändert am: 23:19:40" itemprop="dateCreated datePublished" datetime="2019-03-22T23:02:09+08:00">2019-03-22</time>
+              <time title="Created: 2019-03-22 23:02:09" itemprop="dateCreated datePublished" datetime="2019-03-22T23:02:09+08:00">2019-03-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-24 20:40:31" itemprop="dateModified" datetime="2019-03-24T20:40:31+08:00">2019-03-24</time>
               
             
           </span>
@@ -1847,7 +1477,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a></span>
@@ -1886,105 +1516,20 @@
 
       
         
-          
-            <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><ul>
+          <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><ul>
 <li>flex是Flexible Box的缩写，即“弹性布局”</li>
 <li><strong>设置display:flex;属性后，子元素的float,clear和vertical-align属性将不再起作用</strong></li>
 <li>此属性既适用于块级元素也适用于行内元素</li>
 </ul>
-<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>display属性为flex的元素称为<strong>容器</strong>，其所有子元素则为<strong>容器成员</strong>，称为flex item（flex项目）。</p>
-<p>容器默认有x,y两条轴：水平的称为主轴（main axis），竖直的称为交叉轴（cross axis），其余详细信息我们用一幅图来演示</p>
-<p><img src="https://pic.superbed.cn/item/5c94f9f33a213b0417e5bfc1" alt></p>
-<ul>
-<li>了解了这些之后我们看一下flex的一些子属性：<ul>
-<li>flex-direction　　容器内项目的排列方向(默认横向排列)　　</li>
-<li>flex-wrap　　容器内项目换行方式</li>
-<li>flex-flow　　以上两个属性的简写方式</li>
-<li>justify-content　　项目在主轴上的对齐方式</li>
-<li>align-items　　项目在交叉轴上如何对齐</li>
-<li>align-content　　定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用</li>
-</ul>
-</li>
-</ul>
-<p>接下来我们对这些属性做一个详细的介绍</p>
-<ul>
-<li>flex-direction:<ul>
-<li>row(默认)沿水平主轴由左向右排列</li>
-<li>row-reverse沿水平主轴由右向左排列</li>
-<li>column沿垂直主轴由上到下</li>
-<li>column-reverse沿垂直主轴由下到上</li>
-</ul>
-</li>
-<li>flex-warp：<ul>
-<li>nowrap（默认）：不换行</li>
-<li>wrap：换行，第一行在上方</li>
-<li>wrap-reverse：换行，第一行在下方</li>
-</ul>
-</li>
-<li>flex-flow:<ul>
-<li>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap</li>
-<li>flex-flow:<flex-direction> || <flex-wrap></flex-wrap></flex-direction></li>
-</ul>
-</li>
-<li><p>justify-content：</p>
-<ul>
-<li>话不多说上图<br><img src="https://img-blog.csdn.net/20180617202022711?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzUzNjYy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"><br><img src="https://pic.superbed.cn/item/5c94fa493a213b0417e5c2f7" alt="image"></li>
-</ul>
-</li>
-<li><p>align-items：</p>
-<ul>
-<li>flex-start：交叉轴的起点对齐。</li>
-<li>flex-end：交叉轴的终点对齐。</li>
-<li>center：交叉轴的中点对齐。</li>
-<li>baseline: 项目的第一行文字的基线对齐。</li>
-<li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。<br><img src="https://pic.superbed.cn/item/5c94fab73a213b0417e5c6d5" alt="image"></li>
-</ul>
-</li>
-<li>align-content:<ul>
-<li>flex-start：与交叉轴的起点对齐。</li>
-<li>flex-end：与交叉轴的终点对齐。</li>
-<li>center：与交叉轴的中点对齐。</li>
-<li>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</li>
-<li>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</li>
-<li>stretch（默认值）：轴线占满整个交叉轴。<br><img src="https://pic.superbed.cn/item/5c94fad23a213b0417e5c7ce" alt="image"><h4 id="项目（子元素）同样也有属性"><a href="#项目（子元素）同样也有属性" class="headerlink" title="项目（子元素）同样也有属性"></a>项目（子元素）同样也有属性</h4></li>
-</ul>
-</li>
-<li>order：<ul>
-<li>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。<br><img src="https://pic.superbed.cn/item/5c94faed3a213b0417e5c92f" alt="image"></li>
-</ul>
-</li>
-<li>flex-grow：<ul>
-<li>flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大<br><img src="https://pic.superbed.cn/item/5c94fb0c3a213b0417e5ca5d" alt="image"></li>
-</ul>
-</li>
-<li>flex-shrink<ul>
-<li>flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br><img src="https://pic.superbed.cn/item/5c94fb1e3a213b0417e5cb74" alt="image"><br>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。</li>
-</ul>
-</li>
-</ul>
-<p><strong>负值对该属性无效。</strong></p>
-<ul>
-<li>flex-basis<ul>
-<li>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</li>
-<li>它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  flex-basis: &lt;length&gt; | auto; /* default auto */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>flex属性<ul>
-<li>flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选</li>
-<li>该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。</li>
-</ul>
-</li>
-<li>建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。</li>
-<li>align-self：<ul>
-<li><strong>align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</strong></li>
-</ul>
-</li>
-</ul>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/22/flex布局/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2077,19 +1622,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-22 16:27:19 / Geändert am: 16:29:52" itemprop="dateCreated datePublished" datetime="2019-03-22T16:27:19+08:00">2019-03-22</time>
+              <time title="Created: 2019-03-22 16:27:19" itemprop="dateCreated datePublished" datetime="2019-03-22T16:27:19+08:00">2019-03-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-24 20:40:08" itemprop="dateModified" datetime="2019-03-24T20:40:08+08:00">2019-03-24</time>
               
             
           </span>
@@ -2103,7 +1660,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
@@ -2142,35 +1699,16 @@
 
       
         
+          <h3 id="全局引入"><a href="#全局引入" class="headerlink" title="全局引入"></a>全局引入</h3><p><code>main.js</code>中引入<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex</span></span><br><span class="line"><span class="string">Vue.use(Vuex)</span></span><br><span class="line"><span class="string">new Vue(&#123;</span></span><br><span class="line">	el: '#app',</span><br><span class="line">	router,</span><br><span class="line">	components:&#123;...&#125;,</span><br><span class="line">	template: <span class="string">'...'</span>,</span><br><span class="line">	store</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
           
-            <h3 id="全局引入"><a href="#全局引入" class="headerlink" title="全局引入"></a>全局引入</h3><p><code>main.js</code>中引入<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex</span></span><br><span class="line"><span class="string">Vue.use(Vuex)</span></span><br><span class="line"><span class="string">new Vue(&#123;</span></span><br><span class="line">	el: '#app',</span><br><span class="line">	router,</span><br><span class="line">	components:&#123;...&#125;,</span><br><span class="line">	template: <span class="string">'...'</span>,</span><br><span class="line">	store</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><ul>
-<li>state 用来数据共享数据存储</li>
-<li>mutation 用来注册改变数据状态</li>
-<li>getters 用来对共享数据进行过滤操作</li>
-<li>action 解决异步改变共享数据<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">	<span class="comment">// 全局状态</span></span><br><span class="line">	state: &#123;</span><br><span class="line">		count: <span class="number">0</span></span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 修改state的必要途径</span></span><br><span class="line">	mutations: &#123;</span><br><span class="line">		increment(state, n) &#123;</span><br><span class="line">			<span class="comment">// 传入参数state是对state部分的引用</span></span><br><span class="line">			state.count += n</span><br><span class="line">		&#125;,</span><br><span class="line">		decrement(state, n) &#123;</span><br><span class="line">			state.count -= n</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 只读属性，存放过滤方法</span></span><br><span class="line">	getters: &#123;</span><br><span class="line">		myCount(state)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="string">`current count is <span class="subst">$&#123;state.count&#125;</span>`</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 存放业务逻辑</span></span><br><span class="line">	actions: &#123;</span><br><span class="line">		myIncrease(context, obj)&#123;</span><br><span class="line">			context.commit(<span class="string">'increment'</span>, <span class="number">4</span>)</span><br><span class="line">		&#125;,</span><br><span class="line">		myDecrease(context)&#123;</span><br><span class="line">			context.commit(<span class="string">'decrement'</span>, <span class="number">2</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>不过大家注意一点，<code>actions</code>中我们引用<code>mutations</code>中的方法时用到了 <strong><code>commit</code>，它就像Vue中的<code>$emit</code>一样，用于发布任务，而<code>mutations</code>中的方法则监听调用自己的地方，时刻准备为其服务</strong></p>
-<h3 id="组件引入"><a href="#组件引入" class="headerlink" title="组件引入"></a>组件引入</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imoprt &#123; mapState &#125; <span class="keyword">from</span> <span class="string">'vuex</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>我们通过<code>computed</code>属性进行实时监测（本例中使用解构赋值）。如此就可以在页面中使用<code>state</code>中的值了。</li>
-<li>而方法的传递则需要我们进行<code>commit</code>调用。当然使用<code>this.methodName()</code>调用亦可<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"increase"</span>&gt;</span>Add<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"decrease"</span>&gt;</span>Minus<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123;mapMutations, mapActions, mapState, mapGetter&#125;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span>&#123;</span></span><br><span class="line"><span class="undefined">	......</span></span><br><span class="line"><span class="undefined">	computed: &#123;</span></span><br><span class="line"><span class="javascript">		...mapState([<span class="string">'count'</span>])</span></span><br><span class="line"><span class="undefined">	&#125;,</span></span><br><span class="line"><span class="undefined">	methods: &#123;</span></span><br><span class="line"><span class="javascript">		<span class="comment">// 声明引入actions和mutations中的方法</span></span></span><br><span class="line"><span class="javascript">		...mapMutations([<span class="string">'increment'</span>, <span class="string">'decrement'</span>]),</span></span><br><span class="line"><span class="javascript">		...mapActions([<span class="string">'myIncrease'</span>, <span class="string">'myDecrease'</span>]),</span></span><br><span class="line"><span class="undefined">	</span></span><br><span class="line"><span class="javascript">		<span class="keyword">async</span> increse()&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">const</span> products = <span class="keyword">await</span> </span></span><br><span class="line"><span class="javascript">				<span class="keyword">this</span>.$store.commit(<span class="string">'increment'</span>, <span class="number">1</span>)</span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.increment(1)		亦可</span></span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.$store.state.count++</span></span></span><br><span class="line"><span class="undefined">		</span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.myIncrease(&#123;id: 123&#125;)</span></span></span><br><span class="line"><span class="undefined">		&#125;,</span></span><br><span class="line"><span class="javascript">		<span class="keyword">async</span> decrese()&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">const</span> products = <span class="keyword">await</span> </span></span><br><span class="line"><span class="javascript">				<span class="keyword">this</span>.$store.commit(<span class="string">'decrement'</span>, <span class="number">2</span>)</span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.decrement(2)		亦可</span></span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.$store.state.count--</span></span></span><br><span class="line"><span class="undefined">	</span></span><br><span class="line"><span class="javascript">				<span class="comment">// this.myDecrease()</span></span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>上面列举的三种方法传递的方法中，我们发现通过<code>this.$store.state.count++</code>方式调用时无法令<code>Detected Vue</code>记录，因为他跳过了<code>mutation</code>直接对<code>state</code>数据进行操作，自然无法进行记录</p>
-<ul>
-<li>如果你仅仅是想完成count的加减，我推荐你使用<code>action</code>。毕竟是逻辑代码，更方便读者理解。真正的使用方式比如通过此方式从后台调用数据<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">actions: &#123;</span><br><span class="line">	<span class="keyword">async</span> myIncrease(context) &#123;</span><br><span class="line">		context.commit(<span class="string">'increment'</span>)	<span class="comment">// 调用mutations中的increment方法</span></span><br><span class="line">		<span class="keyword">const</span> products = <span class="keyword">await</span> axios.get(......)</span><br><span class="line">		<span class="keyword">return</span> products</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// component</span></span><br><span class="line">methods: &#123;</span><br><span class="line">	...mapActions([<span class="string">'myIncrease'</span>, <span class="string">'myDecrease'</span>]),</span><br><span class="line">	<span class="keyword">async</span> increase()&#123;</span><br><span class="line">		<span class="keyword">const</span> products = <span class="keyword">await</span> <span class="keyword">this</span>.myIncrease();</span><br><span class="line">		<span class="comment">// do Some Thing</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h3><p>我们将Vuex的实例放在<code>main.js</code>中显然不是明智之举，所以我们不妨新建一个<code>store</code>文件夹，将其主题存至<code>store</code>中的<code>index.js</code>中（如此一来我们只需要引入<code>./store/index</code>即可完成）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">	<span class="comment">// 全局状态</span></span><br><span class="line">	state: &#123;</span><br><span class="line">		count: <span class="number">0</span></span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 修改state的必要途径</span></span><br><span class="line">	mutations: &#123;</span><br><span class="line">		increment(state, n) &#123;</span><br><span class="line">			<span class="comment">// 传入参数state是对state部分的引用</span></span><br><span class="line">			state.count += n</span><br><span class="line">		&#125;,</span><br><span class="line">		decrement(state, n) &#123;</span><br><span class="line">			state.count -= n</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 只读属性，存放过滤方法</span></span><br><span class="line">	getters: &#123;</span><br><span class="line">		myCount(state)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="string">`current count is <span class="subst">$&#123;state.count&#125;</span>`</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 存放业务逻辑</span></span><br><span class="line">	actions: &#123;</span><br><span class="line">		myIncrease(context, obj)&#123;</span><br><span class="line">			context.commit(<span class="string">'increment'</span>, <span class="number">4</span>)</span><br><span class="line">		&#125;,</span><br><span class="line">		myDecrease(context)&#123;</span><br><span class="line">			context.commit(<span class="string">'decrement'</span>, <span class="number">2</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store/index'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	el: <span class="string">'#app'</span>,</span><br><span class="line">	router,</span><br><span class="line">	components: &#123;....&#125;,</span><br><span class="line">	template: <span class="string">'....'</span>,</span><br><span class="line">	store</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>之后记得在<code>main.js</code>之中引用哦<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> module1 = &#123;</span><br><span class="line">	state: &#123;....&#125;,</span><br><span class="line">	mutations: &#123;....&#125;,</span><br><span class="line">	....</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> module1</span><br></pre></td></tr></table></figure></p>
-<p>同时，如果你的业务分为多种模块，那么也可以在<code>store</code>文件夹下建立相应的js文件，将其暴露出来即可<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Module1 <span class="keyword">from</span> <span class="string">'./module1'</span></span><br><span class="line"><span class="keyword">import</span> Module2 <span class="keyword">from</span> <span class="string">'./module2'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">	modules:&#123;</span><br><span class="line">		Module1, Module2</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure></p>
-<p>而同时，在组建之中我们需要用隐射调用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">computed:&#123;</span><br><span class="line">	...mapState(&#123;</span><br><span class="line">		count: <span class="function"><span class="params">state</span>=&gt;</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> state.app.count</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg" alt="在这里插入图片描述"></p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/22/Vuex初体验/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
     </div>
@@ -2263,19 +1801,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-22 16:25:28 / Geändert am: 16:30:21" itemprop="dateCreated datePublished" datetime="2019-03-22T16:25:28+08:00">2019-03-22</time>
+              <time title="Created: 2019-03-22 16:25:28" itemprop="dateCreated datePublished" datetime="2019-03-22T16:25:28+08:00">2019-03-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-24 20:40:19" itemprop="dateModified" datetime="2019-03-24T20:40:19+08:00">2019-03-24</time>
               
             
           </span>
@@ -2289,7 +1839,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
@@ -2328,82 +1878,20 @@
 
       
         
-          
-            <p>由于本人才疏学浅本文章参考了诸多大神的想法，会在文末贴上原文地址</p>
+          <p>由于本人才疏学浅本文章参考了诸多大神的想法，会在文末贴上原文地址</p>
 <h3 id="on-amp-amp-emit"><a href="#on-amp-amp-emit" class="headerlink" title="$on &amp;&amp; $ emit"></a>$on &amp;&amp; $ emit</h3><blockquote>
 <p><code>$emit(eventName, [...args])</code>：触发事件<br><code>$on(eventName, callBack)</code>：监听事件</p>
 </blockquote>
-<p>如果把<code>Vue</code>看成一个家庭（相当于一个单独的<code>components</code>)，女主人一直在家里指派<code>($emit)</code>男人做事，而男人则一直监听<code>($on)</code>着女士的指派<code>($emit)里eventName</code>所触发的事件消息，一旦 <code>$emit</code> 事件一触发，<code>$on</code> 则监听到 <code>$emit</code> 所派发的事件，派发出的命令和执行派执命令所要做的事都是一一对应的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &lt;p @click=<span class="string">'emit'</span>&gt;&#123;&#123;msg&#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;p @click='emitOther'&gt;&#123;&#123;msg2&#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'demo'</span>,</span><br><span class="line">  data () &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">         msg : <span class="string">'点击后女人派发洗东西事件'</span>,</span><br><span class="line">         msg2 : <span class="string">'点击后女人派发开车事件'</span>,</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created () &#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">this</span>.$on([<span class="string">'wash_Goods'</span>,<span class="string">'drive_Car'</span>],(arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'事真多'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">this</span>.$on(<span class="string">'wash_Goods'</span>,(arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(arg)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">this</span>.$on(<span class="string">'drive_Car'</span>,(...arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(BMW,Ferrari)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods : &#123;</span><br><span class="line">      emit () &#123;</span><br><span class="line">         <span class="keyword">this</span>.$emit(<span class="string">'wash_Goods'</span>,<span class="string">'fish'</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      emitOther () &#123;</span><br><span class="line">         <span class="keyword">this</span>.$emit(<span class="string">'drive_Car'</span>,[<span class="string">'BMW'</span>,<span class="string">'Ferrari'</span>])</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>如本例所示，我们可以将要监听的事件统一写到一个数组中，方便我们做一个类似于过滤器的统一处理。比如例子里的<code>this.$on([&#39;wash_Goods&#39;,&#39;drive_Car&#39;],(arg)=&gt; { console.log(&#39;事真多&#39;)})</code>就类似于过滤器之类的机制，可以对“麻烦的女人”指派（<code>emit</code>）的事件进行一个统一的监听（<code>on</code>）并处理（<code>****真麻烦！</code>）。</p>
-<p>我们平时在开源库里使用的框架中都有无限下拉组件，那么我们一起跟随大神“混元霹雳手”的视角去看一下这类组件的实现<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;slot name=<span class="string">"list"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-donetip"</span> v-show=<span class="string">"!isLoading &amp;&amp; isDone"</span>&gt;</span><br><span class="line">            &lt;slot&gt;没有更多数据了&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-loading"</span> v-show=<span class="string">"isLoading"</span>&gt;</span><br><span class="line">            &lt;slot&gt;加载中&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/babel"</span>&gt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                isLoading: <span class="literal">false</span>,</span><br><span class="line">                isDone: <span class="literal">false</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        props: &#123;</span><br><span class="line">            onInfinite: &#123;</span><br><span class="line">                type: <span class="built_in">Function</span>,</span><br><span class="line">                required: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            distance : &#123;</span><br><span class="line">                type : <span class="built_in">Number</span>,</span><br><span class="line">                <span class="keyword">default</span>：<span class="number">100</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            init() &#123;</span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'loadedDone'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">this</span>.isDone = <span class="literal">true</span>;</span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'finishLoad'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;,</span><br><span class="line">            scrollHandler() &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.isLoading || <span class="keyword">this</span>.isDone) <span class="keyword">return</span>;</span><br><span class="line">                <span class="keyword">let</span> baseHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.offsetHeight : <span class="keyword">this</span>.scrollview.offsetHeight</span><br><span class="line">                <span class="keyword">let</span> moreHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollHeight : <span class="keyword">this</span>.scrollview.scrollHeight;</span><br><span class="line">                <span class="keyword">let</span> scrollTop = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollTop : <span class="keyword">this</span>.scrollview.scrollTop</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (baseHeight + scrollTop + <span class="keyword">this</span>.distance &gt; moreHeight) &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">this</span>.onInfinite()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted() &#123;</span><br><span class="line">            <span class="keyword">this</span>.scrollview = <span class="built_in">window</span></span><br><span class="line">            <span class="keyword">this</span>.scrollview.addEventListener(<span class="string">'scroll'</span>, <span class="keyword">this</span>.scrollHandler, <span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">this</span>.$nextTick(<span class="keyword">this</span>.init);</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>对下拉组件加载加更的组件进行了一个简单的封装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data 参数解释：</span><br></pre></td></tr></table></figure>
-<ul>
-<li>isLoading <code>false 代表正在执行下拉加载获取更多数据的标识</code>，<code>true代表数据加载完毕</code></li>
-<li>isDone <code>false 代表数据没有全完加载完毕</code>，<code>true 代表数据已经全部加载完毕</code></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">props 参数解释：</span><br></pre></td></tr></table></figure>
-<ul>
-<li>onInfinite <code>父组件向子组件传入当滚动到底部时执行加载数据的函数</code></li>
-<li>distance <code>距离滚动到底部的设定值</code></li>
-</ul>
-<h4 id="从此组件中，我们进行每一步的分析"><a href="#从此组件中，我们进行每一步的分析" class="headerlink" title="从此组件中，我们进行每一步的分析"></a>从此组件中，我们进行每一步的分析</h4><ul>
-<li><p>在<code>mounted</code>的时候，对<code>window</code>对像进行了一个滚动监听，监听的函数为<code>scrollHandler</code></p>
-<ul>
-<li><p>当<code>isLoading，isDone</code>任何一个为true时则退出 </p>
-<ul>
-<li><code>isloading</code>为<code>true</code>时防止多次同样加载，必须等待加载完毕</li>
-<li><code>isDone</code>为<code>true</code>时说明所有数据已经加载完成，没有必要再执行<code>scrollHandler</code></li>
-</ul>
-</li>
-<li><p>同时在$nextTick中进行了初始化监听 </p>
-<ul>
-<li><code>loadedDone</code> 一旦组件实例$emit(‘loadedDone’)事件时，执行回调，放开加载权限</li>
-<li><code>finishLoad</code> 一旦组件实例$emit(‘finishLoad’)事件时，执行回调，放开加载权限</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>再看看 scrollHandler函数里发生了什么 </p>
-<ul>
-<li><p><code>if (this.isLoading || this.isDone) return;</code> 一旦一者为true，则退出，原因在mounted已经叙述过了</p>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (baseHeight + scrollTop + this.distance &gt; moreHeight)</span><br></pre></td></tr></table></figure>
-<p> 当在window对象上监听scroll事件时，当滚动到底部的时候执行 </p>
-<ul>
-<li><code>this.isLoading = true;</code>防止重复监听</li>
-<li><code>this.onInfinite()</code>执行加载数据函数</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="父组件中调用infinite-scroll组件"><a href="#父组件中调用infinite-scroll组件" class="headerlink" title="父组件中调用infinite-scroll组件"></a>父组件中调用<code>infinite-scroll</code>组件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">          &lt;infinite-scroll :on-infinite=<span class="string">'loadData'</span> ref=<span class="string">'infinite'</span>&gt;</span><br><span class="line">               &lt;ul slot=<span class="string">'list'</span>&gt;</span><br><span class="line">                  &lt;li v-<span class="keyword">for</span>=<span class="string">'n in Number'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">               &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">          &lt;/i</span>nfinite-scroll&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/babel"</span>&gt;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'InfiniteScroll'</span> <span class="keyword">from</span> <span class="string">'.......'</span> <span class="comment">//引入infinitescroll.vue文件</span></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">         data () &#123;</span><br><span class="line">           <span class="keyword">return</span> &#123;</span><br><span class="line">              <span class="built_in">Number</span> : <span class="number">10</span></span><br><span class="line">           &#125;</span><br><span class="line">         &#125;,</span><br><span class="line">         methods : &#123;</span><br><span class="line">           loadData () &#123;</span><br><span class="line">             setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.Number = <span class="number">20</span></span><br><span class="line">                <span class="keyword">this</span>.$refs.infinite.$emit(<span class="string">'loadDone'</span>)</span><br><span class="line">             &#125;,<span class="number">1000</span>) </span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<p>当滑到底部的时候，infinite-scroll 组件组件内部会执行传入的<code>:on-infinite=&#39;loadData&#39;</code>函数 同时在内部也会把 Loading 设置为 true，防止重复执行。</p>
-<p>在这里用<code>this.$refs.infinite</code>拿到<code>infinite-scroll</code>组件的实例，同时触发事件之前在组件中 <code>$on</code> 已经监听着的事件，在一秒后进行改变数据，同时发出<code>loadDone</code>事情，告诉组件内部去执行<code>loadDone</code>的监听回调，数据已经全部加载完毕，设置<code>this.isDone = true；</code> 一旦<code>isDone</code>或者<code>isLoading</code>一者为<code>true</code>，则一直保持<code>return退出状态</code>。</p>
-<p><strong>$emit 和 $on 必须都在实例上进行触发和监听。</strong></p>
-<h2 id="由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！"><a href="#由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！" class="headerlink" title="由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！"></a>由于今天的时间问题我们暂时先不解释下拉刷新子组件的奥妙啦！改天我回来填坑！！！！！</h2><h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h3><blockquote>
-<p><code>v-on</code>作用在引入子组件后的父组件模板，用来监听子组件释放的事件</p>
-<p><code>$on</code>和<code>$emit</code>则只能作用在事件名一一对应的<strong>同一个组件实例中</strong></p>
-</blockquote>
-<p>父组件中的<code>“v-on:”</code>之后绑定事件名+回调函数<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">demo</span> <span class="attr">v-on:eventName</span>=<span class="string">"callBack"</span>&gt;</span><span class="tag">&lt;/<span class="name">demo</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>而子组件中则通过绑定触发事件的函数来将消息传回至父组件中（以此来触发父组件的回调函数）</p>
-<blockquote>
-<p>个人理解是，所谓的信息传递只不过是事件被触发后进行的某事件名的传递，以告诉父组件此事件被触发，之后父组件则得到此消息（主要是事件名）确定了此事件绑定的回调函数，并对其进行调用<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"emit"</span>&gt;</span>点我给父组件传递消息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">export default &#123;</span><br><span class="line">	name: 'demo',</span><br><span class="line">	methods: &#123;</span><br><span class="line">		emit() &#123;</span><br><span class="line">			this.$emit('eventName')</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>我们举个栗子</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"counter-event-example"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; total &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">v-on:increment</span>=<span class="string">"incrementTotal"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">v-on:increment</span>=<span class="string">"incrementTotal"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">Vue.component(<span class="string">'button-counter'</span>, &#123;</span></span><br><span class="line"><span class="xml">  template: '<span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"incrementCounter"</span>&gt;</span>&#123;&#123; counter &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span>',</span></span><br><span class="line"><span class="javascript">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      counter: 0</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="javascript">    incrementCounter: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.counter += <span class="number">1</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.$emit(<span class="string">'increment'</span>)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">&#125;)</span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">  el: <span class="string">'#counter-event-example'</span>,</span></span><br><span class="line"><span class="undefined">  data: &#123;</span></span><br><span class="line"><span class="undefined">    total: 0</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="javascript">    incrementTotal: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">this</span>.total += <span class="number">1</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;)</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>如此例所示，在<code>counter-event-example</code>父组件里，声明了两个<code>button-count</code>的实列，<strong>通过 <code>data</code> 用闭包的形式，让两者的数据都是单独享用的</strong>，而且<code>v-on</code> 所监听的 <code>eventName</code> 都是当前自己实列中的 <code>$emit</code> 触发的事件，但是回调都是公用的一个 <code>incrementTotal</code> 函数，因为个实例所触发后都是执行一种操作！<br>PS:</p>
-<ul>
-<li><code>v-on</code>声明在父组件中，你可以理解为一直抱着手机等你女神回消息的你：<code>&lt;waiting v-on:call-repair=&quot;repair&quot;&gt;&lt;/waiting&gt;</code>。</li>
-<li><code>emit</code>则在子组件中，一般通过某些动作触发调用对应函数，然后完成对信息的传递。比如你女神需要你给她修电脑的时候，她会在你俩尘封已久的聊天框上<code>click</code>一下：<code>&lt;div @click=&quot;callRepair&quot;&gt;会修电脑的人&lt;/div&gt;</code>，而她的<code>methods</code>中必定有一个名为<code>call-repair</code>的方法，通过<code>this.$emit()</code>【没错，人家什么东西（参数）都不会给你，只会单纯的派遣任务，让你知道<code>call-repair</code>事件被触发，需要你调用你的<code>repair</code>方法】让你触发<code>repair</code>方法完成操作。</li>
-</ul>
-<p>说到最后话题有点悲伤，不过也告诉我们相处应该讲究方法，如果你一开始将其视为自己的“女神（子组件）”百般呵护，单向输出，也怪不得人家调用<code>$emit</code>，只在用得到你的时候触发。</p>
-<p>下一章我们会讲到更加“健康”的关系：<code>v-model</code>。双向沟通，相濡以沫才是正确的方式</p>
-<p>最后，感谢掘金的“混元霹雳手”大大，他的博客给了我非常多的灵感，并且我引用了他的2个例子。<a href="https://juejin.im/user/580327ee0e3dd900570cf3ab" target="_blank" rel="noopener">大佬博客传送门在这里</a>。</p>
-<p>今天就到这里啦<br><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg" alt="在这里插入图片描述"></p>
-
+<p>如果把<code>Vue</code>看成一个家庭（相当于一个单独的<code>components</code>)，女主人一直在家里指派<code>($emit)</code>男人做事，而男人则一直监听<code>($on)</code>着女士的指派<code>($emit)里eventName</code>所触发的事件消息，一旦 <code>$emit</code> 事件一触发，<code>$on</code> 则监听到 <code>$emit</code> 所派发的事件，派发出的命令和执行派执命令所要做的事都是一一对应的。</p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/22/Vue中的$emit、$on和v-on/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2496,14 +1984,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-21 20:32:08" itemprop="dateCreated datePublished" datetime="2019-03-21T20:32:08+08:00">2019-03-21</time>
+              <time title="Created: 2019-03-21 20:32:08" itemprop="dateCreated datePublished" datetime="2019-03-21T20:32:08+08:00">2019-03-21</time>
             
 
             
@@ -2518,9 +2006,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-23 11:15:35" itemprop="dateModified" datetime="2019-03-23T11:15:35+08:00">2019-03-23</time>
+                <time title="Modified: 2019-03-24 20:40:41" itemprop="dateModified" datetime="2019-03-24T20:40:41+08:00">2019-03-24</time>
               
             
           </span>
@@ -2534,7 +2022,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue-Template/" itemprop="url" rel="index"><span itemprop="name">Vue Template</span></a></span>
@@ -2573,8 +2061,7 @@
 
       
         
-          
-            <h4 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h4><p>作为一个类瀑布流型的组件，相较其他组件而言我们需要：</p>
+          <h4 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h4><p>作为一个类瀑布流型的组件，相较其他组件而言我们需要：</p>
 <ul>
 <li>监听滚动事件</li>
 <li>触底加载<ul>
@@ -2585,34 +2072,15 @@
 </ul>
 </li>
 </ul>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>下面我们来一起看看这个组件8</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// infinite-scroll组件</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;slot name=<span class="string">"list"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-donetip"</span> v-show=<span class="string">"!isLoading &amp;&amp; isDone"</span>&gt;</span><br><span class="line">            &lt;slot&gt;没有更多数据了&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-loading"</span> v-show=<span class="string">"isLoading"</span>&gt;</span><br><span class="line">            &lt;slot&gt;加载中&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/babel"</span>&gt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                isLoading: <span class="literal">false</span>,</span><br><span class="line">                isDone: <span class="literal">false</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        props: &#123;</span><br><span class="line">            onInfinite: &#123;</span><br><span class="line">                type: <span class="built_in">Function</span>,</span><br><span class="line">                required: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            distance : &#123;</span><br><span class="line">                type : <span class="built_in">Number</span>,</span><br><span class="line">                <span class="keyword">default</span>：<span class="number">100</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            init() &#123;</span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'loadedDone'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">this</span>.isDone = <span class="literal">true</span>;</span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'finishLoad'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;,</span><br><span class="line">            scrollHandler() &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.isLoading || <span class="keyword">this</span>.isDone) <span class="keyword">return</span>;</span><br><span class="line">                <span class="keyword">let</span> baseHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.offsetHeight : <span class="keyword">this</span>.scrollview.offsetHeight</span><br><span class="line">                <span class="keyword">let</span> moreHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollHeight : <span class="keyword">this</span>.scrollview.scrollHeight;</span><br><span class="line">                <span class="keyword">let</span> scrollTop = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollTop : <span class="keyword">this</span>.scrollview.scrollTop</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (baseHeight + scrollTop + <span class="keyword">this</span>.distance &gt; moreHeight) &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">this</span>.onInfinite()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted() &#123;</span><br><span class="line">            <span class="keyword">this</span>.scrollview = <span class="built_in">window</span></span><br><span class="line">            <span class="keyword">this</span>.scrollview.addEventListener(<span class="string">'scroll'</span>, <span class="keyword">this</span>.scrollHandler, <span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">this</span>.$nextTick(<span class="keyword">this</span>.init);</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="参数解释"><a href="#参数解释" class="headerlink" title="参数解释"></a>参数解释</h4><ul>
-<li><code>data</code>：<ul>
-<li><code>isLoading</code>代表是否处于加载阶段，是则显示“加载中”，如果可能再加个动画就更好啦</li>
-<li><code>isDone</code>则负责处理逻辑。加载完毕后将其设置为<code>true</code>。（防止多次加载）</li>
-</ul>
-</li>
-<li><code>props</code>：<ul>
-<li><code>onInfinite</code>由父组件传递给我们，负责加载数据</li>
-<li><code>distance</code>也是由父组件传递给我们，用来由父组件设定滚动到底部的值（滚动到）</li>
-</ul>
-</li>
-<li><code>mounted</code>：对<code>window</code>执行一个滚动监听（<code>isLoading</code>和<code>isDone</code>任何一个为<code>true</code>时退出）<ul>
-<li><code>scrollHandler</code>监听滚动，查看是否到达触发<code>onInfinite</code>的条件（到底了）</li>
-<li><code>loadedDone</code>：执行<code>$emit(&#39;loadedDone&#39;)</code>时执行回调，开放加载权限</li>
-<li><code>finishLoad</code>：执行<code>$emit(&#39;finishLoad&#39;)</code>时执行回调，开放加载权限</li>
-</ul>
-</li>
-</ul>
-<p>我不知道别人怎么想。但是我最早是理解不了为什么子组件中要加一个<code>&lt;slot&gt;</code></p>
-<p>后来发现如此即可使得父组件可以实现自定义样式，不再局限于子组件所套用的单一模板。作为一个前端开发DIY什么的真的是太<code>cool</code>了。</p>
-<h4 id="父组件调用"><a href="#父组件调用" class="headerlink" title="父组件调用"></a>父组件调用</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父组件中调用infinite-scroll组件</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">          &lt;infinite-scroll :on-infinite=<span class="string">'loadData'</span> ref=<span class="string">'infinite'</span>&gt;</span><br><span class="line">               &lt;ul slot=<span class="string">'list'</span>&gt;</span><br><span class="line">                  &lt;li v-<span class="keyword">for</span>=<span class="string">'n in Number'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">               &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">          &lt;/i</span>nfinite-scroll&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/babel"</span>&gt;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'InfiniteScroll'</span> <span class="keyword">from</span> <span class="string">'.......'</span> <span class="comment">//引入infinitescroll.vue文件</span></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">         data () &#123;</span><br><span class="line">           <span class="keyword">return</span> &#123;</span><br><span class="line">              <span class="built_in">Number</span> : <span class="number">10</span></span><br><span class="line">           &#125;</span><br><span class="line">         &#125;,</span><br><span class="line">         methods : &#123;</span><br><span class="line">           loadData () &#123;</span><br><span class="line">             setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.Number = <span class="number">20</span></span><br><span class="line">                <span class="keyword">this</span>.$refs.infinite.$emit(<span class="string">'loadedDone'</span>)</span><br><span class="line">             &#125;,<span class="number">1000</span>) </span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<p>触底时组件会执行传入的<code>loadData</code>函数。同时在内部也会把<code>loading</code>设为<code>true</code>，防止重复执行。</p>
-<p>同时通过<code>this.$refs.infinite</code>拿到<code>infinite-scroll</code>组件的实例，同时出发其之前在组件（父组件）中<code>$on</code></p>
-<p>监听的<code>loadedDone</code>使劲按，1s后改变数据，同时派发<code>loadedDone</code>，高速组建内部执行<code>loadedDone</code>的监听回调，完成数据加载。</p>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/21/Vue中实现下拉加载组件/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2656,7 +2124,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Nächste Seite"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2701,7 +2169,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">29</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -2734,7 +2202,7 @@
                       
                     
                     <span class="site-state-item-count">8</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -2797,7 +2265,7 @@
                       
                     
                     <span class="site-state-item-count">25</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   
                 </div>
               
@@ -2876,7 +2344,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -2884,7 +2352,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

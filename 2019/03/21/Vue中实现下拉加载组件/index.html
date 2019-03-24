@@ -98,18 +98,18 @@
 
 
 
-  <meta name="description" content="要点作为一个类瀑布流型的组件，相较其他组件而言我们需要：  监听滚动事件 触底加载 触底时触发事件向父组件请求信息 若父组件返回信息则动态加载，并增加组件高度 若父组件中未返回信息则显示“到底啦” 若正在加载（网速较慢）则显示“加载中…”    代码下面我们来一起看看这个组件8 123456789101112131415161718192021222324252627282930313233343">
+  <meta name="description" content="要点作为一个类瀑布流型的组件，相较其他组件而言我们需要：  监听滚动事件 触底加载 触底时触发事件向父组件请求信息 若父组件返回信息则动态加载，并增加组件高度 若父组件中未返回信息则显示“到底啦” 若正在加载（网速较慢）则显示“加载中…”">
 <meta name="keywords" content="Vue Template">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue中实现下拉加载组件">
 <meta property="og:url" content="http://yoursite.com/2019/03/21/Vue中实现下拉加载组件/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="要点作为一个类瀑布流型的组件，相较其他组件而言我们需要：  监听滚动事件 触底加载 触底时触发事件向父组件请求信息 若父组件返回信息则动态加载，并增加组件高度 若父组件中未返回信息则显示“到底啦” 若正在加载（网速较慢）则显示“加载中…”    代码下面我们来一起看看这个组件8 123456789101112131415161718192021222324252627282930313233343">
+<meta property="og:description" content="要点作为一个类瀑布流型的组件，相较其他组件而言我们需要：  监听滚动事件 触底加载 触底时触发事件向父组件请求信息 若父组件返回信息则动态加载，并增加组件高度 若父组件中未返回信息则显示“到底啦” 若正在加载（网速较慢）则显示“加载中…”">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-23T03:15:35.812Z">
+<meta property="og:updated_time" content="2019-03-24T12:40:41.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue中实现下拉加载组件">
-<meta name="twitter:description" content="要点作为一个类瀑布流型的组件，相较其他组件而言我们需要：  监听滚动事件 触底加载 触底时触发事件向父组件请求信息 若父组件返回信息则动态加载，并增加组件高度 若父组件中未返回信息则显示“到底啦” 若正在加载（网速较慢）则显示“加载中…”    代码下面我们来一起看看这个组件8 123456789101112131415161718192021222324252627282930313233343">
+<meta name="twitter:description" content="要点作为一个类瀑布流型的组件，相较其他组件而言我们需要：  监听滚动事件 触底加载 触底时触发事件向父组件请求信息 若父组件返回信息则动态加载，并增加组件高度 若父组件中未返回信息则显示“到底啦” 若正在加载（网速较慢）则显示“加载中…”">
 
 
 
@@ -194,7 +194,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -222,7 +222,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -239,7 +239,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -256,7 +256,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -273,7 +273,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -361,14 +361,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-21 20:32:08" itemprop="dateCreated datePublished" datetime="2019-03-21T20:32:08+08:00">2019-03-21</time>
+              <time title="Created: 2019-03-21 20:32:08" itemprop="dateCreated datePublished" datetime="2019-03-21T20:32:08+08:00">2019-03-21</time>
             
 
             
@@ -383,9 +383,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-23 11:15:35" itemprop="dateModified" datetime="2019-03-23T11:15:35+08:00">2019-03-23</time>
+                <time title="Modified: 2019-03-24 20:40:41" itemprop="dateModified" datetime="2019-03-24T20:40:41+08:00">2019-03-24</time>
               
             
           </span>
@@ -399,7 +399,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue-Template/" itemprop="url" rel="index"><span itemprop="name">Vue Template</span></a></span>
@@ -448,6 +448,7 @@
 </ul>
 </li>
 </ul>
+<a id="more"></a>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>下面我们来一起看看这个组件8</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// infinite-scroll组件</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;slot name=<span class="string">"list"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-donetip"</span> v-show=<span class="string">"!isLoading &amp;&amp; isDone"</span>&gt;</span><br><span class="line">            &lt;slot&gt;没有更多数据了&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-loading"</span> v-show=<span class="string">"isLoading"</span>&gt;</span><br><span class="line">            &lt;slot&gt;加载中&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/babel"</span>&gt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                isLoading: <span class="literal">false</span>,</span><br><span class="line">                isDone: <span class="literal">false</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        props: &#123;</span><br><span class="line">            onInfinite: &#123;</span><br><span class="line">                type: <span class="built_in">Function</span>,</span><br><span class="line">                required: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            distance : &#123;</span><br><span class="line">                type : <span class="built_in">Number</span>,</span><br><span class="line">                <span class="keyword">default</span>：<span class="number">100</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            init() &#123;</span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'loadedDone'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">this</span>.isDone = <span class="literal">true</span>;</span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'finishLoad'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;,</span><br><span class="line">            scrollHandler() &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.isLoading || <span class="keyword">this</span>.isDone) <span class="keyword">return</span>;</span><br><span class="line">                <span class="keyword">let</span> baseHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.offsetHeight : <span class="keyword">this</span>.scrollview.offsetHeight</span><br><span class="line">                <span class="keyword">let</span> moreHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollHeight : <span class="keyword">this</span>.scrollview.scrollHeight;</span><br><span class="line">                <span class="keyword">let</span> scrollTop = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollTop : <span class="keyword">this</span>.scrollview.scrollTop</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (baseHeight + scrollTop + <span class="keyword">this</span>.distance &gt; moreHeight) &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">this</span>.onInfinite()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted() &#123;</span><br><span class="line">            <span class="keyword">this</span>.scrollview = <span class="built_in">window</span></span><br><span class="line">            <span class="keyword">this</span>.scrollview.addEventListener(<span class="string">'scroll'</span>, <span class="keyword">this</span>.scrollHandler, <span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">this</span>.$nextTick(<span class="keyword">this</span>.init);</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 <h4 id="参数解释"><a href="#参数解释" class="headerlink" title="参数解释"></a>参数解释</h4><ul>
@@ -568,10 +569,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -594,7 +595,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">29</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -627,7 +628,7 @@
                       
                     
                     <span class="site-state-item-count">8</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -690,7 +691,7 @@
                       
                     
                     <span class="site-state-item-count">25</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   
                 </div>
               
@@ -786,7 +787,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -794,7 +795,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

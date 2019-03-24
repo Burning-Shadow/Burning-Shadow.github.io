@@ -108,7 +108,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c94f5683a213b0417e591d4">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c93bda83a213b0417da42a9">
-<meta property="og:updated_time" content="2019-03-23T03:19:01.972Z">
+<meta property="og:updated_time" content="2019-03-24T12:41:18.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 instanceof 和 typeof 原理">
 <meta name="twitter:description" content="typeof实现原理typeof 一般被用于判断一个变量的类型，我们可以利用 typeof 来判断number,  string,  object,boolean,  function, undefined,  symbol 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 object 类型的数据的时候，typeof能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，type">
@@ -197,7 +197,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -225,7 +225,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -242,7 +242,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -259,7 +259,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -276,7 +276,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -364,14 +364,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-16 09:30:33" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
+              <time title="Created: 2019-03-16 09:30:33" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
             
 
             
@@ -386,9 +386,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-23 11:19:01" itemprop="dateModified" datetime="2019-03-23T11:19:01+08:00">2019-03-23</time>
+                <time title="Modified: 2019-03-24 20:41:18" itemprop="dateModified" datetime="2019-03-24T20:41:18+08:00">2019-03-24</time>
               
             
           </span>
@@ -402,7 +402,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
@@ -442,7 +442,9 @@
       
         <h2 id="typeof实现原理"><a href="#typeof实现原理" class="headerlink" title="typeof实现原理"></a>typeof实现原理</h2><p><code>typeof</code> 一般被用于判断一个变量的类型，我们可以利用 <code>typeof</code> 来判断<code>number</code>,  <code>string</code>,  <code>object</code>,<code>boolean</code>,  <code>function</code>, <code>undefined</code>,  <code>symbol</code> 这七种类型，这种判断能帮助我们搞定一些问题，比如在判断不是 <code>object</code> 类型的数据的时候，<code>typeof</code>能比较清楚的告诉我们具体是哪一类的类型。但是，很遗憾的一点是，<strong><code>typeof</code>在判断一个 <code>object</code>的数据的时候只能告诉我们这个数据是 <code>object</code>, 而不能细致的具体到是哪一种 <code>object</code></strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'abc'</span>);</span><br><span class="line"><span class="keyword">typeof</span> s === <span class="string">'object'</span><span class="comment">// true</span></span><br><span class="line">s <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>要想判断一个数据具体是哪一种 <code>object</code> 的时候，我们需要利用 <code>instanceof</code> 这个操作符来判断，这个我们后面会说到。<br>来谈谈关于 <code>typeof</code> 的原理吧，我们可以先想一个很有意思的问题，<code>js</code> 在底层是怎么存储数据的类型信息呢？或者说，一个 <code>js</code> 的变量，在它的底层实现中，它的类型信息是怎么实现的呢？<br>其实，<strong>js 在底层存储变量的时候，会在变量的机器码的低位1-3位存储其类型信息</strong></p>
+<p>要想判断一个数据具体是哪一种 <code>object</code> 的时候，我们需要利用 <code>instanceof</code> 这个操作符来判断，这个我们后面会说到。<br>来谈谈关于 <code>typeof</code> 的原理吧，我们可以先想一个很有意思的问题，<code>js</code> 在底层是怎么存储数据的类型信息呢？或者说，一个 <code>js</code> 的变量，在它的底层实现中，它的类型信息是怎么实现的呢？</p>
+<a id="more"></a>
+<p>其实，<strong>js 在底层存储变量的时候，会在变量的机器码的低位1-3位存储其类型信息</strong></p>
 <ul>
 <li>000：对象</li>
 <li>010：浮点数</li>
@@ -600,10 +602,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -626,7 +628,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">29</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -659,7 +661,7 @@
                       
                     
                     <span class="site-state-item-count">8</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -722,7 +724,7 @@
                       
                     
                     <span class="site-state-item-count">25</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   
                 </div>
               
@@ -818,7 +820,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -826,7 +828,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

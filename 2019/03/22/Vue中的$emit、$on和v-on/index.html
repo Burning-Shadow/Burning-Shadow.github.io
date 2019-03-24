@@ -106,7 +106,7 @@
 <meta property="og:description" content="由于本人才疏学浅本文章参考了诸多大神的想法，会在文末贴上原文地址 $on &amp;amp;&amp;amp; $ emit $emit(eventName, [...args])：触发事件$on(eventName, callBack)：监听事件  如果把Vue看成一个家庭（相当于一个单独的components)，女主人一直在家里指派($emit)男人做事，而男人则一直监听($on)着女士的指派($emit)里">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg">
-<meta property="og:updated_time" content="2019-03-22T08:30:21.500Z">
+<meta property="og:updated_time" content="2019-03-24T12:40:19.778Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue中的$emit、$on和v-on">
 <meta name="twitter:description" content="由于本人才疏学浅本文章参考了诸多大神的想法，会在文末贴上原文地址 $on &amp;amp;&amp;amp; $ emit $emit(eventName, [...args])：触发事件$on(eventName, callBack)：监听事件  如果把Vue看成一个家庭（相当于一个单独的components)，女主人一直在家里指派($emit)男人做事，而男人则一直监听($on)着女士的指派($emit)里">
@@ -195,7 +195,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -223,7 +223,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -240,7 +240,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -257,7 +257,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -274,7 +274,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -362,19 +362,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-22 16:25:28 / Geändert am: 16:30:21" itemprop="dateCreated datePublished" datetime="2019-03-22T16:25:28+08:00">2019-03-22</time>
+              <time title="Created: 2019-03-22 16:25:28" itemprop="dateCreated datePublished" datetime="2019-03-22T16:25:28+08:00">2019-03-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-24 20:40:19" itemprop="dateModified" datetime="2019-03-24T20:40:19+08:00">2019-03-24</time>
               
             
           </span>
@@ -388,7 +400,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
@@ -430,7 +442,9 @@
 <h3 id="on-amp-amp-emit"><a href="#on-amp-amp-emit" class="headerlink" title="$on &amp;&amp; $ emit"></a>$on &amp;&amp; $ emit</h3><blockquote>
 <p><code>$emit(eventName, [...args])</code>：触发事件<br><code>$on(eventName, callBack)</code>：监听事件</p>
 </blockquote>
-<p>如果把<code>Vue</code>看成一个家庭（相当于一个单独的<code>components</code>)，女主人一直在家里指派<code>($emit)</code>男人做事，而男人则一直监听<code>($on)</code>着女士的指派<code>($emit)里eventName</code>所触发的事件消息，一旦 <code>$emit</code> 事件一触发，<code>$on</code> 则监听到 <code>$emit</code> 所派发的事件，派发出的命令和执行派执命令所要做的事都是一一对应的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &lt;p @click=<span class="string">'emit'</span>&gt;&#123;&#123;msg&#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;p @click='emitOther'&gt;&#123;&#123;msg2&#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'demo'</span>,</span><br><span class="line">  data () &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">         msg : <span class="string">'点击后女人派发洗东西事件'</span>,</span><br><span class="line">         msg2 : <span class="string">'点击后女人派发开车事件'</span>,</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created () &#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">this</span>.$on([<span class="string">'wash_Goods'</span>,<span class="string">'drive_Car'</span>],(arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'事真多'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">this</span>.$on(<span class="string">'wash_Goods'</span>,(arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(arg)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">this</span>.$on(<span class="string">'drive_Car'</span>,(...arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(BMW,Ferrari)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods : &#123;</span><br><span class="line">      emit () &#123;</span><br><span class="line">         <span class="keyword">this</span>.$emit(<span class="string">'wash_Goods'</span>,<span class="string">'fish'</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      emitOther () &#123;</span><br><span class="line">         <span class="keyword">this</span>.$emit(<span class="string">'drive_Car'</span>,[<span class="string">'BMW'</span>,<span class="string">'Ferrari'</span>])</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如果把<code>Vue</code>看成一个家庭（相当于一个单独的<code>components</code>)，女主人一直在家里指派<code>($emit)</code>男人做事，而男人则一直监听<code>($on)</code>着女士的指派<code>($emit)里eventName</code>所触发的事件消息，一旦 <code>$emit</code> 事件一触发，<code>$on</code> 则监听到 <code>$emit</code> 所派发的事件，派发出的命令和执行派执命令所要做的事都是一一对应的。</p>
+<a id="more"></a>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &lt;p @click=<span class="string">'emit'</span>&gt;&#123;&#123;msg&#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;p @click='emitOther'&gt;&#123;&#123;msg2&#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'demo'</span>,</span><br><span class="line">  data () &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">         msg : <span class="string">'点击后女人派发洗东西事件'</span>,</span><br><span class="line">         msg2 : <span class="string">'点击后女人派发开车事件'</span>,</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created () &#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">this</span>.$on([<span class="string">'wash_Goods'</span>,<span class="string">'drive_Car'</span>],(arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'事真多'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">this</span>.$on(<span class="string">'wash_Goods'</span>,(arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(arg)</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">this</span>.$on(<span class="string">'drive_Car'</span>,(...arg)=&gt; &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(BMW,Ferrari)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods : &#123;</span><br><span class="line">      emit () &#123;</span><br><span class="line">         <span class="keyword">this</span>.$emit(<span class="string">'wash_Goods'</span>,<span class="string">'fish'</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      emitOther () &#123;</span><br><span class="line">         <span class="keyword">this</span>.$emit(<span class="string">'drive_Car'</span>,[<span class="string">'BMW'</span>,<span class="string">'Ferrari'</span>])</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 <p>如本例所示，我们可以将要监听的事件统一写到一个数组中，方便我们做一个类似于过滤器的统一处理。比如例子里的<code>this.$on([&#39;wash_Goods&#39;,&#39;drive_Car&#39;],(arg)=&gt; { console.log(&#39;事真多&#39;)})</code>就类似于过滤器之类的机制，可以对“麻烦的女人”指派（<code>emit</code>）的事件进行一个统一的监听（<code>on</code>）并处理（<code>****真麻烦！</code>）。</p>
 <p>我们平时在开源库里使用的框架中都有无限下拉组件，那么我们一起跟随大神“混元霹雳手”的视角去看一下这类组件的实现<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;slot name=<span class="string">"list"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-donetip"</span> v-show=<span class="string">"!isLoading &amp;&amp; isDone"</span>&gt;</span><br><span class="line">            &lt;slot&gt;没有更多数据了&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"list-loading"</span> v-show=<span class="string">"isLoading"</span>&gt;</span><br><span class="line">            &lt;slot&gt;加载中&lt;<span class="regexp">/slot&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">"text/babel"</span>&gt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                isLoading: <span class="literal">false</span>,</span><br><span class="line">                isDone: <span class="literal">false</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        props: &#123;</span><br><span class="line">            onInfinite: &#123;</span><br><span class="line">                type: <span class="built_in">Function</span>,</span><br><span class="line">                required: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            distance : &#123;</span><br><span class="line">                type : <span class="built_in">Number</span>,</span><br><span class="line">                <span class="keyword">default</span>：<span class="number">100</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            init() &#123;</span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'loadedDone'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">this</span>.isDone = <span class="literal">true</span>;</span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">this</span>.$on(<span class="string">'finishLoad'</span>, () =&gt; &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">false</span>;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;,</span><br><span class="line">            scrollHandler() &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.isLoading || <span class="keyword">this</span>.isDone) <span class="keyword">return</span>;</span><br><span class="line">                <span class="keyword">let</span> baseHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.offsetHeight : <span class="keyword">this</span>.scrollview.offsetHeight</span><br><span class="line">                <span class="keyword">let</span> moreHeight = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollHeight : <span class="keyword">this</span>.scrollview.scrollHeight;</span><br><span class="line">                <span class="keyword">let</span> scrollTop = <span class="keyword">this</span>.scrollview == <span class="built_in">window</span> ? <span class="built_in">document</span>.body.scrollTop : <span class="keyword">this</span>.scrollview.scrollTop</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (baseHeight + scrollTop + <span class="keyword">this</span>.distance &gt; moreHeight) &#123;</span><br><span class="line">                    <span class="keyword">this</span>.isLoading = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">this</span>.onInfinite()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        mounted() &#123;</span><br><span class="line">            <span class="keyword">this</span>.scrollview = <span class="built_in">window</span></span><br><span class="line">            <span class="keyword">this</span>.scrollview.addEventListener(<span class="string">'scroll'</span>, <span class="keyword">this</span>.scrollHandler, <span class="literal">false</span>);</span><br><span class="line">            <span class="keyword">this</span>.$nextTick(<span class="keyword">this</span>.init);</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>对下拉组件加载加更的组件进行了一个简单的封装：</p>
@@ -587,10 +601,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -613,7 +627,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">29</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -646,7 +660,7 @@
                       
                     
                     <span class="site-state-item-count">8</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -709,7 +723,7 @@
                       
                     
                     <span class="site-state-item-count">25</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   
                 </div>
               
@@ -805,7 +819,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -813,7 +827,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

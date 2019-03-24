@@ -105,7 +105,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="config文件夹中的dev.env.js 12345678910proxyTable: &amp;#123;    &apos;/api&apos;: &amp;#123;        target: &apos;http://192.168.1.1:80&apos;, // api代理服务器地址        changeOrigin: true, // 允许跨域        secure: false,        pathRewrite:">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-22T06:42:28.406Z">
+<meta property="og:updated_time" content="2019-03-24T12:39:30.503Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue项目中关于axios跨域的设置">
 <meta name="twitter:description" content="config文件夹中的dev.env.js 12345678910proxyTable: &amp;#123;    &apos;/api&apos;: &amp;#123;        target: &apos;http://192.168.1.1:80&apos;, // api代理服务器地址        changeOrigin: true, // 允许跨域        secure: false,        pathRewrite:">
@@ -193,7 +193,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -221,7 +221,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -238,7 +238,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -255,7 +255,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -272,7 +272,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -360,14 +360,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-17 20:13:53" itemprop="dateCreated datePublished" datetime="2019-03-17T20:13:53+08:00">2019-03-17</time>
+              <time title="Created: 2019-03-17 20:13:53" itemprop="dateCreated datePublished" datetime="2019-03-17T20:13:53+08:00">2019-03-17</time>
             
 
             
@@ -382,9 +382,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:42:28" itemprop="dateModified" datetime="2019-03-22T14:42:28+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-24 20:39:30" itemprop="dateModified" datetime="2019-03-24T20:39:30+08:00">2019-03-24</time>
               
             
           </span>
@@ -398,7 +398,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
@@ -439,6 +439,7 @@
         <p><code>config</code>文件夹中的<code>dev.env.js</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">proxyTable: &#123;</span><br><span class="line">    <span class="string">'/api'</span>: &#123;</span><br><span class="line">        target: <span class="string">'http://192.168.1.1:80'</span>, <span class="comment">// api代理服务器地址</span></span><br><span class="line">        changeOrigin: <span class="literal">true</span>, <span class="comment">// 允许跨域</span></span><br><span class="line">        secure: <span class="literal">false</span>,</span><br><span class="line">        pathRewrite: &#123;</span><br><span class="line">            <span class="string">'^/api'</span>: <span class="string">'/'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>target</code>是我们要将请求发送的靶向目标。此选项可以理解为我们的<code>node</code>后台为我们作了一次正向代理，以此避免了跨域。</p>
+<a id="more"></a>
 <p><code>config</code>文件夹中的<code>index.js</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> devEnv = <span class="built_in">require</span>(<span class="string">'./dev.env'</span>)</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    dev: &#123;</span><br><span class="line">        <span class="comment">// Paths</span></span><br><span class="line">        assetsSubDirectory: <span class="string">'static'</span>,</span><br><span class="line">        assetsPublicPath: <span class="string">'/'</span>,</span><br><span class="line">        proxyTable: devEnv.proxyTable,</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//....</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如此我们每次只需要更改<code>dev.env.js</code>文件夹中的<code>target</code>项即可。</p>
@@ -551,7 +552,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">29</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -584,7 +585,7 @@
                       
                     
                     <span class="site-state-item-count">8</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -647,7 +648,7 @@
                       
                     
                     <span class="site-state-item-count">25</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   
                 </div>
               
@@ -726,7 +727,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -734,7 +735,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

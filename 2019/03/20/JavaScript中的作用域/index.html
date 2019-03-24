@@ -98,18 +98,18 @@
 
 
 
-  <meta name="description" content="词法作用域LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值） 我们可以简单的理解为LHS是赋值语句左边部分，注重的是变量本身。而RHS则是赋值语句右边部分，注重的是所要赋给变量的值 1234">
+  <meta name="description" content="词法作用域LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript中的作用域">
 <meta property="og:url" content="http://yoursite.com/2019/03/20/JavaScript中的作用域/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="词法作用域LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值） 我们可以简单的理解为LHS是赋值语句左边部分，注重的是变量本身。而RHS则是赋值语句右边部分，注重的是所要赋给变量的值 1234">
+<meta property="og:description" content="词法作用域LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值）">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg">
-<meta property="og:updated_time" content="2019-03-22T06:40:17.575Z">
+<meta property="og:updated_time" content="2019-03-24T12:38:19.991Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的作用域">
-<meta name="twitter:description" content="词法作用域LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值） 我们可以简单的理解为LHS是赋值语句左边部分，注重的是变量本身。而RHS则是赋值语句右边部分，注重的是所要赋给变量的值 1234">
+<meta name="twitter:description" content="词法作用域LHS和RHS 若查找的目的是对变量进行赋值则引擎会使用LHS查询 若目的是获取变量的值则使用LHS查询  如题，LHS查询的目的是对变量赋值，则可以理解为寻找变量的容器本身 而RHS查询则应理解为retrieve his source value（取其源值）">
 <meta name="twitter:image" content="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg">
 
 
@@ -195,7 +195,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -223,7 +223,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -240,7 +240,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -257,7 +257,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -274,7 +274,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -362,14 +362,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:21:54" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:54+08:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 11:21:54" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:54+08:00">2019-03-20</time>
             
 
             
@@ -384,9 +384,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-03-22 14:40:17" itemprop="dateModified" datetime="2019-03-22T14:40:17+08:00">2019-03-22</time>
+                <time title="Modified: 2019-03-24 20:38:19" itemprop="dateModified" datetime="2019-03-24T20:38:19+08:00">2019-03-24</time>
               
             
           </span>
@@ -400,7 +400,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -444,6 +444,7 @@
 </blockquote>
 <p>如题，<strong>LHS查询</strong>的目的是对变量赋值，则可以理解为<strong>寻找变量的容器本身</strong></p>
 <p>而<strong>RHS查询</strong>则应理解为<code>retrieve his source value</code>（<strong>取其源值</strong>）</p>
+<a id="more"></a>
 <p>我们可以简单的理解为<code>LHS</code>是赋值语句左边部分，注重的是变量本身。而<code>RHS</code>则是赋值语句右边部分，注重的是所要赋给变量的值</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( a+b )</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span></span><br><span class="line">foo(<span class="number">2</span>)		<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
 <p>此例中执行<code>foo</code>时，引擎会从当前作用域（<code>foo</code>作用域）寻找<code>b</code>，对其进行<code>RHS</code>引用。而作用域中自然无法找到，所以引擎会向上级作用域，本例中也就是全局作用域进行查找。若可以找到<code>b</code>则对其进行<code>RHS</code>引用，未找到则报错（<code>ReferenceError</code>）</p>
@@ -586,10 +587,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -612,7 +613,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">29</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -645,7 +646,7 @@
                       
                     
                     <span class="site-state-item-count">8</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -708,7 +709,7 @@
                       
                     
                     <span class="site-state-item-count">25</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   
                 </div>
               
@@ -804,7 +805,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -812,7 +813,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

@@ -98,13 +98,13 @@
 
 
 
-  <meta name="description" content="既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种重传的策略，还需要有智慧，也就是说，这里面包含着大量的算法。 如何做个靠谱的人？​    TCP 想成为一个成熟稳重的人，成为一个靠谱的人。那一个人怎么样才算靠谱呢？咱们工作中经常就有这样的场景，比如你交代给下属一个事情以后，下属到底能不能做到，做到什么程度，什么时候能够交付，往">
+  <meta name="description" content="既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种重传的策略，还需要有智慧，也就是说，这里面包含着大量的算法。 数据既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种重传的策略，还需要有智慧，也就是说，这里面包含着大量的算法。下面我们来说道说道。">
 <meta name="keywords" content="网络协议,TCP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCP协议（下） —— 西出阳关多坎坷">
 <meta property="og:url" content="http://yoursite.com/2019/03/23/TCP协议（下）-——-西出阳关多坎坷/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种重传的策略，还需要有智慧，也就是说，这里面包含着大量的算法。 如何做个靠谱的人？​    TCP 想成为一个成熟稳重的人，成为一个靠谱的人。那一个人怎么样才算靠谱呢？咱们工作中经常就有这样的场景，比如你交代给下属一个事情以后，下属到底能不能做到，做到什么程度，什么时候能够交付，往">
+<meta property="og:description" content="既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种重传的策略，还需要有智慧，也就是说，这里面包含着大量的算法。 数据既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种重传的策略，还需要有智慧，也就是说，这里面包含着大量的算法。下面我们来说道说道。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c96406c3a213b0417f3f55d">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c9653503a213b0417f4daf0">
@@ -118,10 +118,10 @@
 <meta property="og:image" content="https://pic.superbed.cn/item/5c9656523a213b0417f50d6e">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c9656923a213b0417f50f3e">
 <meta property="og:image" content="https://ww1.sinaimg.cn/large/007i4MEmgy1g1d61rfigbj30l60e477u.jpg">
-<meta property="og:updated_time" content="2019-03-23T15:56:46.536Z">
+<meta property="og:updated_time" content="2019-03-24T12:43:09.482Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP协议（下） —— 西出阳关多坎坷">
-<meta name="twitter:description" content="既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种重传的策略，还需要有智慧，也就是说，这里面包含着大量的算法。 如何做个靠谱的人？​    TCP 想成为一个成熟稳重的人，成为一个靠谱的人。那一个人怎么样才算靠谱呢？咱们工作中经常就有这样的场景，比如你交代给下属一个事情以后，下属到底能不能做到，做到什么程度，什么时候能够交付，往">
+<meta name="twitter:description" content="既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种重传的策略，还需要有智慧，也就是说，这里面包含着大量的算法。 数据既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种重传的策略，还需要有智慧，也就是说，这里面包含着大量的算法。下面我们来说道说道。">
 <meta name="twitter:image" content="https://pic.superbed.cn/item/5c96406c3a213b0417f3f55d">
 
 
@@ -207,7 +207,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -286,7 +286,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -374,19 +374,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-23 22:14:06 / Geändert am: 23:56:46" itemprop="dateCreated datePublished" datetime="2019-03-23T22:14:06+08:00">2019-03-23</time>
+              <time title="Created: 2019-03-23 22:14:06" itemprop="dateCreated datePublished" datetime="2019-03-23T22:14:06+08:00">2019-03-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-24 20:43:09" itemprop="dateModified" datetime="2019-03-24T20:43:09+08:00">2019-03-24</time>
               
             
           </span>
@@ -400,7 +412,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
@@ -439,6 +451,8 @@
 
       
         <p>既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种<strong>重传的策略</strong>，还需要有智慧，也就是说，这里面包含着<strong>大量的算法</strong>。</p>
+<p>数据既然出了网关，那就是在公网上传输数据，公网往往是不可靠的，因而需要很多的机制去保证传输的可靠性，这里面需要恒心，也即各种重传的策略，还需要有智慧，也就是说，这里面包含着大量的算法。下面我们来说道说道。</p>
+<a id="more"></a>
 <h3 id="如何做个靠谱的人？"><a href="#如何做个靠谱的人？" class="headerlink" title="如何做个靠谱的人？"></a>如何做个靠谱的人？</h3><p>​    TCP 想成为一个成熟稳重的人，成为一个靠谱的人。那一个人怎么样才算靠谱呢？咱们工作中经常就有这样的场景，比如你交代给下属一个事情以后，下属到底能不能做到，做到什么程度，什么时候能够交付，往往就会有应答，有回复。这样，处理事情的过程中，一旦有异常，你也可以尽快知道，而不是交代完之后就石沉大海，过了一个月再问，他说，啊我不记得了。</p>
 <p>​    对应到网络协议上，就是客户端每发送的一个包，服务器端都应该有个回复，如果服务器端超过一定的时间没有回复，客户端就会重新发送这个包，直到有回复。</p>
 <p>​    这个发送应答的过程是什么样呢？可以是<strong>上一个收到了应答，再发送下一个</strong>。这种模式有点像两个人直接打电话，你一句，我一句。但是这种方式的缺点是效率比较低。如果一方在电话那头处理的时间比较长，这一头就要干等着，双方都没办法干其他事情。咱们在日常工作中也不是这样的，不能你交代你的下属办一件事情，就一直打着电话看着他做，而是应该他按照你的安排，先将事情记录下来，办完一件回复一件。在他办事情的过程中，你还可以同时交代新的事情，这样双方就并行了。</p>
@@ -640,10 +654,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -666,7 +680,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">29</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -699,7 +713,7 @@
                       
                     
                     <span class="site-state-item-count">8</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -762,7 +776,7 @@
                       
                     
                     <span class="site-state-item-count">25</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   
                 </div>
               
@@ -858,7 +872,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -866,7 +880,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
