@@ -99,14 +99,14 @@
 
 
   <meta name="description" content="前言今天讨论的新特性让我非常兴奋，因为这个特性是 ES6 中最神奇的特性。 这里的“神奇”意味着什么呢？对于初学者来说，该特性与以往的 JS 完全不同，甚至有些晦涩难懂。从某种意义上说，它完全改变了这门语言的通常行为，这不是“神奇”是什么呢。 不仅如此，该特性还可以简化程序代码，将复杂的“回调堆栈”改成线性执行的形式。">
-<meta name="keywords" content="generator,function*,yield,iterator">
+<meta name="keywords" content="generator,function*,yield,iterator,yield*">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6中的 Generator">
 <meta property="og:url" content="http://yoursite.com/2019/03/24/ES6中的-Generator/index.html">
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="前言今天讨论的新特性让我非常兴奋，因为这个特性是 ES6 中最神奇的特性。 这里的“神奇”意味着什么呢？对于初学者来说，该特性与以往的 JS 完全不同，甚至有些晦涩难懂。从某种意义上说，它完全改变了这门语言的通常行为，这不是“神奇”是什么呢。 不仅如此，该特性还可以简化程序代码，将复杂的“回调堆栈”改成线性执行的形式。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-24T12:44:22.478Z">
+<meta property="og:updated_time" content="2019-03-24T14:39:27.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6中的 Generator">
 <meta name="twitter:description" content="前言今天讨论的新特性让我非常兴奋，因为这个特性是 ES6 中最神奇的特性。 这里的“神奇”意味着什么呢？对于初学者来说，该特性与以往的 JS 完全不同，甚至有些晦涩难懂。从某种意义上说，它完全改变了这门语言的通常行为，这不是“神奇”是什么呢。 不仅如此，该特性还可以简化程序代码，将复杂的“回调堆栈”改成线性执行的形式。">
@@ -368,7 +368,7 @@
                 
               
 
-              <time title="Erstellt: 2019-03-24 15:33:11 / Geändert am: 20:44:22" itemprop="dateCreated datePublished" datetime="2019-03-24T15:33:11+08:00">2019-03-24</time>
+              <time title="Erstellt: 2019-03-24 15:33:11 / Geändert am: 22:39:27" itemprop="dateCreated datePublished" datetime="2019-03-24T15:33:11+08:00">2019-03-24</time>
             
 
             
@@ -478,6 +478,8 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">filter</span>(<span class="params">test, iterable</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> item <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">    <span class="keyword">if</span> (test(item))</span><br><span class="line">      <span class="keyword">yield</span> item;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>所以，Generator 很实用吧？当然，这是实现自定义迭代器最简单直接的方式，并且，在 ES6 中，迭代器是数据集和循环的新标准。</p>
 <p>但，这还不是 Generator 的全部功能。</p>
+<h3 id="生成器委托-yield"><a href="#生成器委托-yield" class="headerlink" title="生成器委托 yield*"></a>生成器委托 yield*</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">g1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">g2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span>* g1();</span><br><span class="line">  <span class="keyword">yield</span>* [<span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line">  <span class="keyword">yield</span>* <span class="string">"56"</span>;</span><br><span class="line">  <span class="keyword">yield</span>* <span class="built_in">arguments</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> generator = g2(<span class="number">7</span>, <span class="number">8</span>);</span><br><span class="line"><span class="built_in">console</span>.log(...generator);   <span class="comment">// 1 2 3 4 "5" "6" 7 8</span></span><br></pre></td></tr></table></figure>
+<p>这个坑我以后再补把……</p>
 <h3 id="分段式代码"><a href="#分段式代码" class="headerlink" title="分段式代码"></a>分段式代码</h3><p>当我们需要手动控制异步进程时，可以通过将<code>Promise</code>和<code>Generator</code>结合起来实现</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异步ajax代码</span></span><br><span class="line"><span class="keyword">var</span> getJSON = <span class="function">(<span class="params">url</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> client = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">        client.open(<span class="string">'GET'</span>, url)</span><br><span class="line">        client.onreadystatechange = handler</span><br><span class="line">        client.responseType = <span class="string">'json'</span></span><br><span class="line">        client.setRequestHeader(<span class="string">'Accept'</span>, <span class="string">'application/json'</span>)</span><br><span class="line">        client.send()</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">handler</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.readyState !== <span class="number">4</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.status === <span class="number">200</span>)&#123;</span><br><span class="line">                resolve(<span class="keyword">this</span>.response)</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="keyword">this</span>.statusText))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> promise</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 迭代器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> (a = getJSON(<span class="string">'http://www.baidu.com'</span>))</span><br><span class="line">    <span class="comment">// 这里你可以干一些其他事情</span></span><br><span class="line">    <span class="keyword">yield</span> a.then(<span class="function"><span class="params">json</span> =&gt;</span> &#123;</span><br><span class="line">    	<span class="keyword">this</span>.$refs.dom.src = json.src</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = fun()</span><br><span class="line">a.next()	<span class="comment">// 发送异步请求</span></span><br><span class="line">a.next()	<span class="comment">// 更新DOM</span></span><br></pre></td></tr></table></figure>
 <h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>在服务器端，现在就可以直接在 io.js 中使用 Generator（或者在 NodeJs 中以 <code>--harmony</code> 启动参数来启动 Node）。</p>
@@ -513,6 +515,8 @@
             <a href="/tags/yield/" rel="tag"># yield</a>
           
             <a href="/tags/iterator/" rel="tag"># iterator</a>
+          
+            <a href="/tags/yield/" rel="tag"># yield*</a>
           
         </div>
       
@@ -604,7 +608,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
@@ -700,7 +704,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">schlagwörter</span>
                   
                 </div>
@@ -764,7 +774,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterator"><span class="nav-number">2.1.</span> <span class="nav-text">Iterator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Generator"><span class="nav-number">2.2.</span> <span class="nav-text">Generator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器-Iterator"><span class="nav-number">4.</span> <span class="nav-text">迭代器 Iterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段式代码"><span class="nav-number">5.</span> <span class="nav-text">分段式代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兼容性"><span class="nav-number">6.</span> <span class="nav-text">兼容性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterator"><span class="nav-number">2.1.</span> <span class="nav-text">Iterator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Generator"><span class="nav-number">2.2.</span> <span class="nav-text">Generator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器-Iterator"><span class="nav-number">4.</span> <span class="nav-text">迭代器 Iterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成器委托-yield"><span class="nav-number">5.</span> <span class="nav-text">生成器委托 yield*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段式代码"><span class="nav-number">6.</span> <span class="nav-text">分段式代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兼容性"><span class="nav-number">7.</span> <span class="nav-text">兼容性</span></a></li></ol></div>
             
 
           </div>
