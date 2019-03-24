@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言今天讨论的新特性让我非常兴奋，因为这个特性是 ES6 中最神奇的特性。 这里的“神奇”意味着什么呢？对于初学者来说，该特性与以往的 JS 完全不同，甚至有些晦涩难懂。从某种意义上说，它完全改变了这门语言的通常行为，这不是“神奇”是什么呢。 不仅如此，该特性还可以简化程序代码，将复杂的“回调堆栈”改成线性执行的形式。 简介 通常的函数以 function 创建生成器，但 Generator 函数">
+<meta name="keywords" content="generator,function*,yield,iterator">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6中的 Generator">
+<meta property="og:url" content="http://yoursite.com/2019/03/24/ES6中的-Generator/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="前言今天讨论的新特性让我非常兴奋，因为这个特性是 ES6 中最神奇的特性。 这里的“神奇”意味着什么呢？对于初学者来说，该特性与以往的 JS 完全不同，甚至有些晦涩难懂。从某种意义上说，它完全改变了这门语言的通常行为，这不是“神奇”是什么呢。 不仅如此，该特性还可以简化程序代码，将复杂的“回调堆栈”改成线性执行的形式。 简介 通常的函数以 function 创建生成器，但 Generator 函数">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-24T12:01:54.975Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6中的 Generator">
+<meta name="twitter:description" content="前言今天讨论的新特性让我非常兴奋，因为这个特性是 ES6 中最神奇的特性。 这里的“神奇”意味着什么呢？对于初学者来说，该特性与以往的 JS 完全不同，甚至有些晦涩难懂。从某种意义上说，它完全改变了这门语言的通常行为，这不是“神奇”是什么呢。 不仅如此，该特性还可以简化程序代码，将复杂的“回调堆栈”改成线性执行的形式。 简介 通常的函数以 function 创建生成器，但 Generator 函数">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/24/ES6中的-Generator/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ES6中的 Generator | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/ES6中的-Generator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6中的 Generator
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-24 15:33:11 / Geändert am: 20:01:54" itemprop="dateCreated datePublished" datetime="2019-03-24T15:33:11+08:00">2019-03-24</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天讨论的新特性让我非常兴奋，因为这个特性是 ES6 中最神奇的特性。</p>
+<p>这里的“神奇”意味着什么呢？对于初学者来说，该特性与以往的 JS 完全不同，甚至有些晦涩难懂。从某种意义上说，它完全改变了这门语言的通常行为，这不是“神奇”是什么呢。</p>
+<p>不仅如此，该特性还可以简化程序代码，将复杂的“回调堆栈”改成线性执行的形式。</p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><ul>
+<li>通常的函数以 <code>function</code> 创建生成器，但 Generator 函数以 <code>function*</code> 创建。</li>
+<li>在 Generator 函数内部，<code>yield</code> 是一个关键字，和 <code>return</code> 有点像。不同点在于，所有函数（包括 Generator 函数）都只能返回一次，而在 Generator 函数中可以 yield 任意次。<em>yield 表达式暂停了 Generator 函数的执行，然后可以从暂停的地方恢复执行。</em></li>
+</ul>
+<p>常见的函数不能暂停执行，而 Generator 函数可以，这就是这两者最大的区别。</p>
+<h4 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h4><p>迭代器（<code>Iterator</code>）表示可以被遍历迭代的对象，以编程的方式返回集合中的下一项，迭代器对象都拥有<code>next()</code>方法，返回<code>{value:&#39;&#39;,done:bool}</code>，<code>value</code>表示当前迭代位置的返回值，<code>done</code>表示是否迭代结束，结束时其值为<code>false</code>。</p>
+<p>迭代对象之所以可被迭代是因为其有<code>Symbol(Symbol.iterator)</code>属性。如果有什么疑问可以参考上一章。</p>
+<h4 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h4><p>生成器（<code>Generator</code>）是一个返回迭代器对象（<code>Iterator</code>）的函数</p>
+<ul>
+<li>使用<code>function* funName(){}</code>创建</li>
+<li>使用声称其表达式创建生成器：<code>let iterator = function* (){}</code></li>
+<li>函数体中使用<code>yield</code>关键字定义每次迭代器调用<code>next()</code>返回的<code>value</code>结果。<code>yield</code>指令相当于起到暂停代码执行的作用。只有在迭代器调用<code>next()</code>时，才会出发下一个<code>yield</code>继续执行</li>
+<li>迭代完<code>yield</code>后，下一次迭代会返回<code>return</code>的值。如果<code>return</code>在中间，则迭代到<code>return</code>行后直接跳出。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">createIterator</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">yield</span> <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">123</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> iterator = createIterator()</span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()) <span class="comment">//&#123;value: 1, done: false&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()) <span class="comment">//&#123;value: 2, done: false&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()) <span class="comment">//&#123;value: 3, done: false&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()) <span class="comment">//&#123;value: 123, done: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()) <span class="comment">//&#123;value: undefined, done: true&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>当我们调用一个<code>Generator</code>函数时并没有立即执行，而是返回了一个<code>generator</code>对象，也就是上边的<code>iterator</code></p>
+<p>。此时函数就立即暂停在函数代码的第一个<code>yield</code>处。</p>
+<p>当我们每次调用<code>Generator</code>对象的<code>.next()</code>方法时，函数就开始执行，直至遇到下一个<code>yield</code>表达式为止。</p>
+<p>所以我们每次调用<code>iterator.next()</code>时都会得到一个不同的字符串，这些字符串都是在函数内部通过<code>yield</code>表达式产生的值。</p>
+<hr>
+<p>从技术层面上讲，每当<code>Generator</code>函数执行遇到<code>yield</code>表达式时，函数的栈帧 – 本地变量，函数参数，临时值和当前执行的位置，就从堆栈移除，但是<code>Generator</code>对象保留了对该栈帧的引用，所以下次调用<code>.next()</code>方法时，就可以恢复并继续执行。</p>
+<p>值得提醒的是<code>Generator</code>并不是多线程。在支持多线程的语言中，同一时间可以执行多段代码，并伴随着执行资源的竞争，执行结果的不确定性和较好的性能。而<code>Generator</code>函数并不是这样，当一个<code>Generator</code>函数执行时，它与其调用者都在同一线程中执行，每次执行顺序都是确定的，有序的，并且执行顺序不会发生改变。与线程不同，<code>Generator</code>函数可以在内部的<code>yield</code>的标志点暂停执行。</p>
+<h3 id="迭代器-Iterator"><a href="#迭代器-Iterator" class="headerlink" title="迭代器 Iterator"></a>迭代器 Iterator</h3><p>通过上篇文章，我们知道<strong>迭代器并不是 ES6 的一个内置的类，而只是作为语言的一个扩展点</strong>，你可以通过实现 <code>[Symbol.iterator]()</code> 和 <code>.next()</code> 方法来定义一个迭代器。</p>
+<p>但是，实现一个接口还是需要写一些代码的，下面我们来看看在实际中如何实现一个迭代器，以实现一个 <code>range</code> 迭代器为例，该迭代器只是简单地从一个数累加到另一个数，有点像 C 语言中的 <code>for (;;)</code> 循环。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This should "ding" three times</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> value <span class="keyword">of</span> range(<span class="number">0</span>, <span class="number">3</span>)) &#123;</span><br><span class="line">  alert(<span class="string">"Ding! at floor #"</span> + value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在有一个解决方案，就是使用 ES6 的类。（如果你对 <code>class</code> 语法还不熟悉，不要紧，我会在将来的文章中介绍。）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RangeIterator</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(start, stop) &#123;</span><br><span class="line">    <span class="keyword">this</span>.value = start;</span><br><span class="line">    <span class="keyword">this</span>.stop = stop;</span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="built_in">Symbol</span>.iterator]() &#123; <span class="keyword">return</span> <span class="keyword">this</span>; &#125;</span><br><span class="line">  next() &#123;</span><br><span class="line">    <span class="keyword">var</span> value = <span class="keyword">this</span>.value;</span><br><span class="line">    <span class="keyword">if</span> (value &lt; <span class="keyword">this</span>.stop) &#123;</span><br><span class="line">      <span class="keyword">this</span>.value++;</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">done</span>: <span class="literal">false</span>, <span class="attr">value</span>: value&#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">done</span>: <span class="literal">true</span>, <span class="attr">value</span>: <span class="literal">undefined</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Return a new iterator that counts up from 'start' to 'stop'.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">range</span>(<span class="params">start, stop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> RangeIterator(start, stop);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种实现方式与 <a href="http://gafter.blogspot.com/2007/07/internal-versus-external-iterators.html" target="_blank" rel="noopener">Java</a> 和 <a href="https://schani.wordpress.com/2014/06/06/generators-in-swift/" target="_blank" rel="noopener">Swift</a> 的实现方式类似，看上去还不错，但还不能说上面代码就完全正确，代码没有任何 Bug？这很难说。我们看不到任何传统的 <code>for (;;)</code> 循环代码：迭代器的协议迫使我们将循环拆散了。</p>
+<p>不过我们如果通过<code>Generator</code>函数实现迭代器那么就会容易很多</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">range</span>(<span class="params">start, stop</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = start; i &lt; stop; i++)</span><br><span class="line">    <span class="keyword">yield</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这 4 行代码就可以完全替代之前的那个 23 行的实现，替换掉整个 <code>RangeIterator</code> 类，这是因为 Generator 天生就是迭代器，所有的 Generator 都原生实现了 <code>.next()</code> 和 <code>[Symbol.iterator]()</code> 方法。你只需要实现其中的循环逻辑就够了。</p>
+<p>我们可以使用作为迭代器的 Generator 的哪些功能呢？</p>
+<ul>
+<li><strong>使任何对象可遍历</strong> – 编写一个 Genetator 函数去遍历 <code>this</code>，每遍历到一个值就 yield 一下，然后将该 Generator 函数作为要遍历的对象上的 <code>[Symbol.iterator]</code> 方法的实现。</li>
+<li><strong>简化返回数组的函数</strong> – 假如有一个每次调用时都返回一个数组的函数，比如：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Divide the one-dimensional array 'icons'</span></span><br><span class="line"><span class="comment">// into arrays of length 'rowLength'.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">splitIntoRows</span>(<span class="params">icons, rowLength</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> rows = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; icons.length; i += rowLength) &#123;</span><br><span class="line">    rows.push(icons.slice(i, i + rowLength));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> rows;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<code>Generator</code>可以简化这类函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">splitIntoRows</span>(<span class="params">icons, rowLength</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; icons.length; i += rowLength) &#123;</span><br><span class="line">    <span class="keyword">yield</span> icons.slice(i, i + rowLength);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这两者唯一的区别在于，前者在调用时计算出了所有结果并用一个数组返回，后者返回的是一个迭代器，结果是在需要的时候才进行计算，然后一个一个地返回。</p>
+<ul>
+<li><strong>无穷大的结果集</strong> – 我们不能构建一个无穷大的数组，但是我们可以返回一个生成无尽序列的 Generator，并且每个调用者都可以从中获取到任意多个需要的值。</li>
+<li><strong>重构复杂的循环</strong> – 你是否想将一个复杂冗长的函数重构为两个简单的函数？Generator 是你重构工具箱中一把新的瑞士军刀。对于一个复杂的循环，我们可以将生成数据集那部分代码重构为一个 Generator 函数，然后用 <code>for-of</code> 遍历：<code>for (var data of myNewGenerator(args))</code>。</li>
+<li><strong>构建迭代器的工具</strong> – ES6 并没有提供一个可扩展的库，来对数据集进行 <code>filter</code> 和 <code>map</code> 等操作，但 Generator 可以用几行代码就实现这类功能。</li>
+</ul>
+<p>例如，假设你需要在<code>Nodelist</code>上实现与 <code>Array.prototype.filter</code> 同样的功能的方法。小菜一碟的事：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">filter</span>(<span class="params">test, iterable</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> item <span class="keyword">of</span> iterable) &#123;</span><br><span class="line">    <span class="keyword">if</span> (test(item))</span><br><span class="line">      <span class="keyword">yield</span> item;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以，Generator 很实用吧？当然，这是实现自定义迭代器最简单直接的方式，并且，在 ES6 中，迭代器是数据集和循环的新标准。</p>
+<p>但，这还不是 Generator 的全部功能。</p>
+<h3 id="分段式代码"><a href="#分段式代码" class="headerlink" title="分段式代码"></a>分段式代码</h3><p>当我们需要手动控制异步进程时，可以通过将<code>Promise</code>和<code>Generator</code>结合起来实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异步ajax代码</span></span><br><span class="line"><span class="keyword">var</span> getJSON = <span class="function">(<span class="params">url</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> client = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">        client.open(<span class="string">'GET'</span>, url)</span><br><span class="line">        client.onreadystatechange = handler</span><br><span class="line">        client.responseType = <span class="string">'json'</span></span><br><span class="line">        client.setRequestHeader(<span class="string">'Accept'</span>, <span class="string">'application/json'</span>)</span><br><span class="line">        client.send()</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">handler</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.readyState !== <span class="number">4</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.status === <span class="number">200</span>)&#123;</span><br><span class="line">                resolve(<span class="keyword">this</span>.response)</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="keyword">this</span>.statusText))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> promise</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 迭代器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> (a = getJSON(<span class="string">'http://www.baidu.com'</span>))</span><br><span class="line">    <span class="comment">// 这里你可以干一些其他事情</span></span><br><span class="line">    <span class="keyword">yield</span> a.then(<span class="function"><span class="params">json</span> =&gt;</span> &#123;</span><br><span class="line">    	<span class="keyword">this</span>.$refs.dom.src = json.src</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = fun()</span><br><span class="line">a.next()	<span class="comment">// 发送异步请求</span></span><br><span class="line">a.next()	<span class="comment">// 更新DOM</span></span><br></pre></td></tr></table></figure>
+<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>在服务器端，现在就可以直接在 io.js 中使用 Generator（或者在 NodeJs 中以 <code>--harmony</code> 启动参数来启动 Node）。</p>
+<p>在浏览器端，目前只有 Firefox 27 和 Chrome 39 以上的版本才支持 Generator，如果想直接在 Web 上使用，你可以使用 <a href="http://babeljs.io/" target="_blank" rel="noopener">Babel</a> 或 Google 的 <a href="https://github.com/google/traceur-compiler#what-is-traceur" target="_blank" rel="noopener">Traceur</a> 将 ES6 代码转换为 Web 友好的 ES5 代码。</p>
+<p>一些题外话：JS 版本的 Generator 最早是由<code>Brendan Eich</code>实现，他借鉴了 <a href="https://www.python.org/dev/peps/pep-0255/" target="_blank" rel="noopener">Python Generator</a> 的实现，该实现的灵感来自 <a href="http://www.cs.arizona.edu/icon/" target="_blank" rel="noopener">Icon</a>，早在 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.7" target="_blank" rel="noopener">2006 年</a>的 Firefox 2.0 就吸纳了 Generator。但标准化的道路是坎坷的，一路下来，其语法和行为都发生了很多改变，Firefox 和 Chrome 中的 ES6 Generator 是由 <a href="http://wingolog.org/" target="_blank" rel="noopener">Andy Wingo</a> 实现 ，这项工作是由 Bloomberg 赞助的。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/generator/" rel="tag"># generator</a>
+          
+            <a href="/tags/function/" rel="tag"># function*</a>
+          
+            <a href="/tags/yield/" rel="tag"># yield</a>
+          
+            <a href="/tags/iterator/" rel="tag"># iterator</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/23/HTTP协议-——-看个新闻原来这么麻烦/" rel="next" title="HTTP协议 —— 看个新闻原来这么麻烦">
+                <i class="fa fa-chevron-left"></i> HTTP协议 —— 看个新闻原来这么麻烦
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">Kategorien</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">schlagwörter</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterator"><span class="nav-number">2.1.</span> <span class="nav-text">Iterator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Generator"><span class="nav-number">2.2.</span> <span class="nav-text">Generator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器-Iterator"><span class="nav-number">4.</span> <span class="nav-text">迭代器 Iterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段式代码"><span class="nav-number">5.</span> <span class="nav-text">分段式代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兼容性"><span class="nav-number">6.</span> <span class="nav-text">兼容性</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

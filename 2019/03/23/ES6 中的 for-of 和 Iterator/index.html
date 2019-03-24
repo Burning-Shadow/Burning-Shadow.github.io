@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="前言先从遍历数组开始在刚上手js的时候如果让你遍历数组你可能会像玩C语言一样for(var index = 0; index &amp;lt; myArray.length; index++)。而从ES5之后我们可以使用内置的forEach方法，大大提升了代码的可读性（并没有）。 而forEach有一个弊端，就是无法使用break跳出循环，也不能用return语句从闭包函数中返回 那么 for-in 怎样">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-24T05:39:25.282Z">
+<meta property="og:updated_time" content="2019-03-24T08:54:47.501Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6 中的 for-of 和 Iterator">
 <meta name="twitter:description" content="前言先从遍历数组开始在刚上手js的时候如果让你遍历数组你可能会像玩C语言一样for(var index = 0; index &amp;lt; myArray.length; index++)。而从ES5之后我们可以使用内置的forEach方法，大大提升了代码的可读性（并没有）。 而forEach有一个弊端，就是无法使用break跳出循环，也不能用return语句从闭包函数中返回 那么 for-in 怎样">
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-24 13:39:25" itemprop="dateModified" datetime="2019-03-24T13:39:25+08:00">2019-03-24</time>
+                <time title="Geändert am: 2019-03-24 16:54:47" itemprop="dateModified" datetime="2019-03-24T16:54:47+08:00">2019-03-24</time>
               
             
           </span>
@@ -514,7 +514,8 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">set</span> = new Set().add('a').add('b').add('c');</span><br><span class="line"></span><br><span class="line">let [x,y] = <span class="keyword">set</span>;</span><br><span class="line">// x='a'; y='b'</span><br><span class="line"></span><br><span class="line">let [first, ...rest] = <span class="keyword">set</span>;</span><br><span class="line">// first='a'; rest=['b','c'];</span><br></pre></td></tr></table></figure>
 <h5 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h5><p>扩展运算符（<code>...</code>）也会调用默认的 <code>Iterator</code> 接口。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 例一</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">'hello'</span>;</span><br><span class="line">[...str] <span class="comment">//  ['h','e','l','l','o']</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 例二</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line">[<span class="string">'a'</span>, ...arr, <span class="string">'d'</span>]</span><br><span class="line"><span class="comment">// ['a', 'b', 'c', 'd']</span></span><br></pre></td></tr></table></figure>
-<h5 id="yield"><a href="#yield" class="headerlink" title="yield*"></a>yield*</h5><p><code>yield*</code>后面跟的是一个可遍历的结构，它会调用该结构的遍历器接口。</p>
+<h5 id="yield"><a href="#yield" class="headerlink" title="yield*"></a>yield*</h5><p>（这里是<code>Generator</code>章节的内容。推荐先看下一篇博客）</p>
+<p><code>yield*</code>后面跟的是一个可遍历的结构，它会调用该结构的遍历器接口。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> generator = <span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">yield</span>* [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line">  <span class="keyword">yield</span> <span class="number">5</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> iterator = generator();</span><br><span class="line"></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: 1, done: false &#125;</span></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: 2, done: false &#125;</span></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: 3, done: false &#125;</span></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: 4, done: false &#125;</span></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: 5, done: false &#125;</span></span><br><span class="line">iterator.next() <span class="comment">// &#123; value: undefined, done: true &#125;</span></span><br></pre></td></tr></table></figure>
 <h5 id="其他场合"><a href="#其他场合" class="headerlink" title="其他场合"></a>其他场合</h5><p>由于数组的遍历会调用遍历器接口，所以任何接受数组作为参数的场合，其实都调用了遍历器接口。下面是一些例子。</p>
 <ul>
@@ -654,7 +655,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
@@ -740,7 +741,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">schlagwörter</span>
                   
                 </div>

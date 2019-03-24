@@ -321,6 +321,213 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/21/JavaScript中的new操作符/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/21/JavaScript中的new操作符/" class="post-title-link" itemprop="url">JavaScript中的new操作符</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-21 19:34:47" itemprop="dateCreated datePublished" datetime="2019-03-21T19:34:47+08:00">2019-03-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-23 16:06:45" itemprop="dateModified" datetime="2019-03-23T16:06:45+08:00">2019-03-23</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>玩过原型链继承（类继承）的娃应该都用过<code>var instance = new Class()</code>之类的代码。但是你真的了解<code>new</code>吗？</p>
+<p>大家都知道<code>new</code>操作符用作实例化，但是实例化的过程中除去返回对象它还做了什么？</p>
+<h3 id="绑定this到实例"><a href="#绑定this到实例" class="headerlink" title="绑定this到实例"></a>绑定this到实例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'赋值前-this'</span>, <span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'赋值后-this'</span>, <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> student = <span class="keyword">new</span> Student(<span class="string">'Ming'</span>);</span><br><span class="line"><span class="comment">// 赋值前-this  Student&#123;&#125;</span></span><br><span class="line"><span class="comment">// 赋值后-this  Student&#123;name: "Ming"&#125;</span></span><br></pre></td></tr></table></figure>
+<p>由此可见，<code>new</code>操作符将构造函数<code>Student</code>中的<code>this</code>指向了<code>new Student()</code>生成的对象<code>student</code>。</p>
+<h3 id="原型链连接"><a href="#原型链连接" class="headerlink" title="原型链连接"></a>原型链连接</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line">Test.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> t = <span class="keyword">new</span> Test(<span class="string">'yck'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(t.name) <span class="comment">// 'yck'</span></span><br><span class="line">t.sayName() <span class="comment">// 'yck'</span></span><br></pre></td></tr></table></figure>
+<p>通过<code>new</code>操作符将实例<code>t</code>与构造函数<code>Test</code>连接起来。</p>
+<p>通过<code>new</code>操作符将实例和构造函数连接起来。相当于<code>student.__proto__ = Student.prototype</code>。</p>
+<p>当然我们可以通过<code>setPrototypeOf</code>完成。有兴趣的boy可以了解一下。</p>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><h4 id="原始值"><a href="#原始值" class="headerlink" title="原始值"></a>原始值</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> t = <span class="keyword">new</span> Test(<span class="string">'yck'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(t.name) <span class="comment">// 'yck'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>构造函数如果返回原始值（虽然例子中只有返回了 1，但是你可以试试其他的原始值，结果还是一样的），那么这个返回值毫无意义</strong></li>
+</ul>
+<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">// Test &#123; name: 'yck' &#125;</span></span><br><span class="line">  <span class="keyword">return</span> &#123; <span class="attr">age</span>: <span class="number">26</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> t = <span class="keyword">new</span> Test(<span class="string">'yck'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(t) <span class="comment">// &#123; age: 26 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(t.name) <span class="comment">// 'undefined'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>构造函数如果返回值为对象，那么这个返回值会被正常使用</strong></li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模拟实现 new 操作符</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params">Con, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line">  <span class="built_in">Object</span>.setPrototypeOf(obj, Con.prototype)</span><br><span class="line">  <span class="keyword">let</span> result = Con.apply(obj, args)</span><br><span class="line">  <span class="keyword">return</span> result <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? result : obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们通过以下几步完成了<code>new</code>操作符的实现</p>
+<ul>
+<li>函数接受不定量的参数，第一个参数为构造函数，接下来的参数被构造函数使用</li>
+<li>内部创建一个空对象</li>
+<li>因为<code>obj</code>对象需要访问到构造函数原型链上的属性，所以我们通过<code>setPrototype</code>将两者联系起来（相当于<code>obj.__proto__ = Con.prototype</code>）</li>
+<li>将<code>obj</code>绑定到构造函数上，并传入剩余的参数</li>
+<li>判断构造函数返回值是否为对象，若是则使用构造函数返回的值，否则返回<code>obj</code></li>
+</ul>
+<p>咱们来试一下这DIY的东西好不好用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Constructor</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">constructor</span>.prototype.fun = function()&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a = create(Constructor, <span class="string">'jack'</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.superbed.cn/item/5c95e71f3a213b0417ef5ccf" alt></p>
+<p>有没有发现，和咱们之前的一模一样欸。所以这东西就到此结束。</p>
+<p>最后总结一下</p>
+<ul>
+<li>将<code>this</code>绑定到实例</li>
+<li>原型链连接</li>
+<li>返回值为对象</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/JavaScript中的事件循环&消息队列/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2262,231 +2469,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/聊聊jquery中的ajax/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/17/聊聊jquery中的ajax/" class="post-title-link" itemprop="url">聊聊jquery中的ajax</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-17 21:01:32" itemprop="dateCreated datePublished" datetime="2019-03-17T21:01:32+08:00">2019-03-17</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-22 00:04:03" itemprop="dateModified" datetime="2019-03-22T00:04:03+08:00">2019-03-22</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>jq的ajax方法封装了原生的阿贾克斯请求，让用户得以更加方便的使用。我们来看一下双方的对比</p>
-<p>html部分：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;form&gt;</span><br><span class="line">   &lt;input type=&quot;text&quot; name=&quot;username&quot; id=&quot;username&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type=&quot;password&quot; name=&quot;password&quot; id=&quot;password&quot;&gt;&lt;br&gt;</span><br><span class="line">    &lt;input type=&quot;button&quot; id=&quot;btn&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>原生：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">document.getElementById(&apos;btn&apos;).addEventListener(&apos;click&apos;, () =&gt; &#123;</span><br><span class="line">    let xhr = new XMLHttpRequest();</span><br><span class="line">    xhr.open(&apos;post&apos;, &apos;http://192.168.1.171:80/actas/user/checkUser.action&apos;);</span><br><span class="line">    xhr.onreadystatechange = function() &#123;</span><br><span class="line">        if (xhr.status == 200 &amp;&amp; xhr.readyState == 4) &#123;</span><br><span class="line">            console.log(xhr.responseText)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    xhr.setRequestHeader(&apos;Content-Type&apos;, &apos;application/json&apos;);</span><br><span class="line">    xhr.send(JSON.stringify(&#123;</span><br><span class="line">        username: document.getElementById(&apos;username&apos;).value,</span><br><span class="line">        password: document.getElementById(&apos;password&apos;).value</span><br><span class="line">    &#125;))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>jquery：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;#btn&apos;).click(function() &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">    url: &apos;http://192.168.1.171:80/actas/user/checkUser.action&apos;,</span><br><span class="line">    async: true, 	//是否异步</span><br><span class="line">    // timeout:10000,   //超时10s则请求结束</span><br><span class="line">    dataType: &apos;json&apos;,</span><br><span class="line">    type: &quot;POST&quot;,</span><br><span class="line">    data: JSON.stringify(&#123;</span><br><span class="line">        username: $(&apos;#username&apos;).val(),</span><br><span class="line">        password: $(&apos;#password&apos;).val()</span><br><span class="line">    &#125;),</span><br><span class="line">    crossDomain: true, //跨域：true</span><br><span class="line">    contentType: &apos;application/json&apos;,</span><br><span class="line">    // contentType: &apos;application/x-www-form-urlencoded&apos;,</span><br><span class="line">    success: (data) =&gt; &#123;</span><br><span class="line">        console.log(data);</span><br><span class="line">    &#125;,</span><br><span class="line">    error: (err) =&gt; &#123;</span><br><span class="line">        console.log(err)</span><br><span class="line">    &#125;,</span><br><span class="line">    complete: () =&gt; &#123;</span><br><span class="line">		console.log(&apos;complete&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>显而易见，使用ajax实现相较于原生简单得多，也清晰的多</p>
-<h4 id="各属性用途"><a href="#各属性用途" class="headerlink" title="各属性用途"></a>各属性用途</h4><p>下面我们来具体的讲一下ajax的各个属性，加深大家的理解</p>
-<ul>
-<li>url：<strong>发送请求的地址</strong></li>
-<li>type：<strong>请求方式，默认为GET</strong><ul>
-<li>POST</li>
-<li>GET</li>
-<li>OPTION</li>
-<li>PUT（部分浏览器支持）</li>
-<li>DELETE（部分浏览器支持）</li>
-</ul>
-</li>
-<li>dataType：<strong>预期服务器返回的数据类型。如果不指定，jQuery 将自动根据 HTTP 包 MIME 信息来智能判断</strong><ul>
-<li>xml: 返回 XML 文档</li>
-<li>html: 返回纯文本 HTML 信息；包含的script标签会在插入dom时执行</li>
-<li>script: 返回纯文本 JavaScript 代码。不会自动缓存结果。除非设置了”cache”参数。<ul>
-<li>在远程请求时(不在同一个域下)，所有POST请求都将转为GET请求。(因为将使用DOM的script标签来加载)</li>
-</ul>
-</li>
-<li>json: 返回 JSON 数据</li>
-<li>jsonp: JSONP 格式。使用 JSONP 形式调用函数时，如 “myurl?callback=?” jQuery 将自动替换 ? 为正确的函数名，以执行回调函数。</li>
-<li>text: 返回纯文本字符串</li>
-</ul>
-</li>
-<li>data：<strong>要发送的数据</strong><ul>
-<li>这里注意：若是想要发送json格式的数据，那我们需要将data做一些小的修饰：</li>
-<li>`data: JSON.stringify({<pre><code>username: $(&apos;#username&apos;).val(),
-password: $(&apos;#password&apos;).val()
-</code></pre>   })`。当然，我们的dataType属性同时也要设置为“JSON”，而这配合食用更佳</li>
-</ul>
-</li>
-<li>success：请求成功后执行的函数</li>
-<li>error：请求致败后执行的函数</li>
-<li>complete：请求结束后执行的函数（无论成功失败）</li>
-</ul>
-<p>诺，这些是常用的一些属性值。但是我们想要深入理解还需要一些更高级的属性：</p>
-<ul>
-<li>contentType：<strong>发送至服务器时内容的编码类型</strong><ul>
-<li>application/x-www-form-urlencoded：默认值，这种格式的特点就是，name/value 成为一组，每组之间用 &amp; 联接，而 name与value 则是使用 = 连接<ul>
-<li>不过如果设计页面的人比较缺德，非得给你嵌套一下子，（比如要发送的数据为<code>{
-data: {
-a: [{
-x: 2
-}]
-}
-}</code>），这时候你就比较难受了。然后就引出了我们下面要介绍另一个值：</li>
-</ul>
-</li>
-<li>application/json：将值设置为它的时候，我们就可以发送json格式的数据了！不过前面也提到了，我们还需要将另外1个属性处理一下：<ul>
-<li>需要将data后边跟的东西加上JSON.stringfy()</li>
-<li>举个栗子：<code>data: JSON.stringify({a: [{b:1, a:1}]})</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Important！！！！"><a href="#Important！！！！" class="headerlink" title="Important！！！！"></a>Important！！！！</h4><ul>
-<li>headers：<strong>用于设置头部信息！！！！重中之重</strong></li>
-</ul>
-<p>……未完待更</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2535,7 +2517,7 @@ x: 2
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
@@ -2621,7 +2603,19 @@ x: 2
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">schlagwörter</span>
                   
                 </div>
