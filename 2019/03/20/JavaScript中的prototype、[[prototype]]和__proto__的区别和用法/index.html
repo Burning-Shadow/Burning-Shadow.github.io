@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://pic.superbed.cn/item/5c93bda83a213b0417da42a9">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c94950c3a213b0417e18b36">
 <meta property="og:image" content="https://0d077ef9e74d8.cdn.sohucs.com/rln2I4a_jpg">
-<meta property="og:updated_time" content="2019-03-24T12:41:04.395Z">
+<meta property="og:updated_time" content="2019-03-25T12:19:10.482Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的prototype、[[prototype]]和__proto__的区别和用法">
 <meta name="twitter:description" content="显式原型&amp;amp;隐式原型显式原型：prototype隐式原型：__proto__ Important __proto__是每个对象都具有的属性 prototype是Function独有的属性">
@@ -198,7 +198,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -226,7 +226,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -243,7 +243,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -260,7 +260,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -277,7 +277,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -365,14 +365,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-03-20 11:21:23" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:23+08:00">2019-03-20</time>
+              <time title="Erstellt: 2019-03-20 11:21:23" itemprop="dateCreated datePublished" datetime="2019-03-20T11:21:23+08:00">2019-03-20</time>
             
 
             
@@ -387,9 +387,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Modified: 2019-03-24 20:41:04" itemprop="dateModified" datetime="2019-03-24T20:41:04+08:00">2019-03-24</time>
+                <time title="Geändert am: 2019-03-25 20:19:10" itemprop="dateModified" datetime="2019-03-25T20:19:10+08:00">2019-03-25</time>
               
             
           </span>
@@ -403,7 +403,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
@@ -475,6 +475,11 @@
 <p><code>instanceof</code>这个方法用于判断某实例是否从属于某种类型，同时也可以判断一个实例是否是其父类型或者祖先类型的实例。举个栗子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Son.prototype = <span class="keyword">new</span> Father();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> son = <span class="keyword">new</span> Son();</span><br><span class="line">son <span class="keyword">instanceof</span> Son  <span class="comment">//true</span></span><br><span class="line">son <span class="keyword">instanceof</span> Father  <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
 <p>看见没，只要你是这一家子的人（实例）那你无论走哪这祖宗祠堂（原型链上的老东西们）都认你。那么他们是如何判断你是不是这家的儿孙呢？当然是原型链。我们来试着写一串伪代码来进行验证<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">new_instance_of</span>(<span class="params">leftVaule, rightVaule</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">let</span> rightProto = rightVaule.prototype; <span class="comment">// 取右表达式的 prototype 值</span></span><br><span class="line">    leftVaule = leftVaule.__proto__; <span class="comment">// 取左表达式的__proto__值</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    	<span class="keyword">if</span> (leftVaule === <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;	</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (leftVaule === rightProto) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">        &#125; </span><br><span class="line">        leftVaule = leftVaule.__proto__ </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>如此这般，通过原型链认祖归宗。咱们看看是否有用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new_instance_of(son, Son)	<span class="comment">// true</span></span><br><span class="line">new_instance_of(son, Father)	<span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="构造函数创建对象实例"><a href="#构造函数创建对象实例" class="headerlink" title="构造函数创建对象实例"></a>构造函数创建对象实例</h3><p><strong>JavaScript</strong> 函数有两个不同的内部方法：<strong>[[Call]]</strong> 和 <strong>[[Construct]]</strong> 。</p>
+<p>如果不通过<code>new</code>关键字调用函数，则执行 <strong>[[Call]]</strong> 函数，从而直接执行代码中的函数体。</p>
+<p>当通过<code>new</code>关键字调用函数时，执行的是 <strong>[[Construct]]</strong> 函数，它负责创建一个实例对象，把实例对象的<code>__proto__</code>属性指向构造函数的<code>prototype</code>来实现继承构造函数<code>prototype</code>的所有属性和方法，将<code>this</code>绑定到实例上，然后再执行函数体。</p>
+<p>模拟一个构造函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入的是函数的原型</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createObject</span>(<span class="params">proto</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!(proto === <span class="literal">null</span> || <span class="keyword">typeof</span> proto === <span class="string">"object"</span> || <span class="keyword">typeof</span> proto === <span class="string">"function"</span>)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">TypeError</span>(<span class="string">'Argument must be an object, or null'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    obj.__proto__ = proto;</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = createObject(Foo.prototype);</span><br></pre></td></tr></table></figure>
 <h3 id="最后唠两句"><a href="#最后唠两句" class="headerlink" title="最后唠两句"></a>最后唠两句</h3><p>上边那张原型链的图想必大家也可以手撸了。但是作为构造函数的基类，<code>Function</code>还和其他引用类型不太一样</p>
 <p><img src="https://pic.superbed.cn/item/5c94950c3a213b0417e18b36" alt></p>
 <p>如图，我们在控制台输入<code>Foo.__proto__ === Function.prototype</code>后打印结果为<code>true</code>。所以我们可以理解为 <strong>所有函数都是<code>Function</code>的实例。</strong></p>
@@ -579,10 +584,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -605,7 +610,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">31</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -638,7 +643,7 @@
                       
                     
                     <span class="site-state-item-count">8</span>
-                    <span class="site-state-item-name">categories</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -715,7 +720,7 @@
                       
                     
                     <span class="site-state-item-count">30</span>
-                    <span class="site-state-item-name">tags</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -778,7 +783,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#显式原型-amp-隐式原型"><span class="nav-number">1.</span> <span class="nav-text">显式原型&amp;隐式原型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Important"><span class="nav-number">1.1.</span> <span class="nav-text">Important</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tips"><span class="nav-number">1.2.</span> <span class="nav-text">Tips</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#说了这么多和-prototype-有什么关系"><span class="nav-number">1.3.</span> <span class="nav-text">说了这么多和[[prototype]]有什么关系?</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用"><span class="nav-number">2.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#教你手撸原型链"><span class="nav-number">3.</span> <span class="nav-text">教你手撸原型链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从原理讨论原型链的用处"><span class="nav-number">4.</span> <span class="nav-text">从原理讨论原型链的用处</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#typeof"><span class="nav-number">4.1.</span> <span class="nav-text">typeof</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#instanceof"><span class="nav-number">4.2.</span> <span class="nav-text">instanceof</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后唠两句"><span class="nav-number">5.</span> <span class="nav-text">最后唠两句</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#显式原型-amp-隐式原型"><span class="nav-number">1.</span> <span class="nav-text">显式原型&amp;隐式原型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Important"><span class="nav-number">1.1.</span> <span class="nav-text">Important</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tips"><span class="nav-number">1.2.</span> <span class="nav-text">Tips</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#说了这么多和-prototype-有什么关系"><span class="nav-number">1.3.</span> <span class="nav-text">说了这么多和[[prototype]]有什么关系?</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用"><span class="nav-number">2.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#教你手撸原型链"><span class="nav-number">3.</span> <span class="nav-text">教你手撸原型链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从原理讨论原型链的用处"><span class="nav-number">4.</span> <span class="nav-text">从原理讨论原型链的用处</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#typeof"><span class="nav-number">4.1.</span> <span class="nav-text">typeof</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#instanceof"><span class="nav-number">4.2.</span> <span class="nav-text">instanceof</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数创建对象实例"><span class="nav-number">5.</span> <span class="nav-text">构造函数创建对象实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后唠两句"><span class="nav-number">6.</span> <span class="nav-text">最后唠两句</span></a></li></ol></div>
             
 
           </div>
@@ -811,7 +816,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -819,7 +824,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

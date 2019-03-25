@@ -112,7 +112,7 @@
 <meta property="og:image" content="https://pic.superbed.cn/item/5c987b6f3a213b04171293b1">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c987ce43a213b041712a1da">
 <meta property="og:image" content="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg">
-<meta property="og:updated_time" content="2019-03-25T07:12:12.024Z">
+<meta property="og:updated_time" content="2019-03-25T08:41:08.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Object.create()">
 <meta name="twitter:description" content="在将 ES6 中的 Class 继承时我们会用到Object.create()方法。所以作为铺垫我们先把这个Object方法了解一番">
@@ -201,7 +201,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -229,7 +229,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -246,7 +246,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -263,7 +263,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -280,7 +280,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -368,14 +368,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-03-25 14:37:45 / Modified: 15:12:12" itemprop="dateCreated datePublished" datetime="2019-03-25T14:37:45+08:00">2019-03-25</time>
+              <time title="Erstellt: 2019-03-25 14:37:45 / Geändert am: 16:41:08" itemprop="dateCreated datePublished" datetime="2019-03-25T14:37:45+08:00">2019-03-25</time>
             
 
             
@@ -394,7 +394,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
@@ -460,10 +460,12 @@
 <p><img src="https://pic.superbed.cn/item/5c9879963a213b041712534c" alt></p>
 <p>是不是跟上边的一模一样？</p>
 <p>不错，<code>Object.create()</code>的实质正是<strong>原型式继承</strong>。（中间定义了一个干净的过度类，相当于对类式继承的一种封装）</p>
-<p>这东西的属性更改不会造成父属性的变化，还蛮好用的</p>
+<p><strong>这东西的属性更改不会造成父属性的变化</strong>，还蛮好用的</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.inher = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">	F.prototype = obj;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> A = &#123;</span><br><span class="line">	a: <span class="number">1</span>,</span><br><span class="line">	print: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'hello world'</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> B = <span class="built_in">Object</span>.inher(A)</span><br><span class="line">B.a = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> C = <span class="built_in">Object</span>.inher(B)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印</span></span><br><span class="line">A</span><br><span class="line">B</span><br><span class="line">C</span><br></pre></td></tr></table></figure>
 <p>A、B、C打印结果如下</p>
 <p><img src="https://pic.superbed.cn/item/5c987b6f3a213b04171293b1" alt></p>
+<p>看到了没，我们更改<code>B</code>的<code>a</code>属性时<code>A</code>的<code>a</code>属性并未跟着改变。</p>
+<p>所以<strong>Object.create() 完成的继承在进行属性修改时不会造成父属性的变化</strong>。</p>
 <h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>所以，如果我们希望继承某个类/对象则可以直接使用<code>Object.create(class/obj)</code>的方法。</p>
 <p>如此我们即可动态继承原型的所有属性和方法。</p>
 <p>当然，如果我们想要生成一个不继承任何属性（比如没有<code>toString</code>和<code>valueOf</code>方法）的对象，可以将<code>Object.create</code>的参数设为<code>null</code>。</p>
@@ -570,10 +572,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -596,7 +598,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">31</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -629,7 +631,7 @@
                       
                     
                     <span class="site-state-item-count">8</span>
-                    <span class="site-state-item-name">categories</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -706,7 +708,7 @@
                       
                     
                     <span class="site-state-item-count">30</span>
-                    <span class="site-state-item-name">tags</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -802,7 +804,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -810,7 +812,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
