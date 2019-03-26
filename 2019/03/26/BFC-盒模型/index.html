@@ -98,19 +98,19 @@
 
 
 
-  <meta name="description" content="引言盒模型又成为框模型（Box Model），包含了元素内容（Content）、内边距（padding）、边框（border）、外边距（margin）几个要素。 盒模型分为两种—— 标准盒模型 &amp;amp; IE模型  标准模型：即 W3C 盒模型，width = content IE 模型：width = conten + padding  我们可以通过 CSS3 新增的属性box-sizing将">
+  <meta name="description" content="引言盒模型又成为框模型（Box Model），包含了元素内容（Content）、内边距（padding）、边框（border）、外边距（margin）几个要素。 盒模型分为两种—— 标准盒模型 &amp;amp; IE模型  标准模型：即 W3C 盒模型，width = content IE 模型：width = conten + padding">
 <meta name="keywords" content="BFC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BFC 盒模型">
 <meta property="og:url" content="http://yoursite.com/2019/03/26/BFC-盒模型/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="引言盒模型又成为框模型（Box Model），包含了元素内容（Content）、内边距（padding）、边框（border）、外边距（margin）几个要素。 盒模型分为两种—— 标准盒模型 &amp;amp; IE模型  标准模型：即 W3C 盒模型，width = content IE 模型：width = conten + padding  我们可以通过 CSS3 新增的属性box-sizing将">
+<meta property="og:description" content="引言盒模型又成为框模型（Box Model），包含了元素内容（Content）、内边距（padding）、边框（border）、外边距（margin）几个要素。 盒模型分为两种—— 标准盒模型 &amp;amp; IE模型  标准模型：即 W3C 盒模型，width = content IE 模型：width = conten + padding">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c99dde53a213b041727474c">
-<meta property="og:updated_time" content="2019-03-26T08:45:19.591Z">
+<meta property="og:updated_time" content="2019-03-26T09:36:55.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BFC 盒模型">
-<meta name="twitter:description" content="引言盒模型又成为框模型（Box Model），包含了元素内容（Content）、内边距（padding）、边框（border）、外边距（margin）几个要素。 盒模型分为两种—— 标准盒模型 &amp;amp; IE模型  标准模型：即 W3C 盒模型，width = content IE 模型：width = conten + padding  我们可以通过 CSS3 新增的属性box-sizing将">
+<meta name="twitter:description" content="引言盒模型又成为框模型（Box Model），包含了元素内容（Content）、内边距（padding）、边框（border）、外边距（margin）几个要素。 盒模型分为两种—— 标准盒模型 &amp;amp; IE模型  标准模型：即 W3C 盒模型，width = content IE 模型：width = conten + padding">
 <meta name="twitter:image" content="https://pic.superbed.cn/item/5c99dde53a213b041727474c">
 
 
@@ -370,7 +370,7 @@
                 
               
 
-              <time title="Erstellt: 2019-03-26 16:22:09 / Geändert am: 16:45:19" itemprop="dateCreated datePublished" datetime="2019-03-26T16:22:09+08:00">2019-03-26</time>
+              <time title="Erstellt: 2019-03-26 16:22:09 / Geändert am: 17:36:55" itemprop="dateCreated datePublished" datetime="2019-03-26T16:22:09+08:00">2019-03-26</time>
             
 
             
@@ -433,6 +433,7 @@
 <p>标准模型：即 W3C 盒模型，<code>width = content</code></p>
 <p>IE 模型：<code>width = conten + padding</code></p>
 </blockquote>
+<a id="more"></a>
 <p>我们可以通过 CSS3 新增的属性<code>box-sizing</code>将盒模型设置为标准模型（<code>content-box</code>）和 IE 模型（<code>border-box</code>）</p>
 <h3 id="外边距重叠"><a href="#外边距重叠" class="headerlink" title="外边距重叠"></a>外边距重叠</h3><p><img src="https://pic.superbed.cn/item/5c99dde53a213b041727474c" alt></p>
 <p>当两个垂直外边距相遇时，他们将形成一个外边距，合并后的外边距高度等于两个发生合并的外边距的高度中的较大者。<strong>注意</strong>：只有<strong>普通文档流</strong>中<strong>块框的垂直外边距</strong>才会发生外边距合并，行内框、浮动框或绝对定位之间的外边距不会合并。</p>

@@ -366,7 +366,7 @@
                 
               
 
-              <time title="Erstellt: 2019-03-26 16:46:51 / Geändert am: 17:31:59" itemprop="dateCreated datePublished" datetime="2019-03-26T16:46:51+08:00">2019-03-26</time>
+              <time title="Erstellt: 2019-03-26 16:46:51 / Geändert am: 17:36:43" itemprop="dateCreated datePublished" datetime="2019-03-26T16:46:51+08:00">2019-03-26</time>
             
 
             
@@ -424,30 +424,17 @@
 
       
         
-          
-            <h3 id="从哪开始浮动？"><a href="#从哪开始浮动？" class="headerlink" title="从哪开始浮动？"></a>从哪开始浮动？</h3><p>设置浮动后该元素脱离文档流，后边的元素会自动顶上来取代他的位置。</p>
+          <h3 id="从哪开始浮动？"><a href="#从哪开始浮动？" class="headerlink" title="从哪开始浮动？"></a>从哪开始浮动？</h3><p>设置浮动后该元素脱离文档流，后边的元素会自动顶上来取代他的位置。</p>
 <p><strong>而浮动的元素纵坐标不会改变，只会横坐标方向的叠加（凡是设置了<code>float</code>的，连续的块级元素都会一起向右排列）</strong></p>
-<p>举个栗子</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div4"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div5"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .div1 &#123;</span></span><br><span class="line"><span class="undefined">            width: 100px;</span></span><br><span class="line"><span class="undefined">            height: 100px;</span></span><br><span class="line"><span class="undefined">            background-color: red</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        </span></span><br><span class="line"><span class="undefined">        .div2 &#123;</span></span><br><span class="line"><span class="undefined">            width: 200px;</span></span><br><span class="line"><span class="undefined">            height: 200px;</span></span><br><span class="line"><span class="undefined">            background-color: blue;</span></span><br><span class="line"><span class="undefined">            float: left;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        </span></span><br><span class="line"><span class="undefined">        .div3 &#123;</span></span><br><span class="line"><span class="undefined">            width: 200px;</span></span><br><span class="line"><span class="undefined">            height: 200px;</span></span><br><span class="line"><span class="undefined">            background-color: yellow;</span></span><br><span class="line"><span class="undefined">            float: left;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        </span></span><br><span class="line"><span class="undefined">        .div4 &#123;</span></span><br><span class="line"><span class="undefined">            width: 300px;</span></span><br><span class="line"><span class="undefined">            height: 300px;</span></span><br><span class="line"><span class="undefined">            background-color: gray</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        </span></span><br><span class="line"><span class="undefined">        .div5 &#123;</span></span><br><span class="line"><span class="undefined">            width: 200px;</span></span><br><span class="line"><span class="undefined">            height: 200px;</span></span><br><span class="line"><span class="undefined">            background-color: green;</span></span><br><span class="line"><span class="undefined">            float: left;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://pic.superbed.cn/item/5c99f0dd3a213b041728103e" alt></p>
-<h3 id="什么是-CSS-清除浮动"><a href="#什么是-CSS-清除浮动" class="headerlink" title="什么是 CSS 清除浮动"></a>什么是 CSS 清除浮动</h3><blockquote>
-<p>在非IE浏览器（如Firefox）下，当容器的高度为auto，且容器的内容中有浮动（float为left或right）的元素，在这种情况下，容器的高度不能自动伸长以适应内容的高度，使得内容溢出到容器外面而影响（甚至破坏）布局的现象。这个现象叫浮动溢出，为了防止这个现象的出现而进行的CSS处理，就叫CSS清除浮动。</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">.news &#123;</span><br><span class="line">  background-color: gray;</span><br><span class="line">  border: solid <span class="number">1</span>px black;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.news img &#123;</span><br><span class="line">  float: left;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">.news p &#123;</span><br><span class="line">  float: right;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"news"</span>&gt;</span><br><span class="line">&lt;img src=<span class="string">"news-pic.jpg"</span> /&gt;</span><br><span class="line">&lt;p&gt;some text&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://pic.superbed.cn/item/5c99e7623a213b041727aecc" alt></p>
-<h3 id="清除浮动方法"><a href="#清除浮动方法" class="headerlink" title="清除浮动方法"></a>清除浮动方法</h3><h4 id="使用带-clear-属性的空元素"><a href="#使用带-clear-属性的空元素" class="headerlink" title="使用带 clear 属性的空元素"></a>使用带 clear 属性的空元素</h4><p>在浮动元素后使用一个空元素如<code>&lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;</code>，并在CSS中赋予<code>.clear{clear:both;}</code>属性即可清理浮动。亦可使用<code>&lt;br class=&quot;clear&quot; /&gt;或&lt;hr class=&quot;clear&quot; /&gt;</code>来进行清理。</p>
-<ul>
-<li>优点：简单、代码量少、浏览器兼容性好</li>
-<li>缺点：需要添加大量无语义的 html 元素，不易于维护</li>
-</ul>
-<h4 id="overflow"><a href="#overflow" class="headerlink" title="overflow"></a>overflow</h4><p>将<code>overflow</code>属性设置为<code>hidden</code>或<code>auto</code>均可以清除浮动。</p>
-<h4 id="给浮动元素的容器添加浮动"><a href="#给浮动元素的容器添加浮动" class="headerlink" title="给浮动元素的容器添加浮动"></a>给浮动元素的容器添加浮动</h4><p><img src="https://0d077ef9e74d8.cdn.sohucs.com/rlOqL3a_jpg" alt></p>
-<h4 id="让兄弟来收拾他（兄弟来clear）"><a href="#让兄弟来收拾他（兄弟来clear）" class="headerlink" title="让兄弟来收拾他（兄弟来clear）"></a>让兄弟来收拾他（兄弟来clear）</h4><p>直接给浮动元素后面的元素添加<code>clear</code>属性，把他强行排挤开来</p>
-<h4 id="after-伪元素"><a href="#after-伪元素" class="headerlink" title=":after 伪元素"></a>:after 伪元素</h4><p>给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"topDiv clearfix"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"textDiv"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"floatDiv"</span>&gt;</span>float left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bottomDiv"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">// 省略基本的样式</span></span><br><span class="line"><span class="undefined">// 区别在这里</span></span><br><span class="line"><span class="undefined">.clearfix:after &#123;</span></span><br><span class="line"><span class="undefined">    content: '.';</span></span><br><span class="line"><span class="undefined">    height: 0;</span></span><br><span class="line"><span class="undefined">    display: block;</span></span><br><span class="line"><span class="undefined">    clear: both;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>通过CSS伪元素在容器的内部元素最后添加了一个看不见的空格”020”或点”.”，并且赋予clear属性来清除浮动。需要注意的是为了IE6和IE7浏览器，要给clearfix这个class添加一条zoom:1;触发haslayout。</p>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/26/清除浮动/#more" rel="contents">
+                Weiterlesen &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -547,7 +534,7 @@
                 
               
 
-              <time title="Erstellt: 2019-03-26 16:22:09 / Geändert am: 16:45:19" itemprop="dateCreated datePublished" datetime="2019-03-26T16:22:09+08:00">2019-03-26</time>
+              <time title="Erstellt: 2019-03-26 16:22:09 / Geändert am: 17:36:55" itemprop="dateCreated datePublished" datetime="2019-03-26T16:22:09+08:00">2019-03-26</time>
             
 
             
@@ -605,38 +592,21 @@
 
       
         
-          
-            <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>盒模型又成为框模型（<code>Box Model</code>），包含了元素内容（<code>Content</code>）、内边距（<code>padding</code>）、边框（<code>border</code>）、外边距（<code>margin</code>）几个要素。</p>
+          <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>盒模型又成为框模型（<code>Box Model</code>），包含了元素内容（<code>Content</code>）、内边距（<code>padding</code>）、边框（<code>border</code>）、外边距（<code>margin</code>）几个要素。</p>
 <p>盒模型分为两种—— 标准盒模型 &amp; IE模型</p>
 <blockquote>
 <p>标准模型：即 W3C 盒模型，<code>width = content</code></p>
 <p>IE 模型：<code>width = conten + padding</code></p>
 </blockquote>
-<p>我们可以通过 CSS3 新增的属性<code>box-sizing</code>将盒模型设置为标准模型（<code>content-box</code>）和 IE 模型（<code>border-box</code>）</p>
-<h3 id="外边距重叠"><a href="#外边距重叠" class="headerlink" title="外边距重叠"></a>外边距重叠</h3><p><img src="https://pic.superbed.cn/item/5c99dde53a213b041727474c" alt></p>
-<p>当两个垂直外边距相遇时，他们将形成一个外边距，合并后的外边距高度等于两个发生合并的外边距的高度中的较大者。<strong>注意</strong>：只有<strong>普通文档流</strong>中<strong>块框的垂直外边距</strong>才会发生外边距合并，行内框、浮动框或绝对定位之间的外边距不会合并。</p>
-<h3 id="咋整？"><a href="#咋整？" class="headerlink" title="咋整？"></a>咋整？</h3><p>这就牵扯出咱们的 BFC 了。</p>
-<blockquote>
-<p><strong>BFC(Block Formatting Context)</strong>：块级格式化上下文。</p>
-</blockquote>
-<p>​    BFC 决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。当设计到可视化布局的时候，BFC提供了一个环境，HTML元素在这个环境中按照一定的规则进行布局。一个环境中的元素不会影响到其他环境中的布局。</p>
-<h4 id="BFC的原理（渲染规则）"><a href="#BFC的原理（渲染规则）" class="headerlink" title="BFC的原理（渲染规则）"></a><strong>BFC的原理（渲染规则）</strong></h4><ol>
-<li>BFC元素垂直方向的边距会发生重叠。属于不同BFC外边距不会发生重叠</li>
-<li>BFC的区域不会与浮动元素的布局重叠。</li>
-<li>BFC元素是一个独立的容器，外面的元素不会影响里面的元素。里面的元素也不会影响外面的元素。</li>
-<li>计算BFC高度的时候，浮动元素也会参与计算(清除浮动)</li>
-</ol>
-<h4 id="如何创建-BFC"><a href="#如何创建-BFC" class="headerlink" title="如何创建 BFC"></a>如何创建 BFC</h4><ol>
-<li><code>overflow</code>不为<code>visible</code>;</li>
-<li><code>float</code>的值不为<code>none</code>；</li>
-<li><code>position</code>的值不为<code>static</code>或<code>relative</code>；</li>
-<li><code>display</code>属性为<code>inline-blocks</code>,<code>table,table-cell</code>,<code>table-caption</code>,<code>flex,inline-flex</code>;</li>
-</ol>
-<h4 id="碰到浮动怎么办"><a href="#碰到浮动怎么办" class="headerlink" title="碰到浮动怎么办"></a>碰到浮动怎么办</h4><ul>
-<li>子元素浮动后自动脱离文档流。此时父元素就不会计算它的高度。而此时在父元素创建 BFC 就可以让浮动元素也参加高度计算</li>
-</ul>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/26/BFC-盒模型/#more" rel="contents">
+                Weiterlesen &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
