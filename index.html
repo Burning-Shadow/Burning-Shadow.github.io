@@ -321,6 +321,230 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/Array类型中的操作方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/27/Array类型中的操作方法/" class="post-title-link" itemprop="url">Array类型中的操作方法</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-27 21:51:01 / Geändert am: 22:25:44" itemprop="dateCreated datePublished" datetime="2019-03-27T21:51:01+08:00">2019-03-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="检测数组"><a href="#检测数组" class="headerlink" title="检测数组"></a>检测数组</h3><ul>
+<li><code>Array.isArray(obj)</code>：确定<code>obj</code>是否为数组</li>
+<li><code>Object.prototype.toString.call(obj)</code></li>
+</ul>
+<h3 id="转换方法"><a href="#转换方法" class="headerlink" title="转换方法"></a>转换方法</h3><ul>
+<li><code>toString()</code>：返回由数组中每个值的字符串形式拼接而成的，以逗号分隔的字符串</li>
+<li><code>valueOf()</code>：返回 Array 对象的原始值（返回最适合该对象类型的原始值）</li>
+</ul>
+<h3 id="栈-amp-队列"><a href="#栈-amp-队列" class="headerlink" title="栈 &amp; 队列"></a>栈 &amp; 队列</h3><ul>
+<li><code>push</code>：入尾（任意个参数）</li>
+<li><code>pop</code>：出尾（1个参数）</li>
+<li><code>shift</code>：出头（1个参数）</li>
+<li><code>unshift</code>：入头（任意个参数）</li>
+</ul>
+<h3 id="重排序方法"><a href="#重排序方法" class="headerlink" title="重排序方法"></a>重排序方法</h3><ul>
+<li><p><code>reverse()</code>：反转数组</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">5</span>]</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">val1, val2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (val2 - val1)</span><br><span class="line">&#125;</span><br><span class="line">arr.sort(compare)</span><br><span class="line"><span class="comment">// [0, 1, 5, 10, 15]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><ul>
+<li><code>concat( arr | val )</code>：连接。参数可为值或数组，直接更新操作对象</li>
+<li><code>splice()</code>：<ul>
+<li>删除：<code>arr.splice(startIndex, delNum)</code></li>
+<li>插入：<code>arr.splice(startIndex, 0, insertItem)</code></li>
+<li>替换：<code>arr.splice(startIndex, delNum, insertItem)</code></li>
+</ul>
+</li>
+<li><code>slice()</code>：新建并<strong>返回一个</strong>截取原数组的<strong>新数组</strong><ul>
+<li><code>arr.slice(startIndex, endIndex)</code>：返回<code>arr</code>的<code>startIndex ~ endIndex-1</code>项</li>
+<li><code>arr.slice(startIndex)</code>：返回<code>arr</code>的<code>startIndex ~ 尾</code>项</li>
+</ul>
+</li>
+<li><code>indexOf &amp;&amp; lastIndexOf</code>：参数既可为<code>index</code>亦可为<code>value</code>。若返回“-1”则表示未找到</li>
+</ul>
+<h3 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h3><ul>
+<li><p><code>every(func)</code>：全真则真</p>
+</li>
+<li><p><code>some(func)</code>：一真则真</p>
+</li>
+<li><p><code>filter(func)</code>：返回<code>true</code>项组成的数组</p>
+</li>
+<li><p><code>forEach(func)</code>：对数组每一项执行函数</p>
+</li>
+<li><p><code>map(func)</code>：对数组每一项执行函数，并返回调用结果组成的数组</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">var</span> mapResult = arr.map(<span class="function">(<span class="params">item, index, array</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> item*<span class="number">2</span></span><br><span class="line">&#125;)</span><br><span class="line">arr			<span class="comment">// [1, 2, 3]</span></span><br><span class="line">mapResult	<span class="comment">// [2, 4, 6]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="归并方法"><a href="#归并方法" class="headerlink" title="归并方法"></a>归并方法</h3><ul>
+<li><p><code>reduce &amp;&amp; reduceRight</code>：迭代数组所有项并构建一个最终返回的值</p>
+<ul>
+<li><p><code>reduce(func [,initialVal])</code>：从数组的第一项开始逐个遍历到最后</p>
+</li>
+<li><p><code>reduceRight(func [,initialVal)</code>：从数组的最后一项开始，向前遍历到第一项</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求数组中所有值之和</span></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">var</span> sum = arr.reduce(<span class="function">(<span class="params">prev, cur, index, array</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(prev, cur, index)</span><br><span class="line">    <span class="keyword">return</span> prev + cur</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(sum)	<span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/Vue-中的-nextTick/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1853,186 +2077,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/23/TCP协议（上）-——-因性恶而复杂/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/23/TCP协议（上）-——-因性恶而复杂/" class="post-title-link" itemprop="url">TCP协议（上） —— 因性恶而复杂</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-23 20:27:31" itemprop="dateCreated datePublished" datetime="2019-03-23T20:27:31+08:00">2019-03-23</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-24 20:41:52" itemprop="dateModified" datetime="2019-03-24T20:41:52+08:00">2019-03-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>​    上一节，我们讲的 UDP，基本上包括了传输层所必须的端口字段。它就像我们小时候一样简单，<strong>相信“网之初，性本善，不丢包，不乱序”。</strong></p>
-<p>​    后来呢，我们都慢慢长大，了解了社会的残酷，变得复杂而成熟，就像 TCP 协议一样。它之所以这么复杂，那是因为它秉承的是“性恶论”。它天然认为网络环境是恶劣的，丢包、乱序、重传，拥塞都是常有的事情，一言不合就可能送达不了，因而要从算法层面来保证可靠性。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/23/TCP协议（上）-——-因性恶而复杂/#more" rel="contents">
-                Weiterlesen &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2081,7 +2125,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-count">36</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
@@ -2211,7 +2255,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">40</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>

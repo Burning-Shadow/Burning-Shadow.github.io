@@ -98,26 +98,25 @@
 
 
 
-  <meta name="description" content="call和apply均用于this值绑定，区别在于参数列表  Function.apply(thisObj, args)Function.call(thisObj, [param1[, param2 [, param3 [... [,paramN]]]]])  前者传入参数列表（arguments），后者挨个向里边放参数">
+  <meta name="description" content="检测数组 Array.isArray(obj)：确定obj是否为数组 Object.prototype.toString.call(obj)  转换方法 toString()：返回由数组中每个值的字符串形式拼接而成的，以逗号分隔的字符串 valueOf()：返回 Array 对象的原始值（返回最适合该对象类型的原始值）  栈 &amp;amp; 队列 push：入尾（任意个参数） pop：出尾（1个参数）">
+<meta name="keywords" content="JavaScript,Array">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript中的call和apply">
-<meta property="og:url" content="http://yoursite.com/2019/03/17/JavaScript中的call和apply/index.html">
+<meta property="og:title" content="Array类型中的操作方法">
+<meta property="og:url" content="http://yoursite.com/2019/03/27/Array类型中的操作方法/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="call和apply均用于this值绑定，区别在于参数列表  Function.apply(thisObj, args)Function.call(thisObj, [param1[, param2 [, param3 [... [,paramN]]]]])  前者传入参数列表（arguments），后者挨个向里边放参数">
+<meta property="og:description" content="检测数组 Array.isArray(obj)：确定obj是否为数组 Object.prototype.toString.call(obj)  转换方法 toString()：返回由数组中每个值的字符串形式拼接而成的，以逗号分隔的字符串 valueOf()：返回 Array 对象的原始值（返回最适合该对象类型的原始值）  栈 &amp;amp; 队列 push：入尾（任意个参数） pop：出尾（1个参数）">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg">
-<meta property="og:updated_time" content="2019-03-24T12:38:07.437Z">
+<meta property="og:updated_time" content="2019-03-27T14:25:44.187Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript中的call和apply">
-<meta name="twitter:description" content="call和apply均用于this值绑定，区别在于参数列表  Function.apply(thisObj, args)Function.call(thisObj, [param1[, param2 [, param3 [... [,paramN]]]]])  前者传入参数列表（arguments），后者挨个向里边放参数">
-<meta name="twitter:image" content="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg">
+<meta name="twitter:title" content="Array类型中的操作方法">
+<meta name="twitter:description" content="检测数组 Array.isArray(obj)：确定obj是否为数组 Object.prototype.toString.call(obj)  转换方法 toString()：返回由数组中每个值的字符串形式拼接而成的，以逗号分隔的字符串 valueOf()：返回 Array 对象的原始值（返回最适合该对象类型的原始值）  栈 &amp;amp; 队列 push：入尾（任意个参数） pop：出尾（1个参数）">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/17/JavaScript中的call和apply/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/27/Array类型中的操作方法/">
 
 
 
@@ -127,7 +126,7 @@
   };
 </script>
 
-  <title>JavaScript中的call和apply | Siir</title>
+  <title>Array类型中的操作方法 | Siir</title>
   
 
 
@@ -326,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/JavaScript中的call和apply/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/Array类型中的操作方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siir">
@@ -343,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript中的call和apply
+          <h1 class="post-title" itemprop="name headline">Array类型中的操作方法
 
               
             
@@ -369,24 +368,12 @@
                 
               
 
-              <time title="Erstellt: 2019-03-17 20:00:50" itemprop="dateCreated datePublished" datetime="2019-03-17T20:00:50+08:00">2019-03-17</time>
+              <time title="Erstellt: 2019-03-27 21:51:01 / Geändert am: 22:25:44" itemprop="dateCreated datePublished" datetime="2019-03-27T21:51:01+08:00">2019-03-27</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-03-24 20:38:07" itemprop="dateModified" datetime="2019-03-24T20:38:07+08:00">2019-03-24</time>
               
             
           </span>
@@ -438,14 +425,70 @@
       
 
       
-        <p><code>call</code>和<code>apply</code>均用于<code>this</code>值绑定，区别在于参数列表</p>
-<blockquote>
-<p><code>Function.apply(thisObj, args)</code><br><code>Function.call(thisObj, [param1[, param2 [, param3 [... [,paramN]]]]])</code></p>
-</blockquote>
-<p>前者传入参数列表（<code>arguments</code>），后者挨个向里边放参数</p>
-<a id="more"></a>
-<p><code>call</code>、<code>apply</code>方法可以将一个函数的对象上下文从出事的上下文改编为由<code>thisObj</code>指定的新对象</p>
-<p>此章作为<a href="https://blog.csdn.net/qq_38722097/article/details/88125450" target="_blank" rel="noopener">this指向</a>章节的补充<br><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg" alt="在这里插入图片描述"></p>
+        <h3 id="检测数组"><a href="#检测数组" class="headerlink" title="检测数组"></a>检测数组</h3><ul>
+<li><code>Array.isArray(obj)</code>：确定<code>obj</code>是否为数组</li>
+<li><code>Object.prototype.toString.call(obj)</code></li>
+</ul>
+<h3 id="转换方法"><a href="#转换方法" class="headerlink" title="转换方法"></a>转换方法</h3><ul>
+<li><code>toString()</code>：返回由数组中每个值的字符串形式拼接而成的，以逗号分隔的字符串</li>
+<li><code>valueOf()</code>：返回 Array 对象的原始值（返回最适合该对象类型的原始值）</li>
+</ul>
+<h3 id="栈-amp-队列"><a href="#栈-amp-队列" class="headerlink" title="栈 &amp; 队列"></a>栈 &amp; 队列</h3><ul>
+<li><code>push</code>：入尾（任意个参数）</li>
+<li><code>pop</code>：出尾（1个参数）</li>
+<li><code>shift</code>：出头（1个参数）</li>
+<li><code>unshift</code>：入头（任意个参数）</li>
+</ul>
+<h3 id="重排序方法"><a href="#重排序方法" class="headerlink" title="重排序方法"></a>重排序方法</h3><ul>
+<li><p><code>reverse()</code>：反转数组</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">5</span>]</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">val1, val2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (val2 - val1)</span><br><span class="line">&#125;</span><br><span class="line">arr.sort(compare)</span><br><span class="line"><span class="comment">// [0, 1, 5, 10, 15]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><ul>
+<li><code>concat( arr | val )</code>：连接。参数可为值或数组，直接更新操作对象</li>
+<li><code>splice()</code>：<ul>
+<li>删除：<code>arr.splice(startIndex, delNum)</code></li>
+<li>插入：<code>arr.splice(startIndex, 0, insertItem)</code></li>
+<li>替换：<code>arr.splice(startIndex, delNum, insertItem)</code></li>
+</ul>
+</li>
+<li><code>slice()</code>：新建并<strong>返回一个</strong>截取原数组的<strong>新数组</strong><ul>
+<li><code>arr.slice(startIndex, endIndex)</code>：返回<code>arr</code>的<code>startIndex ~ endIndex-1</code>项</li>
+<li><code>arr.slice(startIndex)</code>：返回<code>arr</code>的<code>startIndex ~ 尾</code>项</li>
+</ul>
+</li>
+<li><code>indexOf &amp;&amp; lastIndexOf</code>：参数既可为<code>index</code>亦可为<code>value</code>。若返回“-1”则表示未找到</li>
+</ul>
+<h3 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h3><ul>
+<li><p><code>every(func)</code>：全真则真</p>
+</li>
+<li><p><code>some(func)</code>：一真则真</p>
+</li>
+<li><p><code>filter(func)</code>：返回<code>true</code>项组成的数组</p>
+</li>
+<li><p><code>forEach(func)</code>：对数组每一项执行函数</p>
+</li>
+<li><p><code>map(func)</code>：对数组每一项执行函数，并返回调用结果组成的数组</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">var</span> mapResult = arr.map(<span class="function">(<span class="params">item, index, array</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> item*<span class="number">2</span></span><br><span class="line">&#125;)</span><br><span class="line">arr			<span class="comment">// [1, 2, 3]</span></span><br><span class="line">mapResult	<span class="comment">// [2, 4, 6]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="归并方法"><a href="#归并方法" class="headerlink" title="归并方法"></a>归并方法</h3><ul>
+<li><p><code>reduce &amp;&amp; reduceRight</code>：迭代数组所有项并构建一个最终返回的值</p>
+<ul>
+<li><p><code>reduce(func [,initialVal])</code>：从数组的第一项开始逐个遍历到最后</p>
+</li>
+<li><p><code>reduceRight(func [,initialVal)</code>：从数组的最后一项开始，向前遍历到第一项</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求数组中所有值之和</span></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">var</span> sum = arr.reduce(<span class="function">(<span class="params">prev, cur, index, array</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(prev, cur, index)</span><br><span class="line">    <span class="keyword">return</span> prev + cur</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(sum)	<span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -467,6 +510,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/Array/" rel="tag"># Array</a>
+          
+        </div>
+      
 
       
       
@@ -476,8 +527,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/16/ES6中的Symbol/" rel="next" title="ES6中的Symbol">
-                <i class="fa fa-chevron-left"></i> ES6中的Symbol
+              <a href="/2019/03/27/Vue-中的-nextTick/" rel="next" title="从Event Loop 到 Vue 中的 nextTick">
+                <i class="fa fa-chevron-left"></i> 从Event Loop 到 Vue 中的 nextTick
               </a>
             
           </div>
@@ -485,10 +536,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/17/Vue项目中关于axios跨域的设置/" rel="prev" title="Vue项目中关于axios跨域的设置">
-                Vue项目中关于axios跨域的设置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -532,8 +579,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -737,6 +793,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#检测数组"><span class="nav-number">1.</span> <span class="nav-text">检测数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换方法"><span class="nav-number">2.</span> <span class="nav-text">转换方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈-amp-队列"><span class="nav-number">3.</span> <span class="nav-text">栈 &amp; 队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重排序方法"><span class="nav-number">4.</span> <span class="nav-text">重排序方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作方法"><span class="nav-number">5.</span> <span class="nav-text">操作方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代方法"><span class="nav-number">6.</span> <span class="nav-text">迭代方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归并方法"><span class="nav-number">7.</span> <span class="nav-text">归并方法</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
