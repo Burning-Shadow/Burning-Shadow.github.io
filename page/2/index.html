@@ -1141,6 +1141,181 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/二、网络分层的真实含义是什么/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/28/二、网络分层的真实含义是什么/" class="post-title-link" itemprop="url">二.网络分层的真实含义是什么</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-28 10:40:58 / Geändert am: 10:40:59" itemprop="dateCreated datePublished" datetime="2019-03-28T10:40:58+08:00">2019-03-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我们上一节列了之后要讲的网络协议。这些协议本来没什么稀奇，每一本教科书都会讲，并且都要求你背下来。因为考试会考，面试会问。可以这么说，毕业了去找工作还答不出这类题目的，那你的笔试基本上也就挂了。</p><br><p>当你听到什么二层设备、三层设备、四层 LB 和七层 LB 中层的时候，是否有点一头雾水，不知道这些所谓的层，对应的各种协议具体要做什么“工作”？</p>
+
+<h2 id="这四个问题你真的懂了吗？"><a href="#这四个问题你真的懂了吗？" class="headerlink" title="这四个问题你真的懂了吗？"></a>这四个问题你真的懂了吗？</h2><p>我们经常会听到这些不是很恰当的比喻：为什么网络要分层？因为不同的层次之间有不同的沟通方式，这个叫做协议。例如，一家公司也是分”层次”的，分总经理、经理、组长、员工。总经理之间有他们的沟通方式，经理和经理之间也有沟通方式，同理组长和员工。</p>
+<h4 id="第一个问题来了"><a href="#第一个问题来了" class="headerlink" title="第一个问题来了"></a>第一个问题来了</h4><p>请问经理在握手的时候，员工在干什么？很多人听过 TCP 建立连接的<font size="3" color="red">三次握手协议</font>，问你，TCP 在进行三次握手的时候，IP 层和 MAC 层对应都有什么操作呢？</p>
+<h4 id="第二个问题来了"><a href="#第二个问题来了" class="headerlink" title="第二个问题来了"></a>第二个问题来了</h4><p>除了上面这个不恰当的比喻，教科书还会列出每个层次所包含的协议，然后开始逐层地去讲这些协议。但是这些协议之间的关系呢？却很少有教科书会讲。</p>
+<p>学习第三层的时候会提到，IP 协议里面包含<font size="3" color="red">目标地址</font>和<font size="3" color="red">地址。</font>第三层里往往还会学习<font size="3" color="red">路由协议</font>。路由就像中转站，我们从原始地址 <font size="3" color="blue">A</font> 到目标地址 <font size="3" color="blue">D</font>，中间经过两个中转站 <font size="3" color="blue">A</font>-&gt;<font size="3" color="blue">B</font>-&gt;<font size="3" color="blue">C</font>-&gt;<font size="3" color="blue">D</font>，是通过路由转发的。</p>
+<font size="3" color="blue">A</font> 知道自己的下一个中转站是 <font size="3" color="blue">B</font>，那从 <font size="3" color="blue">A</font> 发出来的包，应该把 <font size="3" color="blue">B</font> 的 <font size="3" color="blue">IP</font> 地址放在哪里呢？<font size="3" color="blue">B</font> 知道自己的下一个中转站是 <font size="3" color="blue">C</font>，从 <font size="3" color="blue">B</font> 发出来的包，应该把 <font size="3" color="blue">C</font> 的 <font size="3" color="blue">IP</font> 地址放在哪里呢？如果放在 <font size="3" color="blue">IP</font> 协议中的目标地址，那包到了中转站，怎么知道最终的目的地址是 <font size="3" color="blue">D</font> 呢？<br><br>#### 再问一个问题<br><br>你一定经常听说二层设备、三层设备。二层设备处理的通常是 MAC 层的东西。那我发送一个 HTTP 的包，是在第七层工作的，那是不是不需要经过二层设备？或者即便经过了，二层设备也不处理呢？或者换一种问法，二层设备处理的包里，有没有 HTTP 层的内容呢？<br><br>#### 再问一个综合的问题<br><br>从你的电脑，通过 SSH 登录到公有云主机里面，都需要经历哪些过程？或者说你打开一个电商网站，都需要经历哪些过程？说得越详细越好。<br><br>## 讨论<br><br>#### 网络为什么要分层？<br><br>这里我们先探讨第一个问题，网络为什么要分层？因为，是个复杂的程序都要分层。<br><br>解计算机网络中的概念，一个很好的角度是，想象网络包就是一段 Buffer，或者一块内存，是有格式的。同时，想象自己是一个处理网络包的程序，而且这个程序可以跑在电脑上，可以跑在服务器上，可以跑在交换机上，也可以跑在路由器上。你想象自己有很多的网口，从某个口拿进一个网络包来，用自己的程序处理一下，再从另一个网口发送出去。<br><br>当然网络包的格式很复杂，这个程序也很复杂。<font size="3" color="red">复杂的程序都要分层，这是程序设计的要求。</font>比如，复杂的电商还会分数据库层、缓存层、Compose 层、Controller 层和接入层，每一层专注做本层的事情。<br><br>#### 程序是如何工作的<br><br>我们可以简单地想象“你”这个程序的工作过程。<br><br><img src="https://static001.geekbang.org/resource/image/06/ea/06b355394f525c54f200d8a1af63ddea.jpg" alt="image"><br><br>#### 揭秘层与层之间的关系<br><br>知道了这个过程之后，我们再来看一下原来困惑的问题。<br><br>首先是分层的比喻。<font size="3" color="red">所有不能表示出层层封装含义的比喻，都是不恰当的。</font>
+
+<p>现实生活中，往往是员工说一句，组长补充两句，然后经理补充两句，最后总经理再补充两句。但是在网络世界，应该是总经理说话，经理补充两句，组长补充两句，员工再补充两句。</p>
+<p>那 <font size="3" color="red">TCP</font> 在三次握手的时候， <font size="3" color="red">IP</font> 层和  <font size="3" color="red">MAC</font> 层在做什么呢？当然是  <font size="3" color="red">TCP</font> 发送每一个消息，都会带着  <font size="3" color="red">IP</font> 层和  <font size="3" color="red">MAC</font> 层了。因为， <font size="3" color="red">TCP</font> 每发送一个消息， <font size="3" color="red">IP</font> 层和  <font size="3" color="red">MAC</font> 层的所有机制都要运行一遍。而你只看到  <font size="3" color="red">TCP</font> 三次握手了，其实， <font size="3" color="red">IP</font> 层和  <font size="3" color="red">MAC</font> 层为此也忙活好久了。</p>
+<p>这里要记住一点：<font size="3" color="orange">只要是在网络上跑的包，都是完整的。可以有下层没上层，绝对不可能有上层没下层。</font></p>
+<p>所以，<font size="3" color="red">对 TCP 协议来说，三次握手也好，重试也好，只要想发出去包，就要有 IP 层和 MAC 层，不然是发不出去的。</font></p>
+<p>经常有人会问这样一个问题，我都知道那台机器的 IP 地址了，直接发给他消息呗，要 MAC 地址干啥？这里的关键就是，没有 MAC 地址消息是发不出去的。</p>
+<p>所以如果一个 HTTP 协议的包跑在网络上，它一定是完整的。无论这个包经过哪些设备，它都是完整的。</p>
+<p>所谓的<font size="3" color="red">二层设备</font>、<font size="3" color="red">三层设备</font>，都是这些设备上跑的程序不同而已。一个 HTTP 协议的包经过一个二层设备，二层设备收进去的是整个网络包。这里面 HTTP、TCP、 IP、 MAC 都有。<font size="3" color="red">什么叫二层设备呀，就是只把 MAC 头摘下来，看看到底是丢弃、转发，还是自己留着。</font>那什么叫<font size="3" color="red">三层设备呢？就是把 MAC 头摘下来之后，再把 IP 头摘下来，看看到底是丢弃、转发，还是自己留着。</font></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/闭包应用之——函数节流&函数防抖/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1978,173 +2153,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/Object.create()/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/25/Object.create()/" class="post-title-link" itemprop="url">Object.create()</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-25 14:37:45 / Geändert am: 16:41:08" itemprop="dateCreated datePublished" datetime="2019-03-25T14:37:45+08:00">2019-03-25</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在将 ES6 中的 Class 继承时我们会用到<code>Object.create()</code>方法。所以作为铺垫我们先把这个<code>Object</code>方法了解一番</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/25/Object.create()/#more" rel="contents">
-                Weiterlesen &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2193,7 +2201,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
