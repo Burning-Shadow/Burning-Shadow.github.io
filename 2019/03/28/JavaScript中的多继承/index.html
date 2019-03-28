@@ -98,26 +98,25 @@
 
 
 
-  <meta name="description" content="call和apply均用于this值绑定，区别在于参数列表  Function.apply(thisObj, args)Function.call(thisObj, [param1[, param2 [, param3 [... [,paramN]]]]])  前者传入参数列表（arguments），后者挨个向里边放参数">
+  <meta name="description" content="理论上讲，JavaScript中继承是依赖于原型prototype链实现继承的。由于只有一条链所以理论上讲无法实现多继承。但是我们可以另辟蹊径">
+<meta name="keywords" content="多继承,多态">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript中的call和apply">
-<meta property="og:url" content="http://yoursite.com/2019/03/17/JavaScript中的call和apply/index.html">
+<meta property="og:title" content="JavaScript中的多继承&amp;多态">
+<meta property="og:url" content="http://yoursite.com/2019/03/28/JavaScript中的多继承/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="call和apply均用于this值绑定，区别在于参数列表  Function.apply(thisObj, args)Function.call(thisObj, [param1[, param2 [, param3 [... [,paramN]]]]])  前者传入参数列表（arguments），后者挨个向里边放参数">
+<meta property="og:description" content="理论上讲，JavaScript中继承是依赖于原型prototype链实现继承的。由于只有一条链所以理论上讲无法实现多继承。但是我们可以另辟蹊径">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg">
-<meta property="og:updated_time" content="2019-03-24T12:38:07.437Z">
+<meta property="og:updated_time" content="2019-03-28T11:33:12.928Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript中的call和apply">
-<meta name="twitter:description" content="call和apply均用于this值绑定，区别在于参数列表  Function.apply(thisObj, args)Function.call(thisObj, [param1[, param2 [, param3 [... [,paramN]]]]])  前者传入参数列表（arguments），后者挨个向里边放参数">
-<meta name="twitter:image" content="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg">
+<meta name="twitter:title" content="JavaScript中的多继承&amp;多态">
+<meta name="twitter:description" content="理论上讲，JavaScript中继承是依赖于原型prototype链实现继承的。由于只有一条链所以理论上讲无法实现多继承。但是我们可以另辟蹊径">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/17/JavaScript中的call和apply/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/28/JavaScript中的多继承/">
 
 
 
@@ -127,7 +126,7 @@
   };
 </script>
 
-  <title>JavaScript中的call和apply | Siir</title>
+  <title>JavaScript中的多继承&多态 | Siir</title>
   
 
 
@@ -326,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/JavaScript中的call和apply/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/JavaScript中的多继承/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siir">
@@ -343,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript中的call和apply
+          <h1 class="post-title" itemprop="name headline">JavaScript中的多继承&多态
 
               
             
@@ -369,24 +368,12 @@
                 
               
 
-              <time title="Post created: 2019-03-17 20:00:50" itemprop="dateCreated datePublished" datetime="2019-03-17T20:00:50+08:00">2019-03-17</time>
+              <time title="Post created: 2019-03-28 19:22:03 / Updated at: 19:33:12" itemprop="dateCreated datePublished" datetime="2019-03-28T19:22:03+08:00">2019-03-28</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Updated at: 2019-03-24 20:38:07" itemprop="dateModified" datetime="2019-03-24T20:38:07+08:00">2019-03-24</time>
               
             
           </span>
@@ -403,7 +390,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript设计模式/" itemprop="url" rel="index"><span itemprop="name">JavaScript设计模式</span></a></span>
 
                 
                 
@@ -438,14 +425,17 @@
       
 
       
-        <p><code>call</code>和<code>apply</code>均用于<code>this</code>值绑定，区别在于参数列表</p>
-<blockquote>
-<p><code>Function.apply(thisObj, args)</code><br><code>Function.call(thisObj, [param1[, param2 [, param3 [... [,paramN]]]]])</code></p>
-</blockquote>
-<p>前者传入参数列表（<code>arguments</code>），后者挨个向里边放参数</p>
+        <p>理论上讲，<code>JavaScript</code>中继承是依赖于原型<code>prototype</code>链实现继承的。由于只有一条链所以理论上讲无法实现多继承。但是我们可以另辟蹊径</p>
 <a id="more"></a>
-<p><code>call</code>、<code>apply</code>方法可以将一个函数的对象上下文从出事的上下文改编为由<code>thisObj</code>指定的新对象</p>
-<p>此章作为<a href="https://blog.csdn.net/qq_38722097/article/details/88125450" target="_blank" rel="noopener">this指向</a>章节的补充<br><img src="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg" alt="在这里插入图片描述"></p>
+<h3 id="多继承"><a href="#多继承" class="headerlink" title="多继承"></a>多继承</h3><h4 id="先从继承单对象属性说起"><a href="#先从继承单对象属性说起" class="headerlink" title="先从继承单对象属性说起"></a>先从继承单对象属性说起</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 单继承 属性复制</span></span><br><span class="line"><span class="keyword">var</span> extend = <span class="function"><span class="keyword">function</span>(<span class="params">target, source</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 遍历源对象的属性</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> property <span class="keyword">in</span> source)&#123;</span><br><span class="line">		<span class="comment">// 将源对象中的属性复制到目标对象中</span></span><br><span class="line">        target[property] = source[property]</span><br><span class="line">    &#125;</span><br><span class="line">   	<span class="keyword">return</span> target</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是对对象中属性的一个浅复制的过程，同样的，继承也是一样的原理。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>所以既然无法通过原型链完成多继承，那么我们就通过对其属性的复制来完成继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mix = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i=<span class="number">1</span>,</span><br><span class="line">        length = <span class="built_in">arguments</span>.length,</span><br><span class="line">        target = <span class="built_in">arguments</span>[<span class="number">0</span>],</span><br><span class="line">        arg;						<span class="comment">// 缓存参数对象</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历被继承的对象</span></span><br><span class="line">    <span class="keyword">for</span>( ;i&lt;len; i++)&#123;</span><br><span class="line">        arg = <span class="built_in">arguments</span>[i]</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> property <span class="keyword">in</span> arg)&#123;</span><br><span class="line">            target[property] = arg[property]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后说明一点，由于我们本身只是对概念的一个论述，所以就只讲浅复制了。今后我闲下来没事儿干的时候再码一下深复制的代码</p>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>多态，顾名思义，同于i个方法具有多种调用方式。</p>
+<p>在<code>JavaScript</code>中若想实现多态我们需要对传入的参数加以判别，以此来实现<code>OOP</code>中的多态。</p>
+<p>我们举个栗子：根据传入参数个数的不同来返回不同的结果——传入一个参数则返回其加10后的值，传入两个参数则返回二者之和</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Add</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 无参数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">zero</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 一个参数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">one</span>(<span class="params">num</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> num+<span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 两个参数</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">two</span>(<span class="params">num1, num2</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> num1+num2</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 相加公有方法</span></span><br><span class="line">    <span class="keyword">this</span>.add = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> arg = <span class="built_in">arguments</span>,</span><br><span class="line">            len = arg.length;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">switch</span>(len)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> zero();</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> one(arg[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                <span class="keyword">return</span> two(arg[<span class="number">0</span>], arg[<span class="number">1</span>])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例化类</span></span><br><span class="line"><span class="keyword">var</span> A = <span class="keyword">new</span> Add()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(A.add())		<span class="comment">// 10</span></span><br><span class="line"><span class="built_in">console</span>.log(A.add(<span class="number">1</span>))		<span class="comment">// 11</span></span><br><span class="line"><span class="built_in">console</span>.log(A.add(<span class="number">1</span>, <span class="number">2</span>))	<span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -467,6 +457,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/多继承/" rel="tag"># 多继承</a>
+          
+            <a href="/tags/多态/" rel="tag"># 多态</a>
+          
+        </div>
+      
 
       
       
@@ -476,8 +474,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/16/ES6中的Symbol/" rel="next" title="ES6中的Symbol">
-                <i class="fa fa-chevron-left"></i> ES6中的Symbol
+              <a href="/2019/03/28/JavaScript中的封装/" rel="next" title="JavaScript中的封装">
+                <i class="fa fa-chevron-left"></i> JavaScript中的封装
               </a>
             
           </div>
@@ -485,10 +483,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/17/Vue项目中关于axios跨域的设置/" rel="prev" title="Vue项目中关于axios跨域的设置">
-                Vue项目中关于axios跨域的设置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -532,8 +526,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ensemble
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -753,6 +756,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#多继承"><span class="nav-number">1.</span> <span class="nav-text">多继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#先从继承单对象属性说起"><span class="nav-number">1.1.</span> <span class="nav-text">先从继承单对象属性说起</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">1.2.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多态"><span class="nav-number">2.</span> <span class="nav-text">多态</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
