@@ -98,18 +98,18 @@
 
 
 
-  <meta name="description" content="call12345678910111213Function.prototype.myCall = function (context) &amp;#123;  var context = context || window  // 给 context 添加一个属性  // getValue.call(a, &apos;yck&apos;, &apos;24&apos;) =&amp;gt; a.fn = getValue  context.fn = t">
+  <meta name="description" content="对call、bind和apply三个库函数的实现">
 <meta name="keywords" content="实现原理,bind,call,apply">
 <meta property="og:type" content="article">
 <meta property="og:title" content="实现bind、call和apply">
 <meta property="og:url" content="http://yoursite.com/2019/03/28/实现bind、call和apply/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="call12345678910111213Function.prototype.myCall = function (context) &amp;#123;  var context = context || window  // 给 context 添加一个属性  // getValue.call(a, &apos;yck&apos;, &apos;24&apos;) =&amp;gt; a.fn = getValue  context.fn = t">
+<meta property="og:description" content="对call、bind和apply三个库函数的实现">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-29T07:51:34.649Z">
+<meta property="og:updated_time" content="2019-03-29T08:18:59.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实现bind、call和apply">
-<meta name="twitter:description" content="call12345678910111213Function.prototype.myCall = function (context) &amp;#123;  var context = context || window  // 给 context 添加一个属性  // getValue.call(a, &apos;yck&apos;, &apos;24&apos;) =&amp;gt; a.fn = getValue  context.fn = t">
+<meta name="twitter:description" content="对call、bind和apply三个库函数的实现">
 
 
 
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-29 15:51:34" itemprop="dateModified" datetime="2019-03-29T15:51:34+08:00">2019-03-29</time>
+                <time title="Geändert am: 2019-03-29 16:18:59" itemprop="dateModified" datetime="2019-03-29T16:18:59+08:00">2019-03-29</time>
               
             
           </span>
@@ -437,7 +437,9 @@
       
 
       
-        <h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> context = context || <span class="built_in">window</span></span><br><span class="line">  <span class="comment">// 给 context 添加一个属性</span></span><br><span class="line">  <span class="comment">// getValue.call(a, 'yck', '24') =&gt; a.fn = getValue</span></span><br><span class="line">  context.fn = <span class="keyword">this</span></span><br><span class="line">  <span class="comment">// 将 context 后面的参数取出来</span></span><br><span class="line">  <span class="keyword">var</span> args = [...arguments].slice(<span class="number">1</span>)</span><br><span class="line">  <span class="comment">// getValue.call(a, 'yck', '24') =&gt; a.fn('yck', '24')</span></span><br><span class="line">  <span class="keyword">var</span> result = context.fn(...args)</span><br><span class="line">  <span class="comment">// 删除 fn</span></span><br><span class="line">  <span class="keyword">delete</span> context.fn</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>对<code>call</code>、<code>bind</code>和<code>apply</code>三个库函数的实现</p>
+<a id="more"></a>
+<h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> context = context || <span class="built_in">window</span></span><br><span class="line">  <span class="comment">// 给 context 添加一个属性</span></span><br><span class="line">  <span class="comment">// getValue.call(a, 'yck', '24') =&gt; a.fn = getValue</span></span><br><span class="line">  context.fn = <span class="keyword">this</span></span><br><span class="line">  <span class="comment">// 将 context 后面的参数取出来</span></span><br><span class="line">  <span class="keyword">var</span> args = [...arguments].slice(<span class="number">1</span>)</span><br><span class="line">  <span class="comment">// getValue.call(a, 'yck', '24') =&gt; a.fn('yck', '24')</span></span><br><span class="line">  <span class="keyword">var</span> result = context.fn(...args)</span><br><span class="line">  <span class="comment">// 删除 fn</span></span><br><span class="line">  <span class="keyword">delete</span> context.fn</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> context = context || <span class="built_in">window</span></span><br><span class="line">  context.fn = <span class="keyword">this</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> result</span><br><span class="line">  <span class="comment">// 需要判断是否存储第二个参数</span></span><br><span class="line">  <span class="comment">// 如果存在，就将第二个参数展开</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">arguments</span>[<span class="number">1</span>]) &#123;</span><br><span class="line">    result = context.fn(...arguments[<span class="number">1</span>])</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    result = context.fn()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">delete</span> context.fn</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><ul>
 <li>不传入第一个参数则默认为window</li>
@@ -495,6 +497,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/29/实现一个Promise/" rel="prev" title="实现一个Promise">
+                实现一个Promise <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -565,7 +571,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">51</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
