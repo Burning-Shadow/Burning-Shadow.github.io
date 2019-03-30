@@ -98,13 +98,13 @@
 
 
 
-  <meta name="description" content="怎么查看 IP 地址吗？windows上：ipconfig Linux上：ifconfig，ip addr 那么ipconfig和ip addr的区别吗？？？这是一个有关 net-tools 和 iproute2的”历史”故事，先不说这个，不过这个也是常考的点 运行一下ip addr，会显示如下结果 12345678910111213root@test:~# ip addr1: lo: &amp;lt;L">
+  <meta name="description" content="怎么查看 IP 地址吗？windows上：ipconfig Linux上：ifconfig，ip addr 那么ipconfig和ip addr的区别吗？？？这是一个有关 net-tools 和 iproute2的”历史”故事，先不说这个，不过这个也是常考的点">
 <meta name="keywords" content="计算机网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="三、ifconfig：最熟悉又陌生的命令行">
 <meta property="og:url" content="http://yoursite.com/2019/03/28/三、ifconfig：最熟悉又陌生的命令行/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="怎么查看 IP 地址吗？windows上：ipconfig Linux上：ifconfig，ip addr 那么ipconfig和ip addr的区别吗？？？这是一个有关 net-tools 和 iproute2的”历史”故事，先不说这个，不过这个也是常考的点 运行一下ip addr，会显示如下结果 12345678910111213root@test:~# ip addr1: lo: &amp;lt;L">
+<meta property="og:description" content="怎么查看 IP 地址吗？windows上：ipconfig Linux上：ifconfig，ip addr 那么ipconfig和ip addr的区别吗？？？这是一个有关 net-tools 和 iproute2的”历史”故事，先不说这个，不过这个也是常考的点">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/0b/9e/0b32d6e35ff0bbc5d46cfb87f6669d9e.jpg">
 <meta property="og:image" content="http://img.027cgb.com/606599/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/1_131944345515311268.png">
@@ -113,10 +113,10 @@
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/e9/be/e9c59a4b2f0b804356759b10440ea7be.jpg">
 <meta property="og:image" content="http://img.027cgb.com/606599/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/2_131944345518748768.png">
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/90/93/901778433f2d6e27b916e9e53c232d93.jpg">
-<meta property="og:updated_time" content="2019-03-28T03:06:06.866Z">
+<meta property="og:updated_time" content="2019-03-30T13:35:51.795Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="三、ifconfig：最熟悉又陌生的命令行">
-<meta name="twitter:description" content="怎么查看 IP 地址吗？windows上：ipconfig Linux上：ifconfig，ip addr 那么ipconfig和ip addr的区别吗？？？这是一个有关 net-tools 和 iproute2的”历史”故事，先不说这个，不过这个也是常考的点 运行一下ip addr，会显示如下结果 12345678910111213root@test:~# ip addr1: lo: &amp;lt;L">
+<meta name="twitter:description" content="怎么查看 IP 地址吗？windows上：ipconfig Linux上：ifconfig，ip addr 那么ipconfig和ip addr的区别吗？？？这是一个有关 net-tools 和 iproute2的”历史”故事，先不说这个，不过这个也是常考的点">
 <meta name="twitter:image" content="https://static001.geekbang.org/resource/image/0b/9e/0b32d6e35ff0bbc5d46cfb87f6669d9e.jpg">
 
 
@@ -202,7 +202,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -230,7 +230,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -247,7 +247,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -264,7 +264,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -281,7 +281,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -369,16 +369,32 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-28 11:06:06" itemprop="dateCreated datePublished" datetime="2019-03-28T11:06:06+08:00">2019-03-28</time>
+              <time title="Created: 2019-03-28 11:06:06" itemprop="dateCreated datePublished" datetime="2019-03-28T11:06:06+08:00">2019-03-28</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-30 21:35:51" itemprop="dateModified" datetime="2019-03-30T21:35:51+08:00">2019-03-30</time>
+              
             
           </span>
 
@@ -391,7 +407,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
@@ -432,6 +448,7 @@
         <h3 id="怎么查看-IP-地址吗？"><a href="#怎么查看-IP-地址吗？" class="headerlink" title="怎么查看 IP 地址吗？"></a>怎么查看 IP 地址吗？</h3><p>windows上：<font size="3" color="red">ipconfig</font></p>
 <p>Linux上：<font size="3" color="red">ifconfig，ip addr</font></p>
 <p>那么<font size="3" color="red">ipconfig</font>和<font size="3" color="red">ip addr</font>的区别吗？？？这是一个有关 <font size="3" color="red">net-tools</font> 和 <font size="3" color="red">iproute2</font>的”历史”故事，先不说这个，不过这个也是常考的点</p>
+<a id="more"></a>
 <p>运行一下<font size="3" color="red">ip addr<br></font>，会显示如下结果</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@test:~# ip addr</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default </span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether fa:16:3e:c7:79:75 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 10.100.122.2/24 brd 10.100.122.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::f816:3eff:fec7:7975/64 scope link </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
 <p>这个命令显示了这台机器上的所有网卡。大部分网卡都有一个ip地址，当然这不是必须的，后面我们会遇到<font size="3" color="red">没有ip地址的情况</font></p>
@@ -608,10 +625,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -634,7 +651,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">53</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -669,7 +686,7 @@
                       
                     
                     <span class="site-state-item-count">9</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -794,7 +811,7 @@
                       
                     
                     <span class="site-state-item-count">50</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -890,7 +907,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -898,7 +915,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

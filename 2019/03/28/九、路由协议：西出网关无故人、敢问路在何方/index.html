@@ -98,23 +98,23 @@
 
 
 
-  <meta name="description" content="俗话说得好，在家千日好，出门一日难。网络包一旦出了网关，就像玄奘西行一样踏上了江湖漂泊的路。 上一节我们描述的是一个相对简单的情形。出了网关之后，只有一条路可以走。但是，网络世界复杂得多，一旦出了网关，会面临着很多路由器，有很多条道路可以选。如何选择一个更快速的道路求取真经呢？这里面还有很多门道可以讲。 如何配置路由？通过上一节的内容，你应该已经知道，路由器就是一台网络设备，它有多张网卡。当一个入">
+  <meta name="description" content="俗话说得好，在家千日好，出门一日难。网络包一旦出了网关，就像玄奘西行一样踏上了江湖漂泊的路。 上一节我们描述的是一个相对简单的情形。出了网关之后，只有一条路可以走。但是，网络世界复杂得多，一旦出了网关，会面临着很多路由器，有很多条道路可以选。如何选择一个更快速的道路求取真经呢？这里面还有很多门道可以讲。">
 <meta name="keywords" content="计算机网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="九、路由协议：西出网关无故人、敢问路在何方">
 <meta property="og:url" content="http://yoursite.com/2019/03/28/九、路由协议：西出网关无故人、敢问路在何方/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="俗话说得好，在家千日好，出门一日难。网络包一旦出了网关，就像玄奘西行一样踏上了江湖漂泊的路。 上一节我们描述的是一个相对简单的情形。出了网关之后，只有一条路可以走。但是，网络世界复杂得多，一旦出了网关，会面临着很多路由器，有很多条道路可以选。如何选择一个更快速的道路求取真经呢？这里面还有很多门道可以讲。 如何配置路由？通过上一节的内容，你应该已经知道，路由器就是一台网络设备，它有多张网卡。当一个入">
+<meta property="og:description" content="俗话说得好，在家千日好，出门一日难。网络包一旦出了网关，就像玄奘西行一样踏上了江湖漂泊的路。 上一节我们描述的是一个相对简单的情形。出了网关之后，只有一条路可以走。但是，网络世界复杂得多，一旦出了网关，会面临着很多路由器，有很多条道路可以选。如何选择一个更快速的道路求取真经呢？这里面还有很多门道可以讲。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/03/69/03df39f76b60ac2c0a61b75a4dc25869.jpg">
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/6d/bb/6d1f0be048a04a08a40b16010f1180bb.jpg">
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/64/3f/641b14ede460105d15e23b077532013f.jpg">
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/67/9b/6791cdd30119e78fcb3c350223d5049b.jpg">
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/c3/43/c3bce0ec298138d8e36e6ebf1375d843.jpg">
-<meta property="og:updated_time" content="2019-03-28T03:11:17.541Z">
+<meta property="og:updated_time" content="2019-03-30T13:36:53.919Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="九、路由协议：西出网关无故人、敢问路在何方">
-<meta name="twitter:description" content="俗话说得好，在家千日好，出门一日难。网络包一旦出了网关，就像玄奘西行一样踏上了江湖漂泊的路。 上一节我们描述的是一个相对简单的情形。出了网关之后，只有一条路可以走。但是，网络世界复杂得多，一旦出了网关，会面临着很多路由器，有很多条道路可以选。如何选择一个更快速的道路求取真经呢？这里面还有很多门道可以讲。 如何配置路由？通过上一节的内容，你应该已经知道，路由器就是一台网络设备，它有多张网卡。当一个入">
+<meta name="twitter:description" content="俗话说得好，在家千日好，出门一日难。网络包一旦出了网关，就像玄奘西行一样踏上了江湖漂泊的路。 上一节我们描述的是一个相对简单的情形。出了网关之后，只有一条路可以走。但是，网络世界复杂得多，一旦出了网关，会面临着很多路由器，有很多条道路可以选。如何选择一个更快速的道路求取真经呢？这里面还有很多门道可以讲。">
 <meta name="twitter:image" content="https://static001.geekbang.org/resource/image/03/69/03df39f76b60ac2c0a61b75a4dc25869.jpg">
 
 
@@ -200,7 +200,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -228,7 +228,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -245,7 +245,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -262,7 +262,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -279,7 +279,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -367,16 +367,32 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-28 11:11:17" itemprop="dateCreated datePublished" datetime="2019-03-28T11:11:17+08:00">2019-03-28</time>
+              <time title="Created: 2019-03-28 11:11:17" itemprop="dateCreated datePublished" datetime="2019-03-28T11:11:17+08:00">2019-03-28</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-30 21:36:53" itemprop="dateModified" datetime="2019-03-30T21:36:53+08:00">2019-03-30</time>
+              
             
           </span>
 
@@ -389,7 +405,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
@@ -429,6 +445,7 @@
       
         <p>俗话说得好，在家千日好，出门一日难。网络包一旦出了网关，就像玄奘西行一样踏上了江湖漂泊的路。</p>
 <p>上一节我们描述的是一个相对简单的情形。出了网关之后，只有一条路可以走。但是，网络世界复杂得多，一旦出了网关，会面临着很多路由器，有很多条道路可以选。如何选择一个更快速的道路求取真经呢？这里面还有很多门道可以讲。</p>
+<a id="more"></a>
 <h3 id="如何配置路由？"><a href="#如何配置路由？" class="headerlink" title="如何配置路由？"></a>如何配置路由？</h3><p>通过上一节的内容，你应该已经知道，路由器就是一台网络设备，它有多张网卡。当一个入口的网络包送到路由器时，它会根据一个本地的转发信息库，来决定如何正确地转发流量。这个转发信息库通常被称为<strong>路由表</strong>。</p>
 
 <p>一张路由表中会有多条路由规则。每一条规则至少包含这三项信息。</p>
@@ -637,10 +654,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -663,7 +680,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">53</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -698,7 +715,7 @@
                       
                     
                     <span class="site-state-item-count">9</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -823,7 +840,7 @@
                       
                     
                     <span class="site-state-item-count">50</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -919,7 +936,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -927,7 +944,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

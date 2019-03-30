@@ -98,13 +98,13 @@
 
 
 
-  <meta name="description" content="上一次，我们在宿舍组件了一个本地的局域网，可以愉快的玩游戏了。当然这是一个简单的场景，因为只有一台交换机，电脑数目很少。今天，我们来看看办公室的网络 拓扑结构是怎么形成的？我们常见到的办公室大多是一排排的桌子，每个桌子都有网口，一排十几个座位就有十几个网口，一个楼层就会有几十个甚至上百个网口。如果算上所有楼层，这个场景自然比你宿舍里的复杂多了。具体哪里复杂呢？我来给你具体讲解。  首先，这个时候，">
+  <meta name="description" content="上一次，我们在宿舍组件了一个本地的局域网，可以愉快的玩游戏了。当然这是一个简单的场景，因为只有一台交换机，电脑数目很少。今天，我们来看看办公室的网络">
 <meta name="keywords" content="计算机网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="六、交换机与VLAN：办公室太复杂，我要回学校">
 <meta property="og:url" content="http://yoursite.com/2019/03/28/六、交换机与VLAN：办公室太复杂，我要回学校/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="上一次，我们在宿舍组件了一个本地的局域网，可以愉快的玩游戏了。当然这是一个简单的场景，因为只有一台交换机，电脑数目很少。今天，我们来看看办公室的网络 拓扑结构是怎么形成的？我们常见到的办公室大多是一排排的桌子，每个桌子都有网口，一排十几个座位就有十几个网口，一个楼层就会有几十个甚至上百个网口。如果算上所有楼层，这个场景自然比你宿舍里的复杂多了。具体哪里复杂呢？我来给你具体讲解。  首先，这个时候，">
+<meta property="og:description" content="上一次，我们在宿舍组件了一个本地的局域网，可以愉快的玩游戏了。当然这是一个简单的场景，因为只有一台交换机，电脑数目很少。今天，我们来看看办公室的网络">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/7a/73/7a40046c5a2c7f7cd3c95b54488b9773.jpg">
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/c8/d2/c829b28978c3d9686680e4b62fdf53d2.jpg">
@@ -119,10 +119,10 @@
 <meta property="og:image" content="http://img.027cgb.com/606599/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4_131946724181093750.png">
 <meta property="og:image" content="http://img.027cgb.com/606599/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/5_131946724703750000.png">
 <meta property="og:image" content="http://img.027cgb.com/606599/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/6_131946724705781250.png">
-<meta property="og:updated_time" content="2019-03-28T03:08:07.963Z">
+<meta property="og:updated_time" content="2019-03-30T13:36:26.553Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="六、交换机与VLAN：办公室太复杂，我要回学校">
-<meta name="twitter:description" content="上一次，我们在宿舍组件了一个本地的局域网，可以愉快的玩游戏了。当然这是一个简单的场景，因为只有一台交换机，电脑数目很少。今天，我们来看看办公室的网络 拓扑结构是怎么形成的？我们常见到的办公室大多是一排排的桌子，每个桌子都有网口，一排十几个座位就有十几个网口，一个楼层就会有几十个甚至上百个网口。如果算上所有楼层，这个场景自然比你宿舍里的复杂多了。具体哪里复杂呢？我来给你具体讲解。  首先，这个时候，">
+<meta name="twitter:description" content="上一次，我们在宿舍组件了一个本地的局域网，可以愉快的玩游戏了。当然这是一个简单的场景，因为只有一台交换机，电脑数目很少。今天，我们来看看办公室的网络">
 <meta name="twitter:image" content="https://static001.geekbang.org/resource/image/7a/73/7a40046c5a2c7f7cd3c95b54488b9773.jpg">
 
 
@@ -208,7 +208,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -236,7 +236,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -253,7 +253,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -270,7 +270,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -287,7 +287,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -375,16 +375,32 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-28 11:08:07" itemprop="dateCreated datePublished" datetime="2019-03-28T11:08:07+08:00">2019-03-28</time>
+              <time title="Created: 2019-03-28 11:08:07" itemprop="dateCreated datePublished" datetime="2019-03-28T11:08:07+08:00">2019-03-28</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-30 21:36:26" itemprop="dateModified" datetime="2019-03-30T21:36:26+08:00">2019-03-30</time>
+              
             
           </span>
 
@@ -397,7 +413,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
@@ -436,6 +452,7 @@
 
       
         <p>上一次，我们在宿舍组件了一个本地的局域网，可以愉快的玩游戏了。当然这是一个简单的场景，因为只有一台交换机，电脑数目很少。今天，我们来看看办公室的网络</p>
+<a id="more"></a>
 <h3 id="拓扑结构是怎么形成的？"><a href="#拓扑结构是怎么形成的？" class="headerlink" title="拓扑结构是怎么形成的？"></a>拓扑结构是怎么形成的？</h3><p>我们常见到的办公室大多是一排排的桌子，每个桌子都有网口，一排十几个座位就有十几个网口，一个楼层就会有几十个甚至上百个网口。如果算上所有楼层，这个场景自然比你宿舍里的复杂多了。具体哪里复杂呢？我来给你具体讲解。</p>
 
 <p>首先，这个时候，一个交换机肯定不够用，需要多台交换机，交换机之间连接起来，就形成一个稍微复杂的<font size="3" color="red">拓扑结构</font>。</p>
@@ -580,10 +597,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -606,7 +623,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">53</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -641,7 +658,7 @@
                       
                     
                     <span class="site-state-item-count">9</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -766,7 +783,7 @@
                       
                     
                     <span class="site-state-item-count">50</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -862,7 +879,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -870,7 +887,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

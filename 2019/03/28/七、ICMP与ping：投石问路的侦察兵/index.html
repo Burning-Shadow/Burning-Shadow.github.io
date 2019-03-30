@@ -98,20 +98,20 @@
 
 
 
-  <meta name="description" content="无论是在宿舍，还是在办公室，或者运维一个数据中心，我们常常会遇到网络不通的问题。那台机器明明就在那里，你甚至都可以通过机器的终端连上去看。它看着好好的，可是就是连不上去，究竟是哪里出了问题呢？ ICMP 协议的格式这个时候呢，大家可能会想到ping一下，那你知道ping是怎么工作的吗？ ping 是基于 ICMP 协议工作的。ICMP全称Internet Control Message Proto">
+  <meta name="description" content="无论是在宿舍，还是在办公室，或者运维一个数据中心，我们常常会遇到网络不通的问题。那台机器明明就在那里，你甚至都可以通过机器的终端连上去看。它看着好好的，可是就是连不上去，究竟是哪里出了问题呢？">
 <meta name="keywords" content="计算机网络">
 <meta property="og:type" content="article">
 <meta property="og:title" content="七、ICMP与ping：投石问路的侦察兵">
 <meta property="og:url" content="http://yoursite.com/2019/03/28/七、ICMP与ping：投石问路的侦察兵/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="无论是在宿舍，还是在办公室，或者运维一个数据中心，我们常常会遇到网络不通的问题。那台机器明明就在那里，你甚至都可以通过机器的终端连上去看。它看着好好的，可是就是连不上去，究竟是哪里出了问题呢？ ICMP 协议的格式这个时候呢，大家可能会想到ping一下，那你知道ping是怎么工作的吗？ ping 是基于 ICMP 协议工作的。ICMP全称Internet Control Message Proto">
+<meta property="og:description" content="无论是在宿舍，还是在办公室，或者运维一个数据中心，我们常常会遇到网络不通的问题。那台机器明明就在那里，你甚至都可以通过机器的终端连上去看。它看着好好的，可是就是连不上去，究竟是哪里出了问题呢？">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/23/ff/23aecf653d60dd94b7c5c6dc21ca21ff.jpg">
 <meta property="og:image" content="https://static001.geekbang.org/resource/image/e5/fc/e5270427819fc51c88e81a5c1cc4b8fc.jpg">
-<meta property="og:updated_time" content="2019-03-28T03:08:46.382Z">
+<meta property="og:updated_time" content="2019-03-30T13:36:38.471Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="七、ICMP与ping：投石问路的侦察兵">
-<meta name="twitter:description" content="无论是在宿舍，还是在办公室，或者运维一个数据中心，我们常常会遇到网络不通的问题。那台机器明明就在那里，你甚至都可以通过机器的终端连上去看。它看着好好的，可是就是连不上去，究竟是哪里出了问题呢？ ICMP 协议的格式这个时候呢，大家可能会想到ping一下，那你知道ping是怎么工作的吗？ ping 是基于 ICMP 协议工作的。ICMP全称Internet Control Message Proto">
+<meta name="twitter:description" content="无论是在宿舍，还是在办公室，或者运维一个数据中心，我们常常会遇到网络不通的问题。那台机器明明就在那里，你甚至都可以通过机器的终端连上去看。它看着好好的，可是就是连不上去，究竟是哪里出了问题呢？">
 <meta name="twitter:image" content="https://static001.geekbang.org/resource/image/23/ff/23aecf653d60dd94b7c5c6dc21ca21ff.jpg">
 
 
@@ -197,7 +197,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -225,7 +225,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -242,7 +242,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -259,7 +259,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -276,7 +276,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -364,16 +364,32 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-28 11:08:46" itemprop="dateCreated datePublished" datetime="2019-03-28T11:08:46+08:00">2019-03-28</time>
+              <time title="Created: 2019-03-28 11:08:46" itemprop="dateCreated datePublished" datetime="2019-03-28T11:08:46+08:00">2019-03-28</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-30 21:36:38" itemprop="dateModified" datetime="2019-03-30T21:36:38+08:00">2019-03-30</time>
+              
             
           </span>
 
@@ -386,7 +402,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
@@ -425,6 +441,7 @@
 
       
         <p>无论是在宿舍，还是在办公室，或者运维一个数据中心，我们常常会遇到网络不通的问题。那台机器明明就在那里，你甚至都可以通过机器的终端连上去看。它看着好好的，可是就是连不上去，究竟是哪里出了问题呢？</p>
+<a id="more"></a>
 <h3 id="ICMP-协议的格式"><a href="#ICMP-协议的格式" class="headerlink" title="ICMP 协议的格式"></a>ICMP 协议的格式</h3><p>这个时候呢，大家可能会想到ping一下，那你知道ping是怎么工作的吗？</p>
 <p>ping 是基于 ICMP 协议工作的。<font size="3" color="red">ICMP</font>全称<font size="3" color="red">Internet Control Message Protocol</font>，就是<font size="3" color="red">互联网控制报文协议</font>。这里面的关键词是<font size="3" color="red">“控制”</font>，那具体是怎么控制的呢？</p>
 
@@ -598,10 +615,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -624,7 +641,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">53</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -659,7 +676,7 @@
                       
                     
                     <span class="site-state-item-count">9</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -784,7 +801,7 @@
                       
                     
                     <span class="site-state-item-count">50</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -880,7 +897,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -888,7 +905,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
