@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Vue2.0中虚拟DOM的概念想必大家都有所耳闻。这东西对diff算法的理解有着至关重要的作用，所以咱们先了解一下virtual DOM">
+<meta name="keywords" content="Vue,diff算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue2.0中的diff算法">
+<meta property="og:url" content="http://yoursite.com/2019/03/30/Vue2.0中的diff算法/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="Vue2.0中虚拟DOM的概念想必大家都有所耳闻。这东西对diff算法的理解有着至关重要的作用，所以咱们先了解一下virtual DOM">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c9f235a3a213b041764a3d7">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c9f26cd3a213b041764cdfa">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c9f54b23a213b0417670a9c">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c9f272b3a213b041764d291">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c9f27653a213b041764d5a5">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c9f27d43a213b041764dada">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c9f28153a213b041764de61">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c9f284b3a213b041764e15c">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c9f28723a213b041764e36d">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c9f28973a213b041764e4e4">
+<meta property="og:updated_time" content="2019-03-30T11:37:38.457Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue2.0中的diff算法">
+<meta name="twitter:description" content="Vue2.0中虚拟DOM的概念想必大家都有所耳闻。这东西对diff算法的理解有着至关重要的作用，所以咱们先了解一下virtual DOM">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c9f235a3a213b041764a3d7">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/30/Vue2.0中的diff算法/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Vue2.0中的diff算法 | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/Vue2.0中的diff算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue2.0中的diff算法
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-30 11:38:14 / Geändert am: 19:37:38" itemprop="dateCreated datePublished" datetime="2019-03-30T11:38:14+08:00">2019-03-30</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>Vue2.0</code>中虚拟DOM的概念想必大家都有所耳闻。这东西对<code>diff</code>算法的理解有着至关重要的作用，所以咱们先了解一下<code>virtual DOM</code></p>
+<a id="more"></a>
+<h3 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h3><p>虚拟 DOM 对应的是真实 DOM，二者的区别很显然，就是抽象和具体。</p>
+<p>但是由于真实 DOM 的属性太多，所以我们抽象出了虚拟 DOM</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 打印繁多的 DOM 属性</span></span><br><span class="line"><span class="keyword">var</span> mydiv = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> mydiv )&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(k)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们将一些重要的属性存储在一个对象<code>myDivVirtual</code>上。在改变 DOM 之前，我们先比较相应虚拟 DOM 的数据。如果需要改变才会将改变应用到真实 DOM 上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/伪代码</span><br><span class="line"><span class="keyword">var</span> mydivVirtual = &#123; </span><br><span class="line">  tagName: <span class="string">'DIV'</span>,</span><br><span class="line">  className: <span class="string">'a'</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> newmydivVirtual = &#123;</span><br><span class="line">   tagName: <span class="string">'DIV'</span>,</span><br><span class="line">   className: <span class="string">'b'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(mydivVirtual.tagName !== newmydivVirtual.tagName || mydivVirtual.className  !== newmydivVirtual.className)&#123;</span><br><span class="line">   change(mydiv)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过虚拟 DOM 我们可以将更改 DOM 的操作透明化，提供中间层方便用户操作，只更改特定属性也优化了用户体验。</p>
+<h3 id="分析diff"><a href="#分析diff" class="headerlink" title="分析diff"></a>分析diff</h3><p><code>react</code>中的<code>diff</code>其实和<code>vue</code>中的<code>diff</code>大同小异，这张图可以很好地解释过程：<strong>比较只会在同层级进行，不会跨层级比较</strong></p>
+<p><img src="https://pic.superbed.cn/item/5c9f235a3a213b041764a3d7" alt></p>
+<p>举个栗子：将<code>&lt;span&gt;</code>标签插入到<code>&lt;p&gt;</code>标签后面</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 之前 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>           <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>            <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>   <span class="comment">&lt;!-- 层级3 --&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">P</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 之后 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>            <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>             <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>        <span class="comment">&lt;!-- 层级3 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可能期望将<code>&lt;span&gt;</code>直接移动到<code>&lt;p&gt;</code>的后边，这是最优的操作。但是实际的diff操作是移除<code>&lt;p&gt;</code>里的<code>&lt;span&gt;</code>在创建一个新的<code>&lt;span&gt;</code>插到<code>&lt;p&gt;</code>的后边。<br>因为新加的<code>&lt;span&gt;</code>在层级2，旧的在层级3，属于不同层级的比较。</p>
+<h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><blockquote>
+<p>文中的代码位于<a href="https://github.com/aooy/aoy/blob/master/src/vdom/diff.js" target="_blank" rel="noopener">aoy-diff</a>中，已经精简了很多代码，留下最核心的部分。</p>
+</blockquote>
+<h4 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h4><p><code>diff</code>的过程就是调用<code>patch</code>函数，就像打补丁一样修改真实<code>dom</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">patch</span> (<span class="params">oldVnode, vnode</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">		patchVnode(oldVnode, vnode)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">const</span> oEl = oldVnode.el</span><br><span class="line">		<span class="keyword">let</span> parentEle = api.parentNode(oEl)</span><br><span class="line">		createEle(vnode)</span><br><span class="line">		<span class="keyword">if</span> (parentEle !== <span class="literal">null</span>) &#123;</span><br><span class="line">			api.insertBefore(parentEle, vnode.el, api.nextSibling(oEl))</span><br><span class="line">			api.removeChild(parentEle, oldVnode.el)</span><br><span class="line">			oldVnode = <span class="literal">null</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> vnode</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>patch</code>函数有两个参数，<code>vnode</code>和<code>oldVnode</code>，也就是新旧两个虚拟节点。在这之前，我们先了解完整的<code>vnode</code>都有什么属性，举个一个简单的例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// body下的 &lt;div id="v" class="classA"&gt;&lt;div&gt; 对应的 oldVnode 就是</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  el:  div  <span class="comment">//对真实的节点的引用，本例中就是document.querySelector('#id.classA')</span></span><br><span class="line">  tagName: <span class="string">'DIV'</span>,   <span class="comment">//节点的标签</span></span><br><span class="line">  sel: <span class="string">'div#v.classA'</span>  <span class="comment">//节点的选择器</span></span><br><span class="line">  data: <span class="literal">null</span>,       <span class="comment">// 一个存储节点属性的对象，对应节点的el[prop]属性，例如onclick , style</span></span><br><span class="line">  children: [], <span class="comment">//存储子节点的数组，每个子节点也是vnode结构</span></span><br><span class="line">  text: <span class="literal">null</span>,    <span class="comment">//如果是文本节点，对应文本节点的textContent，否则为null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，el属性引用的是此 virtual dom对应的真实dom，<code>patch</code>的<code>vnode</code>参数的<code>el</code>最初是null，因为<code>patch</code>之前它还没有对应的真实dom。</p>
+<p>来到<code>patch</code>的第一部分，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">	patchVnode(oldVnode, vnode)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>sameVnode</code>函数就是看这两个节点是否值得比较，代码相当简单：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sameVnode</span>(<span class="params">oldVnode, vnode</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> vnode.key === oldVnode.key &amp;&amp; vnode.sel === oldVnode.sel</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个<code>vnode</code>的<code>key</code>和<code>sel</code>相同才去比较它们，比如<code>p</code>和<code>span</code>，<code>div.classA</code>和<code>div.classB</code>都被认为是不同结构而不去比较它们。</p>
+<p>如果值得比较会执行<code>patchVnode(oldVnode, vnode)</code>，稍后会详细讲<code>patchVnode</code>函数。</p>
+<p>当节点不值得比较，进入else中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> oEl = oldVnode.el</span><br><span class="line">    <span class="keyword">let</span> parentEle = api.parentNode(oEl)</span><br><span class="line">    createEle(vnode)</span><br><span class="line">    <span class="keyword">if</span> (parentEle !== <span class="literal">null</span>) &#123;</span><br><span class="line">        api.insertBefore(parentEle, vnode.el, api.nextSibling(oEl))</span><br><span class="line">        api.removeChild(parentEle, oldVnode.el)</span><br><span class="line">        oldVnode = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>过程如下：</p>
+<ul>
+<li>取得<code>oldvnode.el</code>的父节点，<code>parentEle</code>是真实dom</li>
+<li><code>createEle(vnode)</code>会为<code>vnode</code>创建它的真实dom，令<code>vnode.el</code> =<code>真实dom</code></li>
+<li><code>parentEle</code>将新的dom插入，移除旧的dom<br><strong>当不值得比较时，新节点直接把老节点整个替换了</strong></li>
+</ul>
+<p>最后</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> vnode</span><br></pre></td></tr></table></figure>
+<p>patch最后会返回vnode，vnode和进入patch之前的不同在哪？<br>没错，就是vnode.el，<strong>唯一的改变就是之前vnode.el = null, 而现在它引用的是对应的真实dom。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oldVnode = patch (oldVnode, vnode)</span><br></pre></td></tr></table></figure>
+<p>至此完成一个patch过程。</p>
+<h4 id="patchVnode"><a href="#patchVnode" class="headerlink" title="patchVnode"></a>patchVnode</h4><p>两个节点值得比较时，会调用<code>patchVnode</code>函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">patchVnode (oldVnode, vnode) &#123;</span><br><span class="line">    <span class="keyword">const</span> el = vnode.el = oldVnode.el</span><br><span class="line">    <span class="keyword">let</span> i, oldCh = oldVnode.children, ch = vnode.children</span><br><span class="line">    <span class="keyword">if</span> (oldVnode === vnode) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> (oldVnode.text !== <span class="literal">null</span> &amp;&amp; vnode.text !== <span class="literal">null</span> &amp;&amp; oldVnode.text !== vnode.text) &#123;</span><br><span class="line">        api.setTextContent(el, vnode.text)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        updateEle(el, vnode, oldVnode)</span><br><span class="line">    	<span class="keyword">if</span> (oldCh &amp;&amp; ch &amp;&amp; oldCh !== ch) &#123;</span><br><span class="line">	    	updateChildren(el, oldCh, ch)</span><br><span class="line">	    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (ch)&#123;</span><br><span class="line">	    	createEle(vnode) <span class="comment">//create el's children dom</span></span><br><span class="line">	    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (oldCh)&#123;</span><br><span class="line">	    	api.removeChildren(el)</span><br><span class="line">	    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>const el = vnode.el = oldVnode.el</code> 这是很重要的一步，让<code>vnode.el</code>引用到现在的真实<code>dom</code>，当<code>el</code>修改时，<code>vnode.el</code>会同步变化。</p>
+<p>节点的比较有5种情况</p>
+<ol>
+<li><code>if (oldVnode === vnode)</code>，他们的引用一致，可以认为没有变化。</li>
+<li><code>if(oldVnode.text !== null &amp;&amp; vnode.text !== null &amp;&amp; oldVnode.text !== vnode.text)</code>，文本节点的比较，需要修改，则会调用<code>Node.textContent = vnode.text</code>。</li>
+<li><code>if( oldCh &amp;&amp; ch &amp;&amp; oldCh !== ch )</code>, 两个节点都有子节点，而且它们不一样，这样我们会调用<code>updateChildren</code>函数比较子节点，这是diff的核心，后边会讲到。</li>
+<li><code>else if (ch)</code>，只有新的节点有子节点，调用<code>createEle(vnode)</code>，<code>vnode.el</code>已经引用了老的dom节点，<code>createEle</code>函数会在老dom节点上添加子节点。</li>
+<li><code>else if (oldCh)</code>，新节点没有子节点，老节点有子节点，直接删除老节点。</li>
+</ol>
+<h4 id="updateChildren"><a href="#updateChildren" class="headerlink" title="updateChildren"></a>updateChildren</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">updateChildren (parentElm, oldCh, newCh) &#123;</span><br><span class="line">    <span class="keyword">let</span> oldStartIdx = <span class="number">0</span>, newStartIdx = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> oldEndIdx = oldCh.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> oldStartVnode = oldCh[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> oldEndVnode = oldCh[oldEndIdx]</span><br><span class="line">    <span class="keyword">let</span> newEndIdx = newCh.length - <span class="number">1</span></span><br><span class="line">    <span class="keyword">let</span> newStartVnode = newCh[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> newEndVnode = newCh[newEndIdx]</span><br><span class="line">    <span class="keyword">let</span> oldKeyToIdx</span><br><span class="line">    <span class="keyword">let</span> idxInOld</span><br><span class="line">    <span class="keyword">let</span> elmToMove</span><br><span class="line">    <span class="keyword">let</span> before</span><br><span class="line">    <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">            <span class="keyword">if</span> (oldStartVnode == <span class="literal">null</span>) &#123;   <span class="comment">//对于vnode.key的比较，会把oldVnode = null</span></span><br><span class="line">                oldStartVnode = oldCh[++oldStartIdx] </span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (oldEndVnode == <span class="literal">null</span>) &#123;</span><br><span class="line">                oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (newStartVnode == <span class="literal">null</span>) &#123;</span><br><span class="line">                newStartVnode = newCh[++newStartIdx]</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (newEndVnode == <span class="literal">null</span>) &#123;</span><br><span class="line">                newEndVnode = newCh[--newEndIdx]</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldStartVnode, newStartVnode)) &#123;</span><br><span class="line">                patchVnode(oldStartVnode, newStartVnode)</span><br><span class="line">                oldStartVnode = oldCh[++oldStartIdx]</span><br><span class="line">                newStartVnode = newCh[++newStartIdx]</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldEndVnode, newEndVnode)) &#123;</span><br><span class="line">                patchVnode(oldEndVnode, newEndVnode)</span><br><span class="line">                oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">                newEndVnode = newCh[--newEndIdx]</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldStartVnode, newEndVnode)) &#123;</span><br><span class="line">                patchVnode(oldStartVnode, newEndVnode)</span><br><span class="line">                api.insertBefore(parentElm, oldStartVnode.el, api.nextSibling(oldEndVnode.el))</span><br><span class="line">                oldStartVnode = oldCh[++oldStartIdx]</span><br><span class="line">                newEndVnode = newCh[--newEndIdx]</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldEndVnode, newStartVnode)) &#123;</span><br><span class="line">                patchVnode(oldEndVnode, newStartVnode)</span><br><span class="line">                api.insertBefore(parentElm, oldEndVnode.el, oldStartVnode.el)</span><br><span class="line">                oldEndVnode = oldCh[--oldEndIdx]</span><br><span class="line">                newStartVnode = newCh[++newStartIdx]</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="comment">// 使用key时的比较</span></span><br><span class="line">                <span class="keyword">if</span> (oldKeyToIdx === <span class="literal">undefined</span>) &#123;</span><br><span class="line">                    oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx) <span class="comment">// 有key生成index表</span></span><br><span class="line">                &#125;</span><br><span class="line">                idxInOld = oldKeyToIdx[newStartVnode.key]</span><br><span class="line">                <span class="keyword">if</span> (!idxInOld) &#123;</span><br><span class="line">                    api.insertBefore(parentElm, createEle(newStartVnode).el, oldStartVnode.el)</span><br><span class="line">                    newStartVnode = newCh[++newStartIdx]</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    elmToMove = oldCh[idxInOld]</span><br><span class="line">                    <span class="keyword">if</span> (elmToMove.sel !== newStartVnode.sel) &#123;</span><br><span class="line">                        api.insertBefore(parentElm, createEle(newStartVnode).el, oldStartVnode.el)</span><br><span class="line">                    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                        patchVnode(elmToMove, newStartVnode)</span><br><span class="line">                        oldCh[idxInOld] = <span class="literal">null</span></span><br><span class="line">                        api.insertBefore(parentElm, elmToMove.el, oldStartVnode.el)</span><br><span class="line">                    &#125;</span><br><span class="line">                    newStartVnode = newCh[++newStartIdx]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (oldStartIdx &gt; oldEndIdx) &#123;</span><br><span class="line">            before = newCh[newEndIdx + <span class="number">1</span>] == <span class="literal">null</span> ? <span class="literal">null</span> : newCh[newEndIdx + <span class="number">1</span>].el</span><br><span class="line">            addVnodes(parentElm, before, newCh, newStartIdx, newEndIdx)</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (newStartIdx &gt; newEndIdx) &#123;</span><br><span class="line">            removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码很密集，为了形象的描述这个过程，可以看看这张图。</p>
+<p><img src="https://pic.superbed.cn/item/5c9f26cd3a213b041764cdfa" alt></p>
+<p>过程可以概括为：<code>oldCh</code>和<code>newCh</code>各有两个头尾的变量<code>StartIdx</code>和<code>EndIdx</code>，它们的2个变量相互比较，一共有4种比较方式。如果4种比较都没匹配，如果设置了key，就会用key进行比较，在比较的过程中，变量会往中间靠，一旦<code>StartIdx&gt;EndIdx</code>表明<code>oldCh</code>和<code>newCh</code>至少有一个已经遍历完了，就会结束比较。</p>
+<h3 id="diff流程图"><a href="#diff流程图" class="headerlink" title="diff流程图"></a>diff流程图</h3><p>当数据发生改变时，set方法会让调用<code>Dep.notify</code>通知所有订阅者Watcher，订阅者就会调用<code>patch</code>给真实的DOM打补丁，更新相应的视图。</p>
+<p><img src="https://pic.superbed.cn/item/5c9f54b23a213b0417670a9c" alt></p>
+<h3 id="具体的diff分析"><a href="#具体的diff分析" class="headerlink" title="具体的diff分析"></a>具体的<code>diff</code>分析</h3><p>设置key和不设置key的区别：<br><strong>不设key，newCh和oldCh只会进行头尾两端的相互比较，设key后，除了头尾两端的比较外，还会从用key生成的对象oldKeyToIdx中查找匹配的节点，所以为节点设置key可以更高效的利用dom。</strong></p>
+<p>diff的遍历过程中，只要是对dom进行的操作都调用<code>api.insertBefore</code>，<code>api.insertBefore</code>只是原生<code>insertBefore</code>的简单封装。<br>比较分为两种，一种是有<code>vnode.key</code>的，一种是没有的。但这两种比较对真实dom的操作是一致的。</p>
+<p>对于与<code>sameVnode(oldStartVnode, newStartVnode)</code>和<code>sameVnode(oldEndVnode,newEndVnode)</code>为true的情况，不需要对<code>dom</code>进行移动。</p>
+<p>总结遍历过程，有3种dom操作：</p>
+<ol>
+<li>当<code>oldStartVnode</code>，<code>newEndVnode</code>值得比较，说明<code>oldStartVnode.el</code>跑到<code>oldEndVnode.el</code>的后边了。</li>
+</ol>
+<p>图中假设<code>startIdx</code>遍历到1。</p>
+<p><img src="https://pic.superbed.cn/item/5c9f272b3a213b041764d291" alt></p>
+<ol start="2">
+<li>当<code>oldEndVnode</code>，<code>newStartVnode</code>值得比较，说明 <code>oldEndVnode.el</code>跑到了<code>newStartVnode.el</code>的前边。（这里笔误，应该是“<code>oldEndVnode.el</code>跑到了<code>oldStartVnode.el</code>的前边”，准确的说应该是<code>oldEndVnode.el</code>需要移动到<code>oldStartVnode.el</code>的前边”）</li>
+</ol>
+<p><img src="https://pic.superbed.cn/item/5c9f27653a213b041764d5a5" alt></p>
+<ol start="3">
+<li><code>newCh</code>中的节点<code>oldCh</code>里没有， 将新节点插入到<code>oldStartVnode.el</code>的前边。</li>
+</ol>
+<p><img src="https://pic.superbed.cn/item/5c9f27d43a213b041764dada" alt></p>
+<p>在结束时，分为两种情况：</p>
+<ol>
+<li><code>oldStartIdx &gt; oldEndIdx</code>，可以认为<code>oldCh</code>先遍历完。当然也有可能<code>newCh</code>此时也正好完成了遍历，统一都归为此类。此时<code>newStartIdx</code>和<code>newEndIdx</code>之间的vnode是新增的，调用<code>addVnodes</code>，把他们全部插进<code>before</code>的后边，<code>before</code>很多时候是为null的。<code>addVnodes</code>调用的是<code>insertBefore</code>操作dom节点，我们看看<code>insertBefore</code>的文档：<code>parentElement.insertBefore(newElement, referenceElement)</code><br>如果<code>referenceElement</code>为null则<code>newElement</code>将被插入到子节点的末尾。如果<code>newElement</code>已经在DOM树中，<code>newElement</code>首先会从DOM树中移除。<strong>所以<code>before</code>为<code>null</code>，<code>newElement</code>将被插入到子节点的末尾。</strong></li>
+</ol>
+<p><img src="https://pic.superbed.cn/item/5c9f28153a213b041764de61" alt></p>
+<ol start="2">
+<li><code>newStartIdx &gt; newEndIdx</code>，可以认为<code>newCh</code>先遍历完。此时<code>oldStartIdx</code>和<code>oldEndIdx</code>之间的<code>vnode</code>在新的子节点里已经不存在了，调用<code>removeVnodes</code>将它们从<code>dom</code>里删除。</li>
+</ol>
+<p><img src="https://pic.superbed.cn/item/5c9f284b3a213b041764e15c" alt></p>
+<h4 id="下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。"><a href="#下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。" class="headerlink" title="下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。"></a>下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。</h4><ol>
+<li>a,b,c,d,e假设是4个不同的元素，我们没有设置key时，b没有复用，而是直接创建新的，删除旧的。</li>
+</ol>
+<p><img src="https://pic.superbed.cn/item/5c9f28723a213b041764e36d" alt></p>
+<ol start="2">
+<li>当我们给4个元素加上唯一key时，b得到了的复用。</li>
+</ol>
+<p><img src="https://pic.superbed.cn/item/5c9f28973a213b041764e4e4" alt></p>
+<p>这个例子如果我们使用手工优化，只需要3步就可以达到。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>尽量不要跨层级的修改dom</li>
+<li>设置key可以最大化的利用节点</li>
+<li>diff的效率并不是每种情况下都是最优的</li>
+</ul>
+<p><a href="https://github.com/aooy/blog/issues/2" target="_blank" rel="noopener">原文地址</a>，感谢杨敬卓大大的分析~</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+            <a href="/tags/diff算法/" rel="tag"># diff算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/29/实现一个Promise/" rel="next" title="实现一个Promise">
+                <i class="fa fa-chevron-left"></i> 实现一个Promise
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">Kategorien</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">schlagwörter</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-DOM"><span class="nav-number">1.</span> <span class="nav-text">Virtual DOM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析diff"><span class="nav-number">2.</span> <span class="nav-text">分析diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码分析"><span class="nav-number">3.</span> <span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#patch"><span class="nav-number">3.1.</span> <span class="nav-text">patch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#patchVnode"><span class="nav-number">3.2.</span> <span class="nav-text">patchVnode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#updateChildren"><span class="nav-number">3.3.</span> <span class="nav-text">updateChildren</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diff流程图"><span class="nav-number">4.</span> <span class="nav-text">diff流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体的diff分析"><span class="nav-number">5.</span> <span class="nav-text">具体的diff分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。"><span class="nav-number">5.1.</span> <span class="nav-text">下面举个例子，画出diff完整的过程，每一步dom的变化都用不同颜色的线标出。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
