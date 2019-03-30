@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="作为一门设计初衷为了处理浏览器网页交互（DOM操作、UI动画等）的语言，JavaScript只能被设计为单线程（否则多个线程同时处理DOM那将会造成混乱）。 可是写过JavaScript代码的人都用过定时器、ajax、事件绑定等。如果是单线程那岂不是无法完成这些异步请求？">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-24T12:40:53.198Z">
+<meta property="og:updated_time" content="2019-03-30T03:36:46.244Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的事件循环&amp;消息队列">
 <meta name="twitter:description" content="作为一门设计初衷为了处理浏览器网页交互（DOM操作、UI动画等）的语言，JavaScript只能被设计为单线程（否则多个线程同时处理DOM那将会造成混乱）。 可是写过JavaScript代码的人都用过定时器、ajax、事件绑定等。如果是单线程那岂不是无法完成这些异步请求？">
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-03-24 20:40:53" itemprop="dateModified" datetime="2019-03-24T20:40:53+08:00">2019-03-24</time>
+                <time title="Geändert am: 2019-03-30 11:36:46" itemprop="dateModified" datetime="2019-03-30T11:36:46+08:00">2019-03-30</time>
               
             
           </span>
@@ -478,7 +478,52 @@
 <blockquote>
 <p>在node环境下，<code>process.nextTick</code>的优先级高于<code>Promise</code>，也就是说：在宏任务结束后会先执行微任务队列中的<code>nextTickQueue</code>，然后才会执行微任务中的<code>Promise</code>。</p>
 </blockquote>
-
+<h3 id="Node-中的-Event-Loop"><a href="#Node-中的-Event-Loop" class="headerlink" title="Node 中的 Event Loop"></a>Node 中的 Event Loop</h3><p>Node 的 Event loop 分为6个阶段，它们会按照顺序反复运行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">┌───────────────────────┐</span><br><span class="line">┌─&gt;│        timers         │</span><br><span class="line">│  └──────────┬────────────┘</span><br><span class="line">│  ┌──────────┴────────────┐</span><br><span class="line">│  │     I/O callbacks     │</span><br><span class="line">│  └──────────┬────────────┘</span><br><span class="line">│  ┌──────────┴────────────┐</span><br><span class="line">│  │     idle, prepare     │</span><br><span class="line">│  └──────────┬────────────┘      ┌───────────────┐</span><br><span class="line">│  ┌──────────┴────────────┐      │   incoming:   │</span><br><span class="line">│  │         poll          │&lt;──connections───     │</span><br><span class="line">│  └──────────┬────────────┘      │   data, etc.  │</span><br><span class="line">│  ┌──────────┴────────────┐      └───────────────┘</span><br><span class="line">│  │        check          │</span><br><span class="line">│  └──────────┬────────────┘</span><br><span class="line">│  ┌──────────┴────────────┐</span><br><span class="line">└──┤    close callbacks    │</span><br><span class="line">   └───────────────────────┘</span><br></pre></td></tr></table></figure>
+<h4 id="timer"><a href="#timer" class="headerlink" title="timer"></a>timer</h4><ul>
+<li>timers 阶段会执行 <code>setTimeout</code> 和 <code>setInterval</code>。一个 <code>timer</code> 指定的时间并不是准确时间，而是在达到这个时间后尽快执行回调，可能会因为系统正在执行别的事务而延迟。下限的时间有一个范围：<code>[1, 2147483647]</code> ，如果设定的时间不在这个范围，将被设置为1.</li>
+</ul>
+<h4 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h4><ul>
+<li>I/O 阶段会执行除了 close 事件，定时器和 <code>setImmediate</code> 的回调</li>
+</ul>
+<h4 id="idle-prepare"><a href="#idle-prepare" class="headerlink" title="idle, prepare"></a>idle, prepare</h4><ul>
+<li>idle, prepare 阶段内部实现</li>
+</ul>
+<h4 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h4><ul>
+<li>poll 阶段很重要，这一阶段中，系统会做两件事情<ol>
+<li>执行到点的定时器</li>
+<li>执行 poll 队列中的事件</li>
+</ol>
+</li>
+<li>并且当 poll 中没有定时器的情况下，会发现以下两件事情<ul>
+<li>如果 poll 队列不为空，会遍历回调队列并同步执行，直到队列为空或者系统限制</li>
+<li>如果 poll 队列为空，会有两件事发生 <ul>
+<li>如果有 <code>setImmediate</code> 需要执行，poll 阶段会停止并且进入到 check 阶段执行 <code>setImmediate</code></li>
+<li>如果没有 <code>setImmediate</code> 需要执行，会等待回调被加入到队列中并立即执行回调</li>
+<li>如果有别的定时器需要被执行，会回到 timer 阶段执行回调。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="check"><a href="#check" class="headerlink" title="check"></a>check</h4><ul>
+<li>check 阶段执行 <code>setImmediate</code></li>
+</ul>
+<h4 id="close-callbacks"><a href="#close-callbacks" class="headerlink" title="close callbacks"></a>close callbacks</h4><ul>
+<li><p>close callbacks 阶段执行 close 事件。并且在 Node 中，有些情况下的定时器执行顺序是随机的</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line">setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setImmediate'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 这里可能会输出 setTimeout，setImmediate</span></span><br><span class="line"><span class="comment">// 可能也会相反的输出，这取决于性能</span></span><br><span class="line"><span class="comment">// 因为可能进入 event loop 用了不到 1 毫秒，这时候会执行 setImmediate</span></span><br><span class="line"><span class="comment">// 否则会执行 setTimeout</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当然在这种情况下，执行顺序是相同的</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"></span><br><span class="line">fs.readFile(__filename, () =&gt; &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'timeout'</span>);</span><br><span class="line">    &#125;, <span class="number">0</span>);</span><br><span class="line">    setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'immediate'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 因为 readFile 的回调在 poll 中执行</span></span><br><span class="line"><span class="comment">// 发现有 setImmediate ，所以会立即跳到 check 阶段执行回调</span></span><br><span class="line"><span class="comment">// 再去 timer 阶段执行 setTimeout</span></span><br><span class="line"><span class="comment">// 所以以上输出一定是 setImmediate，setTimeout</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上面介绍的是<code>macrotask</code>的执行情况。被创建的<code>microtask</code>会在以上宏任务完成后立即执行</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timer1'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'timer2'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上代码在浏览器和 node 中打印情况是不同的</span></span><br><span class="line"><span class="comment">// 浏览器中一定打印 timer1, promise1, timer2, promise2</span></span><br><span class="line"><span class="comment">// node 中可能打印 timer1, timer2, promise1, promise2</span></span><br><span class="line"><span class="comment">// 也可能打印 timer1, promise1, timer2, promise2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Node-中的-process-nextTick-会先于其他-microtask-执行。"><a href="#Node-中的-process-nextTick-会先于其他-microtask-执行。" class="headerlink" title="Node 中的 process.nextTick 会先于其他 microtask 执行。"></a>Node 中的 <code>process.nextTick</code> 会先于其他 microtask 执行。</h4>
       
     </div>
 
@@ -823,7 +868,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件循环与消息队列"><span class="nav-number">2.</span> <span class="nav-text">事件循环与消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是消息队列"><span class="nav-number">2.1.</span> <span class="nav-text">什么是消息队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是事件循环"><span class="nav-number">2.2.</span> <span class="nav-text">什么是事件循环</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#宏任务-amp-微任务"><span class="nav-number">3.</span> <span class="nav-text">宏任务&amp;微任务</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件循环与消息队列"><span class="nav-number">2.</span> <span class="nav-text">事件循环与消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是消息队列"><span class="nav-number">2.1.</span> <span class="nav-text">什么是消息队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是事件循环"><span class="nav-number">2.2.</span> <span class="nav-text">什么是事件循环</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#宏任务-amp-微任务"><span class="nav-number">3.</span> <span class="nav-text">宏任务&amp;微任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-中的-Event-Loop"><span class="nav-number">4.</span> <span class="nav-text">Node 中的 Event Loop</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#timer"><span class="nav-number">4.1.</span> <span class="nav-text">timer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I-O"><span class="nav-number">4.2.</span> <span class="nav-text">I/O</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#idle-prepare"><span class="nav-number">4.3.</span> <span class="nav-text">idle, prepare</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#poll"><span class="nav-number">4.4.</span> <span class="nav-text">poll</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#check"><span class="nav-number">4.5.</span> <span class="nav-text">check</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#close-callbacks"><span class="nav-number">4.6.</span> <span class="nav-text">close callbacks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-中的-process-nextTick-会先于其他-microtask-执行。"><span class="nav-number">4.7.</span> <span class="nav-text">Node 中的 process.nextTick 会先于其他 microtask 执行。</span></a></li></ol></li></ol></div>
             
 
           </div>

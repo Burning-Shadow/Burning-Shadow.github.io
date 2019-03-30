@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="async/await 是 ES7 引入的新的异步代码 规范，它提供了一种新的编写异步代码的方式，这种方式在语法层面提供了一种形式上非常接近于同步代码的异步非阻塞代码风格，在此之前我们使用的多是异步回调、 Promise 模式。 从实现上来看 async/await 是在 生成器、Promise 基础上构建出来的新语法：以 生成器 实现流程控制，以 Promise 实现异步控制。 Node 自 v">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-24T15:01:47.893Z">
+<meta property="og:updated_time" content="2019-03-29T16:58:00.831Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6中的 async &amp; await">
 <meta name="twitter:description" content="async/await 是 ES7 引入的新的异步代码 规范，它提供了一种新的编写异步代码的方式，这种方式在语法层面提供了一种形式上非常接近于同步代码的异步非阻塞代码风格，在此之前我们使用的多是异步回调、 Promise 模式。 从实现上来看 async/await 是在 生成器、Promise 基础上构建出来的新语法：以 生成器 实现流程控制，以 Promise 实现异步控制。 Node 自 v">
@@ -372,6 +372,22 @@
             
 
             
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-30 00:58:00" itemprop="dateModified" datetime="2019-03-30T00:58:00+08:00">2019-03-30</time>
+              
+            
           </span>
 
           
@@ -463,6 +479,22 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">retriveSize</span>(<span class="params">imgs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.all(imgs.map(<span class="function"><span class="params">img</span> =&gt;</span> getSize(img)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这实际上已经回退到了 Promise 模式，所以为了写出良好的 async/await 代码，建议还是认真学习学习 Promise 模式</p>
 <p>原为地址：<a href="https://juejin.im/post/5b4220f46fb9a04f8a216b31" target="_blank" rel="noopener">https://juejin.im/post/5b4220f46fb9a04f8a216b31</a></p>
+<h3 id="async、await优缺点"><a href="#async、await优缺点" class="headerlink" title="async、await优缺点"></a>async、await优缺点</h3><p><code>async 和 await</code> 相比直接使用 <code>Promise</code> 来说，<strong>优势在于处理 <code>then</code> 的调用链，能够更清晰准确的写出代码</strong>。缺点在于<strong>滥用 <code>await</code> 可能会导致性能问题，因为 <code>await</code> 会阻塞代码</strong>，也许之后的异步代码并不依赖于前者，但仍然需要等待前者完成，导致代码失去了并发性。</p>
+<blockquote>
+<p>每当代码执行到<code>await</code>时都会返回一个<code>pending</code>状态的<code>Promise</code>对象，并暂时返回执行代码的控制权，使得函数外的代码得以继续执行</p>
+<p><code>await</code>内部实现了<code>generator</code>，而<code>generator</code>会保留堆栈中的东西</p>
+</blockquote>
+<ul>
+<li><p>for example</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">0</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  a = a + <span class="keyword">await</span> <span class="number">10</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Frist a = '</span>, a) <span class="comment">// -&gt; Frist a = 10</span></span><br><span class="line">  a = (<span class="keyword">await</span> <span class="number">10</span>) + a</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Second a = '</span>, a) <span class="comment">// -&gt; Second a = 20</span></span><br><span class="line">&#125;</span><br><span class="line">b()</span><br><span class="line">a++</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'1'</span>, a) <span class="comment">// -&gt; '1' 1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>首先函数 <code>b</code> 先执行，在执行到 <code>await 10</code> 之前变量 <code>a</code> 还是 0，<strong>因为在 <code>await</code> 内部实现了 <code>generators</code> ，<code>generators</code> 会保留堆栈中东西，所以这时候 <code>a = 0</code> 被保存了下来</strong></p>
+<p>因为 <strong><code>await</code> 是异步操作，遇到<code>await</code>就会立即返回一个<code>pending</code>状态的<code>Promise</code>对象，暂时返回执行代码的控制权</strong>，使得函数外的代码得以继续执行，所以会先执行 <code>console.log(&#39;1&#39;, a)</code></p>
+<p>这时候同步代码执行完毕，开始执行异步代码，将保存下来的值拿出来使用，这时候 <code>a = 10</code></p>
+<p>然后后面就是常规执行代码了</p>
+</li>
+</ul>
 
       
     </div>
@@ -804,7 +836,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#从一个实例开始"><span class="nav-number">1.</span> <span class="nav-text">从一个实例开始</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#以回调方式实现"><span class="nav-number">1.1.</span> <span class="nav-text">以回调方式实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以-Promise-方式实现"><span class="nav-number">1.2.</span> <span class="nav-text">以 Promise 方式实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以-async-await-方式实现"><span class="nav-number">1.3.</span> <span class="nav-text">以 async/await 方式实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async-中的异常处理"><span class="nav-number">2.</span> <span class="nav-text">async 中的异常处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并联的-await"><span class="nav-number">3.</span> <span class="nav-text">并联的 await</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#从一个实例开始"><span class="nav-number">1.</span> <span class="nav-text">从一个实例开始</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#以回调方式实现"><span class="nav-number">1.1.</span> <span class="nav-text">以回调方式实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以-Promise-方式实现"><span class="nav-number">1.2.</span> <span class="nav-text">以 Promise 方式实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以-async-await-方式实现"><span class="nav-number">1.3.</span> <span class="nav-text">以 async/await 方式实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async-中的异常处理"><span class="nav-number">2.</span> <span class="nav-text">async 中的异常处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并联的-await"><span class="nav-number">3.</span> <span class="nav-text">并联的 await</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async、await优缺点"><span class="nav-number">4.</span> <span class="nav-text">async、await优缺点</span></a></li></ol></div>
             
 
           </div>
