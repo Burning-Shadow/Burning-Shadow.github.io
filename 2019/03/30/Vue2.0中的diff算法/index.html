@@ -116,7 +116,7 @@
 <meta property="og:image" content="https://pic.superbed.cn/item/5c9f284b3a213b041764e15c">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c9f28723a213b041764e36d">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c9f28973a213b041764e4e4">
-<meta property="og:updated_time" content="2019-03-30T11:37:38.457Z">
+<meta property="og:updated_time" content="2019-03-31T14:48:35.557Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue2.0中的diff算法">
 <meta name="twitter:description" content="Vue2.0中虚拟DOM的概念想必大家都有所耳闻。这东西对diff算法的理解有着至关重要的作用，所以咱们先了解一下virtual DOM">
@@ -379,12 +379,24 @@
                 
               
 
-              <time title="Erstellt: 2019-03-30 11:38:14 / Geändert am: 19:37:38" itemprop="dateCreated datePublished" datetime="2019-03-30T11:38:14+08:00">2019-03-30</time>
+              <time title="Erstellt: 2019-03-30 11:38:14" itemprop="dateCreated datePublished" datetime="2019-03-30T11:38:14+08:00">2019-03-30</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-03-31 22:48:35" itemprop="dateModified" datetime="2019-03-31T22:48:35+08:00">2019-03-31</time>
               
             
           </span>
@@ -453,7 +465,7 @@
 <p>文中的代码位于<a href="https://github.com/aooy/aoy/blob/master/src/vdom/diff.js" target="_blank" rel="noopener">aoy-diff</a>中，已经精简了很多代码，留下最核心的部分。</p>
 </blockquote>
 <h4 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h4><p><code>diff</code>的过程就是调用<code>patch</code>函数，就像打补丁一样修改真实<code>dom</code>。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">patch</span> (<span class="params">oldVnode, vnode</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">		patchVnode(oldVnode, vnode)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">const</span> oEl = oldVnode.el</span><br><span class="line">		<span class="keyword">let</span> parentEle = api.parentNode(oEl)</span><br><span class="line">		createEle(vnode)</span><br><span class="line">		<span class="keyword">if</span> (parentEle !== <span class="literal">null</span>) &#123;</span><br><span class="line">			api.insertBefore(parentEle, vnode.el, api.nextSibling(oEl))</span><br><span class="line">			api.removeChild(parentEle, oldVnode.el)</span><br><span class="line">			oldVnode = <span class="literal">null</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> vnode</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">patch</span> (<span class="params">oldVnode, vnode</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 查看这两个节点是否值得比较（是否同层且属性、类名相同）</span></span><br><span class="line">    <span class="keyword">if</span> (sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">		patchVnode(oldVnode, vnode)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 取得oldvnode.el父节点</span></span><br><span class="line">		<span class="keyword">const</span> oEl = oldVnode.el</span><br><span class="line">		<span class="keyword">let</span> parentEle = api.parentNode(oEl)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 创建vnode的真实don</span></span><br><span class="line">		createEle(vnode)</span><br><span class="line">		<span class="keyword">if</span> (parentEle !== <span class="literal">null</span>) &#123;</span><br><span class="line">			api.insertBefore(parentEle, vnode.el, api.nextSibling(oEl))</span><br><span class="line">			api.removeChild(parentEle, oldVnode.el)</span><br><span class="line">			oldVnode = <span class="literal">null</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> vnode</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>patch</code>函数有两个参数，<code>vnode</code>和<code>oldVnode</code>，也就是新旧两个虚拟节点。在这之前，我们先了解完整的<code>vnode</code>都有什么属性，举个一个简单的例子:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// body下的 &lt;div id="v" class="classA"&gt;&lt;div&gt; 对应的 oldVnode 就是</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  el:  div  <span class="comment">//对真实的节点的引用，本例中就是document.querySelector('#id.classA')</span></span><br><span class="line">  tagName: <span class="string">'DIV'</span>,   <span class="comment">//节点的标签</span></span><br><span class="line">  sel: <span class="string">'div#v.classA'</span>  <span class="comment">//节点的选择器</span></span><br><span class="line">  data: <span class="literal">null</span>,       <span class="comment">// 一个存储节点属性的对象，对应节点的el[prop]属性，例如onclick , style</span></span><br><span class="line">  children: [], <span class="comment">//存储子节点的数组，每个子节点也是vnode结构</span></span><br><span class="line">  text: <span class="literal">null</span>,    <span class="comment">//如果是文本节点，对应文本节点的textContent，否则为null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>需要注意的是，el属性引用的是此 virtual dom对应的真实dom，<code>patch</code>的<code>vnode</code>参数的<code>el</code>最初是null，因为<code>patch</code>之前它还没有对应的真实dom。</p>
