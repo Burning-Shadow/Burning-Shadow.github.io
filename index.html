@@ -366,7 +366,7 @@
                 
               
 
-              <time title="Erstellt: 2019-04-05 10:33:21 / Geändert am: 10:38:08" itemprop="dateCreated datePublished" datetime="2019-04-05T10:33:21+08:00">2019-04-05</time>
+              <time title="Erstellt: 2019-04-05 10:33:21 / Geändert am: 11:30:16" itemprop="dateCreated datePublished" datetime="2019-04-05T10:33:21+08:00">2019-04-05</time>
             
 
             
@@ -424,69 +424,16 @@
 
       
         
+          <p>本文介绍了 CSS 中的选择器</p>
+          <!--noindex-->
           
-            <h3 id="基本选择器"><a href="#基本选择器" class="headerlink" title="基本选择器"></a>基本选择器</h3><ul>
-<li><code>*</code>：通配符选择器</li>
-<li><code>#</code>：id选择器</li>
-<li><code>.</code>：类选择器</li>
-<li><code>element</code>：元素选择器</li>
-</ul>
-<h3 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h3><ul>
-<li><code>[attribute]</code>：匹配所有带<code>attribute</code>属性的元素</li>
-<li><code>[attribute=&quot;x&quot;]</code>：匹配所有<code>attribute</code>属性为x的元素</li>
-<li><code>[attribute~=&quot;x&quot;]</code>：匹配所有<code>attribute</code>属性具有多个空格分割的值，其中一个值等于x的元素</li>
-<li><code>[attribute|=&quot;x&quot;]</code>：匹配所有<code>attribute</code>属性具有连字符<code>-</code>分隔的值，其中一个值以 x 开头的元素</li>
-</ul>
-<ul>
-<li><code>[attribute^=&quot;x&quot;]</code>：匹配所有<code>attribute</code>属性以x开头的值</li>
-<li><code>[attribute$=&quot;x&quot;]</code>：匹配所有<code>attribute</code>属性以x结尾的值</li>
-<li><code>[attribute*=&quot;x&quot;]</code>：匹配属性<code>attribute</code>属性的值包含x的元素</li>
-</ul>
-<h3 id="伪类选择器"><a href="#伪类选择器" class="headerlink" title="伪类选择器"></a>伪类选择器</h3><ul>
-<li><code>E:first-child</code>: 匹配元素 E 当它是其父元素的第一个子元素</li>
-<li><code>E:link</code>: 匹配未被访问(未点击或跳转)的链接</li>
-<li><code>E:visited</code>: 匹配已访问过的链接</li>
-<li><code>E:active</code>: 匹配鼠标按下还未抬起的元素<code>E:hover</code>: 匹配鼠标悬停其上的元素</li>
-<li><code>E:focus</code>: 匹配获取当前焦点的元素</li>
-<li><code>E:lang(x)</code>: 匹配 <code>lang</code> 属性等于 x 的元素</li>
-</ul>
-<ul>
-<li><code>E:target</code>: URL 后跟锚点#，指向文档内某个具体的元素，这个被链接的元素就是目标元素，<code>E:target</code>选 择器用于选取当前活动的目标元素 当我们点击列表 tab1 时，因为其锚点链接的元素就是 id 为 tab1 的元素，所以此时活动的目标元素就是 id 为 tab1 的 div，通过 div:target 就可以获取此目标元素。</li>
-<li><code>:not(selector)</code>: 匹配与 selector 选择器描述不相符的元素</li>
-<li><code>E:enabled</code>: 匹配表单中激活的元素</li>
-<li><code>E:disabled</code>: 匹配表单中禁用的元素</li>
-<li><code>E:checked</code>: 匹配表单中被选中的 radio(单选框)或 checkbox(复选框)</li>
-</ul>
-<h4 id="CSS3结构性伪类"><a href="#CSS3结构性伪类" class="headerlink" title="CSS3结构性伪类"></a>CSS3结构性伪类</h4><ul>
-<li><code>:root</code>: 匹配根元素，对应 HTML 文档就是 html 元素</li>
-<li><code>E:nth-child(n)</code>: 匹配元素 E 当它是其父元素的第 n(从 1 开始)个子元素 列表 tab1 是其父元素 ul 的第一个元素，因此可以匹配到列表 tab1</li>
-<li><code>E:nth-last-child(n)</code>: 匹配元素 E 当它是其父元素的倒数第 n(从 1 开始)个子元素 列表 tab2 是其父元素 ul 的倒数第一个子元素，因此可以匹配到列表 tab2</li>
-<li><code>E:last-child</code>: 匹配元素 E 当它是其父元素的倒数第 1 个子元素</li>
-<li><code>E:only-child</code>: 匹配元素 E 当它是其父元素的唯一一个子元素</li>
-<li><code>E:nth-of-type(n)</code>: 匹配元素 E 当它是其父元素的第 n(从 1 开始)个出现的与 E 类型相同的子元素</li>
-<li><code>E:nth-last-of-type(n)</code>: 匹配元素 E 当它是其父元素的倒数第 n(从 1 开始)个出现的与 E 类型相同的子元素</li>
-<li><code>E:first-of-type</code>: 匹配元素 E 当它是其父元素的第 1 个出现的与 E 类型相同的元素子元素(可能有多个)</li>
-<li><code>E:last-of-type</code>: 匹配元素 E 当它是其父元素的倒数第 1 个出现的与 E 类型相同的元素子元素(可能有多个)</li>
-<li><code>E:only-of-type</code>: 匹配元素 E 当它是其父元素下唯一一个 E 类型的元素</li>
-<li><code>E:empty</code>: 匹配元素 E 当没有子元素或内容时</li>
-</ul>
-<h3 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h3><ul>
-<li><code>::first-line</code>: 匹配元素的第一行</li>
-<li><code>::first-letter</code>: 匹配元素的第一个字母</li>
-<li><code>::before</code>: 在元素前通过 content 属性插入内容</li>
-<li><code>::after</code>: 在元素后通过 content 属性插入内容</li>
-<li><code>::selection</code>: 匹配鼠标框选的元素</li>
-</ul>
-<h3 id="多级选择器"><a href="#多级选择器" class="headerlink" title="多级选择器"></a>多级选择器</h3><ul>
-<li><code>E, F</code>: 多元素选择器，同时匹配 E 元素和 F 元素</li>
-<li><code>E &gt; F</code>: 子元素选择器，匹配 E 元素的子元素 F</li>
-<li><code>E F</code>: 后代元素选择器，匹配 E 元素的后代元素 F</li>
-<li><code>E + F</code>: 相邻元素选择器，匹配所有紧随 E 元素之后的 F 元素 匹配 div3</li>
-<li><code>E ~ F</code>: 同级元素选择器，匹配所有 E 元素之后的同级元素 F 匹配 div3，div4</li>
-</ul>
-<h3 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h3><p><code>!important &gt; 行内样式 &gt; ID &gt; 类、伪类、属性 &gt; 元素、伪元素 &gt; 继承 &gt; 通配符</code></p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/05/CSS中的选择器/#more" rel="contents">
+                Weiterlesen &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
     </div>
@@ -940,12 +887,24 @@
                 
               
 
-              <time title="Erstellt: 2019-04-03 21:54:06 / Geändert am: 22:01:03" itemprop="dateCreated datePublished" datetime="2019-04-03T21:54:06+08:00">2019-04-03</time>
+              <time title="Erstellt: 2019-04-03 21:54:06" itemprop="dateCreated datePublished" datetime="2019-04-03T21:54:06+08:00">2019-04-03</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-04-05 11:31:13" itemprop="dateModified" datetime="2019-04-05T11:31:13+08:00">2019-04-05</time>
               
             
           </span>
@@ -998,23 +957,21 @@
 
       
         
-          
-            <p>MVVM 由以下三部分组成</p>
+          <p>MVVM 由以下三部分组成</p>
 <ul>
 <li><code>View</code>：界面</li>
 <li><code>Model</code>：数据模型</li>
 <li><code>ViewModel</code>：作为桥梁负责沟通<code>View</code>和<code>Model</code></li>
 </ul>
-<p>在 MVVM 中，UI 是通过数据驱动的，数据一旦改变就会相应的刷新对应的 UI，UI 如果改变也会相应的改变数据。</p>
-<p>如此，开发者在业务处理中就可以<strong>只关心数据的流转，而无需直接和页面打交道</strong>啦。</p>
-<p><code>ViewModel</code>只关心数据和业务的处理，不关心<code>View</code>如何处理数据。在此情况下，<code>View</code>和<code>Model</code>都可以独立出来，任何一方改变了也不一定需要改变另一方，并且可以将一些可复用的逻辑放在一个<code>ViewModel</code>中，让多个<code>View</code>复用这个<code>ViewModel</code></p>
-<p>我个人理解来看<code>ViewModel</code>就是一个作为中间商的<code>Dep（订阅器）</code>和<code>Complier(编译器)</code>的结合体，通过他们完成对数据的绑定</p>
-<p>其中最核心的就是数据的双向绑定，比如<code>Angluar</code>的脏数据检测，<code>Vue</code>中的数据劫持</p>
-<h3 id="脏数据检测"><a href="#脏数据检测" class="headerlink" title="脏数据检测"></a>脏数据检测</h3><p>当触发了指定事件后会进入脏数据检测，这时会调用 <code>$digest</code> 循环遍历所有的数据观察者，判断当前值是否和先前的值有区别，如果检测到变化的话，会调用 <code>$watch</code> 函数，然后再次调用 <code>$digest</code> 循环直到发现没有变化。循环至少为二次 ，至多为十次。</p>
-<p>脏数据检测虽然存在低效的问题，但是不关心数据是通过什么方式改变的，都可以完成任务，但是这在 Vue 中的双向绑定是存在问题的。并且脏数据检测可以实现批量检测出更新的值，再去统一更新 UI，大大减少了操作 DOM 的次数。所以低效也是相对的，这就仁者见仁智者见智了。</p>
-<h3 id="数据劫持"><a href="#数据劫持" class="headerlink" title="数据劫持"></a>数据劫持</h3><p>这里我们在另一篇文章 ——<a href="https://burning-shadow.github.io/2019/03/31/Vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/" target="_blank" rel="noopener"> Vue双向绑定原理及实现</a>提到过，感兴趣的<code>boy</code>可以去看一下，其中不光引入了数据劫持（通过<code>Object.defineProperty实现</code>）的概念，还涉到了订阅者-发布者模式，以此来实现一个简单的<code>v-model</code>。</p>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/03/MVVM/#more" rel="contents">
+                Weiterlesen &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
