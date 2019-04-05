@@ -108,7 +108,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5ca626383a213b0417ae4cbd">
 <meta property="og:image" content="https://pic.superbed.cn/item/5ca6265e3a213b0417ae4e00">
-<meta property="og:updated_time" content="2019-04-05T03:27:15.594Z">
+<meta property="og:updated_time" content="2019-04-05T03:37:26.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS3中的伪类&amp;伪元素">
 <meta name="twitter:description" content="在正式开始之前我们先看一下他们的定义  伪元素（Pseudo-elements） Pseudo-elements create abstractions about the document tree beyond those specified by the document language. For instance, document languages do not offer mech">
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-04-05 11:27:15" itemprop="dateModified" datetime="2019-04-05T11:27:15+08:00">2019-04-05</time>
+                <time title="Geändert am: 2019-04-05 11:37:26" itemprop="dateModified" datetime="2019-04-05T11:37:26+08:00">2019-04-05</time>
               
             
           </span>
@@ -471,7 +471,9 @@
 <p>当然，伪类伪类，就是可以达到<strong>类</strong>的效果</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">div:first-child &#123;</span><br><span class="line"> color: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'red-line'</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span>I am snow<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>如上就是伪类和伪元素的妙用咯</p>
-<h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><h4 id="伪元素实现换行，替代-lt-br-gt"><a href="#伪元素实现换行，替代-lt-br-gt" class="headerlink" title="伪元素实现换行，替代&lt;br&gt;"></a>伪元素实现换行，替代<code>&lt;br&gt;</code></h4><p>由于<code>&lt;br&gt;</code>标签不仅在可维护性方面很差，还污染了结构层的代码。所以我们可以通过运用<code>after</code>伪元素来代替换行标签</p>
+<h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><h4 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h4><p>实战中最经典的也就是当初的清除浮动章节咯</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;<span class="attribute">content</span>:<span class="string">"."</span>; <span class="attribute">display</span>:block; <span class="attribute">height</span>:<span class="number">0</span>; <span class="attribute">visibility</span>:hidden; <span class="attribute">clear</span>:both; &#125;</span><br><span class="line">.clearfix &#123; *zoom:1; &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="伪元素实现换行，替代-lt-br-gt"><a href="#伪元素实现换行，替代-lt-br-gt" class="headerlink" title="伪元素实现换行，替代&lt;br&gt;"></a>伪元素实现换行，替代<code>&lt;br&gt;</code></h4><p>由于<code>&lt;br&gt;</code>标签不仅在可维护性方面很差，还污染了结构层的代码。所以我们可以通过运用<code>after</code>伪元素来代替换行标签</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.inline-element</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">'\A'</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通过给元素的<code>after</code>伪元素添加<code>content</code>为<code>\A</code>的值。</p>
 <p>这里的<code>\A</code>是专门代替换行符的<code>0x000A</code>。在 CSS 中他可以写作<code>“\000A”</code>，或简化为<code>\A</code>。这里我们用它来作为<code>::after</code>伪元素的内容，相当于在末尾添加了一个换行符的意思</p>
@@ -895,7 +897,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪元素"><span class="nav-number">1.</span> <span class="nav-text">伪元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪类"><span class="nav-number">2.</span> <span class="nav-text">伪类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实战"><span class="nav-number">3.</span> <span class="nav-text">实战</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#伪元素实现换行，替代-lt-br-gt"><span class="nav-number">3.1.</span> <span class="nav-text">伪元素实现换行，替代&lt;br&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伪元素完成雪碧图的边距切换"><span class="nav-number">3.2.</span> <span class="nav-text">伪元素完成雪碧图的边距切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#形变恢复"><span class="nav-number">3.3.</span> <span class="nav-text">形变恢复</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪元素"><span class="nav-number">1.</span> <span class="nav-text">伪元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪类"><span class="nav-number">2.</span> <span class="nav-text">伪类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实战"><span class="nav-number">3.</span> <span class="nav-text">实战</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#清除浮动"><span class="nav-number">3.1.</span> <span class="nav-text">清除浮动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伪元素实现换行，替代-lt-br-gt"><span class="nav-number">3.2.</span> <span class="nav-text">伪元素实现换行，替代&lt;br&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伪元素完成雪碧图的边距切换"><span class="nav-number">3.3.</span> <span class="nav-text">伪元素完成雪碧图的边距切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#形变恢复"><span class="nav-number">3.4.</span> <span class="nav-text">形变恢复</span></a></li></ol></li></ol></div>
             
 
           </div>
