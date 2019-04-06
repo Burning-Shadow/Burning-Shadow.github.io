@@ -383,7 +383,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-04-06 01:36:30" itemprop="dateModified" datetime="2019-04-06T01:36:30+08:00">2019-04-06</time>
+                <time title="Geändert am: 2019-04-06 10:33:38" itemprop="dateModified" datetime="2019-04-06T10:33:38+08:00">2019-04-06</time>
               
             
           </span>
@@ -436,7 +436,16 @@
 
       
         
-          <p>我们传统的网络协议，比如<code>http</code>、<code>tcp</code>等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，而 H5 则新增了<code>WebSocket</code>接口，让浏览器可以在建立连接后主动向服务器发送信息。</p>
+          <p>我们传统的网络协议，比如<code>http</code>、<code>tcp</code>等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，大部分只能通过轮询的方式解决。而如果在通信交互频繁的领域，如网游、直播、聊天等领域轮询就显得有些捉襟见肘了，费时费力不说还会浪费大量服务器资源，大部分的精力全部用在了每隔几秒的应答上。</p>
+<p>如此一种大佬们采取了一些新的方案：<strong>轮询</strong>和<strong><code>Comet</code></strong>。</p>
+<ul>
+<li><code>Comet</code>是轮询的一种改进，分为<strong>长轮询</strong>和<strong>流技术</strong><ul>
+<li>长轮询是在普通轮询的基础上链接完成后，当服务端未更新数据时链接会保持一段时间的周期，直至<strong>数据状态改变</strong>或<strong>连接时间到</strong>。但缺点也很明显，也不太适用于变化迅速的信息处理服务器，且长轮询更占带宽和资源</li>
+<li>流技术则是客户端通过隐藏窗口向服务器发送一个长链接请求，服务器接到请求后作出回应并更新状态，保证前后端连接不过其。但是缺点还是占用带宽、资源，对服务器压力太大了</li>
+</ul>
+</li>
+</ul>
+<p>此时 H5 则新增的<code>WebSocket</code>应运而生。</p>
           <!--noindex-->
           
             <div class="post-button text-center">

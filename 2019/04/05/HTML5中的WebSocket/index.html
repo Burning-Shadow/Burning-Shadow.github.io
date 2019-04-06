@@ -98,20 +98,20 @@
 
 
 
-  <meta name="description" content="我们传统的网络协议，比如http、tcp等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，而 H5 则新增了WebSocket接口，让浏览器可以在建立连接后主动向服务器发送信息。">
+  <meta name="description" content="我们传统的网络协议，比如http、tcp等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，大部分只能通过轮询的方式解决。而如果在通信交互频繁的领域，如网游、直播、聊天等领域轮询就显得有些捉襟见肘了，费时费力不说还会浪费大量服务器资源，大部分的精力全部用在了每隔几秒的应答上。 如此一种大佬们采取了一些新的方案：轮询和Comet。  Comet是轮询的一种改进，分为长轮询">
 <meta name="keywords" content="HTML5,WebSocket">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTML5中的WebSocket">
 <meta property="og:url" content="http://yoursite.com/2019/04/05/HTML5中的WebSocket/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="我们传统的网络协议，比如http、tcp等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，而 H5 则新增了WebSocket接口，让浏览器可以在建立连接后主动向服务器发送信息。">
+<meta property="og:description" content="我们传统的网络协议，比如http、tcp等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，大部分只能通过轮询的方式解决。而如果在通信交互频繁的领域，如网游、直播、聊天等领域轮询就显得有些捉襟见肘了，费时费力不说还会浪费大量服务器资源，大部分的精力全部用在了每隔几秒的应答上。 如此一种大佬们采取了一些新的方案：轮询和Comet。  Comet是轮询的一种改进，分为长轮询">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5ca78a103a213b0417bb6475">
 <meta property="og:image" content="https://pic.superbed.cn/item/5ca78ee23a213b0417bb8531">
-<meta property="og:updated_time" content="2019-04-05T17:36:30.750Z">
+<meta property="og:updated_time" content="2019-04-06T02:33:38.711Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML5中的WebSocket">
-<meta name="twitter:description" content="我们传统的网络协议，比如http、tcp等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，而 H5 则新增了WebSocket接口，让浏览器可以在建立连接后主动向服务器发送信息。">
+<meta name="twitter:description" content="我们传统的网络协议，比如http、tcp等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，大部分只能通过轮询的方式解决。而如果在通信交互频繁的领域，如网游、直播、聊天等领域轮询就显得有些捉襟见肘了，费时费力不说还会浪费大量服务器资源，大部分的精力全部用在了每隔几秒的应答上。 如此一种大佬们采取了一些新的方案：轮询和Comet。  Comet是轮询的一种改进，分为长轮询">
 <meta name="twitter:image" content="https://pic.superbed.cn/item/5ca78a103a213b0417bb6475">
 
 
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-04-06 01:36:30" itemprop="dateModified" datetime="2019-04-06T01:36:30+08:00">2019-04-06</time>
+                <time title="Geändert am: 2019-04-06 10:33:38" itemprop="dateModified" datetime="2019-04-06T10:33:38+08:00">2019-04-06</time>
               
             
           </span>
@@ -440,13 +440,21 @@
       
 
       
-        <p>我们传统的网络协议，比如<code>http</code>、<code>tcp</code>等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，而 H5 则新增了<code>WebSocket</code>接口，让浏览器可以在建立连接后主动向服务器发送信息。</p>
+        <p>我们传统的网络协议，比如<code>http</code>、<code>tcp</code>等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，大部分只能通过轮询的方式解决。而如果在通信交互频繁的领域，如网游、直播、聊天等领域轮询就显得有些捉襟见肘了，费时费力不说还会浪费大量服务器资源，大部分的精力全部用在了每隔几秒的应答上。</p>
+<p>如此一种大佬们采取了一些新的方案：<strong>轮询</strong>和<strong><code>Comet</code></strong>。</p>
+<ul>
+<li><code>Comet</code>是轮询的一种改进，分为<strong>长轮询</strong>和<strong>流技术</strong><ul>
+<li>长轮询是在普通轮询的基础上链接完成后，当服务端未更新数据时链接会保持一段时间的周期，直至<strong>数据状态改变</strong>或<strong>连接时间到</strong>。但缺点也很明显，也不太适用于变化迅速的信息处理服务器，且长轮询更占带宽和资源</li>
+<li>流技术则是客户端通过隐藏窗口向服务器发送一个长链接请求，服务器接到请求后作出回应并更新状态，保证前后端连接不过其。但是缺点还是占用带宽、资源，对服务器压力太大了</li>
+</ul>
+</li>
+</ul>
+<p>此时 H5 则新增的<code>WebSocket</code>应运而生。</p>
 <a id="more"></a>
 <blockquote>
 <p><code>WebSocket</code>：此协议是为了解决基于浏览器的程序需要拉取资源时必须发起多个 HTTP 请求和长时间的轮询问题。</p>
 </blockquote>
-<p>众所周知，HTTP 协议的特点就是服务器无法主动联系客户端，其被动性预示了在完成双向通信时需要不停地连接或连接一直打开，这就需要服务器快速的处理速度或高并发的能力，非常消耗资源。</p>
-<p>而我们今天所说的<code>WebSocket</code>则可以使协议在控制环境下运行不受信任代码的客户端能够选择与那些代码通信的远程主机之间能够<strong>双向通信</strong>。</p>
+<p><code>WebSocket</code>借助现有的 HTTP 协议和服务器建立连接，之后双方通过 TCP 进行数据交换（其本质就是 TCP），以此保证数据的实时性和稳定性，实现浏览器与服务器之间的<strong>全双工通信</strong>。</p>
 <h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
 <li>握手阶段采用 HTTP 协议</li>
 <li>建立在 TCP 协议基础之上，和 HTTP 协议同属于应用层</li>
@@ -476,6 +484,9 @@
 <p><code>close</code>方法用来关闭连接。调用<code>close</code>方法后将不能发送数据。<code>close</code>方法可以传入两个可选参数，<code>code</code>和<code>reason</code>，以告诉服务端为什么终止连接</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ws.close(<span class="number">1000</span>, <span class="string">'Closing normally'</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>整体流程就是这个样子的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个socket实例：</span></span><br><span class="line"><span class="keyword">const</span> socket = <span class="keyword">new</span> WebSocket(ws:<span class="comment">//localhost:9093')</span></span><br><span class="line"><span class="comment">// 打开socket</span></span><br><span class="line">socket.onopen = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 发送一个初始化消息</span></span><br><span class="line">  	socket.send(<span class="string">'Hello Server!'</span>)</span><br><span class="line">  	 <span class="comment">// 服务器有响应数据触发</span></span><br><span class="line">    socket.onmessage = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123; </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Client received a message'</span>,event)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 出错时触发，并且会关闭连接。这时可以根据错误信息进行按需处理</span></span><br><span class="line">    socket.onerror = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  	    <span class="built_in">console</span>.log(<span class="string">'error'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 监听Socket的关闭</span></span><br><span class="line">    socket.onclose = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123; </span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Client notified socket has closed'</span>,event)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 关闭Socket</span></span><br><span class="line">    socket.close(<span class="number">1000</span>, <span class="string">'closing normally'</span>) </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><code>WebSocket</code>中的<code>send</code>方法只能发送三类数据： UTF-8 的<code>string</code>、<code>ArrayBuffer</code>和<code>Blob</code>。</p>
 <h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><h4 id="readyState"><a href="#readyState" class="headerlink" title="readyState"></a>readyState</h4><blockquote>
 <p><code>WebSocket.CONNECTING</code>：连接正在进行</p>
 <p><code>WebSocket.OPEN</code>：连接已建立</p>
@@ -487,8 +498,8 @@
 <p>这东西可以判断有多少字节的二进制数据还未发送出去，发送是否结束。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ws.onopen = <span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    setInterval(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">// 缓存未满时发送</span></span><br><span class="line">        <span class="keyword">if</span>(ws.bufferedAmount &lt; <span class="number">1024</span>*<span class="number">5</span>)&#123;</span><br><span class="line">            ws.send(data)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="protocol"><a href="#protocol" class="headerlink" title="protocol"></a>protocol</h4><p><code>protocol</code>代表客户端使用的<code>WebSocket</code>协议。（若握手未成功则这个属性是空）</p>
-<p>我们可以看一下<code>WebSocket</code>实例和服务器连接时客户端向服务器发起的一个握手请求的报文：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /game HTTP/1.1</span><br><span class="line">Host: 10.242.17.102:8023</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Key: dGh1IhNhbXBsZSBub25jZQ==</span><br><span class="line">Sec-WebSocket-Protocol: game</span><br><span class="line">Sec-WebSocket-Version: 10</span><br><span class="line">Origin: http://192.168.1.117</span><br><span class="line">Accept-Encoding: gzip, deflate, sdch</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8</span><br></pre></td></tr></table></figure>
+<p>我们可以看一下<code>WebSocket</code>实例和服务器连接时握手请求的报文：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">客户端到服务端：</span><br><span class="line">GET / HTTP/1.1</span><br><span class="line">Connection:Upgrade</span><br><span class="line">Host:127.0.0.1:8088</span><br><span class="line">Origin:null</span><br><span class="line">Sec-WebSocket-Extensions:x-webkit-deflate-frame</span><br><span class="line">Sec-WebSocket-Key:puVOuWb7rel6z2AVZBKnfw==</span><br><span class="line">Sec-WebSocket-Version:13</span><br><span class="line">Upgrade:websocket</span><br><span class="line"></span><br><span class="line">服务端到客户端：</span><br><span class="line">HTTP/1.1 101 Switching Protocols</span><br><span class="line">Connection:Upgrade</span><br><span class="line">Server:beetle websocket server</span><br><span class="line">Upgrade:WebSocket</span><br><span class="line">date: Thu, 10 May 2018 07:32:25 GMT</span><br><span class="line">Access-Control-Allow-Credentials:true</span><br><span class="line">Access-Control-Allow-Headers:content-type</span><br><span class="line">Sec-WebSocket-Accept:FCKgUr8c7OsDsLFeJTWrJw6WO8Q=</span><br></pre></td></tr></table></figure>
 <p>我们可以看出来这其实是一个基于 HTTP 的握手请求，他与 HTTP 不同的是增加了一些头信息</p>
 <ul>
 <li><code>Upgrade</code>字段: 通知服务器，现在要使用一个升级版协议 - <code>Websocket</code>。</li>
@@ -496,6 +507,7 @@
 <li><code>Sec_WebSocket-Protocol</code>: 是用户自定义的字符串，用来标识服务所需要的协议</li>
 <li><code>Sec-WebSocket-Version</code>: 通知服务器所使用的协议版本</li>
 </ul>
+<p>当握手成功后，这个时候TCP连接就已经建立了，客户端与服务端就能够直接通过WebSocket直接进行数据传递。不过服务端还需要判断一次数据请求是什么时候开始的和什么时候是请求的结束的。在WebSocket中，由于浏览端和服务端已经打好招呼，如我发送的内容为utf-8 编码，如果我发送0x00,表示包的开始，如果发送了0xFF，就表示包的结束了。这就解决了黏包的问题。</p>
 
       
     </div>
@@ -911,7 +923,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#open"><span class="nav-number">2.1.</span> <span class="nav-text">open</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Message"><span class="nav-number">2.2.</span> <span class="nav-text">Message</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error"><span class="nav-number">2.3.</span> <span class="nav-text">Error</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Close"><span class="nav-number">2.4.</span> <span class="nav-text">Close</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">3.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#readyState"><span class="nav-number">3.1.</span> <span class="nav-text">readyState</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bufferedAmount"><span class="nav-number">3.2.</span> <span class="nav-text">bufferedAmount</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#protocol"><span class="nav-number">3.3.</span> <span class="nav-text">protocol</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#open"><span class="nav-number">2.1.</span> <span class="nav-text">open</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Message"><span class="nav-number">2.2.</span> <span class="nav-text">Message</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error"><span class="nav-number">2.3.</span> <span class="nav-text">Error</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Close"><span class="nav-number">2.4.</span> <span class="nav-text">Close</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充"><span class="nav-number">2.5.</span> <span class="nav-text">补充</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">3.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#readyState"><span class="nav-number">3.1.</span> <span class="nav-text">readyState</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bufferedAmount"><span class="nav-number">3.2.</span> <span class="nav-text">bufferedAmount</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#protocol"><span class="nav-number">3.3.</span> <span class="nav-text">protocol</span></a></li></ol></li></ol></div>
             
 
           </div>
