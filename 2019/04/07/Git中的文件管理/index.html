@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="今天我们试着对已经提交了的文件进行操作。">
+<meta name="keywords" content="版本回退,管理修改,撤销修改,删除文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git中的文件管理">
+<meta property="og:url" content="http://yoursite.com/2019/04/07/Git中的文件管理/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="今天我们试着对已经提交了的文件进行操作。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic.superbed.cn/item/5ca9c27a3a213b0417d24eb9">
+<meta property="og:image" content="https://pic.superbed.cn/item/5ca9c25a3a213b0417d24d5f">
+<meta property="og:updated_time" content="2019-04-07T12:36:31.950Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git中的文件管理">
+<meta name="twitter:description" content="今天我们试着对已经提交了的文件进行操作。">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5ca9c27a3a213b0417d24eb9">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/07/Git中的文件管理/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Git中的文件管理 | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/Git中的文件管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git中的文件管理
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-04-07 14:43:54 / Geändert am: 20:36:31" itemprop="dateCreated datePublished" datetime="2019-04-07T14:43:54+08:00">2019-04-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天我们试着对已经提交了的文件进行操作。</p>
+<a id="more"></a>
+<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><ul>
+<li>修改文件</li>
+<li><code>$ git status</code>：查看当前状态</li>
+<li><code>$ git diff</code>：查看修改的具体内容</li>
+<li><code>$ git add xxx.xx</code>：将修改后的<code>xxx.xx</code>文件添加到仓库</li>
+<li><code>$ git status</code>：查看当前状态</li>
+<li>`$ git commit -m “Description Message”：提交到仓库</li>
+</ul>
+<h3 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h3><ul>
+<li><code>$ git log</code>：查看近期提交日志</li>
+<li><code>$ git log --pretty=oneline</code>：查看近期提交日志（减少输出信息）</li>
+<li><code>$ git reset --hard HEAD^</code>：回退到上一个版本</li>
+<li><code>$ git reset --hard HEAD^^</code>：回退到上两个版本</li>
+<li><code>$ git reset --hard HEAD~100</code>：回退到上一百个版本</li>
+<li><code>$ git reset --hard 1094a</code>：回退到<code>1094a</code>版本（此处的版本号是<code>commit id</code>，我们如果回退的版本过前想再回来点就只能输入制定的版本号来进行回退了。版本号没必要写全，但也得保证至少5位）</li>
+</ul>
+<h3 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h3><ul>
+<li><p><code>.git</code>隐藏目录就是<code>Git</code>的版本库。里边存了很多东西，其中就包括暂存区（<code>stage/index</code>）、分支（<code>master</code>）及指向<code>master</code>的指针<code>HEAD</code>。</p>
+</li>
+<li><p>每当我们使用<code>$ git add xxx.xx</code>命令时会将<code>xxx.xx</code>文件推至暂存区（<code>stage/index</code>）</p>
+</li>
+</ul>
+<p><img src="https://pic.superbed.cn/item/5ca9c27a3a213b0417d24eb9" alt></p>
+<ul>
+<li>而当我们使用<code>$ git commit xxxx.xx</code>命令时会将<code>xxx.xx</code>文件从暂存区（<code>stage</code>）推至分支（<code>master</code>）。此时暂存区的内容就被清空啦</li>
+</ul>
+<p><img src="https://pic.superbed.cn/item/5ca9c25a3a213b0417d24d5f" alt></p>
+<h3 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h3><h4 id="未添加到暂存区"><a href="#未添加到暂存区" class="headerlink" title="未添加到暂存区"></a>未添加到暂存区</h4><ul>
+<li><code>$ git checkout -- xxx.xx</code>：丢弃工作区的修改</li>
+</ul>
+<h4 id="已添加到暂存区"><a href="#已添加到暂存区" class="headerlink" title="已添加到暂存区"></a>已添加到暂存区</h4><ul>
+<li><code>$ git reset HEAD xxx.xx</code>：将暂存区的修改撤销掉（<code>unstage</code>），重新放回工作区</li>
+<li>再通过<code>$ git checkout -- xxx.xx</code>：丢弃工作区的修改</li>
+</ul>
+<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><ul>
+<li>删除文件后使用<code>$ git status</code>命令会立即告诉你哪些文件被删除了</li>
+<li><code>git rm</code>后，确定从版本库中删除该文件，就<code>$ git commit -m &quot;remove xxx.xx&quot;</code></li>
+<li><code>$ git checkout -- xxx.xx</code>：误删恢复</li>
+</ul>
+<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><p>往往通过选取一台电脑充当<strong>服务器</strong>的角色，其他人都从这个服务器仓库克隆一份到自己电脑上，并且把各自的提交推送到服务器仓库里。也从服务器仓库中拉取别人的提交。如此就起到了类似于<strong>集中式版本控制系统</strong>的作用。</p>
+<p>我们可以用<code>Github</code>当作这个服务器。由于<code>Git</code>和<code>GitHub</code>之间的传输是通过 SSH 加密的，所以需要一点设置：</p>
+<h4 id="创建-SSH-Key"><a href="#创建-SSH-Key" class="headerlink" title="创建 SSH Key"></a>创建 SSH Key</h4><p>在用户主目录下查看是否有<code>.ssh</code>目录。</p>
+<ul>
+<li>若有则再看看此目录下是否有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件。<ul>
+<li>有则跳到下一步。</li>
+<li>无则在<code>Windows</code>下打开<code>Git Bash</code>，创建<code>SSH Key</code>。 —— <code>$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</code></li>
+</ul>
+</li>
+</ul>
+<p>之后就是一路回车，也无需设置<code>Key</code>。</p>
+<h4 id="连接GitHub"><a href="#连接GitHub" class="headerlink" title="连接GitHub"></a>连接GitHub</h4><p>登陆<code>GitHbu</code>，点击头像，打开<code>Settings</code>，<code>SSH and GPG keys</code>页面，点击<code>New SSH key</code>。</p>
+<p>将用户主目录（<code>Windows</code>下是<code>C:\Users\yourUserName\.ssh</code>）下的<code>id_rsa.pub</code>的密钥复制上去，名字你自己随便取。</p>
+<h4 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h4><ul>
+<li>点击<strong>头像旁边的加号</strong>，选<code>New repository</code>，新建新存储库。</li>
+<li>存储库名称和自己要上传的文件名保持一致（<strong>比如叫<code>learngit</code></strong>），其余的不用管，采取默认设置即可。</li>
+<li>如此就完成了添加新仓库的操作，但是目前为止这个新仓库还是空的</li>
+</ul>
+<p>我们可以从这个仓库克隆出新的仓库，也可以把一个已有的本地仓库与之关联，然后将本地仓库的内容推送到<code>Github</code>仓库。</p>
+<ul>
+<li><p>我们可以根据提示，在本地的<code>learngit</code>仓库下运行命令</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">									    your GitName  fileName</span><br><span class="line">$ git remote add origin git@github.com:Burning-Shadow/learngit.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加后远程库的名字默认就是<code>origin</code>。</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 将本地库的所有内容推送到远程库（将 master 推送到远程新的 master 分支，并将本地和远程的 master 分支关联起来）</span><br><span class="line">// 第一次推送 master 分支时添加 -u 参数</span><br><span class="line">$ git push -u origin master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如此以来即可在<code>GitHub</code>上查看</p>
+</li>
+</ul>
+<h4 id="关联后"><a href="#关联后" class="headerlink" title="关联后"></a>关联后</h4><ul>
+<li>至此，只要本地做了提交就可以通过<code>$ git push origin master</code>将本地<code>master</code>分支的最新修改推送至<code>GitHub</code>。</li>
+</ul>
+<h3 id="从远程库克隆"><a href="#从远程库克隆" class="headerlink" title="从远程库克隆"></a>从远程库克隆</h3><p>远程仓库部分讲解了现有本地库后有远程库的时候如何关联程序</p>
+<p>但若我们从零开发，那么最好的方式是创建远程仓库，然后从远程库克隆</p>
+<ul>
+<li><p>首先登陆<code>GitHub</code>，创建一个新的仓库（假设名为<code>gitskills</code>）</p>
+</li>
+<li><p>在新建前记得勾选<code>Initialize this repository with a README</code>。如此<code>GitHub</code>会自动为我们创建一个<code>README.md</code>文件</p>
+</li>
+<li><p>用命令克隆一个本地库</p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@github.com:Burning-Shadow/gitskills.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后进入<code>gitskills</code>目录看，已经有<code>README.md</code>了</p>
+</li>
+<li><p>多人协作开发，那么每个人各自从远程克隆一份就可以了</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/版本回退/" rel="tag"># 版本回退</a>
+          
+            <a href="/tags/管理修改/" rel="tag"># 管理修改</a>
+          
+            <a href="/tags/撤销修改/" rel="tag"># 撤销修改</a>
+          
+            <a href="/tags/删除文件/" rel="tag"># 删除文件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/07/初识Git/" rel="next" title="初识Git">
+                <i class="fa fa-chevron-left"></i> 初识Git
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">Kategorien</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">106</span>
+                    <span class="site-state-item-name">schlagwörter</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改"><span class="nav-number">1.</span> <span class="nav-text">修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本回退"><span class="nav-number">2.</span> <span class="nav-text">版本回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作区和暂存区"><span class="nav-number">3.</span> <span class="nav-text">工作区和暂存区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#撤销修改"><span class="nav-number">4.</span> <span class="nav-text">撤销修改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#未添加到暂存区"><span class="nav-number">4.1.</span> <span class="nav-text">未添加到暂存区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#已添加到暂存区"><span class="nav-number">4.2.</span> <span class="nav-text">已添加到暂存区</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件"><span class="nav-number">5.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程仓库"><span class="nav-number">6.</span> <span class="nav-text">远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-SSH-Key"><span class="nav-number">6.1.</span> <span class="nav-text">创建 SSH Key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接GitHub"><span class="nav-number">6.2.</span> <span class="nav-text">连接GitHub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加远程库"><span class="nav-number">6.3.</span> <span class="nav-text">添加远程库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关联后"><span class="nav-number">6.4.</span> <span class="nav-text">关联后</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从远程库克隆"><span class="nav-number">7.</span> <span class="nav-text">从远程库克隆</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
