@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="众所周知 HTTPS 是基于 HTTP 协议的，安全性有一定保障的协议，而其保障安全性的工具就是通过公私钥不对称加密，及 CA（证书机制）来完成对数据的加密，以此达到提升安全性的作用。 但是！！！HTTPS 加密中真正起作用的其实是 SSL/TSL 协议。 Ps：本文转自掘金 hi_xgb大大。">
+<meta name="keywords" content="TSL,SSL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSL &amp;&amp; TSL">
+<meta property="og:url" content="http://yoursite.com/2019/04/09/SSL-&&-TSL/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="众所周知 HTTPS 是基于 HTTP 协议的，安全性有一定保障的协议，而其保障安全性的工具就是通过公私钥不对称加密，及 CA（证书机制）来完成对数据的加密，以此达到提升安全性的作用。 但是！！！HTTPS 加密中真正起作用的其实是 SSL/TSL 协议。 Ps：本文转自掘金 hi_xgb大大。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cac94383a213b0417f0b826">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cac9af73a213b0417f0fc66">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cac9b8c3a213b0417f101b3">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cac9c4e3a213b0417f10987">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cac9c873a213b0417f10c11">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cac9cd13a213b0417f10f8f">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cac9d3c3a213b0417f1167e">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cac9eac3a213b0417f12546">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cac9f1c3a213b0417f12ac8">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cac9f9e3a213b0417f13270">
+<meta property="og:image" content="https://pic.superbed.cn/item/5caca0293a213b0417f13a76">
+<meta property="og:image" content="https://pic.superbed.cn/item/5caca6803a213b0417f1812f">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cac9b8c3a213b0417f101b3">
+<meta property="og:updated_time" content="2019-04-09T14:30:34.215Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SSL &amp;&amp; TSL">
+<meta name="twitter:description" content="众所周知 HTTPS 是基于 HTTP 协议的，安全性有一定保障的协议，而其保障安全性的工具就是通过公私钥不对称加密，及 CA（证书机制）来完成对数据的加密，以此达到提升安全性的作用。 但是！！！HTTPS 加密中真正起作用的其实是 SSL/TSL 协议。 Ps：本文转自掘金 hi_xgb大大。">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5cac94383a213b0417f0b826">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/09/SSL-&&-TSL/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>SSL && TSL | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/SSL-&&-TSL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SSL && TSL
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-04-09 20:34:33 / Geändert am: 22:30:34" itemprop="dateCreated datePublished" datetime="2019-04-09T20:34:33+08:00">2019-04-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>众所周知 HTTPS 是基于 HTTP 协议的，安全性有一定保障的协议，而其保障安全性的工具就是通过公私钥不对称加密，及 CA（证书机制）来完成对数据的加密，以此达到提升安全性的作用。</p>
+<p>但是！！！<strong>HTTPS 加密中真正起作用的其实是 SSL/TSL 协议。</strong></p>
+<p>Ps：本文转自掘金 <a href="https://juejin.im/post/584b76d3a22b9d0058d5036f#heading-1" target="_blank" rel="noopener">hi_xgb</a>大大。</p>
+<a id="more"></a>
+<p><img src="https://pic.superbed.cn/item/5cac94383a213b0417f0b826" alt></p>
+<p>如图，SSL/TSL 协议在 HTTP 协议之下的表示层，对于上层的应用层来说，原来的发送接收数据流程不变，如此就可以完美兼容老版 HTTP 协议</p>
+<h3 id="SSL-TSL握手过程"><a href="#SSL-TSL握手过程" class="headerlink" title="SSL/TSL握手过程"></a>SSL/TSL握手过程</h3><p><img src="https://pic.superbed.cn/item/5cac9af73a213b0417f0fc66" alt></p>
+<h4 id="Client-Hello"><a href="#Client-Hello" class="headerlink" title="Client Hello"></a>Client Hello</h4><p>握手第一步是客户端向服务端发送<code>Client Hello</code>消息，其中包含了一个客户端生成的随机数<strong><code>Random1</code></strong>、客户端支持的加密套件（<code>Support Ciphers</code>）和<code>SSL Version</code>等信息，通过<code>Wireshark</code>抓包可以看到如下信息</p>
+<p><img src="https://pic.superbed.cn/item/5cac9b8c3a213b0417f101b3" alt></p>
+<h4 id="Server-Hello"><a href="#Server-Hello" class="headerlink" title="Server Hello"></a>Server Hello</h4><p>第二步是服务端向客户端发送<code>Server Hello</code>消息。</p>
+<p>此消息会从<code>Client Hello</code>传过来的<code>Support Ciphers</code>里确定一份加密套件，这个套件决定了后续加密和生成摘要时具体使用那些算法。</p>
+<p>另外还会生成一份随机数<strong><code>Random2</code></strong>。<code>Random1</code>和<code>Random2</code>会在后续生成对称密钥时用到。</p>
+<p><img src="https://pic.superbed.cn/item/5cac9c4e3a213b0417f10987" alt></p>
+<h4 id="Certificate"><a href="#Certificate" class="headerlink" title="Certificate"></a>Certificate</h4><p>这一步是服务端将自己的证书下发给客户端，让客户端验证自己的身份。客户端验证通过后去除证书中的公钥</p>
+<p><img src="https://pic.superbed.cn/item/5cac9c873a213b0417f10c11" alt></p>
+<h4 id="Server-Key-Exchange"><a href="#Server-Key-Exchange" class="headerlink" title="Server Key Exchange"></a>Server Key Exchange</h4><p>若是 DH 算法，这里发送服务器使用的 DH 参数。RSA 算法则不需要这一步</p>
+<p><img src="https://pic.superbed.cn/item/5cac9cd13a213b0417f10f8f" alt></p>
+<h4 id="Certificate-Request"><a href="#Certificate-Request" class="headerlink" title="Certificate Request"></a>Certificate Request</h4><p><code>Certificate Request</code>是服务端要求客户端上保证书。这一步是可选的，对于安全性要求高的场景会用到</p>
+<h4 id="Server-Hello-Done"><a href="#Server-Hello-Done" class="headerlink" title="Server Hello Done"></a>Server Hello Done</h4><p><code>Server Hello Done</code>通知客户端<code>Server Hello</code>过程结束</p>
+<p><img src="https://pic.superbed.cn/item/5cac9d3c3a213b0417f1167e" alt></p>
+<h4 id="Certificate-Verify"><a href="#Certificate-Verify" class="headerlink" title="Certificate Verify"></a>Certificate Verify</h4><p>客户端收到服务端传拉力的证书后，先从 CA 验证该证书的合法性，通过后取出证书中的服务端公钥，再生成一个随机数<strong><code>Random3</code></strong>，再用服务端公钥非对称加密<code>Random3</code>生成<strong><code>PreMaster Key</code></strong></p>
+<h4 id="Client-Key-Exchange"><a href="#Client-Key-Exchange" class="headerlink" title="Client Key Exchange"></a>Client Key Exchange</h4><p>上面客户端根据服务器传来的公钥生成了<strong><code>PreMaster Key</code></strong>，<code>Client Key Exchange</code>就是将这个 key 传给服务端，服务端再用自己的私钥解出这个<strong><code>PreMaster Key</code></strong> 得到客户端生成的<strong><code>Random3</code></strong>。至此，客户端和服务端都拥有<strong><code>Random1</code></strong> + <strong><code>Random2</code></strong> + <strong><code>Random3</code></strong>，两边再根据同样的算法就可以生成一份秘钥，握手结束后的应用层数据都是使用这个秘钥进行对称加密。为什么要使用三个随机数呢？这是因为 SSL/TLS 握手过程的数据都是明文传输的，并且多个随机数种子来生成秘钥不容易被暴力破解出来。客户端将<strong><code>PreMaster Key</code></strong>传给服务端的过程如下图所示：</p>
+<p><img src="https://pic.superbed.cn/item/5cac9eac3a213b0417f12546" alt></p>
+<h4 id="Change-Cipher-Spec-Client"><a href="#Change-Cipher-Spec-Client" class="headerlink" title="Change Cipher Spec(Client)"></a>Change Cipher Spec(Client)</h4><p>这里客户端通知服务端后面再发送的消息都会使用前面协商出来的密钥加密，是一条事件消息</p>
+<p><img src="https://pic.superbed.cn/item/5cac9f1c3a213b0417f12ac8" alt></p>
+<h4 id="Encrypted-Handshake-Message-Client"><a href="#Encrypted-Handshake-Message-Client" class="headerlink" title="Encrypted Handshake Message(Client)"></a>Encrypted Handshake Message(Client)</h4><p>这步对应<code>Client Finish</code>消息。客户端将前面的握手消息生成摘要再用协商好的密钥加密。</p>
+<p>这是客户端发出的第一条加密消息，服务端接收后会用密钥解密，能接出来说明前面协商出来的密钥是一致的</p>
+<p><img src="https://pic.superbed.cn/item/5cac9f9e3a213b0417f13270" alt></p>
+<h4 id="Change-Cipher-Spec-Server"><a href="#Change-Cipher-Spec-Server" class="headerlink" title="Change Cipher Spec(Server)"></a>Change Cipher Spec(Server)</h4><p>服务端通知客户端后面的消息都会使用加密，也是一条事件信息</p>
+<h4 id="Encrypted-Handshake-Message-Server"><a href="#Encrypted-Handshake-Message-Server" class="headerlink" title="Encrypted Handshake Message(Server)"></a>Encrypted Handshake Message(Server)</h4><p>此处对应的是<code>Server Finish</code>消息。服务端也会将握手过程的消息生成摘要再用密钥加密。这是服务端发出的第一条加密消息，客户端接收后会用密钥解密，能解出来说明协商的密钥是一致的</p>
+<p><img src="https://pic.superbed.cn/item/5caca0293a213b0417f13a76" alt></p>
+<h4 id="Application-Data"><a href="#Application-Data" class="headerlink" title="Application Data"></a>Application Data</h4><p>此时，双方已安全地协商除了同一份密钥，将所有的应用层数据都用这个密钥加密过后再通过<code>TCP</code>进行可靠传输</p>
+<h3 id="双向验证"><a href="#双向验证" class="headerlink" title="双向验证"></a>双向验证</h3><p><img src="https://pic.superbed.cn/item/5caca6803a213b0417f1812f" alt></p>
+<h3 id="握手过程优化"><a href="#握手过程优化" class="headerlink" title="握手过程优化"></a>握手过程优化</h3><p>如果每次重连都要重新握手，那么显然会浪费大量的资源和时间。所以我们不妨在<code>Client Hello</code>消息中附带上上一次的<code>Session ID</code>。服务端接收到这个<code>Session ID</code>后若能复用就不再进行后续的握手过程</p>
+<p><img src="https://pic.superbed.cn/item/5cac9b8c3a213b0417f101b3" alt></p>
+<p>除了上述的<code>Session</code>复用，SSL/TSL 握手还有一些优化技术，例如<code>False Start</code>、<code>Session Ticket</code>等。<a href="https://imququ.com/post/optimize-tls-handshake.html" target="_blank" rel="noopener">这方面的介绍具体可以参考这个</a></p>
+<h3 id="Final"><a href="#Final" class="headerlink" title="Final"></a>Final</h3><p>最后再次感谢一次<code>hi_xgb</code>大大的博客，码住我每天都要看一遍！。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TSL/" rel="tag"># TSL</a>
+          
+            <a href="/tags/SSL/" rel="tag"># SSL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/07/Git中的文件管理/" rel="next" title="Git中的文件管理">
+                <i class="fa fa-chevron-left"></i> Git中的文件管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">69</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">Kategorien</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">108</span>
+                    <span class="site-state-item-name">schlagwörter</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSL-TSL握手过程"><span class="nav-number">1.</span> <span class="nav-text">SSL/TSL握手过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Client-Hello"><span class="nav-number">1.1.</span> <span class="nav-text">Client Hello</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Server-Hello"><span class="nav-number">1.2.</span> <span class="nav-text">Server Hello</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Certificate"><span class="nav-number">1.3.</span> <span class="nav-text">Certificate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Server-Key-Exchange"><span class="nav-number">1.4.</span> <span class="nav-text">Server Key Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Certificate-Request"><span class="nav-number">1.5.</span> <span class="nav-text">Certificate Request</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Server-Hello-Done"><span class="nav-number">1.6.</span> <span class="nav-text">Server Hello Done</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Certificate-Verify"><span class="nav-number">1.7.</span> <span class="nav-text">Certificate Verify</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Client-Key-Exchange"><span class="nav-number">1.8.</span> <span class="nav-text">Client Key Exchange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Change-Cipher-Spec-Client"><span class="nav-number">1.9.</span> <span class="nav-text">Change Cipher Spec(Client)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Encrypted-Handshake-Message-Client"><span class="nav-number">1.10.</span> <span class="nav-text">Encrypted Handshake Message(Client)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Change-Cipher-Spec-Server"><span class="nav-number">1.11.</span> <span class="nav-text">Change Cipher Spec(Server)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Encrypted-Handshake-Message-Server"><span class="nav-number">1.12.</span> <span class="nav-text">Encrypted Handshake Message(Server)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Application-Data"><span class="nav-number">1.13.</span> <span class="nav-text">Application Data</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向验证"><span class="nav-number">2.</span> <span class="nav-text">双向验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#握手过程优化"><span class="nav-number">3.</span> <span class="nav-text">握手过程优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Final"><span class="nav-number">4.</span> <span class="nav-text">Final</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
