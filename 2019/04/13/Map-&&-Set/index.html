@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ES6 提供了新的数据结构 Map &amp;amp;&amp;amp; Set，类似于数组但又有些区别，我们一起来看一下">
+<meta name="keywords" content="ES6,Map,Set">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Map &amp;&amp; Set">
+<meta property="og:url" content="http://yoursite.com/2019/04/13/Map-&&-Set/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="ES6 提供了新的数据结构 Map &amp;amp;&amp;amp; Set，类似于数组但又有些区别，我们一起来看一下">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-12T16:39:10.292Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Map &amp;&amp; Set">
+<meta name="twitter:description" content="ES6 提供了新的数据结构 Map &amp;amp;&amp;amp; Set，类似于数组但又有些区别，我们一起来看一下">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/13/Map-&&-Set/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Map && Set | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/Map-&&-Set/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Map && Set
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-04-13 00:39:10" itemprop="dateCreated datePublished" datetime="2019-04-13T00:39:10+08:00">2019-04-13</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ES6 提供了新的数据结构 Map &amp;&amp; Set，类似于数组但又有些区别，我们一起来看一下</p>
+<a id="more"></a>
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><ul>
+<li><p><code>Set</code>结构不会添加重复值，可以用作数组去重</p>
+</li>
+<li><p>但是空对象不尽相等，所以这段代码是可以完成的</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">set</span> = new Set();</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>.add(&#123;&#125;);</span><br><span class="line"><span class="keyword">set</span>.size // 1</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>.add(&#123;&#125;);</span><br><span class="line"><span class="keyword">set</span>.size // 2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>向<code>Set</code>添值的时候不会发生类型转换，所以字符串和数字是不同的值</p>
+</li>
+</ul>
+<h4 id="Set的属性和方法"><a href="#Set的属性和方法" class="headerlink" title="Set的属性和方法"></a>Set的属性和方法</h4><h5 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h5><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Set.prototype.size</code></td>
+<td>返回<code>Set</code>实例的成员总数</td>
+</tr>
+<tr>
+<td><code>Set.prototype.constructor</code></td>
+<td>构造函数，默认就是<code>Set</code>函数</td>
+</tr>
+</tbody>
+</table>
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add(value)</code></td>
+<td>添加某个值，返回 Set 结构本身</td>
+</tr>
+<tr>
+<td><code>delete(value)</code></td>
+<td>删除某个值，返回一个布尔值，表示删除是否成功</td>
+</tr>
+<tr>
+<td><code>has(value)</code></td>
+<td>返回一个布尔值，表示该值是否为<code>Set</code>的成员</td>
+</tr>
+<tr>
+<td><code>clear()</code></td>
+<td>清除所有成员，没有返回值</td>
+</tr>
+<tr>
+<td><code>Array.from()</code></td>
+<td>将 Set 结构转为数组</td>
+</tr>
+</tbody>
+</table>
+<h5 id="遍历操作"><a href="#遍历操作" class="headerlink" title="遍历操作"></a>遍历操作</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>keys()</code></td>
+<td>返回键名的遍历器</td>
+</tr>
+<tr>
+<td><code>values()</code></td>
+<td>返回键值的遍历器</td>
+</tr>
+<tr>
+<td><code>entries()</code></td>
+<td>返回键值对的遍历器</td>
+</tr>
+<tr>
+<td><code>forEach()</code></td>
+<td>使用回调函数遍历每个成员</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>由于<code>Set</code>结构没有键名，只有键值（或者说键名键值是同一个值），所以<code>keys()</code>和<code>values()</code>方法对于他来说完全一致</p>
+</blockquote>
+<h4 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h4><h5 id="并集，交集和差集"><a href="#并集，交集和差集" class="headerlink" title="并集，交集和差集"></a>并集，交集和差集</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"><span class="keyword">let</span> b = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并集</span></span><br><span class="line"><span class="keyword">let</span> union = <span class="keyword">new</span> <span class="built_in">Set</span>([...a, ...b]);</span><br><span class="line"><span class="comment">// Set &#123;1, 2, 3, 4&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 交集</span></span><br><span class="line"><span class="keyword">let</span> intersect = <span class="keyword">new</span> <span class="built_in">Set</span>([...a].filter(<span class="function"><span class="params">x</span> =&gt;</span> b.has(x)));</span><br><span class="line"><span class="comment">// set &#123;2, 3&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 差集</span></span><br><span class="line"><span class="keyword">let</span> difference = <span class="keyword">new</span> <span class="built_in">Set</span>([...a].filter(<span class="function"><span class="params">x</span> =&gt;</span> !b.has(x)));</span><br><span class="line"><span class="comment">// Set &#123;1&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="WeakSet"><a href="#WeakSet" class="headerlink" title="WeakSet"></a>WeakSet</h4><p>这东西应该算是<code>Set</code>的一个子集吧，但是与<code>Set</code>有两点不同</p>
+<ul>
+<li>成员只能是对象</li>
+<li>对对象都是弱引用，故垃圾回收机制不考虑<code>WeakSet</code>对该对象的引用。</li>
+</ul>
+<h5 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h5><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WeakSet.prototype.add(value)</code></td>
+<td>向 WeakSet 实例添加一个新成员</td>
+</tr>
+<tr>
+<td><code>WeakSet.prototype.delete(value)</code></td>
+<td>清除 WeakSet 实例的指定成员</td>
+</tr>
+<tr>
+<td><code>WeakSet.prototype.has(value)</code></td>
+<td>返回一个布尔值，表示某个值是否在 WeakSet 实例之中。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><ul>
+<li><code>Map</code>也是一个类似于对象的集合，不同的是它可以用任意类型做键名而非传统<code>Object</code>一样只能用<code>String</code>值作键名</li>
+<li>任何具有<code>Iterator</code>接口、且每个成员都是一个双元素的数组的数据结构都可以当作<code>Map</code>的参数</li>
+<li>同一个键多次赋值，后面的值会覆盖前面的值</li>
+<li>只要两个键值<strong>完全相等</strong>那么<code>Map</code>就会将其视为同一个键</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">set</span> = new Set([</span><br><span class="line">  ['foo', 1],</span><br><span class="line">  ['bar', 2]</span><br><span class="line">]);</span><br><span class="line">const m1 = new Map(<span class="keyword">set</span>);</span><br><span class="line">m1.<span class="keyword">get</span>('foo') // 1</span><br><span class="line"></span><br><span class="line">const m2 = new Map([['baz', 3]]);</span><br><span class="line">const m3 = new Map(m2);</span><br><span class="line">m3.<span class="keyword">get</span>('baz') // 3</span><br></pre></td></tr></table></figure>
+<h4 id="属性-1"><a href="#属性-1" class="headerlink" title="属性"></a>属性</h4><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>size</code></td>
+<td>返回<code>Map</code>结构的成员总数</td>
+</tr>
+<tr>
+<td><code>set(key, value)</code></td>
+<td>设置<code>key</code>对应的值为<code>value</code>，并返回整个<code>Map</code>结构</td>
+</tr>
+<tr>
+<td><code>get(key)</code></td>
+<td>读取<code>key</code>对应的键值，若找不到则返回<code>undefined</code></td>
+</tr>
+<tr>
+<td><code>has(key)</code></td>
+<td>返回一个<code>boolean</code>，表示某个键是否在当前<code>Map</code>对象中</td>
+</tr>
+<tr>
+<td><code>delete(key)</code></td>
+<td>删除某个键，成功返回<code>true</code>，失败返回<code>false</code></td>
+</tr>
+<tr>
+<td><code>clear()</code></td>
+<td>清除所有成员</td>
+</tr>
+</tbody>
+</table>
+<h4 id="遍历方法"><a href="#遍历方法" class="headerlink" title="遍历方法"></a>遍历方法</h4><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>keys()</code></td>
+<td>返回键名的遍历器</td>
+</tr>
+<tr>
+<td><code>values()</code></td>
+<td>返回键值的遍历器</td>
+</tr>
+<tr>
+<td><code>entries()</code></td>
+<td>返回键值对的遍历器</td>
+</tr>
+<tr>
+<td><code>forEach()</code></td>
+<td>使用回调函数遍历每个成员</td>
+</tr>
+</tbody>
+</table>
+<h4 id="和其他数据结构的相互转换"><a href="#和其他数据结构的相互转换" class="headerlink" title="和其他数据结构的相互转换"></a>和其他数据结构的相互转换</h4><h5 id="Map转数组"><a href="#Map转数组" class="headerlink" title="Map转数组"></a>Map转数组</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">  .set(<span class="literal">true</span>, <span class="number">7</span>)</span><br><span class="line">  .set(&#123;<span class="attr">foo</span>: <span class="number">3</span>&#125;, [<span class="string">'abc'</span>]);</span><br><span class="line">[...myMap]</span><br><span class="line"><span class="comment">// [ [ true, 7 ], [ &#123; foo: 3 &#125;, [ 'abc' ] ] ]</span></span><br></pre></td></tr></table></figure>
+<h5 id="数组转Map"><a href="#数组转Map" class="headerlink" title="数组转Map"></a>数组转Map</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">new Map([</span><br><span class="line">  [true, 7],</span><br><span class="line">  [&#123;foo: 3&#125;, [&apos;abc&apos;]]</span><br><span class="line">])</span><br><span class="line">// Map &#123;</span><br><span class="line">//   true =&gt; 7,</span><br><span class="line">//   Object &#123;foo: 3&#125; =&gt; [&apos;abc&apos;]</span><br><span class="line">// &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Map转对象"><a href="#Map转对象" class="headerlink" title="Map转对象"></a>Map转对象</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">strMapToObj</span>(<span class="params">strMap</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> obj = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> [k,v] <span class="keyword">of</span> strMap) &#123;</span><br><span class="line">    obj[k] = v;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">  .set(<span class="string">'yes'</span>, <span class="literal">true</span>)</span><br><span class="line">  .set(<span class="string">'no'</span>, <span class="literal">false</span>);</span><br><span class="line">strMapToObj(myMap)</span><br><span class="line"><span class="comment">// &#123; yes: true, no: false &#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="对象转Map"><a href="#对象转Map" class="headerlink" title="对象转Map"></a>对象转Map</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">objToStrMap</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> strMap = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> k <span class="keyword">of</span> <span class="built_in">Object</span>.keys(obj)) &#123;</span><br><span class="line">    strMap.set(k, obj[k]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> strMap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">objToStrMap(&#123;<span class="attr">yes</span>: <span class="literal">true</span>, <span class="attr">no</span>: <span class="literal">false</span>&#125;)</span><br><span class="line"><span class="comment">// Map &#123;"yes" =&gt; true, "no" =&gt; false&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="Map转JSON"><a href="#Map转JSON" class="headerlink" title="Map转JSON"></a>Map转JSON</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">strMapToJson</span>(<span class="params">strMap</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">JSON</span>.stringify(strMapToObj(strMap));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>().set(<span class="string">'yes'</span>, <span class="literal">true</span>).set(<span class="string">'no'</span>, <span class="literal">false</span>);</span><br><span class="line">strMapToJson(myMap)</span><br><span class="line"><span class="comment">// '&#123;"yes":true,"no":false&#125;'</span></span><br></pre></td></tr></table></figure>
+<h5 id="JSON转Map"><a href="#JSON转Map" class="headerlink" title="JSON转Map"></a>JSON转Map</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonToStrMap</span>(<span class="params">jsonStr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> objToStrMap(<span class="built_in">JSON</span>.parse(jsonStr));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jsonToStrMap(<span class="string">'&#123;"yes": true, "no": false&#125;'</span>)</span><br><span class="line"><span class="comment">// Map &#123;'yes' =&gt; true, 'no' =&gt; false&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h4><ul>
+<li><code>WeakMap</code>只接受对象作为键名（<code>null</code>除外）</li>
+<li><code>WeakMap</code>的键名所指向的对象不计入垃圾回收机制</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+            <a href="/tags/Map/" rel="tag"># Map</a>
+          
+            <a href="/tags/Set/" rel="tag"># Set</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/12/Proxy-&&-defineProperty之实现双向绑定/" rel="next" title="Proxy && defineProperty之实现双向绑定">
+                <i class="fa fa-chevron-left"></i> Proxy && defineProperty之实现双向绑定
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">Kategorien</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">113</span>
+                    <span class="site-state-item-name">schlagwörter</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Set"><span class="nav-number">1.</span> <span class="nav-text">Set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Set的属性和方法"><span class="nav-number">1.1.</span> <span class="nav-text">Set的属性和方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性"><span class="nav-number">1.1.1.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法"><span class="nav-number">1.1.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遍历操作"><span class="nav-number">1.1.3.</span> <span class="nav-text">遍历操作</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用法"><span class="nav-number">1.2.</span> <span class="nav-text">用法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#并集，交集和差集"><span class="nav-number">1.2.1.</span> <span class="nav-text">并集，交集和差集</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WeakSet"><span class="nav-number">1.3.</span> <span class="nav-text">WeakSet</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#方法-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map"><span class="nav-number">2.</span> <span class="nav-text">Map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#属性-1"><span class="nav-number">2.1.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遍历方法"><span class="nav-number">2.2.</span> <span class="nav-text">遍历方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#和其他数据结构的相互转换"><span class="nav-number">2.3.</span> <span class="nav-text">和其他数据结构的相互转换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Map转数组"><span class="nav-number">2.3.1.</span> <span class="nav-text">Map转数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数组转Map"><span class="nav-number">2.3.2.</span> <span class="nav-text">数组转Map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Map转对象"><span class="nav-number">2.3.3.</span> <span class="nav-text">Map转对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对象转Map"><span class="nav-number">2.3.4.</span> <span class="nav-text">对象转Map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Map转JSON"><span class="nav-number">2.3.5.</span> <span class="nav-text">Map转JSON</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSON转Map"><span class="nav-number">2.3.6.</span> <span class="nav-text">JSON转Map</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WeakMap"><span class="nav-number">2.4.</span> <span class="nav-text">WeakMap</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
