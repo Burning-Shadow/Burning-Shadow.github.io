@@ -99,14 +99,14 @@
 
 
   <meta name="description" content="按照我们常规的语义理解，代理代理，代为受理，即起一个中间人的作用，代替雇主出面摆平，并可以做到一些原本雇主难以做到的事情。而 ES6 中的代理模式亦是如此，通过Proxy来完成对其他操作的控制。">
-<meta name="keywords" content="proxy">
+<meta name="keywords" content="ES6,proxy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6中的代理模式">
 <meta property="og:url" content="http://yoursite.com/2019/04/12/ES6中的代理模式/index.html">
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="按照我们常规的语义理解，代理代理，代为受理，即起一个中间人的作用，代替雇主出面摆平，并可以做到一些原本雇主难以做到的事情。而 ES6 中的代理模式亦是如此，通过Proxy来完成对其他操作的控制。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-12T04:45:34.155Z">
+<meta property="og:updated_time" content="2019-04-12T07:53:17.264Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6中的代理模式">
 <meta name="twitter:description" content="按照我们常规的语义理解，代理代理，代为受理，即起一个中间人的作用，代替雇主出面摆平，并可以做到一些原本雇主难以做到的事情。而 ES6 中的代理模式亦是如此，通过Proxy来完成对其他操作的控制。">
@@ -194,7 +194,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -222,7 +222,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -239,7 +239,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -256,7 +256,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -273,7 +273,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -361,14 +361,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-04-12 00:54:39 / Modified: 12:45:34" itemprop="dateCreated datePublished" datetime="2019-04-12T00:54:39+08:00">2019-04-12</time>
+              <time title="Erstellt: 2019-04-12 00:54:39 / Geändert am: 15:53:17" itemprop="dateCreated datePublished" datetime="2019-04-12T00:54:39+08:00">2019-04-12</time>
             
 
             
@@ -387,7 +387,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
@@ -516,7 +516,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"张三"</span></span><br><span class="line">&#125;;</span><br><span class="line">handler = &#123;</span><br><span class="line">	<span class="keyword">get</span>(target, property)&#123;</span><br><span class="line">		<span class="keyword">if</span>(property <span class="keyword">in</span> target)&#123;</span><br><span class="line">			<span class="keyword">return</span> target[property]</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">ReferenceError</span>(<span class="string">"Property \""</span> + property + <span class="string">"\" does not exist."</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(person, handler)</span><br><span class="line"></span><br><span class="line">proxy.name	<span class="comment">// 张三</span></span><br><span class="line">proxy.age	<span class="comment">// Uncaught ReferenceError: Property "age" does not exist.</span></span><br></pre></td></tr></table></figure>
 <p>而且最有意思的一点是我们通过<code>Proxy</code>进行的代理可以映射到实例上</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> proto = <span class="keyword">new</span> <span class="built_in">Proxy</span>(&#123;&#125;, &#123;</span><br><span class="line">  <span class="keyword">get</span>(target, propertyKey, receiver) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'GET '</span> + propertyKey);</span><br><span class="line">    <span class="keyword">return</span> target[propertyKey];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = <span class="built_in">Object</span>.create(proto);</span><br><span class="line">obj.foo <span class="comment">// "GET foo"</span></span><br></pre></td></tr></table></figure>
-<p>#### </p>
 
       
     </div>
@@ -540,6 +539,8 @@
       
         <div class="post-tags">
           
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
             <a href="/tags/proxy/" rel="tag"># proxy</a>
           
         </div>
@@ -562,6 +563,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/12/Proxy-&&-defineProperty之实现双向绑定/" rel="prev" title="Proxy && defineProperty之实现双向绑定">
+                Proxy && defineProperty之实现双向绑定 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -607,10 +612,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -632,8 +637,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">70</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-count">71</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -676,7 +681,7 @@
                       
                     
                     <span class="site-state-item-count">13</span>
-                    <span class="site-state-item-name">categories</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -912,8 +917,12 @@
                     
                       
                     
-                    <span class="site-state-item-count">109</span>
-                    <span class="site-state-item-name">tags</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">111</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -1009,7 +1018,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1017,7 +1026,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
