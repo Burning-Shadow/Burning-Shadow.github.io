@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="按照我们常规的语义理解，代理代理，代为受理，即起一个中间人的作用，代替雇主出面摆平，并可以做到一些原本雇主难以做到的事情。而 ES6 中的代理模式亦是如此，通过Proxy来完成对其他操作的控制。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-11T16:54:39.235Z">
+<meta property="og:updated_time" content="2019-04-12T04:27:55.643Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6中的代理模式">
 <meta name="twitter:description" content="按照我们常规的语义理解，代理代理，代为受理，即起一个中间人的作用，代替雇主出面摆平，并可以做到一些原本雇主难以做到的事情。而 ES6 中的代理模式亦是如此，通过Proxy来完成对其他操作的控制。">
@@ -368,9 +368,13 @@
                 
               
 
-              <time title="Erstellt: 2019-04-12 00:54:39" itemprop="dateCreated datePublished" datetime="2019-04-12T00:54:39+08:00">2019-04-12</time>
+              <time title="Erstellt: 2019-04-12 00:54:39 / Geändert am: 12:27:55" itemprop="dateCreated datePublished" datetime="2019-04-12T00:54:39+08:00">2019-04-12</time>
             
 
+            
+              
+
+              
             
           </span>
 
@@ -445,8 +449,13 @@
 </ul>
 <p>我们来举两个例子</p>
 <h4 id="未定义属性报错"><a href="#未定义属性报错" class="headerlink" title="未定义属性报错"></a>未定义属性报错</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">题目：对象中若我们打印未定义属性则会自动输出undefined。可是作为新手我们很难看出出错原因是因为未定义还是值确实为undefined。为此我们不妨将其用Proxy对象做一个代理，若是此对象确实未定义则报错，便于开发者纠错</span><br></pre></td></tr></table></figure>
-<p>别的不知道反正头条的面试是有过这道题的，作为一个初学者我试着对他进行实现。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>别的不知道反正头条的面试是有过这道题的，作为一个初学者咱试着实现一下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"张三"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(person, &#123;</span><br><span class="line">  <span class="keyword">get</span>: function(target, property) &#123;</span><br><span class="line">    <span class="keyword">if</span> (property <span class="keyword">in</span> target) &#123;</span><br><span class="line">      <span class="keyword">return</span> target[property];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">ReferenceError</span>(<span class="string">"Property \""</span> + property + <span class="string">"\" does not exist."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">proxy.name	<span class="comment">// 张三</span></span><br><span class="line">proxy.age	<span class="comment">// Uncaught ReferenceError: Property "age" does not exist.</span></span><br></pre></td></tr></table></figure>
+<p>当然我们也可以写的更加方便配置一些</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  name: <span class="string">"张三"</span></span><br><span class="line">&#125;;</span><br><span class="line">handler = &#123;</span><br><span class="line">	<span class="keyword">get</span>(target, property)&#123;</span><br><span class="line">		<span class="keyword">if</span>(property <span class="keyword">in</span> target)&#123;</span><br><span class="line">			<span class="keyword">return</span> target[property]</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">ReferenceError</span>(<span class="string">"Property \""</span> + property + <span class="string">"\" does not exist."</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(person, handler)</span><br><span class="line"></span><br><span class="line">proxy.name	<span class="comment">// 张三</span></span><br><span class="line">proxy.age	<span class="comment">// Uncaught ReferenceError: Property "age" does not exist.</span></span><br></pre></td></tr></table></figure>
+<p>而且最有意思的一点是我们通过<code>Proxy</code>进行的代理可以映射到实例上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> proto = <span class="keyword">new</span> <span class="built_in">Proxy</span>(&#123;&#125;, &#123;</span><br><span class="line">  <span class="keyword">get</span>(target, propertyKey, receiver) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'GET '</span> + propertyKey);</span><br><span class="line">    <span class="keyword">return</span> target[propertyKey];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = <span class="built_in">Object</span>.create(proto);</span><br><span class="line">obj.foo <span class="comment">// "GET foo"</span></span><br></pre></td></tr></table></figure>
+<p>#### </p>
 
       
     </div>
