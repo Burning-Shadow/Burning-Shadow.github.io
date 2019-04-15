@@ -98,20 +98,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Siir">
-<meta property="og:url" content="http://yoursite.com/tags/Object-create/index.html">
+  <meta name="description" content="我们在之前讲解async时提到了由Promise转变至async所经历的一系列过程。 由于Promise只能通过catch捕获错误，而在内部.then链中嵌套的一系列Promise调用所产生的err是无法被外层catch所捕获的，而其后添加catch则又破坏了代码的格式和一致性。 同时，Promise中的catch函数中的异常堆栈不够完整，依旧难以追寻真正发生错误的位置（因为内部调用大都是匿名函数">
+<meta name="keywords" content="Promise,Async,Await,Generator">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Generator+Promise实现Async&amp;Await">
+<meta property="og:url" content="http://yoursite.com/2019/04/15/Generator+Promise实现Async&Await/index.html">
 <meta property="og:site_name" content="Siir">
+<meta property="og:description" content="我们在之前讲解async时提到了由Promise转变至async所经历的一系列过程。 由于Promise只能通过catch捕获错误，而在内部.then链中嵌套的一系列Promise调用所产生的err是无法被外层catch所捕获的，而其后添加catch则又破坏了代码的格式和一致性。 同时，Promise中的catch函数中的异常堆栈不够完整，依旧难以追寻真正发生错误的位置（因为内部调用大都是匿名函数">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-15T09:36:42.409Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Siir">
+<meta name="twitter:title" content="Generator+Promise实现Async&amp;Await">
+<meta name="twitter:description" content="我们在之前讲解async时提到了由Promise转变至async所经历的一系列过程。 由于Promise只能通过catch捕获错误，而在内部.then链中嵌套的一系列Promise调用所产生的err是无法被外层catch所捕获的，而其后添加catch则又破坏了代码的格式和一致性。 同时，Promise中的catch函数中的异常堆栈不够完整，依旧难以追寻真正发生错误的位置（因为内部调用大都是匿名函数">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/Object-create/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/15/Generator+Promise实现Async&Await/">
 
 
 
@@ -121,7 +126,7 @@
   };
 </script>
 
-  <title>Tag: Object.create() | Siir</title>
+  <title>Generator+Promise实现Async&Await | Siir</title>
   
 
 
@@ -169,7 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -224,7 +229,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -280,25 +285,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -323,57 +309,198 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Object.create()<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/Generator+Promise实现Async&Await/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/03/25/Object.create()/" itemprop="url">
-            
-              <span itemprop="name">Object.create()</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Generator+Promise实现Async&Await
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-25T14:37:45+08:00" content="2019-03-25">
-          03-25
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-15 17:36:42" itemprop="dateCreated datePublished" datetime="2019-04-15T17:36:42+08:00">2019-04-15</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们在之前讲解<code>async</code>时提到了由<code>Promise</code>转变至<code>async</code>所经历的一系列过程。</p>
+<p><strong>由于<code>Promise</code>只能通过<code>catch</code>捕获错误，而在内部<code>.then</code>链中嵌套的一系列<code>Promise</code>调用所产生的<code>err</code>是无法被外层<code>catch</code>所捕获的，而其后添加<code>catch</code>则又破坏了代码的格式和一致性。</strong></p>
+<p><strong>同时，<code>Promise</code>中的<code>catch</code>函数中的异常堆栈不够完整，依旧难以追寻真正发生错误的位置（因为内部调用大都是匿名函数。而不用匿名函数则又丧失了箭头函数的简洁，让开发者很苦恼）。</strong></p>
+<p>所以，<code>Async</code>语法应运而生。他弥补了上述<code>Promise</code>调用所出现的不足之处，而其具体实现则是通过<code>Generator</code>和<code>Promise</code>协同的语法糖。下面我们一起看看如何通过<code>Generator</code>和<code>Promise</code>实现一个<code>Async-Await</code>吧~</p>
+<a id="more"></a>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Promise/" rel="tag"># Promise</a>
+          
+            <a href="/tags/Async/" rel="tag"># Async</a>
+          
+            <a href="/tags/Await/" rel="tag"># Await</a>
+          
+            <a href="/tags/Generator/" rel="tag"># Generator</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/13/Map-&&-Set/" rel="next" title="Map && Set">
+                <i class="fa fa-chevron-left"></i> Map && Set
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -886,6 +1013,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -901,6 +1032,8 @@
 
   
 
+
+  
 
 
   
