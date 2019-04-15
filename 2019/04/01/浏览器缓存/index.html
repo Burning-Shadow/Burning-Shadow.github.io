@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://pic.superbed.cn/item/5cb31ea33a213b04173c74b7">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cb31ed93a213b04173c7835">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cb3310c3a213b04173d6461">
-<meta property="og:updated_time" content="2019-04-14T13:10:03.365Z">
+<meta property="og:updated_time" content="2019-04-15T03:50:02.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器缓存">
 <meta name="twitter:description" content="缓存对于前端性能优化来说是个很重要的点，良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度。 简单来说，浏览器缓存就是把一个已经请求过的资源拷贝一份存储起来，当下次需要该资源时，浏览器会根据缓存机制决定直接使用缓存资源还是再次向服务器发送请求。">
@@ -200,7 +200,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -228,7 +228,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -245,7 +245,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -262,7 +262,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -279,7 +279,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -367,14 +367,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-04-01 16:32:03" itemprop="dateCreated datePublished" datetime="2019-04-01T16:32:03+08:00">2019-04-01</time>
+              <time title="Erstellt: 2019-04-01 16:32:03" itemprop="dateCreated datePublished" datetime="2019-04-01T16:32:03+08:00">2019-04-01</time>
             
 
             
@@ -389,9 +389,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Modified: 2019-04-14 21:10:03" itemprop="dateModified" datetime="2019-04-14T21:10:03+08:00">2019-04-14</time>
+                <time title="Geändert am: 2019-04-15 11:50:02" itemprop="dateModified" datetime="2019-04-15T11:50:02+08:00">2019-04-15</time>
               
             
           </span>
@@ -405,7 +405,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/浏览器相关知识点/" itemprop="url" rel="index"><span itemprop="name">浏览器相关知识点</span></a></span>
@@ -494,7 +494,8 @@
 <li>但是如果在本地打开缓存文件，就会造成 <code>Last-Modified</code> 被修改，所以在 HTTP / 1.1 出现了 <code>ETag</code> 。</li>
 </ul>
 <h5 id="ETag-和-If-None-Match"><a href="#ETag-和-If-None-Match" class="headerlink" title="ETag 和 If-None-Match"></a>ETag 和 If-None-Match</h5><p><code>Etag</code>是服务器响应请求时，返回当前资源文件的一个唯一标识(由服务器生成)</p>
-<p><code>ETag</code> 类似于文件指纹，<code>If-None-Match</code>会将当前<code>ETag</code>发送给服务器，询问该资源<code>ETag</code>是否变动，有变动的话就将新的资源发送回来。并且<code>ETag</code>优先级比<code>Last-Modified</code>高。</p>
+<p><code>ETag</code> 类似于文件指纹，<code>If-None-Match</code>（<code>Request Header</code>中的字段）会将当前<code>ETag</code>（<code>Response Header</code>中获取）发送给服务器，询问该资源<code>ETag</code>是否变动，有变动的话就将新的资源发送回来，状态码为200，否则返回304，继续使用缓存资源。</p>
+<p><code>ETag</code>是 HTTP/1.1 新出的请求头字段，自然优先级比<code>Last-Modified</code>高。</p>
 <h3 id="一张图总结一下"><a href="#一张图总结一下" class="headerlink" title="一张图总结一下"></a>一张图总结一下</h3><p><img src="https://pic.superbed.cn/item/5cb3310c3a213b04173d6461" alt></p>
 <h4 id="选择合适的缓存策略"><a href="#选择合适的缓存策略" class="headerlink" title="选择合适的缓存策略"></a>选择合适的缓存策略</h4><p>对于大部分的场景都可以使用强缓存配合协商缓存解决，但是在一些特殊的地方可能需要选择特殊的缓存策略</p>
 <ul>
@@ -598,10 +599,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -624,7 +625,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">72</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -667,7 +668,7 @@
                       
                     
                     <span class="site-state-item-count">13</span>
-                    <span class="site-state-item-name">categories</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -912,7 +913,7 @@
                       
                     
                     <span class="site-state-item-count">113</span>
-                    <span class="site-state-item-name">tags</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -1008,7 +1009,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1016,7 +1017,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
