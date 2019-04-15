@@ -98,18 +98,18 @@
 
 
 
-  <meta name="description" content="提要为解决传统异步所造成的回调地狱，社区提出了Promise方案并最终将其写入了语言标准。其用法如其名——承诺：即非立即兑现，通过then方法调用其状态，通过catch捕获错误。 状态 Pending：进行中 Fulfilled：已成功 Rejected：已失败  Promise的另一个特性是无法改变。正如其英文寓意一样，一旦状态改变就无法继续更改。故我们将Fulfilled和Rejected统一">
+  <meta name="description" content="提要为解决传统异步所造成的回调地狱，社区提出了Promise方案并最终将其写入了语言标准。其用法如其名——承诺：即非立即兑现，通过then方法调用其状态，通过catch捕获错误。">
 <meta name="keywords" content="Promise,ES6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6中的Promise">
 <meta property="og:url" content="http://yoursite.com/2019/03/16/ES6中的Promise/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="提要为解决传统异步所造成的回调地狱，社区提出了Promise方案并最终将其写入了语言标准。其用法如其名——承诺：即非立即兑现，通过then方法调用其状态，通过catch捕获错误。 状态 Pending：进行中 Fulfilled：已成功 Rejected：已失败  Promise的另一个特性是无法改变。正如其英文寓意一样，一旦状态改变就无法继续更改。故我们将Fulfilled和Rejected统一">
+<meta property="og:description" content="提要为解决传统异步所造成的回调地狱，社区提出了Promise方案并最终将其写入了语言标准。其用法如其名——承诺：即非立即兑现，通过then方法调用其状态，通过catch捕获错误。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-31T16:06:11.364Z">
+<meta property="og:updated_time" content="2019-04-15T00:53:09.239Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6中的Promise">
-<meta name="twitter:description" content="提要为解决传统异步所造成的回调地狱，社区提出了Promise方案并最终将其写入了语言标准。其用法如其名——承诺：即非立即兑现，通过then方法调用其状态，通过catch捕获错误。 状态 Pending：进行中 Fulfilled：已成功 Rejected：已失败  Promise的另一个特性是无法改变。正如其英文寓意一样，一旦状态改变就无法继续更改。故我们将Fulfilled和Rejected统一">
+<meta name="twitter:description" content="提要为解决传统异步所造成的回调地狱，社区提出了Promise方案并最终将其写入了语言标准。其用法如其名——承诺：即非立即兑现，通过then方法调用其状态，通过catch捕获错误。">
 
 
 
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-01 00:06:11" itemprop="dateModified" datetime="2019-04-01T00:06:11+08:00">2019-04-01</time>
+                <time title="Modified: 2019-04-15 08:53:09" itemprop="dateModified" datetime="2019-04-15T08:53:09+08:00">2019-04-15</time>
               
             
           </span>
@@ -438,6 +438,7 @@
 
       
         <h3 id="提要"><a href="#提要" class="headerlink" title="提要"></a>提要</h3><p>为解决传统异步所造成的回调地狱，社区提出了<code>Promise</code>方案并最终将其写入了语言标准。<strong>其用法如其名——承诺：即非立即兑现，通过<code>then</code>方法调用其状态，通过<code>catch</code>捕获错误。</strong></p>
+<a id="more"></a>
 <h3 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h3><ul>
 <li><code>Pending</code>：进行中</li>
 <li><code>Fulfilled</code>：已成功</li>
@@ -450,7 +451,6 @@
 <li>若不设置回调函数则其内部错误不会抛向外部</li>
 <li><code>Pending</code>状态时无法知道目前进展到哪一阶段（开始或即将完成）</li>
 </ul>
-<a id="more"></a>
 <h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Create a Promise'</span>)</span><br><span class="line">    resolve(<span class="string">'success'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'After new Promise'</span>)</span><br><span class="line">p.then(<span class="function"><span class="params">val</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(val)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a Promise</span></span><br><span class="line"><span class="comment">// After new Promise</span></span><br><span class="line"><span class="comment">// success</span></span><br><span class="line"><span class="comment">// Promise &#123;&lt;resolved&gt;: undefined&#125;</span></span><br></pre></td></tr></table></figure>
 <p>如图，我们创建<code>promise</code>时其会立即执行，一旦状态发生改变那么立即调用<code>then</code>方法中的函数。</p>
 <p>没看出来？咱们加个定时器试试</p>

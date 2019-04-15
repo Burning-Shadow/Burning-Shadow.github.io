@@ -1455,7 +1455,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-24 20:39:50" itemprop="dateModified" datetime="2019-03-24T20:39:50+08:00">2019-03-24</time>
+                <time title="Modified: 2019-04-15 08:54:11" itemprop="dateModified" datetime="2019-04-15T08:54:11+08:00">2019-04-15</time>
               
             
           </span>
@@ -1508,33 +1508,7 @@
 
       
         
-          <ul>
-<li><p><code>Symbol</code>函数前不能使用<code>new</code>命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种<strong>类似于字符串的数据类型。</strong></p>
-</li>
-<li><p><code>Symbol</code>函数可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。</p>
-</li>
-<li><p><code>Symbol</code>函数的参数只是表示对当前 Symbol 值的描述，因此相同参数的<code>Symbol</code>函数的返回值是不相等的。</p>
-</li>
-<li><p><code>Symbol</code>值不能与其他类型的值进行运算，会报错。</p>
-</li>
-<li><p><code>Symbol</code>值也可以转为布尔值，但是不能转为数值。</p>
-</li>
-<li><p><strong><code>Symbol</code>值一般用作属性名，以防止某个键被覆盖或改写。</strong></p>
-<ul>
-<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line">a[mySymbol] = <span class="string">'Hello!'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  [mySymbol]: <span class="string">'Hello!'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, mySymbol, &#123; <span class="attr">value</span>: <span class="string">'Hello!'</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上写法都得到同样结果</span></span><br><span class="line">a[mySymbol] <span class="comment">// "Hello!"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>但是<code>Symbol</code>值作为对象的属性名时不能用点运算符：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">const</span> a = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">a.mySymbol = <span class="string">'Hello!'</span>;</span><br><span class="line">a[mySymbol] <span class="comment">// undefined</span></span><br><span class="line">a[<span class="string">'mySymbol'</span>] <span class="comment">// "Hello!"</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>在对象内部使用<code>Symbol</code>值定义属性时，<code>Symbol</code>值必须放在方括号中</p>
-<ul>
-<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  [s]: <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123; ... &#125;	<span class="comment">// 或是对象增强写法： [s](arg) &#123; ... &#125;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj[s](<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
+          <p>我们今天一起看一些 ES6 新增的基本类型<code>Symbol</code></p>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -1660,7 +1634,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-01 00:06:11" itemprop="dateModified" datetime="2019-04-01T00:06:11+08:00">2019-04-01</time>
+                <time title="Modified: 2019-04-15 08:53:09" itemprop="dateModified" datetime="2019-04-15T08:53:09+08:00">2019-04-15</time>
               
             
           </span>
@@ -1714,18 +1688,6 @@
       
         
           <h3 id="提要"><a href="#提要" class="headerlink" title="提要"></a>提要</h3><p>为解决传统异步所造成的回调地狱，社区提出了<code>Promise</code>方案并最终将其写入了语言标准。<strong>其用法如其名——承诺：即非立即兑现，通过<code>then</code>方法调用其状态，通过<code>catch</code>捕获错误。</strong></p>
-<h3 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h3><ul>
-<li><code>Pending</code>：进行中</li>
-<li><code>Fulfilled</code>：已成功</li>
-<li><code>Rejected</code>：已失败</li>
-</ul>
-<p><code>Promise</code>的另一个特性是<strong>无法改变</strong>。正如其英文寓意一样，一旦状态改变就无法继续更改。故我们将<code>Fulfilled</code>和<code>Rejected</code>统一称为<code>Resolved</code>（已定型）</p>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>当然<code>Promise</code>也有一些缺点：</p>
-<ul>
-<li>一旦创建立即执行，无法中途取消。</li>
-<li>若不设置回调函数则其内部错误不会抛向外部</li>
-<li><code>Pending</code>状态时无法知道目前进展到哪一阶段（开始或即将完成）</li>
-</ul>
           <!--noindex-->
           
             <div class="post-button text-center">
