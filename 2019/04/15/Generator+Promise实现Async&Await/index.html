@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="我们在之前讲解async时提到了由Promise转变至async所经历的一系列过程。 由于Promise只能通过catch捕获错误，而在内部.then链中嵌套的一系列Promise调用所产生的err是无法被外层catch所捕获的，而其后添加catch则又破坏了代码的格式和一致性。 同时，Promise中的catch函数中的异常堆栈不够完整，依旧难以追寻真正发生错误的位置（因为内部调用大都是匿名函数">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-15T09:36:42.409Z">
+<meta property="og:updated_time" content="2019-04-15T13:05:27.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Generator+Promise实现Async&amp;Await">
 <meta name="twitter:description" content="我们在之前讲解async时提到了由Promise转变至async所经历的一系列过程。 由于Promise只能通过catch捕获错误，而在内部.then链中嵌套的一系列Promise调用所产生的err是无法被外层catch所捕获的，而其后添加catch则又破坏了代码的格式和一致性。 同时，Promise中的catch函数中的异常堆栈不够完整，依旧难以追寻真正发生错误的位置（因为内部调用大都是匿名函数">
@@ -194,7 +194,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -222,7 +222,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -239,7 +239,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -256,7 +256,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -273,7 +273,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -361,16 +361,20 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-04-15 17:36:42" itemprop="dateCreated datePublished" datetime="2019-04-15T17:36:42+08:00">2019-04-15</time>
+              <time title="Erstellt: 2019-04-15 17:36:42 / Geändert am: 21:05:27" itemprop="dateCreated datePublished" datetime="2019-04-15T17:36:42+08:00">2019-04-15</time>
             
 
+            
+              
+
+              
             
           </span>
 
@@ -383,7 +387,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
@@ -426,6 +430,21 @@
 <p><strong>同时，<code>Promise</code>中的<code>catch</code>函数中的异常堆栈不够完整，依旧难以追寻真正发生错误的位置（因为内部调用大都是匿名函数。而不用匿名函数则又丧失了箭头函数的简洁，让开发者很苦恼）。</strong></p>
 <p>所以，<code>Async</code>语法应运而生。他弥补了上述<code>Promise</code>调用所出现的不足之处，而其具体实现则是通过<code>Generator</code>和<code>Promise</code>协同的语法糖。下面我们一起看看如何通过<code>Generator</code>和<code>Promise</code>实现一个<code>Async-Await</code>吧~</p>
 <a id="more"></a>
+<h3 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h3><ul>
+<li><code>Generator</code>是一个函数，通过<code>yield</code>关键字控制其执行</li>
+<li>执行该函数时到第一个<code>yield</code>时停止执行，直到调用其返回值的<code>.next()</code>才会执行<code>yield</code>后面的部分，返回一个带有<code>value</code>和<code>done</code>属性的对象，<strong>其机制类似于<code>return</code>，到此为止，返回结果</strong>。</li>
+<li>我们可以在调用<code>next()</code>时传递一个参数，在上次<code>yield</code>前接收到这个参数</li>
+<li>同时，<code>Generator</code>内部仍可以嵌套<code>Generator</code>函数，具体实现就是<code>yield*</code>，在此不再赘述。</li>
+</ul>
+<p>在此只对其做一个粗浅的概述，若各位有兴趣可以看相关的博客： <a href="https://burning-shadow.github.io/2019/03/24/ES6%E4%B8%AD%E7%9A%84-Generator/" target="_blank" rel="noopener">《ES6中的Generator》</a></p>
+<h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h3><ul>
+<li>每次返回更新自己的状态（<code>fullfied</code> || <code>rejected</code>），返回值仍为一个<code>Promise</code></li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">run</span> (<span class="params">gen</span>) </span>&#123;</span><br><span class="line">  gen = gen()</span><br><span class="line">  <span class="keyword">return</span> next(gen.next())</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">next</span> (<span class="params">&#123;done, value&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">     <span class="keyword">if</span> (done) &#123; <span class="comment">// finish</span></span><br><span class="line">       resolve(value)</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123; <span class="comment">// not yet</span></span><br><span class="line">       value.then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">         next(gen.next(data)).then(resolve)</span><br><span class="line">       &#125;)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandom</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">_</span> =&gt;</span> resolve(<span class="built_in">Math</span>.random() * <span class="number">10</span> | <span class="number">0</span>), <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> * <span class="title">main</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> num1 = <span class="keyword">yield</span> getRandom()</span><br><span class="line">  <span class="keyword">let</span> num2 = <span class="keyword">yield</span> getRandom()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> num1 + num2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">run(main).then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`got data: <span class="subst">$&#123;data&#125;</span>`</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>由代码可知我们通过<code>generator</code>——<code>main</code>函数以近似同步的方式执行异步代码。但这同时也需要一个外部函数帮助我们执行这个<code>main</code>。</p>
+<p>而其对应的<code>async/await</code>函数实现上方代码如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandom</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">_</span> =&gt;</span> resolve(<span class="built_in">Math</span>.random() * <span class="number">10</span> | <span class="number">0</span>), <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> num1 = <span class="keyword">await</span> getRandom()</span><br><span class="line">  <span class="keyword">let</span> num2 = <span class="keyword">await</span> getRandom()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> num1 + num2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`got data: <span class="subst">$&#123;<span class="keyword">await</span> main()&#125;</span>`</span>)</span><br></pre></td></tr></table></figure>
+<p>大体上看我们只需要将<code>*</code>改为<code>async</code>，将<code>yield</code>改成<code>await</code>并</p>
 
       
     </div>
@@ -520,8 +539,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -539,7 +567,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">73</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -582,7 +610,7 @@
                       
                     
                     <span class="site-state-item-count">13</span>
-                    <span class="site-state-item-name">categories</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -833,7 +861,7 @@
                       
                     
                     <span class="site-state-item-count">116</span>
-                    <span class="site-state-item-name">tags</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -886,6 +914,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Generator"><span class="nav-number">1.</span> <span class="nav-text">Generator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise"><span class="nav-number">2.</span> <span class="nav-text">Promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -912,7 +957,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -920,7 +965,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
