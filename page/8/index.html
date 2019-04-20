@@ -218,7 +218,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
 
   </li>
         
@@ -321,6 +321,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/浅谈instanceof和typeof原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/16/浅谈instanceof和typeof原理/" class="post-title-link" itemprop="url">浅谈 instanceof 和 typeof 原理</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-03-16 09:30:33" itemprop="dateCreated datePublished" datetime="2019-03-16T09:30:33+08:00">2019-03-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-04-01 00:30:36" itemprop="dateModified" datetime="2019-04-01T00:30:36+08:00">2019-04-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>对于类型判断我们很多人都知道<code>null</code>和<code>instanceof</code>这两个方法。但是同时这两个原生自带的方法也有自己的局限性。</p>
+<p><code>typeof</code>对于基本类型，除了<code>null</code>都可以正确显示</p>
+<blockquote>
+<p>typeof 1 // ‘number’<br>typeof ‘1’ // ‘string’<br>typeof undefined // ‘undefined’<br>typeof true // ‘boolean’<br>typeof Symbol() // ‘symbol’<br>typeof b // b 没有声明，但是还会显示 undefined</p>
+</blockquote>
+<p>而对于对象，除了函数都会显示<code>object</code></p>
+<blockquote>
+<p>typeof [] // ‘object’<br>typeof {} // ‘object’<br>typeof console.log // ‘function’</p>
+</blockquote>
+<p>而<code>instanceof</code>则大多用在继承那一章节中对实例是否从属于某个类进行判断。</p>
+<p>下面我们来谈一谈他们的机制8~</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/16/浅谈instanceof和typeof原理/#more" rel="contents">
+                Lire la suite &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/forEach_for-in_for-of/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -359,14 +548,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-03-16 09:25:47" itemprop="dateCreated datePublished" datetime="2019-03-16T09:25:47+08:00">2019-03-16</time>
+              <time title="Post created: 2019-03-16 09:25:47" itemprop="dateCreated datePublished" datetime="2019-03-16T09:25:47+08:00">2019-03-16</time>
             
 
             
@@ -383,7 +572,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-24 20:38:55" itemprop="dateModified" datetime="2019-03-24T20:38:55+08:00">2019-03-24</time>
+                <time title="Updated at: 2019-03-24 20:38:55" itemprop="dateModified" datetime="2019-03-24T20:38:55+08:00">2019-03-24</time>
               
             
           </span>
@@ -441,7 +630,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/16/forEach_for-in_for-of/#more" rel="contents">
-                Read more &raquo;
+                Lire la suite &raquo;
               </a>
             </div>
           
@@ -538,14 +727,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-03-15 20:53:48" itemprop="dateCreated datePublished" datetime="2019-03-15T20:53:48+08:00">2019-03-15</time>
+              <time title="Post created: 2019-03-15 20:53:48" itemprop="dateCreated datePublished" datetime="2019-03-15T20:53:48+08:00">2019-03-15</time>
             
 
             
@@ -562,7 +751,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-24 20:39:19" itemprop="dateModified" datetime="2019-03-24T20:39:19+08:00">2019-03-24</time>
+                <time title="Updated at: 2019-03-24 20:39:19" itemprop="dateModified" datetime="2019-03-24T20:39:19+08:00">2019-03-24</time>
               
             
           </span>
@@ -621,7 +810,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/15/鸭子模型/#more" rel="contents">
-                Read more &raquo;
+                Lire la suite &raquo;
               </a>
             </div>
           
@@ -718,14 +907,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-03-15 20:27:00" itemprop="dateCreated datePublished" datetime="2019-03-15T20:27:00+08:00">2019-03-15</time>
+              <time title="Post created: 2019-03-15 20:27:00" itemprop="dateCreated datePublished" datetime="2019-03-15T20:27:00+08:00">2019-03-15</time>
             
 
             
@@ -742,7 +931,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-24 20:37:55" itemprop="dateModified" datetime="2019-03-24T20:37:55+08:00">2019-03-24</time>
+                <time title="Updated at: 2019-03-24 20:37:55" itemprop="dateModified" datetime="2019-03-24T20:37:55+08:00">2019-03-24</time>
               
             
           </span>
@@ -800,7 +989,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/15/JavaScript中的map和reduce/#more" rel="contents">
-                Read more &raquo;
+                Lire la suite &raquo;
               </a>
             </div>
           
@@ -848,7 +1037,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Page précédente"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
   </nav>
 
 
@@ -892,8 +1081,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">73</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-count">74</span>
+                    <span class="site-state-item-name">articles</span>
                   </a>
                 </div>
               
@@ -1186,7 +1375,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">116</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">121</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1274,7 +1473,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
