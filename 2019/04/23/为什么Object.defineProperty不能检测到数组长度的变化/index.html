@@ -107,7 +107,9 @@
 <meta property="og:description" content="昨天老袁面腾讯的时候被面试官从 Vue 的数据劫持跳转到这么个问题：为什么Object.defineProperty不能检测到数组长度的变化？？？ 老袁面完后看起来很难过。我其实心里对这个问题也很纳闷：">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cbeda923a213b0417b93269">
-<meta property="og:updated_time" content="2019-04-23T15:22:20.767Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cbfbe543a213b0417c3219a">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cbfc59d3a213b0417c38ff5">
+<meta property="og:updated_time" content="2019-04-24T02:10:55.463Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么Object.defineProperty不能检测到数组长度的变化">
 <meta name="twitter:description" content="昨天老袁面腾讯的时候被面试官从 Vue 的数据劫持跳转到这么个问题：为什么Object.defineProperty不能检测到数组长度的变化？？？ 老袁面完后看起来很难过。我其实心里对这个问题也很纳闷：">
@@ -370,12 +372,24 @@
                 
               
 
-              <time title="Erstellt: 2019-04-23 16:52:10 / Geändert am: 23:22:20" itemprop="dateCreated datePublished" datetime="2019-04-23T16:52:10+08:00">2019-04-23</time>
+              <time title="Erstellt: 2019-04-23 16:52:10" itemprop="dateCreated datePublished" datetime="2019-04-23T16:52:10+08:00">2019-04-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-04-24 10:10:55" itemprop="dateModified" datetime="2019-04-24T10:10:55+08:00">2019-04-24</time>
               
             
           </span>
@@ -482,8 +496,23 @@
 </ul>
 <p>我们来看一下上面的论述</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 还是老套路，定义一个observe方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">defineReactive</span>(<span class="params">data, key, val</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(data, key, &#123;</span><br><span class="line">    enumerable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">     <span class="keyword">get</span>: function defineGet() &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">`get key: <span class="subst">$&#123;key&#125;</span> val: <span class="subst">$&#123;val&#125;</span>`</span>)</span><br><span class="line">      <span class="keyword">return</span> val</span><br><span class="line">    &#125;,</span><br><span class="line">     <span class="keyword">set</span>: function defineSet(newVal) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">`set key: <span class="subst">$&#123;key&#125;</span> val: <span class="subst">$&#123;newVal&#125;</span>`</span>)</span><br><span class="line">      <span class="comment">// 还记得我们上面讨论的闭包么</span></span><br><span class="line">      <span class="comment">// 此处将新的值赋给val，保存在内存中，从而达到赋值的效果</span></span><br><span class="line">      val = newVal</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">observe</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Object</span>.keys(data).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">    defineReactive(data, key, data[key])</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> test = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line">observe(test)</span><br></pre></td></tr></table></figure>
-</li>
+<p>打印的过程可以解释为：</p>
+<ul>
+<li>找到<code>test</code>变量指向的内存位置为一个数组，长度为3并打印，但并不知道索引对应的值是多少</li>
+<li>便利索引</li>
 </ul>
+<p>接下来我们做如下操作</p>
+<p><img src="https://pic.superbed.cn/item/5cbfbe543a213b0417c3219a" alt></p>
+</li>
+<li><p><code>push</code>时，新增了索引并且改变了长度，但新索引未被<code>observe</code></p>
+</li>
+<li>修改新的索引对应的值</li>
+<li>弹出新的索引对应的值</li>
+<li>弹出索引被<code>observe</code>的值时触发了<code>get</code></li>
+<li>此时再去给原索引赋值时发现并没有触发被<code>observe</code>的<code>set</code>，由此可见数组索引被删除后就不会被<code>observe</code>到了。</li>
+</ul>
+<p>那对象的属性被删除后是否还可以被<code>observe</code>到么？</p>
+<p><img src="https://pic.superbed.cn/item/5cbfc59d3a213b0417c38ff5" alt></p>
 
       
     </div>
