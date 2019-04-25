@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://pic.superbed.cn/item/5cbeda923a213b0417b93269">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cbfbe543a213b0417c3219a">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cbfc59d3a213b0417c38ff5">
-<meta property="og:updated_time" content="2019-04-24T02:10:55.463Z">
+<meta property="og:updated_time" content="2019-04-25T02:29:08.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么Object.defineProperty不能检测到数组长度的变化">
 <meta name="twitter:description" content="昨天老袁面腾讯的时候被面试官从 Vue 的数据劫持跳转到这么个问题：为什么Object.defineProperty不能检测到数组长度的变化？？？ 老袁面完后看起来很难过。我其实心里对这个问题也很纳闷：">
@@ -389,7 +389,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-04-24 10:10:55" itemprop="dateModified" datetime="2019-04-24T10:10:55+08:00">2019-04-24</time>
+                <time title="Geändert am: 2019-04-25 10:29:08" itemprop="dateModified" datetime="2019-04-25T10:29:08+08:00">2019-04-25</time>
               
             
           </span>
@@ -513,6 +513,14 @@
 </ul>
 <p>那对象的属性被删除后是否还可以被<code>observe</code>到么？</p>
 <p><img src="https://pic.superbed.cn/item/5cbfc59d3a213b0417c38ff5" alt></p>
+<ul>
+<li>修改索引为1的值，出发了<code>set</code></li>
+<li><code>unshift</code>时，会将索引为0和1的值遍历出来存放，然后重新赋值</li>
+</ul>
+<p>当我们给<code>length</code>赋值时，可以看见并不会遍历数组去赋值索引</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">arr.length = <span class="number">5</span></span><br><span class="line">arr		<span class="comment">// [1, 2, 3, empty × 2]</span></span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>对于<code>Object.defineProperty</code>来说，处理对象和数组一样，只是在初始化时去改写<code>get</code>和<code>set</code>达到监测数组或对象的变化。对于新增的属性，需要手动再初始化。</p>
+<p>对于数组来说，只不过特别了点，某些方法例如<code>push</code>、<code>unshift</code>等也会新增索引。对于新增的索引亦可以添加<code>observe</code>从而达到监听的效果。而<code>pop</code>和<code>shift</code>则会删除更新索引，也会出发<code>Object.defineProperty</code>的<code>get</code>和<code>set</code>。对于重新赋值<code>length</code>的数组，不会新增索引，因为不清楚新增的索引数量。</p>
 
       
     </div>
@@ -1008,7 +1016,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变对象属性能检测到嘛？"><span class="nav-number">1.</span> <span class="nav-text">改变对象属性能检测到嘛？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性类型"><span class="nav-number">2.</span> <span class="nav-text">属性类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单介绍"><span class="nav-number">2.1.</span> <span class="nav-text">简单介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据属性"><span class="nav-number">2.1.1.</span> <span class="nav-text">数据属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#访问器属性"><span class="nav-number">2.1.2.</span> <span class="nav-text">访问器属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性创建的区别"><span class="nav-number">2.2.</span> <span class="nav-text">属性创建的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组长度-amp-索引"><span class="nav-number">3.</span> <span class="nav-text">数组长度 &amp; 索引</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变对象属性能检测到嘛？"><span class="nav-number">1.</span> <span class="nav-text">改变对象属性能检测到嘛？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性类型"><span class="nav-number">2.</span> <span class="nav-text">属性类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单介绍"><span class="nav-number">2.1.</span> <span class="nav-text">简单介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据属性"><span class="nav-number">2.1.1.</span> <span class="nav-text">数据属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#访问器属性"><span class="nav-number">2.1.2.</span> <span class="nav-text">访问器属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性创建的区别"><span class="nav-number">2.2.</span> <span class="nav-text">属性创建的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组长度-amp-索引"><span class="nav-number">3.</span> <span class="nav-text">数组长度 &amp; 索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
