@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="此文章原文地址在掘金，为了查看方便转载至个人博客中，也是为了敲一遍让自己印象更深一些。 原文地址： 《import、require、export、module.exports 混合使用详解》">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-29T09:06:17.884Z">
+<meta property="og:updated_time" content="2019-04-29T09:19:32.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="import、require、export、module.exports混合使用详解">
 <meta name="twitter:description" content="此文章原文地址在掘金，为了查看方便转载至个人博客中，也是为了敲一遍让自己印象更深一些。 原文地址： 《import、require、export、module.exports 混合使用详解》">
@@ -368,7 +368,7 @@
                 
               
 
-              <time title="Erstellt: 2019-04-29 15:31:15 / Geändert am: 17:06:17" itemprop="dateCreated datePublished" datetime="2019-04-29T15:31:15+08:00">2019-04-29</time>
+              <time title="Erstellt: 2019-04-29 15:31:15 / Geändert am: 17:19:32" itemprop="dateCreated datePublished" datetime="2019-04-29T15:31:15+08:00">2019-04-29</time>
             
 
             
@@ -502,7 +502,28 @@
 <ul>
 <li>若本就是 CommonJS 规范的模块，导出时无<code>default</code>属性，需要添加一个<code>default</code>属性，并把整个模块对象再次赋值给<code>default</code>属性。</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_interopRequireWildcard</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (obj &amp;&amp; obj.__esModule) &#123;</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> newObj = &#123;&#125;; <span class="comment">// (A)</span></span><br><span class="line">        <span class="keyword">if</span> (obj != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">Object</span>.prototype.hasOwnProperty.call(obj, key))</span><br><span class="line">                    newObj[key] = obj[key];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        newObj.default = obj;</span><br><span class="line">        <span class="keyword">return</span> newObj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_interopRequireWildcard</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (obj &amp;&amp; obj.__esModule) &#123;</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> newObj = &#123;&#125;; <span class="comment">// (A)</span></span><br><span class="line">        <span class="keyword">if</span> (obj != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">Object</span>.prototype.hasOwnProperty.call(obj, key))&#123;</span><br><span class="line">                    newObj[key] = obj[key];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        newObj.default = obj;</span><br><span class="line">        <span class="keyword">return</span> newObj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="import-a-from-‘-a-js’"><a href="#import-a-from-‘-a-js’" class="headerlink" title="import {a} from ‘./a.js’"></a>import {a} from ‘./a.js’</h5><p>直接转换成<code>require (&#39;./a.js&#39;).a</code>即可</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>经过上面的转换分析，我们得知即使我们使用了 es6 的模块系统，如果借助<code>babel</code>的转换，es6 的模块系统最终还是会转换成 CommonJS 的规范。</p>
+<p><strong>所以我们如果是使用<code>babel</code>转换 es6 模块，混合使用 es6 模块和 CommonJS 的规范是没有问题的，因为最终都会转换成 CommonJS。</strong></p>
+<ul>
+<li>这里就解释了问题3</li>
+</ul>
+<blockquote>
+<p>为什么可以使用 es6 的 import 去引用 commonjs 规范定义的模块，或者反过来也可以又是为什么？</p>
+</blockquote>
+<h4 id="babel5-amp-amp-babel6"><a href="#babel5-amp-amp-babel6" class="headerlink" title="babel5 &amp;&amp; babel6"></a>babel5 &amp;&amp; babel6</h4><p>我们在上文<code>babel</code>对导出模块的转换提到， es6 的<code>exports default</code>都会被转换成<code>exports.default</code>，即使这个模块只有一个输出</p>
+<p>这也就解释了问题1：</p>
+<blockquote>
+<p>为何有的地方使用 <code>require</code> 去引用一个模块时需要加上 <code>default</code>？ <code>require(&#39;xx&#39;).default</code></p>
+</blockquote>
+<p>我们经常会使用 es6 的<code>export default</code>来输出模块，而且这个输出是这个模块的唯一输出，我们会误以为这种写法输出的是模块的默认输出</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="number">123</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// b.js 错误</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">require</span>(<span class="string">'./a.js'</span>)</span><br></pre></td></tr></table></figure>
+<p>在使用<code>require</code>进行引用时，我们也会误以为引入的是<code>a</code>文件的默认输出</p>
+<p>结果这里需改成<code>var foo = require(&#39;./a.js&#39;).default</code></p>
+<p>这个场景写在<code>webpack</code>代码分割逻辑时经常会遇到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">require.ensure([], (require) =&gt; &#123;</span><br><span class="line">  callback(null, [</span><br><span class="line">    require(&apos;./src/pages/profitList&apos;).default,</span><br><span class="line">  ]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1038,7 +1059,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack与babel在模块化中的作用"><span class="nav-number">2.</span> <span class="nav-text">webpack与babel在模块化中的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack模块化的原理"><span class="nav-number">2.1.</span> <span class="nav-text">webpack模块化的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel的作用"><span class="nav-number">2.2.</span> <span class="nav-text">babel的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导出模块"><span class="nav-number">2.2.1.</span> <span class="nav-text">导出模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引入default"><span class="nav-number">2.2.2.</span> <span class="nav-text">引入default</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引入-通配符"><span class="nav-number">2.2.3.</span> <span class="nav-text">引入*通配符</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack与babel在模块化中的作用"><span class="nav-number">2.</span> <span class="nav-text">webpack与babel在模块化中的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack模块化的原理"><span class="nav-number">2.1.</span> <span class="nav-text">webpack模块化的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel的作用"><span class="nav-number">2.2.</span> <span class="nav-text">babel的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导出模块"><span class="nav-number">2.2.1.</span> <span class="nav-text">导出模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引入default"><span class="nav-number">2.2.2.</span> <span class="nav-text">引入default</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引入-通配符"><span class="nav-number">2.2.3.</span> <span class="nav-text">引入*通配符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#import-a-from-‘-a-js’"><span class="nav-number">2.2.4.</span> <span class="nav-text">import {a} from ‘./a.js’</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总结"><span class="nav-number">2.2.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel5-amp-amp-babel6"><span class="nav-number">2.3.</span> <span class="nav-text">babel5 &amp;&amp; babel6</span></a></li></ol></li></ol></div>
             
 
           </div>
