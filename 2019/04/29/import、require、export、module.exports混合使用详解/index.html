@@ -98,18 +98,21 @@
 
 
 
-  <meta name="description" content="此文章原文地址在掘金，为了查看方便转载至个人博客中，也是为了敲一遍让自己印象更深一些。 原文地址： 《import、require、export、module.exports 混合使用详解》">
+  <meta name="description" content="此文章原文地址在掘金，为了查看方便转载至个人博客中，也是为了敲一遍让自己印象更深一些。 原文地址： 《import、require、export、module.exports 混合使用详解》 感谢大佬的分享~">
 <meta name="keywords" content="require,import,export,module.exports">
 <meta property="og:type" content="article">
 <meta property="og:title" content="import、require、export、module.exports混合使用详解">
 <meta property="og:url" content="http://yoursite.com/2019/04/29/import、require、export、module.exports混合使用详解/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="此文章原文地址在掘金，为了查看方便转载至个人博客中，也是为了敲一遍让自己印象更深一些。 原文地址： 《import、require、export、module.exports 混合使用详解》">
+<meta property="og:description" content="此文章原文地址在掘金，为了查看方便转载至个人博客中，也是为了敲一遍让自己印象更深一些。 原文地址： 《import、require、export、module.exports 混合使用详解》 感谢大佬的分享~">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-29T09:19:32.876Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cc6c1f23a213b04174abf26">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cc6d7253a213b04174db6d5">
+<meta property="og:updated_time" content="2019-04-29T11:05:28.053Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="import、require、export、module.exports混合使用详解">
-<meta name="twitter:description" content="此文章原文地址在掘金，为了查看方便转载至个人博客中，也是为了敲一遍让自己印象更深一些。 原文地址： 《import、require、export、module.exports 混合使用详解》">
+<meta name="twitter:description" content="此文章原文地址在掘金，为了查看方便转载至个人博客中，也是为了敲一遍让自己印象更深一些。 原文地址： 《import、require、export、module.exports 混合使用详解》 感谢大佬的分享~">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5cc6c1f23a213b04174abf26">
 
 
 
@@ -368,7 +371,7 @@
                 
               
 
-              <time title="Erstellt: 2019-04-29 15:31:15 / Geändert am: 17:19:32" itemprop="dateCreated datePublished" datetime="2019-04-29T15:31:15+08:00">2019-04-29</time>
+              <time title="Erstellt: 2019-04-29 15:31:15 / Geändert am: 19:05:28" itemprop="dateCreated datePublished" datetime="2019-04-29T15:31:15+08:00">2019-04-29</time>
             
 
             
@@ -427,6 +430,7 @@
       
         <p>此文章原文地址在掘金，为了查看方便转载至个人博客中，也是为了敲一遍让自己印象更深一些。</p>
 <p>原文地址： <a href="https://juejin.im/post/5a2e5f0851882575d42f5609" target="_blank" rel="noopener">《import、require、export、module.exports 混合使用详解》</a></p>
+<p>感谢大佬的分享~</p>
 <a id="more"></a>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>自从使用了 es6 的模块系统后，各种地方愉快地使用 <code>import</code> <code>export default</code>，但也会在老项目中看到使用CommonJS 规范的 <code>require</code> <code>module.exports</code>。甚至有时候也会常常看到两者互用的场景。使用没有问题，但其中的关联与区别不得其解，使用起来也糊里糊涂。比如：</p>
 <ol>
@@ -524,6 +528,68 @@
 <p>结果这里需改成<code>var foo = require(&#39;./a.js&#39;).default</code></p>
 <p>这个场景写在<code>webpack</code>代码分割逻辑时经常会遇到</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">require.ensure([], (require) =&gt; &#123;</span><br><span class="line">  callback(null, [</span><br><span class="line">    require(&apos;./src/pages/profitList&apos;).default,</span><br><span class="line">  ]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这是<code>babel6</code>的变更，在<code>babel5</code>的时候可不是这样的</p>
+<p><img src="https://pic.superbed.cn/item/5cc6c1f23a213b04174abf26" alt></p>
+<p><a href="https://babeljs.io/docs/en/babel-plugin-transform-es2015-modules-commonjs/#strict" target="_blank" rel="noopener">babeljs.io/docs/plugin…</a></p>
+<p>在<code>babel5</code>时代，大部分人再用<code>require</code>去引用 es6 输出的<code>default</code>，只是把<code>default</code>输出看作是一个模块的默认输出，所以<code>babel5</code>对这个逻辑做了<code>hack</code>，如果一个 es6 模块只有一个<code>default</code>输出，那么在转换成 CommonJS 的时候也一起赋值给<code>module.exports</code>，即整个导出对象被赋值了<code>default</code>所对应的值。</p>
+<p>这样就不需要加<code>default</code>，<code>require(&#39;./a.js&#39;)</code>的值就是想要的<code>default</code>值</p>
+<p>但这样做是不符合 es6 的定义的。在 es6 的定义里，<code>default</code>只是个名字，没有任何意义。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> = <span class="number">123</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> a = <span class="number">123</span>;</span><br></pre></td></tr></table></figure>
+<p>这两者含义是一样的，分别为输出名为<code>default</code>和<code>a</code>的变量</p>
+<p>还有一个很重要的问题，一旦<code>a.js</code>文件里又添加了一个具名的输出，那么引入方就会出麻烦</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> a = <span class="number">123</span>; <span class="comment">// 新增</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// b.js </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">require</span>(<span class="string">'./a.js'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 由之前的 输出 123</span></span><br><span class="line"><span class="comment">// 变成 &#123; default: 123, a: 123 &#125;</span></span><br></pre></td></tr></table></figure>
+<p>所以<code>babel6</code>去掉了这个<code>hack</code>。这是个正确的决定。升级<code>babel6</code>后产生的不兼容问题 可以通过引入<a href="https://www.npmjs.com/package/babel-plugin-add-module-exports" target="_blank" rel="noopener">babel-plugin-add-module-exports</a>解决</p>
+<h3 id="webpack编译后的js，如何再被其他模块引用"><a href="#webpack编译后的js，如何再被其他模块引用" class="headerlink" title="webpack编译后的js，如何再被其他模块引用"></a>webpack编译后的js，如何再被其他模块引用</h3><p>通过<code>webpack</code>模块化原理章节给出的<code>webpack</code>配置编译后的 js 是无法被其他模块引用的。<code>webpack</code>提供了<code>output.libraryTarget</code>配置指定构建完的 js 的用途</p>
+<h4 id="默认var"><a href="#默认var" class="headerlink" title="默认var"></a>默认var</h4><p>如果制定了<code>output.library = &#39;test&#39;</code>入口模块返回的<code>module.exports</code>暴露给全局<code>var test = returned_module_exports</code></p>
+<h4 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h4><p>如果<code>library: &#39;spon-ui&#39;</code>入口模块返回的<code>module.exports</code>赋值给<code>exports[&#39;spon-ui&#39;]</code></p>
+<h4 id="CommonJS2"><a href="#CommonJS2" class="headerlink" title="CommonJS2"></a>CommonJS2</h4><p>入口模块返回的<code>module.exports</code>赋值给<code>module.exports</code></p>
+<p>所以<code>element-ui</code>的构建方式采用 CommonJS2， 导出的组件的 js 最后都会赋值给<code>module.exports</code>，供其他模块引用。</p>
+<p><img src="https://pic.superbed.cn/item/5cc6d7253a213b04174db6d5" alt></p>
+<ul>
+<li>这里解释了问题4</li>
+</ul>
+<blockquote>
+<p>我们在浏览一些 npm 下载下来的 UI 组件模块时（比如说 element-ui 的 lib 文件下），看到的都是 webpack 编译好的 js 文件，可以使用 import 或 require 再去引用。但是我们平时编译好的 js 是无法再被其他模块 import 的，这是为什么？</p>
+</blockquote>
+<h3 id="模块依赖的优化"><a href="#模块依赖的优化" class="headerlink" title="模块依赖的优化"></a>模块依赖的优化</h3><h4 id="按需加载的原理"><a href="#按需加载的原理" class="headerlink" title="按需加载的原理"></a>按需加载的原理</h4><p>我们在使用各大 UI 组件库时都会被介绍到为了避免引入全部文件，请使用<code>babel-plugin-component</code>等<code>babel</code>插件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Button, Select &#125; <span class="keyword">from</span> <span class="string">'element-ui'</span></span><br></pre></td></tr></table></figure>
+<p>由前文可知<code>import</code>会先转为 CommonJS，即</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'element-ui'</span>);</span><br><span class="line"><span class="keyword">var</span> Button = a.Button;</span><br><span class="line"><span class="keyword">var</span> Select = a.Select;</span><br></pre></td></tr></table></figure>
+<p><code>var a = require(&#39;element-ui&#39;)</code>这个过程就会将所有组件都引入进来了</p>
+<p>所以<code>babel-plugin-component</code>就做了一件事：将<code>import {Button, Select} from &#39;element-ui&#39;</code>转换成了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Button <span class="keyword">from</span> <span class="string">'element-ui/lib/button'</span></span><br><span class="line"><span class="keyword">import</span> Select <span class="keyword">from</span> <span class="string">'element-ui/lib/select'</span></span><br></pre></td></tr></table></figure>
+<p>即使转换成了 CommonJS 规范，也只是引入自己这个组件的 js，将引入量减少到最低。</p>
+<p>所以我们会看到几乎所有的 UI 组件库的目录形式都是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">|-lib</span><br><span class="line">||--component1</span><br><span class="line">||--component2</span><br><span class="line">||--component3</span><br><span class="line">|-index.common.js</span><br></pre></td></tr></table></figure>
+<p><code>index.common.js</code>给<code>import element from &#39;element-ui&#39;</code>这种形式调用全部组建。</p>
+<p><code>lib</code>下的各组件用于按需引用。</p>
+<ul>
+<li>这里解决了问题2：</li>
+</ul>
+<blockquote>
+<p>经常在各大UI组件引用的文档上会看到说明 <code>import { button } from &#39;xx-ui&#39;</code> 这样会引入所有组件内容，需要添加额外的 babel 配置，比如 <code>babel-plugin-component</code>？</p>
+</blockquote>
+<h4 id="tree-shaking"><a href="#tree-shaking" class="headerlink" title="tree-shaking"></a>tree-shaking</h4><p><code>webpack2</code>开始引入<code>tree-shaking</code>技术，通过静态分析 es6 的语法，可以删除没有被使用的模块。他只对 es6 的模块有效，所以一旦<code>babel</code>将 es6 的模块转换成 CommonJS，<code>webpack2</code>将无法使用这项优化。所以要使用这项技术，我们只能使用<code>webpack</code>的模块处理，再加上<code>babel</code>的 es6 转换能力（需要关闭模块转换）。</p>
+<p>最方便的使用方法为修改<code>babel</code>的配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use: &#123;</span><br><span class="line">     loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">     options: &#123;</span><br><span class="line">        presets: [[<span class="string">'babel-preset-es2015'</span>, &#123;<span class="attr">modules</span>: <span class="literal">false</span>&#125;]],</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>修改最开始<code>demo</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./a.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/(node_modules|bower_components)/</span>,</span><br><span class="line">        use: &#123;</span><br><span class="line">          loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">          options: &#123;</span><br><span class="line">            presets: [[<span class="string">'babel-preset-es2015'</span>, &#123;<span class="attr">modules</span>: <span class="literal">false</span>&#125;]],</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// a.js</span></span><br><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'./c'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="string">'a.js'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// c.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="number">333</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> foo = <span class="number">123</span>;</span><br><span class="line"><span class="keyword">export</span> &#123; foo &#125;;</span><br></pre></td></tr></table></figure>
+<p>修改的点在于增加了<code>babel</code>，并关闭其<code>modules</code>功能。然后在<code>c.js</code>中增加一个输出<code>export {foo}</code>，但是<code>a.js</code>中并不引用它。</p>
+<p>最后在编译出的 js 中，<code>c.js</code>模块如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="comment">/* unused harmony export foo */</span></span><br><span class="line"><span class="comment">/* harmony default export */</span> __webpack_exports__[<span class="string">"a"</span>] = (<span class="number">333</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = <span class="number">123</span>;</span><br></pre></td></tr></table></figure>
+<p><code>foo</code>变量被标记为没有使用，在最后压缩时这段会被删除。</p>
+<p>需要说明的是，即使在引入模块时使用了 es6，但引入的那个模块确实使用 CommonJS进行输出，这也无法使用<code>tree-shaking</code>。</p>
+<p>而第三方库大多是遵循 CommonJS 规范的，这也造成了引入第三方库无法减少不必要的引入。</p>
+<p>所以对于未来来说，第三方库要同时发布 CommonJS 格式和 es6 格式的模块。es6 模块的入口由<code>package.json</code>的字段<code>module</code>指定。而 CommonJS 则还是在<code>main</code>字段指定</p>
+<ul>
+<li>这里解释了问题6</li>
+</ul>
+<blockquote>
+<p>听说 es6 还有 <code>tree-shaking</code> 功能，怎么才能使用这个功能？</p>
+</blockquote>
 
       
     </div>
@@ -1059,7 +1125,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack与babel在模块化中的作用"><span class="nav-number">2.</span> <span class="nav-text">webpack与babel在模块化中的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack模块化的原理"><span class="nav-number">2.1.</span> <span class="nav-text">webpack模块化的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel的作用"><span class="nav-number">2.2.</span> <span class="nav-text">babel的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导出模块"><span class="nav-number">2.2.1.</span> <span class="nav-text">导出模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引入default"><span class="nav-number">2.2.2.</span> <span class="nav-text">引入default</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引入-通配符"><span class="nav-number">2.2.3.</span> <span class="nav-text">引入*通配符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#import-a-from-‘-a-js’"><span class="nav-number">2.2.4.</span> <span class="nav-text">import {a} from ‘./a.js’</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总结"><span class="nav-number">2.2.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel5-amp-amp-babel6"><span class="nav-number">2.3.</span> <span class="nav-text">babel5 &amp;&amp; babel6</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack与babel在模块化中的作用"><span class="nav-number">2.</span> <span class="nav-text">webpack与babel在模块化中的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#webpack模块化的原理"><span class="nav-number">2.1.</span> <span class="nav-text">webpack模块化的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel的作用"><span class="nav-number">2.2.</span> <span class="nav-text">babel的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导出模块"><span class="nav-number">2.2.1.</span> <span class="nav-text">导出模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引入default"><span class="nav-number">2.2.2.</span> <span class="nav-text">引入default</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引入-通配符"><span class="nav-number">2.2.3.</span> <span class="nav-text">引入*通配符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#import-a-from-‘-a-js’"><span class="nav-number">2.2.4.</span> <span class="nav-text">import {a} from ‘./a.js’</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总结"><span class="nav-number">2.2.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel5-amp-amp-babel6"><span class="nav-number">2.3.</span> <span class="nav-text">babel5 &amp;&amp; babel6</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack编译后的js，如何再被其他模块引用"><span class="nav-number">3.</span> <span class="nav-text">webpack编译后的js，如何再被其他模块引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#默认var"><span class="nav-number">3.1.</span> <span class="nav-text">默认var</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CommonJS"><span class="nav-number">3.2.</span> <span class="nav-text">CommonJS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CommonJS2"><span class="nav-number">3.3.</span> <span class="nav-text">CommonJS2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块依赖的优化"><span class="nav-number">4.</span> <span class="nav-text">模块依赖的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#按需加载的原理"><span class="nav-number">4.1.</span> <span class="nav-text">按需加载的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tree-shaking"><span class="nav-number">4.2.</span> <span class="nav-text">tree-shaking</span></a></li></ol></li></ol></div>
             
 
           </div>
