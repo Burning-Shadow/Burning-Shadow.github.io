@@ -383,7 +383,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-04-26 17:13:17" itemprop="dateModified" datetime="2019-04-26T17:13:17+08:00">2019-04-26</time>
+                <time title="Geändert am: 2019-05-06 23:18:25" itemprop="dateModified" datetime="2019-05-06T23:18:25+08:00">2019-05-06</time>
               
             
           </span>
@@ -440,6 +440,7 @@
 <h3 id="on-amp-amp-emit"><a href="#on-amp-amp-emit" class="headerlink" title="$on &amp;&amp; $ emit"></a>$on &amp;&amp; $ emit</h3><blockquote>
 <p><code>$emit(eventName, [...args])</code>：触发事件<br><code>$on(eventName, callBack)</code>：监听事件</p>
 </blockquote>
+<p>监听当前实例上的自定义事件，可以由<code>vm.$emit</code>触发。回调函数会接受所有传入事件出发函数的额外参数。</p>
 <p>如果把<code>Vue</code>看成一个家庭（相当于一个单独的<code>components</code>)，女主人一直在家里指派<code>($emit)</code>男人做事，而男人则一直监听<code>($on)</code>着女士的指派<code>($emit)里eventName</code>所触发的事件消息，一旦 <code>$emit</code> 事件一触发，<code>$on</code> 则监听到 <code>$emit</code> 所派发的事件，派发出的命令和执行派执命令所要做的事都是一一对应的。</p>
           <!--noindex-->
           
