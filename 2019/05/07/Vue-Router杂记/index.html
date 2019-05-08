@@ -107,7 +107,7 @@
 <meta property="og:description" content="之前只是单纯的学习，并未对vue-router做一个系统的总结。所以今天我试着参照官方文档对vue-router的一些常用方式做一些总结作为日后复习所用">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cd251643a213b0417f8754f">
-<meta property="og:updated_time" content="2019-05-08T04:14:24.193Z">
+<meta property="og:updated_time" content="2019-05-08T15:06:11.105Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue-Router杂记">
 <meta name="twitter:description" content="之前只是单纯的学习，并未对vue-router做一个系统的总结。所以今天我试着参照官方文档对vue-router的一些常用方式做一些总结作为日后复习所用">
@@ -196,7 +196,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -224,7 +224,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -241,7 +241,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -258,7 +258,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -275,7 +275,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -363,14 +363,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-07 17:00:23" itemprop="dateCreated datePublished" datetime="2019-05-07T17:00:23+08:00">2019-05-07</time>
+              <time title="Created: 2019-05-07 17:00:23" itemprop="dateCreated datePublished" datetime="2019-05-07T17:00:23+08:00">2019-05-07</time>
             
 
             
@@ -385,9 +385,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-05-08 12:14:24" itemprop="dateModified" datetime="2019-05-08T12:14:24+08:00">2019-05-08</time>
+                <time title="Modified: 2019-05-08 23:06:11" itemprop="dateModified" datetime="2019-05-08T23:06:11+08:00">2019-05-08</time>
               
             
           </span>
@@ -401,7 +401,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
@@ -502,10 +502,15 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 目标为命名路由</span></span><br><span class="line">&#123; <span class="attr">path</span>: <span class="string">'/a'</span>, <span class="attr">redirect</span>: &#123; <span class="attr">name</span>: <span class="string">'foo'</span> &#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 目标为方法</span></span><br><span class="line">&#123; <span class="attr">path</span>: <span class="string">'/a'</span>, <span class="attr">redirect</span>: <span class="function"><span class="params">to</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 方法接收 目标路由 作为参数</span></span><br><span class="line">    <span class="comment">// return 重定向的 字符串路径/路径对象</span></span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h4><p><strong>/a 的别名是 /b，意味着，当用户访问 /b 时，URL 会保持为 /b，但是路由匹配则为 /a，就像用户访问 /a 一样。</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/a'</span>, <span class="attr">component</span>: A, <span class="attr">alias</span>: <span class="string">'/b'</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="组件间通信"><a href="#组件间通信" class="headerlink" title="组件间通信"></a>组件间通信</h4><p>这个咱们在零一篇博客里再专门细说一下子，随后我会贴上地址。</p>
+<h4 id="路由组件传参"><a href="#路由组件传参" class="headerlink" title="路由组件传参"></a>路由组件传参</h4><p>上面我们说到了<code>$route</code>。这玩意儿会让路由只能在特定的 URL 上使用，耦合性太高。而我们同样的可以通过<code>props</code>将组件和路由解耦</p>
+<p>比如这串代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> User = &#123;</span><br><span class="line">  template: <span class="string">'&lt;div&gt;User &#123;&#123; $route.params.id &#125;&#125;&lt;/div&gt;'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/user/:id'</span>, <span class="attr">component</span>: User &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>通过<code>props</code>解耦后效果如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> User = &#123;</span><br><span class="line">  props: [<span class="string">'id'</span>],</span><br><span class="line">  template: <span class="string">'&lt;div&gt;User &#123;&#123; id &#125;&#125;&lt;/div&gt;'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/user/:id'</span>, <span class="attr">component</span>: User, <span class="attr">props</span>: <span class="literal">true</span> &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对于包含命名视图的路由，你必须分别为每个命名视图添加 `props` 选项：</span></span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/user/:id'</span>,</span><br><span class="line">      components: &#123; <span class="attr">default</span>: User, <span class="attr">sidebar</span>: Sidebar &#125;,</span><br><span class="line">      props: &#123; <span class="attr">default</span>: <span class="literal">true</span>, <span class="attr">sidebar</span>: <span class="literal">false</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h3 id="HTML5-History模式"><a href="#HTML5-History模式" class="headerlink" title="HTML5 History模式"></a>HTML5 History模式</h3><p>开发时我们默认使用<code>hash</code>模式，以此来避免页面的重新加载，使得开发效率更高。</p>
 <p>而<code>history</code>模式则是，只要 URL 发生更改都会向服务器发送请求，以此来实时刷新数据。</p>
-
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  mode: <span class="string">'history'</span>,</span><br><span class="line">  routes: [...]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="导航守卫"><a href="#导航守卫" class="headerlink" title="导航守卫"></a>导航守卫</h3>
       
     </div>
 
@@ -595,10 +600,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -621,7 +626,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">83</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -666,7 +671,7 @@
                       
                     
                     <span class="site-state-item-count">14</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -977,7 +982,7 @@
                       
                     
                     <span class="site-state-item-count">146</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -1040,7 +1045,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#起步"><span class="nav-number">1.</span> <span class="nav-text">起步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#router"><span class="nav-number">2.</span> <span class="nav-text">$router</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态传参"><span class="nav-number">3.</span> <span class="nav-text">动态传参</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#query"><span class="nav-number">3.1.</span> <span class="nav-text">query</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#params"><span class="nav-number">3.2.</span> <span class="nav-text">params</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区别"><span class="nav-number">3.3.</span> <span class="nav-text">区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#丑"><span class="nav-number">3.3.1.</span> <span class="nav-text">丑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#切换路由的方式"><span class="nav-number">3.3.2.</span> <span class="nav-text">切换路由的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接收参数的方式"><span class="nav-number">3.3.3.</span> <span class="nav-text">接收参数的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#route-index-js文件"><span class="nav-number">3.3.4.</span> <span class="nav-text">route/index.js文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应路由参数的变化"><span class="nav-number">3.4.</span> <span class="nav-text">响应路由参数的变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由捕获"><span class="nav-number">3.5.</span> <span class="nav-text">路由捕获</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编程式导航"><span class="nav-number">4.</span> <span class="nav-text">编程式导航</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#router-push-location-onComplete-onAbort"><span class="nav-number">4.1.</span> <span class="nav-text">router.push(location, onComplete?, onAbort?)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#router-go-n"><span class="nav-number">4.2.</span> <span class="nav-text">router.go(n)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#router-replace-location-onComplete-onAbort"><span class="nav-number">4.3.</span> <span class="nav-text">router.replace(location, onComplete?, onAbort?)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名视图-amp-命名路由"><span class="nav-number">5.</span> <span class="nav-text">命名视图&amp;命名路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命名路由"><span class="nav-number">5.1.</span> <span class="nav-text">命名路由</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#params切换路由？"><span class="nav-number">5.1.1.</span> <span class="nav-text">params切换路由？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名视图"><span class="nav-number">5.2.</span> <span class="nav-text">命名视图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提一嘴就够"><span class="nav-number">6.</span> <span class="nav-text">提一嘴就够</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重定向"><span class="nav-number">6.1.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#别名"><span class="nav-number">6.2.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件间通信"><span class="nav-number">6.3.</span> <span class="nav-text">组件间通信</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5-History模式"><span class="nav-number">7.</span> <span class="nav-text">HTML5 History模式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#起步"><span class="nav-number">1.</span> <span class="nav-text">起步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#router"><span class="nav-number">2.</span> <span class="nav-text">$router</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态传参"><span class="nav-number">3.</span> <span class="nav-text">动态传参</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#query"><span class="nav-number">3.1.</span> <span class="nav-text">query</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#params"><span class="nav-number">3.2.</span> <span class="nav-text">params</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区别"><span class="nav-number">3.3.</span> <span class="nav-text">区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#丑"><span class="nav-number">3.3.1.</span> <span class="nav-text">丑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#切换路由的方式"><span class="nav-number">3.3.2.</span> <span class="nav-text">切换路由的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接收参数的方式"><span class="nav-number">3.3.3.</span> <span class="nav-text">接收参数的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#route-index-js文件"><span class="nav-number">3.3.4.</span> <span class="nav-text">route/index.js文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应路由参数的变化"><span class="nav-number">3.4.</span> <span class="nav-text">响应路由参数的变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由捕获"><span class="nav-number">3.5.</span> <span class="nav-text">路由捕获</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编程式导航"><span class="nav-number">4.</span> <span class="nav-text">编程式导航</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#router-push-location-onComplete-onAbort"><span class="nav-number">4.1.</span> <span class="nav-text">router.push(location, onComplete?, onAbort?)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#router-go-n"><span class="nav-number">4.2.</span> <span class="nav-text">router.go(n)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#router-replace-location-onComplete-onAbort"><span class="nav-number">4.3.</span> <span class="nav-text">router.replace(location, onComplete?, onAbort?)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名视图-amp-命名路由"><span class="nav-number">5.</span> <span class="nav-text">命名视图&amp;命名路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命名路由"><span class="nav-number">5.1.</span> <span class="nav-text">命名路由</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#params切换路由？"><span class="nav-number">5.1.1.</span> <span class="nav-text">params切换路由？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名视图"><span class="nav-number">5.2.</span> <span class="nav-text">命名视图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提一嘴就够"><span class="nav-number">6.</span> <span class="nav-text">提一嘴就够</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重定向"><span class="nav-number">6.1.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#别名"><span class="nav-number">6.2.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由组件传参"><span class="nav-number">6.3.</span> <span class="nav-text">路由组件传参</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5-History模式"><span class="nav-number">7.</span> <span class="nav-text">HTML5 History模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导航守卫"><span class="nav-number">8.</span> <span class="nav-text">导航守卫</span></a></li></ol></div>
             
 
           </div>
@@ -1073,7 +1078,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1081,7 +1086,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
