@@ -101,15 +101,17 @@
   <meta name="description" content="上一篇我们讲解了 Vue Router 的基本使用方法，而这次继续是官方 API 的解读，尽可能的会加入一些实践中所用到的案例">
 <meta name="keywords" content="vue-router">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue-Router提升篇">
+<meta property="og:title" content="重学Vue-Router（提升篇）">
 <meta property="og:url" content="http://yoursite.com/2019/05/09/Vue-Router提升篇/index.html">
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="上一篇我们讲解了 Vue Router 的基本使用方法，而这次继续是官方 API 的解读，尽可能的会加入一些实践中所用到的案例">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-09T04:18:08.866Z">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cd410f33a213b04171a934d">
+<meta property="og:updated_time" content="2019-05-10T02:59:37.441Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue-Router提升篇">
+<meta name="twitter:title" content="重学Vue-Router（提升篇）">
 <meta name="twitter:description" content="上一篇我们讲解了 Vue Router 的基本使用方法，而这次继续是官方 API 的解读，尽可能的会加入一些实践中所用到的案例">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5cd410f33a213b04171a934d">
 
 
 
@@ -126,7 +128,7 @@
   };
 </script>
 
-  <title>Vue-Router提升篇 | Siir</title>
+  <title>重学Vue-Router（提升篇） | Siir</title>
   
 
 
@@ -194,7 +196,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -222,7 +224,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
 
   </li>
         
@@ -239,7 +241,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -256,7 +258,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -273,7 +275,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -342,7 +344,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Vue-Router提升篇
+          <h1 class="post-title" itemprop="name headline">重学Vue-Router（提升篇）
 
               
             
@@ -361,19 +363,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-09 00:04:40 / Geändert am: 12:18:08" itemprop="dateCreated datePublished" datetime="2019-05-09T00:04:40+08:00">2019-05-09</time>
+              <time title="Post created: 2019-05-09 00:04:40" itemprop="dateCreated datePublished" datetime="2019-05-09T00:04:40+08:00">2019-05-09</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-05-10 10:59:37" itemprop="dateModified" datetime="2019-05-10T10:59:37+08:00">2019-05-10</time>
               
             
           </span>
@@ -387,7 +401,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
@@ -427,6 +441,13 @@
       
         <p>上一篇我们讲解了 Vue Router 的基本使用方法，而这次继续是官方 API 的解读，尽可能的会加入一些实践中所用到的案例</p>
 <a id="more"></a>
+<h3 id="加载优化"><a href="#加载优化" class="headerlink" title="加载优化"></a>加载优化</h3><h4 id="路由懒加载"><a href="#路由懒加载" class="headerlink" title="路由懒加载"></a>路由懒加载</h4><p>作为单页面应用首屏需要加载的资源自然是非常多的。而如果按需加载则可以大大减少首屏时间。所以我们可以改变组件的引入形式（改为<code>promise</code>），<strong>通过 Vue 的异步组件和 WebPack 的代码分割功能轻松实现懒加载</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">routes:[</span><br><span class="line">  path:&apos;/&apos;,</span><br><span class="line">  name:&apos;HelloWorld&apos;,</span><br><span class="line">  component:resolve=&gt;require([&apos;@/component/HelloWorld&apos;],resolve)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h4 id="组件的按组分块"><a href="#组件的按组分块" class="headerlink" title="组件的按组分块"></a>组件的按组分块</h4><p>把组件按组分块可以将路由下的所有组件都打包在同个异步块（<code>chunk</code>）中，并且在 F12 的<code>NetWork</code>中看到动态加载的组件名字</p>
+<p>当然，选哟<code>WebPack</code>版本高于2.4且需要在<code>webpack.base.conf.js</code>里的<code>output</code>里面的<code>filename</code>下面加上<code>chunkFileName</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">output: &#123;</span><br><span class="line"> path: config.build.assetsRoot,</span><br><span class="line"> filename: <span class="string">'[name].js'</span>,</span><br><span class="line"> <span class="comment">// 需要配置的地方</span></span><br><span class="line"> chunkFilename: <span class="string">'[name].js'</span>,</span><br><span class="line"> publicPath: process.env.NODE_ENV === <span class="string">'production'</span></span><br><span class="line">   ? config.build.assetsPublicPath</span><br><span class="line">   : config.dev.assetsPublicPath</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时在引入组件时的写法需要使用命名<code>chunk</code>，一个特殊的注释语法来提供<code>chunk name</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Foo = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "group-foo" */</span> <span class="string">'./Foo.vue'</span>)</span><br><span class="line"><span class="keyword">const</span> Bar = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "group-foo" */</span> <span class="string">'./Bar.vue'</span>)</span><br><span class="line"><span class="keyword">const</span> Baz = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "group-foo" */</span> <span class="string">'./Baz.vue'</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="导航守卫"><a href="#导航守卫" class="headerlink" title="导航守卫"></a>导航守卫</h3><p>先从官网上复制粘贴一下<strong>完整的导航解析流程</strong>叭</p>
 <ol>
 <li>导航被触发。</li>
@@ -442,7 +463,37 @@
 <li>触发 DOM 更新。</li>
 <li>用创建好的实例调用 <code>beforeRouteEnter</code> 守卫中传给 <code>next</code> 的回调函数。</li>
 </ol>
-<h4 id="全局前置守卫"><a href="#全局前置守卫" class="headerlink" title="全局前置守卫"></a>全局前置守卫</h4>
+<p><img src="https://pic.superbed.cn/item/5cd410f33a213b04171a934d" alt></p>
+<h4 id="守卫的三个参数"><a href="#守卫的三个参数" class="headerlink" title="守卫的三个参数"></a>守卫的三个参数</h4><p>路由守卫中的每个守卫接收三个参数</p>
+<ul>
+<li><strong>to: Route</strong>: 即将要进入的目标 <a href="https://router.vuejs.org/zh/api/#路由对象" target="_blank" rel="noopener">路由对象</a></li>
+<li><strong>from: Route</strong>: 当前导航正要离开的路由</li>
+<li><strong>next: Function</strong>: 一定要调用该方法来 <strong>resolve</strong> 这个钩子。执行效果依赖 <code>next</code> 方法的调用参数。<ul>
+<li><strong>next()</strong>: 进行管道中的下一个钩子。如果全部钩子执行完了，则导航的状态就是 <strong>confirmed</strong> (确认的)。</li>
+<li><strong>next(false)</strong>: 中断当前的导航。如果浏览器的 URL 改变了 (可能是用户手动或者浏览器后退按钮)，那么 URL 地址会重置到 <code>from</code> 路由对应的地址。</li>
+<li><strong>next(‘/‘) 或者 next({ path: ‘/‘ })</strong>: 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。你可以向 <code>next</code> 传递任意位置对象，且允许设置诸如 <code>replace: true</code>、<code>name: &#39;home&#39;</code> 之类的选项以及任何用在 <a href="https://router.vuejs.org/zh/api/#to" target="_blank" rel="noopener"><code>router-link</code> 的 <code>to</code> prop</a> 或 <a href="https://router.vuejs.org/zh/api/#router-push" target="_blank" rel="noopener"><code>router.push</code></a> 中的选项。</li>
+<li><strong>next(error)</strong>: (2.4.0+) 如果传入 <code>next</code> 的参数是一个 <code>Error</code> 实例，则导航会被终止且该错误会被传递给 <a href="https://router.vuejs.org/zh/api/#router-onerror" target="_blank" rel="noopener"><code>router.onError()</code></a> 注册过的回调。</li>
+</ul>
+</li>
+</ul>
+<p><strong>确保要调用 next 方法，否则钩子就不会被 resolved。</strong></p>
+<h4 id="全局守卫"><a href="#全局守卫" class="headerlink" title="全局守卫"></a>全局守卫</h4><h5 id="全局前置守卫"><a href="#全局前置守卫" class="headerlink" title="全局前置守卫"></a>全局前置守卫</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123; ... &#125;)</span><br><span class="line"></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h5 id="全局解析守卫"><a href="#全局解析守卫" class="headerlink" title="全局解析守卫"></a>全局解析守卫</h5><p>在 2.5.0+ 你可以用 <code>router.beforeResolve</code> 注册一个全局守卫。这和 <code>router.beforeEach</code> 类似，区别是在导航被确认之前，<strong>同时在所有组件内守卫和异步路由组件被解析之后</strong>，解析守卫就被调用。</p>
+<h5 id="全局后置钩子"><a href="#全局后置钩子" class="headerlink" title="全局后置钩子"></a>全局后置钩子</h5><p>你也可以注册全局后置钩子，然而和守卫不同的是，这些钩子不会接受 <code>next</code> 函数也不会改变导航本身：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">router.afterEach(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="next-的详细使用说明"><a href="#next-的详细使用说明" class="headerlink" title="next()的详细使用说明"></a>next()的详细使用说明</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对函数及next()的详细使用说明</span></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123; </span><br><span class="line">  <span class="comment">// 首先to和from 其实是一个路由对象,所以路由对象的属性都是可以获取到的(具体可以查看官方路由对象的api文档).</span></span><br><span class="line">  <span class="comment">// 例如:我想获取获取to的完整路径就是to.path.获取to的子路由to.matched[0].</span></span><br><span class="line">  next();<span class="comment">//使用时,千万不能漏写next!!!</span></span><br><span class="line">  <span class="comment">// next()  表示直接进入下一个钩子.</span></span><br><span class="line">  <span class="comment">// next(false)  中断当前导航</span></span><br><span class="line">  <span class="comment">// next('/path路径')或者对象形式next(&#123;path:'/path路径'&#125;)  跳转到path路由地址</span></span><br><span class="line">  <span class="comment">// next(&#123;path:'/shotcat',name:'shotCat',replace:true,query:&#123;logoin:true&#125;...&#125;)  这种对象的写法,可以往里面添加很多.router-link 的 to prop 和 router.push 中的选项(具体可以查看api的官方文档)全都是可以添加进去的,再说明下,replace:true表示替换当前路由地址,常用于权限判断后的路由修改.</span></span><br><span class="line">  <span class="comment">// next(error)的用法,(需2.4.0+) </span></span><br><span class="line">&#125;).catch(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">//跳转失败页面</span></span><br><span class="line">  next(&#123; <span class="attr">path</span>: <span class="string">'/error'</span>, <span class="attr">replace</span>: <span class="literal">true</span>, <span class="attr">query</span>: &#123; <span class="attr">back</span>: <span class="literal">false</span> &#125;&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//如果你想跳转报错后,再回调做点其他的可以使用 router.onError()</span></span><br><span class="line">router.onError(<span class="function"><span class="params">callback</span> =&gt;</span> &#123; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'出错了!'</span>, callback);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="路由独享守卫"><a href="#路由独享守卫" class="headerlink" title="路由独享守卫"></a>路由独享守卫</h4><p>在路由配置上（<code>route</code>）直接定义<code>beforeEnter</code>守卫，用法和对<code>router</code>的一样</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/foo'</span>,</span><br><span class="line">      component: Foo,</span><br><span class="line">      beforeEnter: <span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="组件内的守卫"><a href="#组件内的守卫" class="headerlink" title="组件内的守卫"></a>组件内的守卫</h4><p>这类钩子是写在组件内部的</p>
+<ul>
+<li><code>beforeRouteEnter</code>进入路由前,此时实例还没创建,无法获取到<code>this</code></li>
+<li><code>beforeRouteUpdate (2.2)</code>路由复用同一个组件时</li>
+<li><code>beforeRouteLeave</code>离开当前路由,此时可以用来保存数据,或数据初始化,或关闭定时器等等</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在组件内部进行配置,这里的函数用法也是和beforeEach一毛一样</span></span><br><span class="line"><span class="keyword">const</span> Foo = &#123;</span><br><span class="line">  template: <span class="string">`...`</span>,</span><br><span class="line">  beforeRouteEnter (to, <span class="keyword">from</span>, next) &#123;</span><br><span class="line">    <span class="comment">// 在渲染该组件的对应路由被 confirm 前调用</span></span><br><span class="line">    <span class="comment">// 不！能！获取组件实例 `this`</span></span><br><span class="line">    <span class="comment">// 因为当守卫执行前，组件实例还没被创建</span></span><br><span class="line">  &#125;,</span><br><span class="line">  beforeRouteUpdate (to, <span class="keyword">from</span>, next) &#123;</span><br><span class="line">    <span class="comment">// 在当前路由改变，但是该组件被复用时调用</span></span><br><span class="line">    <span class="comment">// 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，</span></span><br><span class="line">    <span class="comment">// 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。</span></span><br><span class="line">    <span class="comment">// 可以访问组件实例 `this`</span></span><br><span class="line">  &#125;,</span><br><span class="line">  beforeRouteLeave (to, <span class="keyword">from</span>, next) &#123;</span><br><span class="line">    <span class="comment">// 导航离开该组件的对应路由时调用</span></span><br><span class="line">    <span class="comment">// 可以访问组件实例 `this`</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="路由元信息"><a href="#路由元信息" class="headerlink" title="路由元信息"></a>路由元信息</h3><p>作为一个啥都能干的标签<code>&lt;meta&gt;</code>可谓是让大家头疼不已。但由于其广泛的作用和强悍的能力使得我们仍在使用。而路由元信息则是可以在定义路由的时候配置<code>meta</code>字段</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/foo'</span>,</span><br><span class="line">      component: Foo,</span><br><span class="line">      children: [</span><br><span class="line">        &#123;</span><br><span class="line">          path: <span class="string">'bar'</span>,</span><br><span class="line">          component: Bar,</span><br><span class="line">          <span class="comment">// a meta field</span></span><br><span class="line">          meta: &#123; <span class="attr">requiresAuth</span>: <span class="literal">true</span> &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -478,8 +529,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/07/Vue-Router杂记/" rel="next" title="Vue-Router杂记">
-                <i class="fa fa-chevron-left"></i> Vue-Router杂记
+              <a href="/2019/05/07/Vue-Router杂记/" rel="next" title="重学Vue-Router（基础篇）">
+                <i class="fa fa-chevron-left"></i> 重学Vue-Router（基础篇）
               </a>
             
           </div>
@@ -532,10 +583,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table Des Matières
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Ensemble
           </li>
         </ul>
       
@@ -558,7 +609,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">84</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">articles</span>
                   </a>
                 </div>
               
@@ -603,7 +654,7 @@
                       
                     
                     <span class="site-state-item-count">14</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -914,7 +965,7 @@
                       
                     
                     <span class="site-state-item-count">146</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -977,7 +1028,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#导航守卫"><span class="nav-number">1.</span> <span class="nav-text">导航守卫</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局前置守卫"><span class="nav-number">1.1.</span> <span class="nav-text">全局前置守卫</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载优化"><span class="nav-number">1.</span> <span class="nav-text">加载优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#路由懒加载"><span class="nav-number">1.1.</span> <span class="nav-text">路由懒加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件的按组分块"><span class="nav-number">1.2.</span> <span class="nav-text">组件的按组分块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导航守卫"><span class="nav-number">2.</span> <span class="nav-text">导航守卫</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#守卫的三个参数"><span class="nav-number">2.1.</span> <span class="nav-text">守卫的三个参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局守卫"><span class="nav-number">2.2.</span> <span class="nav-text">全局守卫</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#全局前置守卫"><span class="nav-number">2.2.1.</span> <span class="nav-text">全局前置守卫</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#全局解析守卫"><span class="nav-number">2.2.2.</span> <span class="nav-text">全局解析守卫</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#全局后置钩子"><span class="nav-number">2.2.3.</span> <span class="nav-text">全局后置钩子</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#next-的详细使用说明"><span class="nav-number">2.3.</span> <span class="nav-text">next()的详细使用说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由独享守卫"><span class="nav-number">2.4.</span> <span class="nav-text">路由独享守卫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件内的守卫"><span class="nav-number">2.5.</span> <span class="nav-text">组件内的守卫</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由元信息"><span class="nav-number">3.</span> <span class="nav-text">路由元信息</span></a></li></ol></div>
             
 
           </div>
@@ -1010,7 +1061,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1018,7 +1069,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
