@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="入职之前重新刷一遍 vue 文档，算是查漏补缺。格式的话我会按照 vue 官网给出的 API 顺序进行，可能的话会加上自己的一些补充，以备日后复习所用">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-13T11:09:29.462Z">
+<meta property="og:updated_time" content="2019-05-13T11:52:18.368Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重学Vue（上篇）">
 <meta name="twitter:description" content="入职之前重新刷一遍 vue 文档，算是查漏补缺。格式的话我会按照 vue 官网给出的 API 顺序进行，可能的话会加上自己的一些补充，以备日后复习所用">
@@ -222,7 +222,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -361,14 +361,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-05-13 15:35:04 / Updated at: 19:09:29" itemprop="dateCreated datePublished" datetime="2019-05-13T15:35:04+08:00">2019-05-13</time>
+              <time title="Created: 2019-05-13 15:35:04 / Modified: 19:52:18" itemprop="dateCreated datePublished" datetime="2019-05-13T15:35:04+08:00">2019-05-13</time>
             
 
             
@@ -524,6 +524,32 @@
 <ul>
 <li><code>{Object | Function} plugin</code></li>
 </ul>
+<p>我们引入插件之后（<code>import</code>）通过此进行安装。最常用的就是我们的<code>VueRouter</code>插件的引入（本例中还加了个<code>iView</code>）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">'./router'</span></span><br><span class="line"><span class="keyword">import</span> iView <span class="keyword">from</span> <span class="string">'iview'</span></span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line">Vue.use(iView)</span><br></pre></td></tr></table></figure>
+<h4 id="Vue-compile-template"><a href="#Vue-compile-template" class="headerlink" title="Vue.compile(template)"></a>Vue.compile(template)</h4><ul>
+<li><strong>参数</strong>：<ul>
+<li><code>{string} template</code></li>
+</ul>
+</li>
+</ul>
+<p>这个全局方法用于<strong>在<code>render</code>函数中编译模板字符串</strong>。只有在独立构建时有效。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> res = Vue.compile(<span class="string">'&lt;div&gt;&lt;span&gt;&#123;&#123; msg &#125;&#125;&lt;/span&gt;&lt;/div&gt;'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    msg: <span class="string">'hello'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  render: res.render,</span><br><span class="line">  staticRenderFns: res.staticRenderFns</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这个真的没用过，所以就贴上了官方文档的代码。</p>
+<p><a href="https://cn.vuejs.org/v2/guide/render-function.html" target="_blank" rel="noopener">《在渲染函数&amp;JSX》</a>文档中讲述了一个在节点中插入数组的例子。我们若通过模板则冗长而可维护性差，但若直接通过渲染函数直接编译例子中的代码则简单而明了。之后如果需要用到这里再进行补充吧。</p>
+<h4 id="Vue-observable-object"><a href="#Vue-observable-object" class="headerlink" title="Vue.observable(object)"></a>Vue.observable(object)</h4><ul>
+<li><p><strong>参数</strong>：</p>
+<ul>
+<li><code>{Object} object</code></li>
+</ul>
+</li>
+<li><p><strong>用法</strong>：</p>
+</li>
+</ul>
+<p>让一个对象可响应。Vue 内部会用它来处理 <code>data</code> 函数返回的对象。</p>
+<p>返回的对象可以直接用于<a href="https://cn.vuejs.org/v2/guide/render-function.html" target="_blank" rel="noopener">渲染函数</a>和<a href="https://cn.vuejs.org/v2/guide/computed.html" target="_blank" rel="noopener">计算属性</a>内，并且会在发生改变时触发相应的更新。也可以作为最小化的跨组件状态存储器，用于简单的场景：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = Vue.observable(&#123; <span class="attr">count</span>: <span class="number">0</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Demo = &#123;</span><br><span class="line">  render(h) &#123;</span><br><span class="line">    <span class="keyword">return</span> h(<span class="string">'button'</span>, &#123;</span><br><span class="line">      on: &#123; <span class="attr">click</span>: <span class="function"><span class="params">()</span> =&gt;</span> &#123; state.count++ &#125;&#125;</span><br><span class="line">    &#125;, <span class="string">`count is: <span class="subst">$&#123;state.count&#125;</span>`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Vue-version"><a href="#Vue-version" class="headerlink" title="Vue.version"></a>Vue.version</h4><p>这个的话就是对版本的判断了。不过咱们一般人都用不着</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> version = <span class="built_in">Number</span>(Vue.version.split(<span class="string">'.'</span>)[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (version === <span class="number">2</span>) &#123;</span><br><span class="line">  <span class="comment">// Vue v2.x.x</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (version === <span class="number">1</span>) &#123;</span><br><span class="line">  <span class="comment">// Vue v1.x.x</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// Unsupported versions of Vue</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -614,10 +640,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table Des Matières
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Ensemble
+            Overview
           </li>
         </ul>
       
@@ -640,7 +666,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">85</span>
-                    <span class="site-state-item-name">articles</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -1063,7 +1089,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局配置-Vue-config"><span class="nav-number">1.</span> <span class="nav-text">全局配置 Vue.config</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-config-errorHandler"><span class="nav-number">1.1.</span> <span class="nav-text">Vue.config.errorHandler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-config-warnHandler"><span class="nav-number">1.2.</span> <span class="nav-text">Vue.config.warnHandler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-config-keyCodes"><span class="nav-number">1.3.</span> <span class="nav-text">Vue.config.keyCodes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一笔带过"><span class="nav-number">1.4.</span> <span class="nav-text">一笔带过</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局-API"><span class="nav-number">2.</span> <span class="nav-text">全局 API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-extend-options"><span class="nav-number">2.1.</span> <span class="nav-text">Vue.extend( options )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-nextTick-callback-context"><span class="nav-number">2.2.</span> <span class="nav-text">Vue.nextTick( [callback, context] )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-set-target-propertyName-index-value"><span class="nav-number">2.3.</span> <span class="nav-text">Vue.set(target, propertyName/index, value)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-delete-target-propertyName-index"><span class="nav-number">2.4.</span> <span class="nav-text">Vue.delete(target, propertyName/index)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-directive-id-definition"><span class="nav-number">2.5.</span> <span class="nav-text">Vue.directive(id, [definition])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-filter-id-definition"><span class="nav-number">2.6.</span> <span class="nav-text">Vue.filter(id, [definition])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-component-id-definition"><span class="nav-number">2.7.</span> <span class="nav-text">Vue.component(id, [definition])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-use-plugin"><span class="nav-number">2.8.</span> <span class="nav-text">Vue.use(plugin)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局配置-Vue-config"><span class="nav-number">1.</span> <span class="nav-text">全局配置 Vue.config</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-config-errorHandler"><span class="nav-number">1.1.</span> <span class="nav-text">Vue.config.errorHandler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-config-warnHandler"><span class="nav-number">1.2.</span> <span class="nav-text">Vue.config.warnHandler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-config-keyCodes"><span class="nav-number">1.3.</span> <span class="nav-text">Vue.config.keyCodes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一笔带过"><span class="nav-number">1.4.</span> <span class="nav-text">一笔带过</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局-API"><span class="nav-number">2.</span> <span class="nav-text">全局 API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-extend-options"><span class="nav-number">2.1.</span> <span class="nav-text">Vue.extend( options )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-nextTick-callback-context"><span class="nav-number">2.2.</span> <span class="nav-text">Vue.nextTick( [callback, context] )</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-set-target-propertyName-index-value"><span class="nav-number">2.3.</span> <span class="nav-text">Vue.set(target, propertyName/index, value)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-delete-target-propertyName-index"><span class="nav-number">2.4.</span> <span class="nav-text">Vue.delete(target, propertyName/index)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-directive-id-definition"><span class="nav-number">2.5.</span> <span class="nav-text">Vue.directive(id, [definition])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-filter-id-definition"><span class="nav-number">2.6.</span> <span class="nav-text">Vue.filter(id, [definition])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-component-id-definition"><span class="nav-number">2.7.</span> <span class="nav-text">Vue.component(id, [definition])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-use-plugin"><span class="nav-number">2.8.</span> <span class="nav-text">Vue.use(plugin)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-compile-template"><span class="nav-number">2.9.</span> <span class="nav-text">Vue.compile(template)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-observable-object"><span class="nav-number">2.10.</span> <span class="nav-text">Vue.observable(object)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-version"><span class="nav-number">2.11.</span> <span class="nav-text">Vue.version</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1104,7 +1130,7 @@
 
 
 
-  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
