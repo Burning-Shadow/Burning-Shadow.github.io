@@ -101,16 +101,16 @@
   <meta name="description" content="上篇我们对全局对象及相关的配置 API 进行了一遍刷文档。那么这次我们从生命周期开始继续刷">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重学Vue（中篇）">
+<meta property="og:title" content="Siir">
 <meta property="og:url" content="http://yoursite.com/2019/05/17/重学Vue（中篇）/index.html">
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="上篇我们对全局对象及相关的配置 API 进行了一遍刷文档。那么这次我们从生命周期开始继续刷">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cdeca03697df1fd0ce8c633">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cded899697df1fd0ce95287">
-<meta property="og:updated_time" content="2019-05-17T15:54:16.756Z">
+<meta property="og:updated_time" content="2019-05-19T04:33:56.218Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重学Vue（中篇）">
+<meta name="twitter:title" content="Siir">
 <meta name="twitter:description" content="上篇我们对全局对象及相关的配置 API 进行了一遍刷文档。那么这次我们从生命周期开始继续刷">
 <meta name="twitter:image" content="https://pic.superbed.cn/item/5cdeca03697df1fd0ce8c633">
 
@@ -129,7 +129,7 @@
   };
 </script>
 
-  <title>重学Vue（中篇） | Siir</title>
+  <title> | Siir</title>
   
 
 
@@ -197,7 +197,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -225,7 +225,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -242,7 +242,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -259,7 +259,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -276,7 +276,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -345,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">重学Vue（中篇）
+          <h1 class="post-title" itemprop="name headline">
 
               
             
@@ -364,19 +364,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-05-17 19:17:48 / Modified: 23:54:16" itemprop="dateCreated datePublished" datetime="2019-05-17T19:17:48+08:00">2019-05-17</time>
+              <time title="Erstellt: 2019-05-17 19:17:48" itemprop="dateCreated datePublished" datetime="2019-05-17T19:17:48+08:00">2019-05-17</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-05-19 12:33:56" itemprop="dateModified" datetime="2019-05-19T12:33:56+08:00">2019-05-19</time>
               
             
           </span>
@@ -390,7 +402,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学框架系列/" itemprop="url" rel="index"><span itemprop="name">重学框架系列</span></a></span>
@@ -434,19 +446,16 @@
 <p><img src="https://pic.superbed.cn/item/5cdeca03697df1fd0ce8c633" alt></p>
 <ul>
 <li><p>beforeCreate</p>
-<ul>
-<li>在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。</li>
-</ul>
+</li>
+<li><p>在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。</p>
 </li>
 <li><p>created</p>
-<ul>
-<li>在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，<code>$el</code> 属性目前不可见。</li>
-</ul>
+</li>
+<li><p>在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，<code>$el</code> 属性目前不可见。</p>
 </li>
 <li><p>beforeMount</p>
-<ul>
-<li>在挂载开始之前被调用：相关的 <code>render</code> 函数首次被调用。（<strong>该钩子在服务器端渲染期间不被调用。</strong>）</li>
-</ul>
+</li>
+<li><p>在挂载开始之前被调用：相关的 <code>render</code> 函数首次被调用。（<strong>该钩子在服务器端渲染期间不被调用。</strong>）</p>
 </li>
 <li><p>mounted</p>
 <ul>
@@ -459,9 +468,8 @@
 <p><strong>该钩子在服务器端渲染期间不被调用。</strong></p>
 </li>
 <li><p>beforeUpdate</p>
-<ul>
-<li>数据更新时调用，发生在虚拟 DOM 打补丁之前。这里适合在更新之前访问现有的 DOM，比如手动移除已添加的事件监听器。（<strong>该钩子在服务器端渲染期间不被调用，因为只有初次渲染会在服务端进行。</strong>）</li>
-</ul>
+</li>
+<li><p>数据更新时调用，发生在虚拟 DOM 打补丁之前。这里适合在更新之前访问现有的 DOM，比如手动移除已添加的事件监听器。（<strong>该钩子在服务器端渲染期间不被调用，因为只有初次渲染会在服务端进行。</strong>）</p>
 </li>
 <li><p>updated</p>
 <ul>
@@ -474,14 +482,12 @@
 <p><strong>该钩子在服务器端渲染期间不被调用。</strong></p>
 </li>
 <li><p>beforeDestory</p>
-<ul>
-<li>实例销毁之前调用。在这一步，实例仍然完全可用。（<strong>该钩子在服务器端渲染期间不被调用。</strong>）</li>
-</ul>
+</li>
+<li><p>实例销毁之前调用。在这一步，实例仍然完全可用。（<strong>该钩子在服务器端渲染期间不被调用。</strong>）</p>
 </li>
 <li><p>destoryed</p>
-<ul>
-<li>Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。（<strong>该钩子在服务器端渲染期间不被调用。</strong>）</li>
-</ul>
+</li>
+<li><p>Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。（<strong>该钩子在服务器端渲染期间不被调用。</strong>）</p>
 </li>
 <li><p>errorCaptured(2.5.0+)</p>
 <ul>
@@ -514,7 +520,85 @@
 <p>我们就可以看到<code>data</code>中的值被修改后触发<code>update</code>的操作</p>
 <p><img src="https://pic.superbed.cn/item/5cded899697df1fd0ce95287" alt></p>
 <p>这两个算是比较关键的部分，我们通过控制台打印完成使用。</p>
-<p>### </p>
+<h3 id="选项-amp-amp-组合"><a href="#选项-amp-amp-组合" class="headerlink" title="选项&amp;&amp;组合"></a>选项&amp;&amp;组合</h3><h4 id="parent-amp-children"><a href="#parent-amp-children" class="headerlink" title="$parent &amp; $children"></a>$parent &amp; $children</h4><ul>
+<li><p><strong>类型</strong>：<code>Vue instance</code></p>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p>指定已创建的实例之父实例，在两者之间建立父子关系。子实例可以用 <code>this.$parent</code> 访问父实例，子实例被推入父实例的 <code>$children</code> 数组中。</p>
+</li>
+</ul>
+<p>不过这玩意儿权限太大了，慎用！慎用！如果只是组件间通讯那还是老老实实用<code>props</code>和<code>emit吧</code></p>
+<h4 id="mixins"><a href="#mixins" class="headerlink" title="mixins"></a>mixins</h4><ul>
+<li><p><strong>类型</strong>：<code>Array&lt;Object&gt;</code></p>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p><code>mixins</code> 选项接受一个混入对象的数组。这些混入实例对象可以像正常的实例对象一样包含选项，他们将在 <code>Vue.extend()</code> 里最终选择使用相同的选项合并逻辑合并。举例：如果你的混入包含一个钩子而创建组件本身也有一个，两个函数将被调用。</p>
+<p>Mixin 钩子按照传入顺序依次调用，并在调用组件自身的钩子之前被调用。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mixin = &#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="number">1</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="number">2</span>) &#125;,</span><br><span class="line">  mixins: [mixin]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// =&gt; 1</span></span><br><span class="line"><span class="comment">// =&gt; 2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="extends"><a href="#extends" class="headerlink" title="extends"></a>extends</h4><ul>
+<li><p><strong>类型</strong>：<code>Object | Function</code></p>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p>允许声明扩展另一个组件(可以是一个简单的选项对象或构造函数)，而无需使用 <code>Vue.extend</code>。这主要是为了便于扩展单文件组件。</p>
+<p>这和 <code>mixins</code> 类似。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CompA = &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在没有调用 `Vue.extend` 时候继承 CompA</span></span><br><span class="line"><span class="keyword">var</span> CompB = &#123;</span><br><span class="line">  extends: CompA,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="provide-amp-reject-2-2-0"><a href="#provide-amp-reject-2-2-0" class="headerlink" title="provide &amp; reject(2.2.0+)"></a>provide &amp; reject(2.2.0+)</h4><ul>
+<li><p><strong>类型</strong>：</p>
+<ul>
+<li><strong>provide</strong>：<code>Object | () =&gt; Object</code></li>
+<li><strong>inject</strong>：<code>Array&lt;string&gt; | { [key: string]: string | Symbol | Object }</code></li>
+</ul>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p><code>provide</code> 和 <code>inject</code> <strong>主要为高阶插件/组件库提供用例</strong>。并不推荐直接用于应用程序代码中。</p>
+<p>这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论<strong>组件层次有多深</strong>，并在起上下游关系成立的时间里始终生效。如果你熟悉 React，这与 React 的上下文特性很相似。</p>
+<p><code>provide</code> 选项应该是一个对象或返回一个对象的函数。该对象包含可注入其子孙的属性。在该对象中你可以使用 ES2015 Symbols 作为 key，但是只在原生支持 <code>Symbol</code> 和 <code>Reflect.ownKeys</code> 的环境下可工作。</p>
+<p><code>inject</code> 选项应该是：</p>
+<ul>
+<li>一个字符串数组，或</li>
+<li>一个对象，对象的 key 是本地的绑定名，value 是：<ul>
+<li>在可用的注入内容中搜索用的 key (字符串或 Symbol)，或</li>
+<li>一个对象，该对象的：<ul>
+<li><code>from</code> 属性是在可用的注入内容中搜索用的 key (字符串或 Symbol)</li>
+<li><code>default</code> 属性是降级情况下使用的 value</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>提示：<code>provide</code> 和 <code>inject</code> 绑定并不是可响应的。这是刻意为之的。然而，如果你传入了一个可监听的对象，那么其对象的属性还是可响应的。</p>
+</blockquote>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父级组件提供 'foo'</span></span><br><span class="line"><span class="keyword">var</span> Provider = &#123;</span><br><span class="line">  provide: &#123;</span><br><span class="line">    foo: <span class="string">'bar'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子组件注入 'foo'</span></span><br><span class="line"><span class="keyword">var</span> Child = &#123;</span><br><span class="line">  inject: [<span class="string">'foo'</span>],</span><br><span class="line">  created () &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.foo) <span class="comment">// =&gt; "bar"</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用 ES2015 Symbols、函数 <code>provide</code> 和对象 <code>inject</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> s = <span class="built_in">Symbol</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Provider = &#123;</span><br><span class="line">  provide () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      [s]: <span class="string">'foo'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: &#123; s &#125;,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>接下来 2 个例子只工作在 Vue 2.2.1 或更高版本。低于这个版本时，注入的值会在 <code>props</code> 和 <code>data</code> 初始化之后得到。</p>
+</blockquote>
+<p>使用一个注入的值作为一个属性的默认值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: [<span class="string">'foo'</span>],</span><br><span class="line">  props: &#123;</span><br><span class="line">    bar: &#123;</span><br><span class="line">      <span class="keyword">default</span> () &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.foo</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用一个注入的值作为数据入口：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: [<span class="string">'foo'</span>],</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      bar: <span class="keyword">this</span>.foo</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 2.5.0+ 的注入可以通过设置默认值使其变成可选项：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: &#123;</span><br><span class="line">    foo: &#123; <span class="attr">default</span>: <span class="string">'foo'</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果它需要从一个不同名字的属性注入，则使用 <code>from</code> 来表示其源属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: &#123;</span><br><span class="line">    foo: &#123;</span><br><span class="line">      <span class="keyword">from</span>: <span class="string">'bar'</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="string">'foo'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与 prop 的默认值类似，你需要对非原始值使用一个工厂方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: &#123;</span><br><span class="line">    foo: &#123;</span><br><span class="line">      <span class="keyword">from</span>: <span class="string">'bar'</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
       
     </div>
@@ -605,10 +689,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -631,7 +715,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">86</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -678,7 +762,7 @@
                       
                     
                     <span class="site-state-item-count">15</span>
-                    <span class="site-state-item-name">categories</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -991,7 +1075,7 @@
                       
                     
                     <span class="site-state-item-count">147</span>
-                    <span class="site-state-item-name">tags</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -1054,7 +1138,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue生命周期钩子"><span class="nav-number">1.</span> <span class="nav-text">Vue生命周期钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码演示"><span class="nav-number">1.1.</span> <span class="nav-text">代码演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#create-amp-amp-mounted"><span class="nav-number">1.1.1.</span> <span class="nav-text">create &amp;&amp; mounted</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#update"><span class="nav-number">1.1.2.</span> <span class="nav-text">update</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue生命周期钩子"><span class="nav-number">1.</span> <span class="nav-text">Vue生命周期钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码演示"><span class="nav-number">1.1.</span> <span class="nav-text">代码演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#create-amp-amp-mounted"><span class="nav-number">1.1.1.</span> <span class="nav-text">create &amp;&amp; mounted</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#update"><span class="nav-number">1.1.2.</span> <span class="nav-text">update</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项-amp-amp-组合"><span class="nav-number">2.</span> <span class="nav-text">选项&amp;&amp;组合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#parent-amp-children"><span class="nav-number">2.1.</span> <span class="nav-text">$parent &amp; $children</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mixins"><span class="nav-number">2.2.</span> <span class="nav-text">mixins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extends"><span class="nav-number">2.3.</span> <span class="nav-text">extends</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#provide-amp-reject-2-2-0"><span class="nav-number">2.4.</span> <span class="nav-text">provide &amp; reject(2.2.0+)</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1087,7 +1171,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1095,7 +1179,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
