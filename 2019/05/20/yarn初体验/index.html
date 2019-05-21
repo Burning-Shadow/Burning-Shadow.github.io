@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="作为更快更高更强的包管理工具yarn的出现无疑赚走了npm的一部分市场。今天我们暂不究其原理，只刷文档，能用就行。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-20T12:36:26.773Z">
+<meta property="og:updated_time" content="2019-05-20T12:41:49.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yarn初体验">
 <meta name="twitter:description" content="作为更快更高更强的包管理工具yarn的出现无疑赚走了npm的一部分市场。今天我们暂不究其原理，只刷文档，能用就行。">
@@ -368,7 +368,7 @@
                 
               
 
-              <time title="Erstellt: 2019-05-20 20:26:46 / Geändert am: 20:36:26" itemprop="dateCreated datePublished" datetime="2019-05-20T20:26:46+08:00">2019-05-20</time>
+              <time title="Erstellt: 2019-05-20 20:26:46 / Geändert am: 20:41:49" itemprop="dateCreated datePublished" datetime="2019-05-20T20:26:46+08:00">2019-05-20</time>
             
 
             
@@ -427,6 +427,9 @@
       
         <p>作为更快更高更强的包管理工具<code>yarn</code>的出现无疑赚走了<code>npm</code>的一部分市场。今天我们暂不究其原理，只刷文档，能用就行。</p>
 <a id="more"></a>
+<h3 id="创建一个新项目"><a href="#创建一个新项目" class="headerlink" title="创建一个新项目"></a>创建一个新项目</h3><p>执行命令：<code>yarn init</code></p>
+<p>其后将打开一个用于创建<code>yarn</code>项目的交互式表单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">name(your-project):</span><br><span class="line">version(1.1.0):</span><br><span class="line">description:</span><br><span class="line">entry point(index.js):</span><br><span class="line">git repository:</span><br></pre></td></tr></table></figure>
 <h3 id="管理依赖项目"><a href="#管理依赖项目" class="headerlink" title="管理依赖项目"></a>管理依赖项目</h3><h4 id="添加依赖包"><a href="#添加依赖包" class="headerlink" title="添加依赖包"></a>添加依赖包</h4><p>众所周知使用<code>npm</code>时是通过<code>npm install [package]</code>来完成依赖包的安装。而<code>yarn</code>则是通过<code>yarn add [package]</code>来对依赖进行装载。效果同<code>npm</code>那句相同，<code>[package]</code>都会被加入到<code>package.json</code>的依赖列表中，同时<code>yarn.lock</code>也会被更新。</p>
 <blockquote>
 <p><code>package-lock.json</code>是 npm5 之后默认生成的锁文件，而<code>yarn.lock</code>是 yarn 的锁文件</p>
@@ -446,7 +449,13 @@
 <li>强制重新下载所有包：<code>yarn install --force</code></li>
 <li>只安装生产环境依赖：<code>yarn install --production</code></li>
 </ul>
-<h3 id="配合版本控制"><a href="#配合版本控制" class="headerlink" title="配合版本控制"></a>配合版本控制</h3>
+<h3 id="配合版本控制"><a href="#配合版本控制" class="headerlink" title="配合版本控制"></a>配合版本控制</h3><ul>
+<li><p><code>yarn.lock</code>用于记录每一个依赖项的确切版本信息（作用同<code>package.lock.json</code>）</p>
+</li>
+<li><p><code>package.json</code>则包函包的所有依赖信息</p>
+</li>
+</ul>
+
       
     </div>
 
@@ -989,7 +998,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#管理依赖项目"><span class="nav-number">1.</span> <span class="nav-text">管理依赖项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加依赖包"><span class="nav-number">1.1.</span> <span class="nav-text">添加依赖包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新依赖包"><span class="nav-number">1.2.</span> <span class="nav-text">更新依赖包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除依赖包"><span class="nav-number">1.3.</span> <span class="nav-text">移除依赖包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖项"><span class="nav-number">2.</span> <span class="nav-text">安装依赖项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配合版本控制"><span class="nav-number">3.</span> <span class="nav-text">配合版本控制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个新项目"><span class="nav-number">1.</span> <span class="nav-text">创建一个新项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理依赖项目"><span class="nav-number">2.</span> <span class="nav-text">管理依赖项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加依赖包"><span class="nav-number">2.1.</span> <span class="nav-text">添加依赖包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新依赖包"><span class="nav-number">2.2.</span> <span class="nav-text">更新依赖包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除依赖包"><span class="nav-number">2.3.</span> <span class="nav-text">移除依赖包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖项"><span class="nav-number">3.</span> <span class="nav-text">安装依赖项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配合版本控制"><span class="nav-number">4.</span> <span class="nav-text">配合版本控制</span></a></li></ol></div>
             
 
           </div>
