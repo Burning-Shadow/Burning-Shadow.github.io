@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="作为更快更高更强的包管理工具yarn的出现无疑赚走了npm的一部分市场。今天我们暂不究其原理，只刷文档，能用就行。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-20T12:41:49.733Z">
+<meta property="og:updated_time" content="2019-05-21T13:46:59.578Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yarn初体验">
 <meta name="twitter:description" content="作为更快更高更强的包管理工具yarn的出现无疑赚走了npm的一部分市场。今天我们暂不究其原理，只刷文档，能用就行。">
@@ -368,12 +368,24 @@
                 
               
 
-              <time title="Erstellt: 2019-05-20 20:26:46 / Geändert am: 20:41:49" itemprop="dateCreated datePublished" datetime="2019-05-20T20:26:46+08:00">2019-05-20</time>
+              <time title="Erstellt: 2019-05-20 20:26:46" itemprop="dateCreated datePublished" datetime="2019-05-20T20:26:46+08:00">2019-05-20</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-05-21 21:46:59" itemprop="dateModified" datetime="2019-05-21T21:46:59+08:00">2019-05-21</time>
               
             
           </span>
@@ -429,12 +441,11 @@
 <a id="more"></a>
 <h3 id="创建一个新项目"><a href="#创建一个新项目" class="headerlink" title="创建一个新项目"></a>创建一个新项目</h3><p>执行命令：<code>yarn init</code></p>
 <p>其后将打开一个用于创建<code>yarn</code>项目的交互式表单</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">name(your-project):</span><br><span class="line">version(1.1.0):</span><br><span class="line">description:</span><br><span class="line">entry point(index.js):</span><br><span class="line">git repository:</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">name(your-project):</span><br><span class="line">version(1.1.0):</span><br><span class="line">description:</span><br><span class="line">entry point(index.js):</span><br><span class="line">git repository:</span><br><span class="line">author:</span><br><span class="line">license(MIT):</span><br></pre></td></tr></table></figure>
+<p>跟你用<code>npm init</code>一样，一般咱们这不讲究的就全回车默认配置了。</p>
+<p>完成后他会创建一个和下面文件内容类似的<code>package.json</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;name&quot;: &quot;my_new_project&quot;,</span><br><span class="line">	&quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">	&quot;description&quot;: &quot;My New Project description&quot;,</span><br><span class="line">	&quot;main&quot;: &quot;index.js&quot;,</span><br><span class="line">	&quot;repository&quot;: &#123;</span><br><span class="line">		&quot;url&quot;: &quot;https://example.com/your-username/my-new-project&quot;,</span><br><span class="line">		&quot;type&quot;: &quot;git&quot;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;author&quot;: &quot;Your Name &lt;you@example.com&gt;&quot;,</span><br><span class="line">	&quot;license&quot;: &quot;MIT&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="管理依赖项目"><a href="#管理依赖项目" class="headerlink" title="管理依赖项目"></a>管理依赖项目</h3><h4 id="添加依赖包"><a href="#添加依赖包" class="headerlink" title="添加依赖包"></a>添加依赖包</h4><p>众所周知使用<code>npm</code>时是通过<code>npm install [package]</code>来完成依赖包的安装。而<code>yarn</code>则是通过<code>yarn add [package]</code>来对依赖进行装载。效果同<code>npm</code>那句相同，<code>[package]</code>都会被加入到<code>package.json</code>的依赖列表中，同时<code>yarn.lock</code>也会被更新。</p>
-<blockquote>
-<p><code>package-lock.json</code>是 npm5 之后默认生成的锁文件，而<code>yarn.lock</code>是 yarn 的锁文件</p>
-<p><code>yarn.lock</code>就好比是你的<code>package-lock.json</code>，不同的是<code>package-lock.json</code>有不完全扁平化的问题，而<code>yarn.lock</code>则把所有依赖包扁平化的展示了出来（同包名但<code>semver</code>不兼容的作为不同的字段放在了<code>yarn.lock</code>的同一级结构中）</p>
-</blockquote>
 <p>当然，我们还可以通过参数添加其他类型的依赖</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn add --dev       添加到devDependencies</span><br><span class="line">yarn add --peer      添加到peerDependencies</span><br><span class="line">yarn add --optional  添加到optionalDependencies</span><br></pre></td></tr></table></figure>
 <p>而版本号也一样，<code>yarn add package@1.1.0</code>即可</p>
@@ -455,6 +466,11 @@
 <li><p><code>package.json</code>则包函包的所有依赖信息</p>
 </li>
 </ul>
+<h3 id="说道说道yarn-lock和package-lock-json"><a href="#说道说道yarn-lock和package-lock-json" class="headerlink" title="说道说道yarn.lock和package-lock.json"></a>说道说道yarn.lock和package-lock.json</h3><p>先说结论</p>
+<blockquote>
+<p><code>package-lock.json</code>是 npm5 之后默认生成的锁文件，而<code>yarn.lock</code>是 yarn 的锁文件</p>
+<p><code>yarn.lock</code>就好比是你的<code>package-lock.json</code>，不同的是<code>package-lock.json</code>有不完全扁平化的问题，而<code>yarn.lock</code>则把所有依赖包扁平化的展示了出来（同包名但<code>semver</code>不兼容的作为不同的字段放在了<code>yarn.lock</code>的同一级结构中）</p>
+</blockquote>
 
       
     </div>
@@ -500,6 +516,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/21/Vuex进阶/" rel="prev" title="Vuex进阶">
+                Vuex进阶 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -570,7 +590,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">87</span>
+                    <span class="site-state-item-count">88</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
@@ -619,7 +639,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
@@ -934,7 +956,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">148</span>
+                      
+                    
+                    <span class="site-state-item-count">149</span>
                     <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
@@ -998,7 +1022,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个新项目"><span class="nav-number">1.</span> <span class="nav-text">创建一个新项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理依赖项目"><span class="nav-number">2.</span> <span class="nav-text">管理依赖项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加依赖包"><span class="nav-number">2.1.</span> <span class="nav-text">添加依赖包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新依赖包"><span class="nav-number">2.2.</span> <span class="nav-text">更新依赖包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除依赖包"><span class="nav-number">2.3.</span> <span class="nav-text">移除依赖包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖项"><span class="nav-number">3.</span> <span class="nav-text">安装依赖项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配合版本控制"><span class="nav-number">4.</span> <span class="nav-text">配合版本控制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个新项目"><span class="nav-number">1.</span> <span class="nav-text">创建一个新项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理依赖项目"><span class="nav-number">2.</span> <span class="nav-text">管理依赖项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加依赖包"><span class="nav-number">2.1.</span> <span class="nav-text">添加依赖包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新依赖包"><span class="nav-number">2.2.</span> <span class="nav-text">更新依赖包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除依赖包"><span class="nav-number">2.3.</span> <span class="nav-text">移除依赖包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖项"><span class="nav-number">3.</span> <span class="nav-text">安装依赖项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配合版本控制"><span class="nav-number">4.</span> <span class="nav-text">配合版本控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说道说道yarn-lock和package-lock-json"><span class="nav-number">5.</span> <span class="nav-text">说道说道yarn.lock和package-lock.json</span></a></li></ol></div>
             
 
           </div>
