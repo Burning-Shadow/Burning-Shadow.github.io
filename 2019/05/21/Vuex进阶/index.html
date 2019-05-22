@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="在 Vuex 初体验中我们介绍了 Vuex 的基本使用方法。而一些特殊的写法以及使用方式我们还是得老老实实的刷一遍官方文档。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-22T01:48:24.412Z">
+<meta property="og:updated_time" content="2019-05-22T02:07:47.856Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vuex进阶">
 <meta name="twitter:description" content="在 Vuex 初体验中我们介绍了 Vuex 的基本使用方法。而一些特殊的写法以及使用方式我们还是得老老实实的刷一遍官方文档。">
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-05-22 09:48:24" itemprop="dateModified" datetime="2019-05-22T09:48:24+08:00">2019-05-22</time>
+                <time title="Geändert am: 2019-05-22 10:07:47" itemprop="dateModified" datetime="2019-05-22T10:07:47+08:00">2019-05-22</time>
               
             
           </span>
@@ -457,6 +457,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$store.commit(<span class="string">'increment'</span>, &#123;</span><br><span class="line">    amount: <span class="number">10</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 换一种写法也可以</span></span><br><span class="line"><span class="keyword">this</span>.$store.commit(&#123;</span><br><span class="line">    type: <span class="string">'increment'</span>,</span><br><span class="line">    amount: <span class="number">10</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>除此了使用<code>this.$store.comit(&#39;eventName&#39;)</code>的方式提交之外，还有另外一种方式：使用<code>mapMutations</code>辅助函数将数组中的<code>methods</code>映射为<code>this.$store.commit</code>：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; mapMutations &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  methods: &#123;</span><br><span class="line">    ...mapMutations([</span><br><span class="line">      <span class="string">'increment'</span>, <span class="comment">// 将 `this.increment()` 映射为 `this.$store.commit('increment')`</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// `mapMutations` 也支持载荷：</span></span><br><span class="line">      <span class="string">'incrementBy'</span> <span class="comment">// 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`</span></span><br><span class="line">    ]),</span><br><span class="line">    ...mapMutations(&#123;</span><br><span class="line">      <span class="comment">// 这就是对象写法了</span></span><br><span class="line">      add: <span class="string">'increment'</span> <span class="comment">// 将 `this.add()` 映射为 `this.$store.commit('increment')`</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如此，通过类似于事件处理函数（<code>handler</code>）和事件触发（<code>emit</code>）之间的关系，即可以完成<code>mutations</code>的操作</p>
 
       
     </div>
