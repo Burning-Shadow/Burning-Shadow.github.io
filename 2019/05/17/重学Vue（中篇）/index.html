@@ -101,16 +101,16 @@
   <meta name="description" content="上篇我们对全局对象及相关的配置 API 进行了一遍刷文档。那么这次我们从生命周期开始继续刷">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Siir">
+<meta property="og:title" content="重学Vue（中篇）">
 <meta property="og:url" content="http://yoursite.com/2019/05/17/重学Vue（中篇）/index.html">
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="上篇我们对全局对象及相关的配置 API 进行了一遍刷文档。那么这次我们从生命周期开始继续刷">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cdeca03697df1fd0ce8c633">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cded899697df1fd0ce95287">
-<meta property="og:updated_time" content="2019-05-20T09:12:20.008Z">
+<meta property="og:updated_time" content="2019-05-29T14:08:19.356Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Siir">
+<meta name="twitter:title" content="重学Vue（中篇）">
 <meta name="twitter:description" content="上篇我们对全局对象及相关的配置 API 进行了一遍刷文档。那么这次我们从生命周期开始继续刷">
 <meta name="twitter:image" content="https://pic.superbed.cn/item/5cdeca03697df1fd0ce8c633">
 
@@ -129,7 +129,7 @@
   };
 </script>
 
-  <title> | Siir</title>
+  <title>重学Vue（中篇） | Siir</title>
   
 
 
@@ -345,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h1 class="post-title" itemprop="name headline">重学Vue（中篇）
 
               
             
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-05-20 17:12:20" itemprop="dateModified" datetime="2019-05-20T17:12:20+08:00">2019-05-20</time>
+                <time title="Geändert am: 2019-05-29 22:08:19" itemprop="dateModified" datetime="2019-05-29T22:08:19+08:00">2019-05-29</time>
               
             
           </span>
@@ -656,6 +656,40 @@
 </ul>
 <p><code>v-model</code>就可以理解为一个语法糖。想必诸位好汉应该试过用<code>$emit</code>和<code>$on</code>实现<code>v-model</code>叭。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 原型式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"text"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 展开式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:value</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">  @<span class="attr">input</span>=<span class="string">"e =&gt; text = e.target.value"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h3><p>这里的一部分其实已经被大家所熟悉，所以就简短的介绍几个吧。</p>
+<h4 id="vm-slots"><a href="#vm-slots" class="headerlink" title="vm.$slots"></a>vm.$slots</h4><ul>
+<li><p>用来访问被<a href="https://cn.vuejs.org/v2/guide/components.html#通过插槽分发内容" target="_blank" rel="noopener">插槽分发</a>的内容。每个<a href="https://cn.vuejs.org/v2/guide/components-slots.html#具名插槽" target="_blank" rel="noopener">具名插槽</a> 有其相应的属性 (例如：<code>v-slot:foo</code>中的内容将会在 <code>vm.$slots.foo</code> 中被找到)。<code>default</code> 属性包括了所有没有被包含在具名插槽中的节点，或 <code>v-slot:default</code> 的内容。</p>
+<p><strong>Note:</strong> <code>v-slot:foo</code> is supported in v2.6+. For older versions, you can use the <a href="https://cn.vuejs.org/v2/guide/components-slots.html#Deprecated-Syntax" target="_blank" rel="noopener">deprecated syntax</a>.</p>
+<p>在使用<a href="https://cn.vuejs.org/v2/guide/render-function.html" target="_blank" rel="noopener">渲染函数</a>书写一个组件时，访问 <code>vm.$slots</code> 最有帮助。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">blog-post</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-slot:header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>About Me<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Here's some page content, which will be included in vm.$slots.default, because it's not inside a named slot.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-slot:footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Copyright 2016 Evan You<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>If I have some content down here, it will also be included in vm.$slots.default.<span class="tag">&lt;/<span class="name">p</span>&gt;</span>.</span><br><span class="line"><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'blog-post'</span>, &#123;</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span> (<span class="params">createElement</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> header = <span class="keyword">this</span>.$slots.header</span><br><span class="line">    <span class="keyword">var</span> body   = <span class="keyword">this</span>.$slots.default</span><br><span class="line">    <span class="keyword">var</span> footer = <span class="keyword">this</span>.$slots.footer</span><br><span class="line">    <span class="keyword">return</span> createElement(<span class="string">'div'</span>, [</span><br><span class="line">      createElement(<span class="string">'header'</span>, header),</span><br><span class="line">      createElement(<span class="string">'main'</span>, body),</span><br><span class="line">      createElement(<span class="string">'footer'</span>, footer)</span><br><span class="line">    ])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如上例所示，我们可以通过此种方式动态获取插槽中的各属性。我们用的比较少，因为这是渲染函数的写法，今后实力提升了也许会单开一期坑吧</p>
+<h4 id="vm-scopedSlots"><a href="#vm-scopedSlots" class="headerlink" title="vm.$scopedSlots"></a>vm.$scopedSlots</h4><p>用来访问<a href="https://cn.vuejs.org/v2/guide/components-slots.html#作用域插槽" target="_blank" rel="noopener">作用域插槽</a>。对于包括 <code>默认 slot</code> 在内的每一个插槽，该对象都包含一个返回相应 VNode 的函数。</p>
+<p><code>vm.$scopedSlots</code> 在使用<a href="https://cn.vuejs.org/v2/guide/render-function.html" target="_blank" rel="noopener">渲染函数</a>开发一个组件时特别有用。</p>
+<p><strong>注意</strong>：从 2.6.0 开始，这个属性有两个变化：</p>
+<ol>
+<li>作用域插槽函数现在保证返回一个 VNode 数组，除非在返回值无效的情况下返回 <code>undefined</code>。</li>
+<li>所有的 <code>$slots</code> 现在都会作为函数暴露在 <code>$scopedSlots</code> 中。如果你在使用渲染函数，不论当前插槽是否带有作用域，我们都推荐始终通过 <code>$scopedSlots</code>访问它们。这不仅仅使得在未来添加作用域变得简单，也可以让你最终轻松迁移到所有插槽都是函数的 Vue 3。</li>
+</ol>
+<h4 id="vm-refs"><a href="#vm-refs" class="headerlink" title="vm.$refs"></a>vm.$refs</h4><blockquote>
+<p>一个对象，持有注册过 <a href="https://cn.vuejs.org/v2/api/#ref" target="_blank" rel="noopener"><code>ref</code> 特性</a> 的所有 DOM 元素和组件实例。</p>
+</blockquote>
+<p>这个大家应该比较熟悉。通过在 DOM 节点上绑定属性来获取 DOM 节点。虽然 vue 不推荐咱们直接操作 DOM 但是这玩意儿也得会是不是？</p>
+<p>简要说一句，在对应 DOM 节点上绑定属性<code>ref=&quot;aaa&quot;</code>，然后通过<code>this.$refs.aaa</code>就可以获取对应的 节点啦~</p>
+<h4 id="vm-listeners"><a href="#vm-listeners" class="headerlink" title="vm.$listeners"></a>vm.$listeners</h4><ul>
+<li><p><strong>类型</strong>：<code>{ [key: string]: Function | Array&lt;Function&gt; }</code></p>
+</li>
+<li><p><strong>只读</strong></p>
+</li>
+<li><strong>解释</strong></li>
+</ul>
+<blockquote>
+<p>包含了父作用域中的 (不含 <code>.native</code> 修饰器的) <code>v-on</code> 事件监听器。它可以通过 <code>v-on=&quot;$listeners&quot;</code> 传入内部组件——在创建更高层次的组件时非常有用。</p>
+</blockquote>
 
       
     </div>
@@ -1207,7 +1241,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue生命周期钩子"><span class="nav-number">1.</span> <span class="nav-text">Vue生命周期钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码演示"><span class="nav-number">1.1.</span> <span class="nav-text">代码演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#create-amp-amp-mounted"><span class="nav-number">1.1.1.</span> <span class="nav-text">create &amp;&amp; mounted</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#update"><span class="nav-number">1.1.2.</span> <span class="nav-text">update</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项-amp-amp-组合"><span class="nav-number">2.</span> <span class="nav-text">选项&amp;&amp;组合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#parent-amp-children"><span class="nav-number">2.1.</span> <span class="nav-text">$parent &amp; $children</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mixins"><span class="nav-number">2.2.</span> <span class="nav-text">mixins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extends"><span class="nav-number">2.3.</span> <span class="nav-text">extends</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#provide-amp-reject-2-2-0"><span class="nav-number">2.4.</span> <span class="nav-text">provide &amp; reject(2.2.0+)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项-其他（属性）"><span class="nav-number">3.</span> <span class="nav-text">选项/其他（属性）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#name"><span class="nav-number">3.1.</span> <span class="nav-text">name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delimiters"><span class="nav-number">3.2.</span> <span class="nav-text">delimiters</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#functional"><span class="nav-number">3.3.</span> <span class="nav-text">functional</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#model（2-2-0-）"><span class="nav-number">3.4.</span> <span class="nav-text">model（2.2.0+）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue生命周期钩子"><span class="nav-number">1.</span> <span class="nav-text">Vue生命周期钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码演示"><span class="nav-number">1.1.</span> <span class="nav-text">代码演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#create-amp-amp-mounted"><span class="nav-number">1.1.1.</span> <span class="nav-text">create &amp;&amp; mounted</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#update"><span class="nav-number">1.1.2.</span> <span class="nav-text">update</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项-amp-amp-组合"><span class="nav-number">2.</span> <span class="nav-text">选项&amp;&amp;组合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#parent-amp-children"><span class="nav-number">2.1.</span> <span class="nav-text">$parent &amp; $children</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mixins"><span class="nav-number">2.2.</span> <span class="nav-text">mixins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extends"><span class="nav-number">2.3.</span> <span class="nav-text">extends</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#provide-amp-reject-2-2-0"><span class="nav-number">2.4.</span> <span class="nav-text">provide &amp; reject(2.2.0+)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项-其他（属性）"><span class="nav-number">3.</span> <span class="nav-text">选项/其他（属性）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#name"><span class="nav-number">3.1.</span> <span class="nav-text">name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delimiters"><span class="nav-number">3.2.</span> <span class="nav-text">delimiters</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#functional"><span class="nav-number">3.3.</span> <span class="nav-text">functional</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#model（2-2-0-）"><span class="nav-number">3.4.</span> <span class="nav-text">model（2.2.0+）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例属性"><span class="nav-number">4.</span> <span class="nav-text">实例属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-slots"><span class="nav-number">4.1.</span> <span class="nav-text">vm.$slots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-scopedSlots"><span class="nav-number">4.2.</span> <span class="nav-text">vm.$scopedSlots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-refs"><span class="nav-number">4.3.</span> <span class="nav-text">vm.$refs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-listeners"><span class="nav-number">4.4.</span> <span class="nav-text">vm.$listeners</span></a></li></ol></li></ol></div>
             
 
           </div>
