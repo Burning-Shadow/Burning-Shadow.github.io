@@ -108,7 +108,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cdeca03697df1fd0ce8c633">
 <meta property="og:image" content="https://pic.superbed.cn/item/5cded899697df1fd0ce95287">
-<meta property="og:updated_time" content="2019-05-29T14:08:19.356Z">
+<meta property="og:updated_time" content="2019-05-30T14:07:04.160Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重学Vue（中篇）">
 <meta name="twitter:description" content="上篇我们对全局对象及相关的配置 API 进行了一遍刷文档。那么这次我们从生命周期开始继续刷">
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-05-29 22:08:19" itemprop="dateModified" datetime="2019-05-29T22:08:19+08:00">2019-05-29</time>
+                <time title="Geändert am: 2019-05-30 22:07:04" itemprop="dateModified" datetime="2019-05-30T22:07:04+08:00">2019-05-30</time>
               
             
           </span>
@@ -690,6 +690,61 @@
 <blockquote>
 <p>包含了父作用域中的 (不含 <code>.native</code> 修饰器的) <code>v-on</code> 事件监听器。它可以通过 <code>v-on=&quot;$listeners&quot;</code> 传入内部组件——在创建更高层次的组件时非常有用。</p>
 </blockquote>
+<h3 id="实例方法-数据"><a href="#实例方法-数据" class="headerlink" title="实例方法/数据"></a>实例方法/数据</h3><h4 id="vm-watch-expOrFn-callback-options"><a href="#vm-watch-expOrFn-callback-options" class="headerlink" title="vm.$watch(expOrFn, callback, [options])"></a>vm.$watch(expOrFn, callback, [options])</h4><ul>
+<li><p><strong>参数</strong>：</p>
+<ul>
+<li><p><code>{string | Function} expOrFn</code></p>
+</li>
+<li><p><code>{Function | Object} callback</code></p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;Object&#125; [options]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>{boolean} deep</code></li>
+<li><code>{boolean} immediate</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>返回值</strong>：<code>{Function} unwatch</code></p>
+</li>
+<li><p><strong>用法</strong>：</p>
+<p>观察 Vue 实例变化的一个表达式或计算属性函数。回调函数得到的参数为新值和旧值。表达式只接受监督的键路径。对于更复杂的表达式，用一个函数取代。</p>
+<p>注意：在变异 (不是替换) 对象或数组时，旧值将与新值相同，因为它们的引用指向同一个对象/数组。<strong>Vue 不会保留变异之前值的副本</strong>。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 键路径</span></span><br><span class="line">vm.$watch(<span class="string">'a.b.c'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 做点什么</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数</span></span><br><span class="line">vm.$watch(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 表达式 `this.a + this.b` 每次得出一个不同的结果时</span></span><br><span class="line">    <span class="comment">// 处理函数都会被调用。</span></span><br><span class="line">    <span class="comment">// 这就像监听一个未被定义的计算属性</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.a + <span class="keyword">this</span>.b</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 做点什么</span></span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><code>vm.$watch</code> 返回一个取消观察函数，用来停止触发回调：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> unwatch = vm.$watch(<span class="string">'a'</span>, cb)</span><br><span class="line"><span class="comment">// 之后取消观察</span></span><br><span class="line">unwatch()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>选项：deep</strong></p>
+<p>为了发现对象内部值的变化，可以在选项参数中指定 <code>deep: true</code> 。注意监听数组的变动不需要这么做。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vm.$watch(&apos;someObject&apos;, callback, &#123;</span><br><span class="line">  deep: true</span><br><span class="line">&#125;)</span><br><span class="line">vm.someObject.nestedValue = 123</span><br><span class="line">// callback is fired</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>选项：immediate</strong></p>
+<p>在选项参数中指定 <code>immediate: true</code> 将<strong>立即以表达式的当前值触发回调</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vm.$watch(<span class="string">'a'</span>, callback, &#123;</span><br><span class="line">  immediate: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 立即以 `a` 的当前值触发回调</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在实践中我们通常以另一种方式写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">    <span class="string">"attr1"</span>: &#123;</span><br><span class="line">        deep: <span class="literal">true</span>,</span><br><span class="line">        immediate: <span class="literal">false</span>,</span><br><span class="line">        handler(oldVal, newVal) &#123;</span><br><span class="line">            <span class="comment">// TODO</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"attr2"</span>: &#123;</span><br><span class="line">        deep: <span class="literal">true</span>,</span><br><span class="line">        immediate: <span class="literal">true</span>,</span><br><span class="line">        handler(oldVal, newVal) &#123;</span><br><span class="line">            <span class="comment">// TODO</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总之监听变化，姐妹们选他！</p>
+<h4 id="vm-set-target-propertyName-index-val"><a href="#vm-set-target-propertyName-index-val" class="headerlink" title="vm.$set(target, propertyName/index, val)"></a>vm.$set(target, propertyName/index, val)</h4><ul>
+<li><p><strong>参数</strong>：</p>
+<ul>
+<li><code>{Object | Array} target</code></li>
+<li><code>{string | number} propertyName/index</code></li>
+<li><code>{any} value</code></li>
+</ul>
+</li>
+<li><p><strong>返回值</strong>：设置的值。</p>
+</li>
+<li><p><strong>用法</strong>：</p>
+<p>这是全局 <code>Vue.set</code> 的<strong>别名</strong>。</p>
+</li>
+<li><p><strong>参考</strong>：<a href="https://cn.vuejs.org/v2/api/#Vue-set" target="_blank" rel="noopener">Vue.set</a></p>
+</li>
+</ul>
+<p>这东西就是用来添加响应式属性的。当然，被添加属性的对象也得是响应式的，毕竟 vue 无法探测普通的新增属性。通过此属性我们可以动态的添加</p>
 
       
     </div>
@@ -1241,7 +1296,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue生命周期钩子"><span class="nav-number">1.</span> <span class="nav-text">Vue生命周期钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码演示"><span class="nav-number">1.1.</span> <span class="nav-text">代码演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#create-amp-amp-mounted"><span class="nav-number">1.1.1.</span> <span class="nav-text">create &amp;&amp; mounted</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#update"><span class="nav-number">1.1.2.</span> <span class="nav-text">update</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项-amp-amp-组合"><span class="nav-number">2.</span> <span class="nav-text">选项&amp;&amp;组合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#parent-amp-children"><span class="nav-number">2.1.</span> <span class="nav-text">$parent &amp; $children</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mixins"><span class="nav-number">2.2.</span> <span class="nav-text">mixins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extends"><span class="nav-number">2.3.</span> <span class="nav-text">extends</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#provide-amp-reject-2-2-0"><span class="nav-number">2.4.</span> <span class="nav-text">provide &amp; reject(2.2.0+)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项-其他（属性）"><span class="nav-number">3.</span> <span class="nav-text">选项/其他（属性）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#name"><span class="nav-number">3.1.</span> <span class="nav-text">name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delimiters"><span class="nav-number">3.2.</span> <span class="nav-text">delimiters</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#functional"><span class="nav-number">3.3.</span> <span class="nav-text">functional</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#model（2-2-0-）"><span class="nav-number">3.4.</span> <span class="nav-text">model（2.2.0+）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例属性"><span class="nav-number">4.</span> <span class="nav-text">实例属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-slots"><span class="nav-number">4.1.</span> <span class="nav-text">vm.$slots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-scopedSlots"><span class="nav-number">4.2.</span> <span class="nav-text">vm.$scopedSlots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-refs"><span class="nav-number">4.3.</span> <span class="nav-text">vm.$refs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-listeners"><span class="nav-number">4.4.</span> <span class="nav-text">vm.$listeners</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue生命周期钩子"><span class="nav-number">1.</span> <span class="nav-text">Vue生命周期钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码演示"><span class="nav-number">1.1.</span> <span class="nav-text">代码演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#create-amp-amp-mounted"><span class="nav-number">1.1.1.</span> <span class="nav-text">create &amp;&amp; mounted</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#update"><span class="nav-number">1.1.2.</span> <span class="nav-text">update</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项-amp-amp-组合"><span class="nav-number">2.</span> <span class="nav-text">选项&amp;&amp;组合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#parent-amp-children"><span class="nav-number">2.1.</span> <span class="nav-text">$parent &amp; $children</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mixins"><span class="nav-number">2.2.</span> <span class="nav-text">mixins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extends"><span class="nav-number">2.3.</span> <span class="nav-text">extends</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#provide-amp-reject-2-2-0"><span class="nav-number">2.4.</span> <span class="nav-text">provide &amp; reject(2.2.0+)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项-其他（属性）"><span class="nav-number">3.</span> <span class="nav-text">选项/其他（属性）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#name"><span class="nav-number">3.1.</span> <span class="nav-text">name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delimiters"><span class="nav-number">3.2.</span> <span class="nav-text">delimiters</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#functional"><span class="nav-number">3.3.</span> <span class="nav-text">functional</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#model（2-2-0-）"><span class="nav-number">3.4.</span> <span class="nav-text">model（2.2.0+）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例属性"><span class="nav-number">4.</span> <span class="nav-text">实例属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-slots"><span class="nav-number">4.1.</span> <span class="nav-text">vm.$slots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-scopedSlots"><span class="nav-number">4.2.</span> <span class="nav-text">vm.$scopedSlots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-refs"><span class="nav-number">4.3.</span> <span class="nav-text">vm.$refs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-listeners"><span class="nav-number">4.4.</span> <span class="nav-text">vm.$listeners</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例方法-数据"><span class="nav-number">5.</span> <span class="nav-text">实例方法/数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-watch-expOrFn-callback-options"><span class="nav-number">5.1.</span> <span class="nav-text">vm.$watch(expOrFn, callback, [options])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-set-target-propertyName-index-val"><span class="nav-number">5.2.</span> <span class="nav-text">vm.$set(target, propertyName/index, val)</span></a></li></ol></li></ol></div>
             
 
           </div>
