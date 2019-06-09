@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="gulp相较于webpack更好学一点，而且由于其轻量化和异步等特点更适合我这种菜鸡入门，所以先学gulp再看webpack叭~">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-09T07:24:12.407Z">
+<meta property="og:updated_time" content="2019-06-09T07:36:20.419Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gulp初体验">
 <meta name="twitter:description" content="gulp相较于webpack更好学一点，而且由于其轻量化和异步等特点更适合我这种菜鸡入门，所以先学gulp再看webpack叭~">
@@ -194,7 +194,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -222,7 +222,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Beranda</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -239,7 +239,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -256,7 +256,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategori</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -273,7 +273,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Arsip</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -361,14 +361,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Diposting di</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-06-09 13:56:25 / Updated at: 15:24:12" itemprop="dateCreated datePublished" datetime="2019-06-09T13:56:25+08:00">2019-06-09</time>
+              <time title="Erstellt: 2019-06-09 13:56:25 / Geändert am: 15:36:20" itemprop="dateCreated datePublished" datetime="2019-06-09T13:56:25+08:00">2019-06-09</time>
             
 
             
@@ -387,7 +387,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Di</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/打包工具/" itemprop="url" rel="index"><span itemprop="name">打包工具</span></a></span>
@@ -459,6 +459,12 @@
 <h3 id="还有插件？"><a href="#还有插件？" class="headerlink" title="还有插件？"></a>还有插件？</h3><p>咱们完成之后让他可以自动打开网页。有点类似于<code>venus</code>平台。</p>
 <p>加载完成后自动打开指定的链接：<code>npm install open --save-dev</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> open = <span class="built_in">require</span>(<span class="string">"open"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间的和上边一样</span></span><br><span class="line"></span><br><span class="line">open(<span class="string">"http://localhost:8080"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="gulp-load-plugins"><a href="#gulp-load-plugins" class="headerlink" title="gulp-load-plugins"></a>gulp-load-plugins</h3><p>这玩意儿能干嘛？</p>
+<p><del>不能</del>  它是用来<strong>提前帮你打包基于<code>gulp</code>的所有插件</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">"gulp"</span>);</span><br><span class="line"><span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">"gulp-load-plugins"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入完成之后，由于$是被传回的第一个对象，所以我们在 .pipe() 管道中调用各种方法前面再加个 "$." </span></span><br><span class="line"><span class="comment">// 当然，我们上一句的适用范围是各种非 gulp 的原始包。而比如 gulp.dest() 方法前边就不加啦</span></span><br><span class="line"><span class="comment">// 还有一个例外就是open。因为他是帮你打包 基于gulp 的所有插件！基于!</span></span><br><span class="line"><span class="comment">// 好记一点就是：凡是gulp开头的方法都不用加</span></span><br><span class="line"><span class="comment">// 这样我们又可以少写不少代码咯</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>不过咱哥几个需要注意的一点是，我们在此基础上不能换数据！他会自动把中间的”-“连字符命名法转换成驼峰命名法。所以起名的时候慎重点看清楚咯。</p>
+</blockquote>
 
       
     </div>
@@ -549,10 +555,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Daftar Isi
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Ikhtisar
+            Übersicht
           </li>
         </ul>
       
@@ -575,7 +581,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">90</span>
-                    <span class="site-state-item-name">posting</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -628,7 +634,7 @@
                       
                     
                     <span class="site-state-item-count">18</span>
-                    <span class="site-state-item-name">kategori</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -949,7 +955,7 @@
                       
                     
                     <span class="site-state-item-count">151</span>
-                    <span class="site-state-item-name">tags</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -1012,7 +1018,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#构建js"><span class="nav-number">1.</span> <span class="nav-text">构建js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建CSS"><span class="nav-number">2.</span> <span class="nav-text">构建CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#转化less"><span class="nav-number">2.1.</span> <span class="nav-text">转化less</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并css"><span class="nav-number">2.2.</span> <span class="nav-text">合并css</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#真的大功告成了？"><span class="nav-number">2.3.</span> <span class="nav-text">真的大功告成了？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建HTML"><span class="nav-number">3.</span> <span class="nav-text">构建HTML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#半自动项目构建"><span class="nav-number">4.</span> <span class="nav-text">半自动项目构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全自动？"><span class="nav-number">5.</span> <span class="nav-text">全自动？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有插件？"><span class="nav-number">6.</span> <span class="nav-text">还有插件？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#构建js"><span class="nav-number">1.</span> <span class="nav-text">构建js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建CSS"><span class="nav-number">2.</span> <span class="nav-text">构建CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#转化less"><span class="nav-number">2.1.</span> <span class="nav-text">转化less</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并css"><span class="nav-number">2.2.</span> <span class="nav-text">合并css</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#真的大功告成了？"><span class="nav-number">2.3.</span> <span class="nav-text">真的大功告成了？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建HTML"><span class="nav-number">3.</span> <span class="nav-text">构建HTML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#半自动项目构建"><span class="nav-number">4.</span> <span class="nav-text">半自动项目构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全自动？"><span class="nav-number">5.</span> <span class="nav-text">全自动？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有插件？"><span class="nav-number">6.</span> <span class="nav-text">还有插件？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-load-plugins"><span class="nav-number">7.</span> <span class="nav-text">gulp-load-plugins</span></a></li></ol></div>
             
 
           </div>
@@ -1045,7 +1051,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1053,7 +1059,7 @@
 
 
 
-  <div class="theme-info">Tema – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
