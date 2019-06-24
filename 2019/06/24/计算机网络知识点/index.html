@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="第一张概念总结 计算机网络功能： 数据通信 —— 传送计算机之间的各种信息 资源共享 —— 共享软件、硬件、数据资源 分布式处理 —— 均衡负载   计算机网络系统的基本组成 组成部分：硬件、软件、协议 工作方式：边缘部分、核心部分 功能组成：通信子网（实现通信的设备和软件）、资源子网（实现资源共享的设备和软件） 资源子网表示七层架构的上三层（应、表、会） 通信子网则包括下三层（网、数、物）">
+<meta name="keywords" content="计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络期末总结">
+<meta property="og:url" content="http://yoursite.com/2019/06/24/计算机网络知识点/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="第一张概念总结 计算机网络功能： 数据通信 —— 传送计算机之间的各种信息 资源共享 —— 共享软件、硬件、数据资源 分布式处理 —— 均衡负载   计算机网络系统的基本组成 组成部分：硬件、软件、协议 工作方式：边缘部分、核心部分 功能组成：通信子网（实现通信的设备和软件）、资源子网（实现资源共享的设备和软件） 资源子网表示七层架构的上三层（应、表、会） 通信子网则包括下三层（网、数、物）">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-24T11:55:33.987Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机网络期末总结">
+<meta name="twitter:description" content="第一张概念总结 计算机网络功能： 数据通信 —— 传送计算机之间的各种信息 资源共享 —— 共享软件、硬件、数据资源 分布式处理 —— 均衡负载   计算机网络系统的基本组成 组成部分：硬件、软件、协议 工作方式：边缘部分、核心部分 功能组成：通信子网（实现通信的设备和软件）、资源子网（实现资源共享的设备和软件） 资源子网表示七层架构的上三层（应、表、会） 通信子网则包括下三层（网、数、物）">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/24/计算机网络知识点/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>计算机网络期末总结 | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/24/计算机网络知识点/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络期末总结
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-24 10:45:58 / Modified: 19:55:33" itemprop="dateCreated datePublished" datetime="2019-06-24T10:45:58+08:00">2019-06-24</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/期末总结系列/" itemprop="url" rel="index"><span itemprop="name">期末总结系列</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="第一张概念总结"><a href="#第一张概念总结" class="headerlink" title="第一张概念总结"></a>第一张概念总结</h3><ul>
+<li>计算机网络功能：<ul>
+<li>数据通信 —— 传送计算机之间的各种信息</li>
+<li>资源共享 —— 共享软件、硬件、数据资源</li>
+<li>分布式处理 —— 均衡负载</li>
+</ul>
+</li>
+<li>计算机网络系统的基本组成<ul>
+<li>组成部分：硬件、软件、协议</li>
+<li>工作方式：边缘部分、核心部分</li>
+<li>功能组成：通信子网（实现通信的设备和软件）、资源子网（实现资源共享的设备和软件）<ul>
+<li>资源子网表示七层架构的上三层（应、表、会）</li>
+<li>通信子网则包括下三层（网、数、物）</li>
+</ul>
+</li>
+<li>范围分为：广域网、城域网、局域网、个人区域网<ul>
+<li>局域网和广域网覆盖范围不同，使用的协议亦不同</li>
+<li>广域网相当于是将n个局域网连通起来，使用的是点对点技术。而广域网继续扩大联通，则成为了互联网 Internet</li>
+<li>广域网与局域网的联通<ul>
+<li>广域网是通过<strong>交换机</strong>及<strong>路由器</strong>所构成的</li>
+<li>局域网主要设备是<strong>交换机</strong>和主机。其中通信是通过广播的形式传递给信道上  的所有主机</li>
+<li>所以二者是以<strong>路由器</strong>联通的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>计算机网络拓扑结构主要取决于其<strong>通信子网</strong>。而拓扑结构（总线型、星型、环形、网状型）由于传输媒介起到一个通信的作用，故取决于下三层的<strong>通信子网</strong></li>
+</ul>
+</li>
+<li>局域网中的主机由于只有一个 IP 网段，是工作在数据链路层的，单纯的进行 MAC 寻址即可，故无需通过网络层，自然也不存在路由选择问题</li>
+<li>世界上最早的计算机网络是 ARPAnet。世界上最大的计算机网络是 Internet </li>
+<li></li>
+<li></li>
+<li>传输层提供端到端服务 —— 进程间逻辑通信</li>
+<li>网络层、数据链路层、物理层提供点到点服务<ul>
+<li>网络层 —— 主机间逻辑通信</li>
+<li>数据链路层 —— 节点间逻辑通信</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>OSI七层</th>
+<th>功能</th>
+<th>协议</th>
+<th>主要设备</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用层</td>
+<td>终端应用：FTP、WEB、QQ</td>
+<td>FTP、HTTP、DNS、SMTP</td>
+<td>（网关）</td>
+</tr>
+<tr>
+<td>表示层</td>
+<td>数据压缩、加密解密、数据格式转换</td>
+<td></td>
+<td>（网关）</td>
+</tr>
+<tr>
+<td>会话层</td>
+<td>为不同主机<strong>进程</strong>的会话，建立同步</td>
+<td></td>
+<td>（网关）</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>为端到端提供可靠的传输服务、进程通信<br><strong>差错控制</strong>、<strong>拥塞控制</strong>、<strong>流量控制</strong></td>
+<td>TCP、UDP</td>
+<td>（网关）</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td><strong>路由选择、差错控制</strong>、<strong>拥塞控制</strong>、<strong>流量控制</strong></td>
+<td>IP、ICMP、RIP、OSPF、BGP、IGMP</td>
+<td>路由器</td>
+</tr>
+<tr>
+<td>数据链路层</td>
+<td>寻址、成帧、<strong>差错控制、流量控制</strong></td>
+<td>PPP、ARP、RARP、MTU</td>
+<td>交换机 switch、网桥、网卡</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td>传输比特流，定义物理设备标准</td>
+<td>IEEE 802.1A、IEEE 802.2</td>
+<td>集线器 Hub、中继器</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>服务、接口、协议是计算机网络中 OSI 参考模型的三个主要概念</p>
+<ul>
+<li>协议包函三个方面：语法（传输数据的格式）、语义（所要完成的功能）、同步 （执行各种操作的条件、时序关系）</li>
+<li><strong>协议是水平的，是控制两个对等实体进行痛惜的规则</strong>，即是控制两个对等实体进行通信的规则的集合。在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务，而要实现本层协议，还需要使用下一层提供的服务。</li>
+<li><strong>服务是垂直的，是由下层通过层间接口向上层提供的</strong></li>
+</ul>
+</li>
+<li><p>上下邻层实体之间的接口称为服务访问点。各层服务访问点对应关系如下</p>
+<ul>
+<li>| 层级       | 访问点   |<br>| ———- | ——– |<br>| 应用层     | 用户界面 |<br>| 传输层     | 端口号   |<br>| 网络层     | IP 地址  |<br>| 数据链路层 | MAC 地址 |<br>| 物理层     | 网卡接口 |</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>发送时延 / 传输时延：将分组的所有比特推向链路的时间<ul>
+<li>发送时延（传输时延） = 分组长度 / 信道宽度（带宽）</li>
+</ul>
+</li>
+<li>传播时延：一个比特从链路一端到另一端传播的时间<ul>
+<li>传播时延 = 信道长度 / 电磁波在信道上的传播速率</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>网络体系结构：计算机网络的各层及其协议的集合</li>
+</ul>
+<h3 id="第二章概念总结"><a href="#第二章概念总结" class="headerlink" title="第二章概念总结"></a>第二章概念总结</h3><ul>
+<li>计算机中的数据 传输/通信 分为穿行、并行、同步、异步<ul>
+<li>串行传输：速度慢，费用低，始合远距离</li>
+<li>并行传输：速度快，费用高，适合近距离</li>
+<li>同步通信：发送方与接收方时钟<strong>同步</strong>，每次发送帧】</li>
+<li>异步通信：发送方与接收方时钟<strong>无同步</strong>，每次发送一个字符</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>编码：</p>
+<p>曼彻斯特编码：<strong>前高后低为1，前低后高为0</strong>（这个具体例子具体分析，有时候会相反，注意题设条件）</p>
+<p>​        10baseT使用的就是曼彻斯特编码</p>
+<p>差分曼彻斯特编码：<strong>中间位置有跳变为0，中间位置无跳变为1</strong></p>
+</blockquote>
+<ul>
+<li>利用模拟通信信道传输数字信号的方法称为</li>
+<li>基带传输：按照<strong>数字信号</strong>原有的波形（以脉冲形式）在<strong>数字信道</strong>上直接传输。通常对数字信号进行一定的编码。（<strong>小范围</strong>）</li>
+<li>频带传输：将代表数据的二进制“1”和“0”，变换成具有一定频带范围的模拟信号，以适应在模拟信道上传输。<strong>用于对数字信号进行调制、解调（大范围）</strong></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/09/gulp初体验/" rel="next" title="gulp初体验">
+                <i class="fa fa-chevron-left"></i> gulp初体验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">91</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">151</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一张概念总结"><span class="nav-number">1.</span> <span class="nav-text">第一张概念总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章概念总结"><span class="nav-number">2.</span> <span class="nav-text">第二章概念总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
