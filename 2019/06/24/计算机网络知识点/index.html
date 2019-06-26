@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="第一章概念总结 计算机网络功能： 数据通信 —— 传送计算机之间的各种信息 资源共享 —— 共享软件、硬件、数据资源 分布式处理 —— 均衡负载   计算机网络系统的基本组成 组成部分：硬件、软件、协议 工作方式：边缘部分、核心部分 功能组成：通信子网（实现通信的设备和软件）、资源子网（实现资源共享的设备和软件） 资源子网表示七层架构的上三层（应、表、会） 通信子网则包括下三层（网、数、物）">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-25T10:39:59.350Z">
+<meta property="og:updated_time" content="2019-06-26T14:06:38.389Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络期末总结">
 <meta name="twitter:description" content="第一章概念总结 计算机网络功能： 数据通信 —— 传送计算机之间的各种信息 资源共享 —— 共享软件、硬件、数据资源 分布式处理 —— 均衡负载   计算机网络系统的基本组成 组成部分：硬件、软件、协议 工作方式：边缘部分、核心部分 功能组成：通信子网（实现通信的设备和软件）、资源子网（实现资源共享的设备和软件） 资源子网表示七层架构的上三层（应、表、会） 通信子网则包括下三层（网、数、物）">
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-06-25 18:39:59" itemprop="dateModified" datetime="2019-06-25T18:39:59+08:00">2019-06-25</time>
+                <time title="Geändert am: 2019-06-26 22:06:38" itemprop="dateModified" datetime="2019-06-26T22:06:38+08:00">2019-06-26</time>
               
             
           </span>
@@ -644,15 +644,138 @@
 <p>物理层设备：</p>
 <ul>
 <li>中继器【转发器】：对信号进行<strong>再生</strong>和<strong>还原</strong>，适用于完全相同的<strong>两类</strong>网络的互联。不仅传送有用信号，同时也传送噪音和冲突信号。因而互相串联的个数只能在规定范围内进行，否则网络不可用</li>
-<li>集线器：<strong>多端口</strong>中继器，对信号<strong>扩大转发</strong>，同时把所有节点集中在以它为中心的节点上</li>
+<li>集线器：<strong>多端口</strong>中继器，对信号<strong>扩大转发</strong>，同时把所有节点集中在以它为中心的节点上【物理结构为星型，而逻辑结构则是<strong>总线型</strong>。可以理解为是一个多端口的中继器】</li>
 </ul>
 <p>物理层设备连接起来的网段是在一个冲突域里的，故其从属于一个局域网</p>
 <p><strong>物理层互联</strong>，只表明这两个网段之间可以<strong>互相传送物理信号</strong>，<strong>不保证传送帧</strong></p>
 <p><strong>链路层互联</strong>，数据链路层协议和物理层协议相同，数据传输率也要相同，<strong>保证传输帧和物理信号</strong></p>
+<p><strong>5-4-3规则</strong>：在10M以太网中，网络总长度不得超过5个区段，4台网络延长设备，且五个区段中只有三个区段可接网络设备。</p>
 </blockquote>
 <ul>
 <li>两个网段在物理层进行互联时的要求</li>
-<li>【网段】：一般指一个计算机网络中<strong>使用同一物理层设备</strong>（传输介质、中继器、集线器等）能够直接通讯的那一部分。eg: 从<code>192.169.0.1</code>到<code>192.168.255.255</code>之间就是一个网段<br>- </li>
+<li>【网段】：一般指一个计算机网络中<strong>使用同一物理层设备</strong>（传输介质、中继器、集线器等）能够直接通讯的那一部分。eg: 从<code>192.169.0.1</code>到<code>192.168.255.255</code>之间就是一个网段</li>
+</ul>
+<blockquote>
+<p><strong>冲突域</strong>：同一物理网段上所有节点的集合 or 以太网上<strong>竞争</strong>同一带宽的节点集合【网桥可以分开冲突域，但无法分开广播域】</p>
+<p><strong>广播域</strong>：接收同样广播消息的节点的集合</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>能否隔离冲突域</th>
+<th>能够隔离广播域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>物理层设备<br>中继器、集线器</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>链路层设备<br>网桥、交换机</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>网络层设备<br>路由器</td>
+<td>√</td>
+<td>√</td>
+</tr>
+</tbody>
+</table>
+<h3 id="第三章概念总结"><a href="#第三章概念总结" class="headerlink" title="第三章概念总结"></a>第三章概念总结</h3><ul>
+<li>数据链路层五大功能<ul>
+<li>为网络层提供服务【3种服务】<ul>
+<li>有确认，无连接服务</li>
+<li>有确认，面向连接的服务</li>
+<li>无确认，无连接服务</li>
+<li>【不包含无确认的，面向连接的服务】</li>
+</ul>
+</li>
+<li>链路管理：数据链路层的连接的建立、维持和释放</li>
+<li>帧定界、帧同步、透明传输</li>
+<li>流量控制：限制发送方速率</li>
+<li>差错控制：发送方保证接收方可以正确接收到发送的每一个数据【对位错和帧错的处理】</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>差错控制的情况<ul>
+<li>位错【比特位出错，1变0，0变1】<ul>
+<li>CRC 循环冗余检验</li>
+<li>汉明码（海明码）：发现双比特错，纠正单比特错</li>
+</ul>
+</li>
+<li>帧错<ul>
+<li>丢失：通过计时器在规定时间内判定</li>
+<li>重复：给帧编号</li>
+<li>失序：后边的帧先到达，域一般的数据链路层传输概念不一样 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>奇偶校验码智能检测出奇数个比特错误</p>
+</li>
+<li><p>海明【汉明】不等式：2的r次方 ≥ k + r + 1</p>
+<ul>
+<li>|               | 海明距    |<br>| ————- | ——— |<br>| 检测 d 比特错 | d + 1     |<br>| 纠正 d 比特错 | 2 * d + 1 |</li>
+</ul>
+</li>
+<li><p>CRC 校验：计算冗余码</p>
+<ul>
+<li>加 0：假设生成多项式 G(x) 的阶为 r，则加 r 个 0 </li>
+<li>模 2 除法：数据加 0 后除以多项式，余数为冗余码 /FCS/CRC 检验码的比特序列。</li>
+<li>【和除法相同，唯一不一样的就是将原来的上下两层相减变为异或（同 0 异 1）】</li>
+<li>若余数为 0 则传输过程中未发生差错，否则发生。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>信道利用率 = （L / C）/ T  【发送方在一个发送周期内，有效的发送数据所需要的时间占整个发送周期的比率】<ul>
+<li>T 内发送 L bit 数据</li>
+<li>L：发送方数据传输率</li>
+<li>发送周期【从开始发送数据到收到第一个确认帧】</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>ARQ 协议中，发送窗口的大小 ≤ 窗口总数 - 1</li>
+</ul>
+<ul>
+<li>FDM【时分复用】 与 TDM【频分复用】<ul>
+<li>TDM 抗干扰能力强，可以逐级再生整形，避免干扰的积累。而且<strong>数字信号比较容易实现自动转换</strong></li>
+<li>FDM 技术比较成熟，实现容易，且更能充分的利用带宽，<strong>适用于模拟信号</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>信道分配：<ul>
+<li>静态 —— 信道划分介质访问控制【无冲突】<ul>
+<li>FDMA</li>
+<li>CDMA</li>
+<li>TDMA</li>
+</ul>
+</li>
+<li>动态<ul>
+<li>随机访问介质访问控制【冲突】<ul>
+<li>ALOHA</li>
+<li>CSMA</li>
+<li>CSMA / CD</li>
+<li>CSMA / CA</li>
+</ul>
+</li>
+<li>轮询访问戒指访问控制 —— 令牌传递协议【无冲突】</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>最小帧长 = 总线传播时延 <em> 数据传输速率 </em> 2</li>
 </ul>
 
       
@@ -1209,7 +1332,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章概念总结"><span class="nav-number">1.</span> <span class="nav-text">第一章概念总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章概念总结"><span class="nav-number">2.</span> <span class="nav-text">第二章概念总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章概念总结"><span class="nav-number">1.</span> <span class="nav-text">第一章概念总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章概念总结"><span class="nav-number">2.</span> <span class="nav-text">第二章概念总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三章概念总结"><span class="nav-number">3.</span> <span class="nav-text">第三章概念总结</span></a></li></ol></div>
             
 
           </div>
