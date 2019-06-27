@@ -190,7 +190,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -218,7 +218,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -359,14 +359,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-06-24 10:45:58" itemprop="dateCreated datePublished" datetime="2019-06-24T10:45:58+08:00">2019-06-24</time>
+              <time title="Created: 2019-06-24 10:45:58" itemprop="dateCreated datePublished" datetime="2019-06-24T10:45:58+08:00">2019-06-24</time>
             
 
             
@@ -381,9 +381,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-06-27 16:55:57" itemprop="dateModified" datetime="2019-06-27T16:55:57+08:00">2019-06-27</time>
+                <time title="Modified: 2019-06-27 17:35:18" itemprop="dateModified" datetime="2019-06-27T17:35:18+08:00">2019-06-27</time>
               
             
           </span>
@@ -397,7 +397,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/期末总结系列/" itemprop="url" rel="index"><span itemprop="name">期末总结系列</span></a></span>
@@ -861,13 +861,16 @@
 <p>结点只能在一定时间内（持有令牌时）发送数据</p>
 </blockquote>
 <ul>
-<li>PPP协议（只支持全双工链路，点对点连接）<ul>
+<li>PPP协议（<strong>只支持全双工链路，点对点连接</strong>）<ul>
 <li>简单【对于链路层的帧，<strong>无需纠错</strong>，<strong>无需序号</strong>，<strong>无需流量控制</strong>】</li>
 <li>封装成帧【帧定界符】</li>
 <li>透明传输【与帧定界符一样比特组合的数据应该如何处理：异步线路用字节填充，同步线路用比特填充】</li>
 <li>多种网络协议【封装的 IP 数据可以采用多种协议】</li>
 <li>多种类型链路：串行/并行，同步/异步，电/光。。。</li>
 <li><strong>差错检测</strong>【<strong>错就丢弃</strong>】</li>
+<li><strong>只支持全双工链路</strong></li>
+<li><strong>两端可以运行不同的网络协议</strong></li>
+<li><strong>面向字节</strong></li>
 <li>检测连接状态【链路是否正常工作】</li>
 <li>最大传送单元【最大长度MTU，默认不超过1500字节】</li>
 <li>网络层地址协商【知道通信双方的网络层地址】</li>
@@ -885,6 +888,9 @@
 <p><img src="https://ae01.alicdn.com/kf/HTB1wxW7ekWE3KVjSZSy760ocXXaN.png" alt="PPP协议的帧格式"></p>
 <p>PPP 协议和 HDLC 协议的差别</p>
 <p><img src="https://ae01.alicdn.com/kf/HTB1NHO5eoGF3KVjSZFm762qPXXa8.png" alt="PPP 协议和 HDLC 协议的差别"></p>
+<blockquote>
+<p>上图中 HDLC 帧的首尾标志F是遗传特定的编号<code>01111110</code>。若中间部分的信息流出现了这样的组成结构那么我们会通过<strong>比特填充的首尾标志法</strong>实现透明传输。即，<strong>若有六个<code>1</code>连在一起，那么在<code>5</code>个<code>1</code>后边填上一个<code>0</code></strong></p>
+</blockquote>
 <ul>
 <li>我们如果想要扩展以太网，在物理层可以通过<strong>主干集线器</strong>将多个集线器连接起来，使他们构成一个大的冲突域：<ul>
 <li>可以进行跨域通讯。</li>
@@ -902,6 +908,8 @@
 <li><strong>可互联不同物理层、不同 MAC 子层和不同速率的以太网</strong></li>
 </ul>
 </li>
+<li>源路由网桥：确定一个最佳路由，将最佳路由信息放入帧的首部。源和目标地址符合则按照帧首中的信息走</li>
+<li>透明网桥：通过自学习算法构建一个转发表</li>
 </ul>
 </li>
 </ul>
@@ -919,6 +927,13 @@
 </li>
 </ul>
 </li>
+</ul>
+<blockquote>
+<p>广域网通常指覆盖范围很广的长距离网络。它由一些结点交换机以及连接这些交换机的链路组成。节点交换机执行分组<strong>存储转发</strong>功能</p>
+</blockquote>
+<ul>
+<li>集中控制式：整个交换机所有的控制功能，包括呼叫处理和维护管理功能，都集中在一个处理机上（中央处理机）</li>
+<li>分布控制式：含有几组功能部件的公共控制方式</li>
 </ul>
 
           
@@ -1014,14 +1029,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-06-09 13:56:25 / Geändert am: 20:01:44" itemprop="dateCreated datePublished" datetime="2019-06-09T13:56:25+08:00">2019-06-09</time>
+              <time title="Created: 2019-06-09 13:56:25 / Modified: 20:01:44" itemprop="dateCreated datePublished" datetime="2019-06-09T13:56:25+08:00">2019-06-09</time>
             
 
             
@@ -1040,7 +1055,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/打包工具/" itemprop="url" rel="index"><span itemprop="name">打包工具</span></a></span>
@@ -1084,7 +1099,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/06/09/gulp初体验/#more" rel="contents">
-                Weiterlesen &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1181,14 +1196,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-06-08 21:40:34" itemprop="dateCreated datePublished" datetime="2019-06-08T21:40:34+08:00">2019-06-08</time>
+              <time title="Created: 2019-06-08 21:40:34" itemprop="dateCreated datePublished" datetime="2019-06-08T21:40:34+08:00">2019-06-08</time>
             
 
             
@@ -1203,7 +1218,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a></span>
@@ -1247,7 +1262,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/06/08/3种方法实现CSS隐藏滚动条并可以滚动内容(转载)/#more" rel="contents">
-                Weiterlesen &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1344,14 +1359,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-21 22:18:48" itemprop="dateCreated datePublished" datetime="2019-05-21T22:18:48+08:00">2019-05-21</time>
+              <time title="Created: 2019-05-21 22:18:48" itemprop="dateCreated datePublished" datetime="2019-05-21T22:18:48+08:00">2019-05-21</time>
             
 
             
@@ -1366,9 +1381,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-05-22 10:53:10" itemprop="dateModified" datetime="2019-05-22T10:53:10+08:00">2019-05-22</time>
+                <time title="Modified: 2019-05-22 10:53:10" itemprop="dateModified" datetime="2019-05-22T10:53:10+08:00">2019-05-22</time>
               
             
           </span>
@@ -1382,7 +1397,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vuex/" itemprop="url" rel="index"><span itemprop="name">Vuex</span></a></span>
@@ -1426,7 +1441,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/05/21/Vuex进阶/#more" rel="contents">
-                Weiterlesen &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1523,14 +1538,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-20 20:26:46" itemprop="dateCreated datePublished" datetime="2019-05-20T20:26:46+08:00">2019-05-20</time>
+              <time title="Created: 2019-05-20 20:26:46" itemprop="dateCreated datePublished" datetime="2019-05-20T20:26:46+08:00">2019-05-20</time>
             
 
             
@@ -1545,9 +1560,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-05-21 21:46:59" itemprop="dateModified" datetime="2019-05-21T21:46:59+08:00">2019-05-21</time>
+                <time title="Modified: 2019-05-21 21:46:59" itemprop="dateModified" datetime="2019-05-21T21:46:59+08:00">2019-05-21</time>
               
             
           </span>
@@ -1561,7 +1576,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Node-Package-Manager/" itemprop="url" rel="index"><span itemprop="name">Node Package Manager</span></a></span>
@@ -1605,7 +1620,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/05/20/yarn初体验/#more" rel="contents">
-                Weiterlesen &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1702,14 +1717,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-17 19:17:48" itemprop="dateCreated datePublished" datetime="2019-05-17T19:17:48+08:00">2019-05-17</time>
+              <time title="Created: 2019-05-17 19:17:48" itemprop="dateCreated datePublished" datetime="2019-05-17T19:17:48+08:00">2019-05-17</time>
             
 
             
@@ -1724,9 +1739,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-05-31 22:22:05" itemprop="dateModified" datetime="2019-05-31T22:22:05+08:00">2019-05-31</time>
+                <time title="Modified: 2019-05-31 22:22:05" itemprop="dateModified" datetime="2019-05-31T22:22:05+08:00">2019-05-31</time>
               
             
           </span>
@@ -1740,7 +1755,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学框架系列/" itemprop="url" rel="index"><span itemprop="name">重学框架系列</span></a></span>
@@ -1784,7 +1799,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/05/17/重学Vue（中篇）/#more" rel="contents">
-                Weiterlesen &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -1881,14 +1896,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-13 15:35:04" itemprop="dateCreated datePublished" datetime="2019-05-13T15:35:04+08:00">2019-05-13</time>
+              <time title="Created: 2019-05-13 15:35:04" itemprop="dateCreated datePublished" datetime="2019-05-13T15:35:04+08:00">2019-05-13</time>
             
 
             
@@ -1903,9 +1918,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-05-17 19:13:43" itemprop="dateModified" datetime="2019-05-17T19:13:43+08:00">2019-05-17</time>
+                <time title="Modified: 2019-05-17 19:13:43" itemprop="dateModified" datetime="2019-05-17T19:13:43+08:00">2019-05-17</time>
               
             
           </span>
@@ -1919,7 +1934,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学框架系列/" itemprop="url" rel="index"><span itemprop="name">重学框架系列</span></a></span>
@@ -1963,7 +1978,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/05/13/重学Vue（上篇）/#more" rel="contents">
-                Weiterlesen &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -2060,14 +2075,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-09 00:04:40" itemprop="dateCreated datePublished" datetime="2019-05-09T00:04:40+08:00">2019-05-09</time>
+              <time title="Created: 2019-05-09 00:04:40" itemprop="dateCreated datePublished" datetime="2019-05-09T00:04:40+08:00">2019-05-09</time>
             
 
             
@@ -2082,9 +2097,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-05-13 17:14:44" itemprop="dateModified" datetime="2019-05-13T17:14:44+08:00">2019-05-13</time>
+                <time title="Modified: 2019-05-13 17:14:44" itemprop="dateModified" datetime="2019-05-13T17:14:44+08:00">2019-05-13</time>
               
             
           </span>
@@ -2098,7 +2113,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学框架系列/" itemprop="url" rel="index"><span itemprop="name">重学框架系列</span></a></span>
@@ -2142,7 +2157,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/05/09/Vue-Router提升篇/#more" rel="contents">
-                Weiterlesen &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -2239,14 +2254,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-07 17:00:23" itemprop="dateCreated datePublished" datetime="2019-05-07T17:00:23+08:00">2019-05-07</time>
+              <time title="Created: 2019-05-07 17:00:23" itemprop="dateCreated datePublished" datetime="2019-05-07T17:00:23+08:00">2019-05-07</time>
             
 
             
@@ -2261,9 +2276,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-05-13 17:14:21" itemprop="dateModified" datetime="2019-05-13T17:14:21+08:00">2019-05-13</time>
+                <time title="Modified: 2019-05-13 17:14:21" itemprop="dateModified" datetime="2019-05-13T17:14:21+08:00">2019-05-13</time>
               
             
           </span>
@@ -2277,7 +2292,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学框架系列/" itemprop="url" rel="index"><span itemprop="name">重学框架系列</span></a></span>
@@ -2321,7 +2336,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/05/07/Vue-Router基础篇/#more" rel="contents">
-                Weiterlesen &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -2418,14 +2433,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-04-30 13:23:58 / Geändert am: 17:12:26" itemprop="dateCreated datePublished" datetime="2019-04-30T13:23:58+08:00">2019-04-30</time>
+              <time title="Created: 2019-04-30 13:23:58 / Modified: 17:12:26" itemprop="dateCreated datePublished" datetime="2019-04-30T13:23:58+08:00">2019-04-30</time>
             
 
             
@@ -2444,7 +2459,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
@@ -2488,7 +2503,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/04/30/ES6中的继承/#more" rel="contents">
-                Weiterlesen &raquo;
+                Read more &raquo;
               </a>
             </div>
           
@@ -2536,7 +2551,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Nächste Seite"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2581,7 +2596,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">91</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -2636,7 +2651,7 @@
                       
                     
                     <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -2957,7 +2972,7 @@
                       
                     
                     <span class="site-state-item-count">151</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -3036,7 +3051,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -3044,7 +3059,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
