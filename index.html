@@ -383,7 +383,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-06-26 22:06:38" itemprop="dateModified" datetime="2019-06-26T22:06:38+08:00">2019-06-26</time>
+                <time title="Geändert am: 2019-06-27 16:55:57" itemprop="dateModified" datetime="2019-06-27T16:55:57+08:00">2019-06-27</time>
               
             
           </span>
@@ -764,8 +764,14 @@
 <li>随机访问介质访问控制【冲突】<ul>
 <li>ALOHA</li>
 <li>CSMA</li>
-<li>CSMA / CD</li>
-<li>CSMA / CA</li>
+<li>CSMA / CD ：碰撞检测【更适用于有线网络】<ul>
+<li>先听后发</li>
+<li>边听边发</li>
+<li>冲突停发 </li>
+<li>随机重发</li>
+</ul>
+</li>
+<li>CSMA / CA ：碰撞避免【更适用于无线网络】</li>
 </ul>
 </li>
 <li>轮询访问戒指访问控制 —— 令牌传递协议【无冲突】</li>
@@ -776,6 +782,143 @@
 </ul>
 <ul>
 <li>最小帧长 = 总线传播时延 <em> 数据传输速率 </em> 2</li>
+</ul>
+<blockquote>
+<p>局域网【Local Area Network】：在<strong>某一区域内</strong>由多台计算机互联成的计算机组，使用<strong>广播信道</strong></p>
+<p>特点：</p>
+<ul>
+<li>覆盖的地理范围较小，址在一个相对独立的局部范围内联</li>
+<li>使用专门铺设的传输介质（双绞线、同轴电缆）进行联网，数据传输速率高</li>
+<li>通信延迟时间短，误码率低，可靠性较高</li>
+<li>各站点为平等关系，共享传输信道</li>
+<li>多采用分布式控制和广播式通信，能进行广播和组播</li>
+</ul>
+<p>决定局域网的主要要素为：<strong>网络拓扑</strong>、<strong>传输介质</strong>与<strong>介质访问控制方法</strong></p>
+</blockquote>
+<p>以太网提供无连接、不可靠的服务</p>
+<ul>
+<li>无连接：发送方和接收方之间无“握手过程”【传输数据之前不用建立链接】</li>
+<li>不可靠：不对发送方的数据帧<strong>编号</strong>，接收方<strong>不</strong>向发送方进行<strong>确认</strong>，差错帧直接丢弃，<strong>差错纠正由高层负责</strong></li>
+<li>因为局域网的信道质量非常好，产生错误的概率较低，故采用无连接、不可靠的措施</li>
+<li><strong>以太网参考模型一般只包括物理层和数据链路层</strong> </li>
+<li>以太网逻辑拓扑为<strong>总线型</strong>，物理拓扑为星形或<strong>拓展星型</strong></li>
+</ul>
+<p><img src="https://pic.superbed.cn/item/5d138728451253d17877f5ae.png" alt></p>
+<ul>
+<li>mac 帧头结构</li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/HTB1CzeTef1H3KVjSZFH762KppXaD.png" alt></p>
+<p>mac 地址的分配基于<strong>制造商</strong>，而 IP 地址的分配是基于<strong>网络拓扑</strong>。故 <strong>IP 地址唯一，而 mac 地址不唯一</strong></p>
+<ul>
+<li>相同静态 MAC 地址，不能正确通信<ul>
+<li>目的 MAC 地址等于本机 MAC 地址的帧是<strong>不会被发送到网络上去</strong>的</li>
+<li>其他设备的用户发送给 A 的帧也会被 B 接收，B 必须处理不属于本设备的帧，<strong>浪费</strong>了资源</li>
+<li>正确实现的 ARP 软件都会禁止把同一个 MAC 地址绑定到两个不同的 IP 地址，防止 A 和 B 在会话时都<strong>时断时续</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>数据链路层<ul>
+<li>LLC 逻辑链路控制【面向网络层】：向网络层提供服务，LLC 报头告诉数据链路层一旦帧被接收到时，应对应数据包作何处理<ul>
+<li><strong>建立和释放数据链路层的逻辑链接</strong></li>
+<li><strong>提供与高层的接口</strong></li>
+<li><strong>差错控制</strong></li>
+<li><strong>给帧加序号</strong></li>
+<li>与传输媒体无关</li>
+</ul>
+</li>
+<li>MAC 媒体访问控制【面向物理层】：与传输媒体有关<ul>
+<li><strong>组帧和拆帧</strong></li>
+<li><strong>比特差错检测</strong></li>
+<li><strong>寻址</strong></li>
+<li><strong>竞争处理</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>≤ 1Gb/s 的以太网</th>
+<th>半双工/全双工</th>
+<th>可能有争用问题</th>
+<th>可能用CSMA / CD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>≥ 10Gb/s的以太网</strong></td>
+<td><strong>全双工</strong></td>
+<td><strong>无争用问题</strong></td>
+<td><strong>不会用CSMA/CD</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>令牌环网机制：</p>
+<p>某台主机获得令牌后将要发送的数据附着其上，并让令牌进入环路。若令牌所携带目标 MAC 地址与换路上主机 MAC 地址相同则将数据复制给环路，然后重新回到出发点。出发点再生成新的令牌移交给下一台主机</p>
+<p>结点只能在一定时间内（持有令牌时）发送数据</p>
+</blockquote>
+<ul>
+<li>PPP协议（只支持全双工链路，点对点连接）<ul>
+<li>简单【对于链路层的帧，<strong>无需纠错</strong>，<strong>无需序号</strong>，<strong>无需流量控制</strong>】</li>
+<li>封装成帧【帧定界符】</li>
+<li>透明传输【与帧定界符一样比特组合的数据应该如何处理：异步线路用字节填充，同步线路用比特填充】</li>
+<li>多种网络协议【封装的 IP 数据可以采用多种协议】</li>
+<li>多种类型链路：串行/并行，同步/异步，电/光。。。</li>
+<li><strong>差错检测</strong>【<strong>错就丢弃</strong>】</li>
+<li>检测连接状态【链路是否正常工作】</li>
+<li>最大传送单元【最大长度MTU，默认不超过1500字节】</li>
+<li>网络层地址协商【知道通信双方的网络层地址】</li>
+<li>数据压缩协商</li>
+</ul>
+</li>
+<li>PPP协议的三个组成部分<ul>
+<li>一个将 IP 数据封装到串行链路（同步串行 / 异步串行）的方法</li>
+<li>链路控制协议 LCP：建立并维护数据链路连接【身份验证】</li>
+<li>网络控制协议 NCP：PPP可支持多种网络协议。每个不同的网络层协议都要一个相应的 NCP 来配置，为网络层协议建立和配置逻辑连接</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/HTB1xpm4eoGF3KVjSZFo762mpFXal.png" alt="PPP协议状态图"></p>
+<p><img src="https://ae01.alicdn.com/kf/HTB1wxW7ekWE3KVjSZSy760ocXXaN.png" alt="PPP协议的帧格式"></p>
+<p>PPP 协议和 HDLC 协议的差别</p>
+<p><img src="https://ae01.alicdn.com/kf/HTB1NHO5eoGF3KVjSZFm762qPXXa8.png" alt="PPP 协议和 HDLC 协议的差别"></p>
+<ul>
+<li>我们如果想要扩展以太网，在物理层可以通过<strong>主干集线器</strong>将多个集线器连接起来，使他们构成一个大的冲突域：<ul>
+<li>可以进行跨域通讯。</li>
+<li>扩大了以太网的覆盖范围。</li>
+<li>但是实际通讯效率变低，因为发生冲突概率变高。为解决此问题我们可以在链路层对以太网进行扩展，以达到减少冲突，提高效率的目的：</li>
+</ul>
+</li>
+<li>链路层扩展以太网【<strong>网桥</strong>&amp;<strong>交换机</strong>】<ul>
+<li>网桥可以根据 MAC 帧的目的地址，对帧进行转发和过滤。当网桥收到一个帧时，并不向所有接口转发此帧，二十先检查此帧的目的 MAC 地址，然后再确定将该帧转发到哪一个接口，或是把它丢弃（过滤）<ul>
+<li>网段：一般指一个计算机网络中使用同一物理层设备能够直接通讯的那一部分。我们将多个网段用网桥连接</li>
+<li>网桥优点：<ul>
+<li>过滤通信量，增大吞吐量</li>
+<li>扩大了物理传输范围</li>
+<li>提高了可靠性</li>
+<li><strong>可互联不同物理层、不同 MAC 子层和不同速率的以太网</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>冲突域和广播域<ul>
+<li>冲突域：在同一个冲突域中每一个节点都能收到所有被发送的帧。【同一时间内只能有一台设备发送信息的范围】、<ul>
+<li>判别方法：<strong>链路层设备的一个端口就是一个冲突域</strong></li>
+</ul>
+</li>
+<li>广播域：网络中能接收任一设备发出的广播帧的所有设备的集合。【若站点发出一个广播信号，所有能接收到这个信号的设备范围成为一个广播域】<ul>
+<li>判别方法：<strong>若有路由器则路由器分出几条线就有几个广播域，无路由器则只有一个广播域</strong></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
           
