@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1xpm4eoGF3KVjSZFo762mpFXal.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1wxW7ekWE3KVjSZSy760ocXXaN.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1NHO5eoGF3KVjSZFm762qPXXa8.png">
-<meta property="og:updated_time" content="2019-06-29T05:29:28.006Z">
+<meta property="og:updated_time" content="2019-06-29T06:54:33.677Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络期末总结">
 <meta name="twitter:description" content="此章用于计算机网络的期末复习总结。">
@@ -391,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-06-29 13:29:28" itemprop="dateModified" datetime="2019-06-29T13:29:28+08:00">2019-06-29</time>
+                <time title="Geändert am: 2019-06-29 14:54:33" itemprop="dateModified" datetime="2019-06-29T14:54:33+08:00">2019-06-29</time>
               
             
           </span>
@@ -547,10 +547,7 @@
 <li><strong>服务是垂直的，是由下层通过层间接口向上层提供的</strong></li>
 </ul>
 </li>
-<li><p>上下邻层实体之间的接口称为服务访问点。各层服务访问点对应关系如下</p>
-<ul>
-<li>| 层级       | 访问点   |<br>| ———- | ——– |<br>| 应用层     | 用户界面 |<br>| 传输层     | 端口号   |<br>| 网络层     | IP 地址  |<br>| 数据链路层 | MAC 地址 |<br>| 物理层     | 网卡接口 |</li>
-</ul>
+<li><p>上下邻层实体之间的接口称为服务访问点。各层服务访问点对应关系如下<br>| 层级       | 访问点   |<br>| ———- | ——– |<br>| 应用层     | 用户界面 |<br>| 传输层     | 端口号   |<br>| 网络层     | IP 地址  |<br>| 数据链路层 | MAC 地址 |<br>| 物理层     | 网卡接口 |</p>
 </li>
 </ul>
 <blockquote>
@@ -632,18 +629,38 @@
 <li><p>同：存储转发、无需建立链接（不像电路交换需要建立链接，独占一条信道）</p>
 </li>
 <li><p>异：</p>
-<ul>
-<li>|              | 报文交换               | 分组交换             |<br>| :———– | ———————- | ——————– |<br>| 数据交换单位 | 报文（大小不固定且长） | 分组（大小固定且短） |<br>| 所需存储空间 | 大                     | 小                   |</li>
+</li>
 </ul>
 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th>报文交换</th>
+<th>分组交换</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">数据交换单位</td>
+<td>报文（大小不固定且长）</td>
+<td>分组（大小固定且短）</td>
+</tr>
+<tr>
+<td style="text-align:left">所需存储空间</td>
+<td>大</td>
+<td>小</td>
+</tr>
+</tbody>
+</table>
+<ul>
 <li><p>分组交换优点：</p>
 <ul>
 <li>缓冲区易于管理</li>
 <li>分组的平均延迟更小，网络中所占平均缓冲区更少</li>
 <li>更易标准化</li>
 <li>更适合应用</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -729,10 +746,27 @@
 <li><p>奇偶校验码智能检测出奇数个比特错误</p>
 </li>
 <li><p>海明【汉明】不等式：2的r次方 ≥ k + r + 1</p>
-<ul>
-<li>|               | 海明距    |<br>| ————- | ——— |<br>| 检测 d 比特错 | d + 1     |<br>| 纠正 d 比特错 | 2 * d + 1 |</li>
-</ul>
 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>海明距</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>检测 d 比特错</td>
+<td>d + 1</td>
+</tr>
+<tr>
+<td>纠正 d 比特错</td>
+<td>2 * d + 1</td>
+</tr>
+</tbody>
+</table>
+<ul>
 <li><p>CRC 校验：计算冗余码</p>
 <ul>
 <li>加 0：假设生成多项式 G(x) 的阶为 r，则加 r 个 0 </li>
