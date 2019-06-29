@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1xpm4eoGF3KVjSZFo762mpFXal.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1wxW7ekWE3KVjSZSy760ocXXaN.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1NHO5eoGF3KVjSZFm762qPXXa8.png">
-<meta property="og:updated_time" content="2019-06-29T06:54:33.677Z">
+<meta property="og:updated_time" content="2019-06-29T10:15:04.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络期末总结">
 <meta name="twitter:description" content="此章用于计算机网络的期末复习总结。">
@@ -391,7 +391,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-06-29 14:54:33" itemprop="dateModified" datetime="2019-06-29T14:54:33+08:00">2019-06-29</time>
+                <time title="Geändert am: 2019-06-29 18:15:04" itemprop="dateModified" datetime="2019-06-29T18:15:04+08:00">2019-06-29</time>
               
             
           </span>
@@ -996,6 +996,40 @@
 <ul>
 <li>路由器连接的异构网络指的是<strong>数据链路层和物理层均不同</strong></li>
 <li>路由器连接的多个局域网要求<strong>物理层</strong>、<strong>链路层</strong>、<strong>网络层</strong>协议可以不同，而<strong>网络层以上的高层协议必须相同</strong></li>
+</ul>
+<ul>
+<li>路由选择算法<ul>
+<li>静态：管理员手工配置路由信息</li>
+<li>动态<ul>
+<li>距离 - 向量路由算法【RIP】：要求每个路由器定期与<strong>所有相邻路由器</strong>交换整个路由表，更新自己的路有表项<ul>
+<li>RIP：坏消息传得慢 / 路由收敛慢</li>
+</ul>
+</li>
+<li>链路状态路由算法【OSPF】</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>IP 分组交付方式<ul>
+<li>直接交付：（目的 IP &amp; 发送口掩码） = （源 IP &amp; 发送口掩码）【<strong>子网地址是否相同</strong>】</li>
+<li>间接交付：（目的 IP &amp; 发送口掩码） ≠ （源 IP &amp; 发送口掩码）</li>
+<li><strong>直接交付是将目的 IP 地址转换为物理地址，而间接交付则是将下一跳 IP 地址转化为物理地址（ARP协议）</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>在数据报到达具体的目的网络后，需要知道目的主机的 <strong>MAC地址</strong>【数据链路层中 MAC 地址用来标识主机或路由器】 才能被成功送达<ul>
+<li><strong>MAC地址也就是其对应的物理地址或硬件地址，二者通过 ARP 协议转换为 MAC 地址</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>IP 地址资源宝贵，由于很多用户上网时间和空间的离散性，故每次拨号上网后都会被电信分配一个随机的 IP 地址。<ul>
+<li><strong>域名和 IP 地址即可以是一对多亦可以是多对一</strong></li>
+</ul>
+</li>
 </ul>
 
       
