@@ -112,7 +112,7 @@
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1wxW7ekWE3KVjSZSy760ocXXaN.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1NHO5eoGF3KVjSZFm762qPXXa8.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1zHYsev5G3KVjSZPx762I3XXab.png">
-<meta property="og:updated_time" content="2019-06-30T04:04:30.451Z">
+<meta property="og:updated_time" content="2019-06-30T04:43:38.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络期末总结">
 <meta name="twitter:description" content="此章用于计算机网络的期末复习总结。">
@@ -392,7 +392,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-06-30 12:04:30" itemprop="dateModified" datetime="2019-06-30T12:04:30+08:00">2019-06-30</time>
+                <time title="Geändert am: 2019-06-30 12:43:38" itemprop="dateModified" datetime="2019-06-30T12:43:38+08:00">2019-06-30</time>
               
             
           </span>
@@ -1089,9 +1089,68 @@
 <li>ARP-A协议：将 MAC 地址转化为 IP 地址</li>
 <li>DNS协议：根据域名查询 IP 地址【<code>ping</code>】、根据 IP 地址查询域名【<code>nslookup</code>】</li>
 </ul>
-<p>IP 层（网络层）包函 ARP协议、 IP协议、ICMP协议和 IGMP协议，其中 ARP协议是为 IP协议服务的，而 IP协议又为 ICMP和IGMP协议服务</p>
-<p>请求分组对应广播方式，响应分组对应单播的方式</p>
-<p>当响应回应给请求方信息后，会将响应地址的 MAC 封装在数据链路层的数据帧中。之后若向响应方传递信息则从自己的 ARP 表中查到相应地址后封装在帧中直接传递</p>
+<ul>
+<li>关于 IP 层的 ARP 协议<ul>
+<li>IP 层（网络层）包函 ARP协议、 IP协议、ICMP协议和 IGMP协议，其中 ARP协议是为 IP协议服务的，而 IP协议又为 ICMP和IGMP协议服务</li>
+<li>请求分组对应广播方式，响应分组对应单播的方式</li>
+<li>当响应回应给请求方信息后，会将响应地址的 MAC 封装在数据链路层的数据帧中。之后若向响应方传递信息则从自己的 ARP 表中查到相应地址后封装在帧中直接传递</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>ICMP报文<ul>
+<li>ICMP差错报告报文<ul>
+<li>终点不可达</li>
+<li>源点抑制</li>
+<li>时间超过（<code>Traceroute</code>跟踪分组经过的路由）</li>
+<li>参数问题</li>
+<li>改变路由 / 重定向</li>
+</ul>
+</li>
+<li>ICMP询问报文<ul>
+<li>回送请求和回答报文（<code>PING</code>测试两主机间连通性）</li>
+<li>时间戳请求和回答报文</li>
+<li>掩码地址请求报文</li>
+<li>路由器询问和通告报文</li>
+</ul>
+</li>
+<li>不发送 ICMP 差错报告报文的几种情况<ul>
+<li>对 <strong>ICMP 差错报告报文</strong>不再发送 ICMP 差错报告报文</li>
+<li>对第一个分片的数据报片的<strong>所有后续数据报片</strong>都不发送 ICMP 差错报告报文</li>
+<li>对具有<strong>组播地址</strong>的数据报都不发送 ICMP 差错报告报文</li>
+<li>对具有特殊地址（如<strong>环回地址</strong>【127.0.0.1】或<strong>本网络本主机</strong>【0.0.0.0】）的数据报不发送 ICMP 差错报告报文</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>地址位数</th>
+<th>是否有校验和字段</th>
+<th>IP 报头</th>
+<th>在路由分片</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IPv4</td>
+<td>32位（4B）</td>
+<td>有</td>
+<td>20-60B 可变长度</td>
+<td>是</td>
+</tr>
+<tr>
+<td>IPv6</td>
+<td>128位（16B）</td>
+<td>无（加快路由器处理数据报速度）</td>
+<td>40B 长度固定</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
