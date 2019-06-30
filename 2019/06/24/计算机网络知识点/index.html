@@ -112,7 +112,8 @@
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1wxW7ekWE3KVjSZSy760ocXXaN.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1NHO5eoGF3KVjSZFm762qPXXa8.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1zHYsev5G3KVjSZPx762I3XXab.png">
-<meta property="og:updated_time" content="2019-06-30T04:43:38.319Z">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1oI3FeAWE3KVjSZSy760ocXXa1.png">
+<meta property="og:updated_time" content="2019-06-30T06:54:42.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络期末总结">
 <meta name="twitter:description" content="此章用于计算机网络的期末复习总结。">
@@ -201,7 +202,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -229,7 +230,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -246,7 +247,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -263,7 +264,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -280,7 +281,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -368,14 +369,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-06-24 10:45:58" itemprop="dateCreated datePublished" datetime="2019-06-24T10:45:58+08:00">2019-06-24</time>
+              <time title="Created: 2019-06-24 10:45:58" itemprop="dateCreated datePublished" datetime="2019-06-24T10:45:58+08:00">2019-06-24</time>
             
 
             
@@ -390,9 +391,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-06-30 12:43:38" itemprop="dateModified" datetime="2019-06-30T12:43:38+08:00">2019-06-30</time>
+                <time title="Modified: 2019-06-30 14:54:42" itemprop="dateModified" datetime="2019-06-30T14:54:42+08:00">2019-06-30</time>
               
             
           </span>
@@ -406,7 +407,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/期末总结系列/" itemprop="url" rel="index"><span itemprop="name">期末总结系列</span></a></span>
@@ -1003,7 +1004,7 @@
 <li>静态：管理员手工配置路由信息</li>
 <li>动态<ul>
 <li>距离 - 向量路由算法【RIP】：要求每个路由器定期与<strong>所有相邻路由器</strong>交换整个路由表，更新自己的路有表项<ul>
-<li>RIP：坏消息传得慢 / 路由收敛慢</li>
+<li>RIP：坏消息传得慢 / 路由收敛慢。互相信任彼此，将跳数增加。直至两方都增至16，才知道数据不可达</li>
 </ul>
 </li>
 <li>链路状态路由算法【OSPF】</li>
@@ -1050,6 +1051,7 @@
 </ul>
 </li>
 </ul>
+<p><img src="https://ae01.alicdn.com/kf/HTB1oI3FeAWE3KVjSZSy760ocXXa1.png" alt="IPv6数据报格式"></p>
 <ul>
 <li>解决 IP 地址耗尽<ul>
 <li>划分子网：主机号借用若干比特作为子网号，从而对原来较大规模的网络细分成几个规模较小的网络，提高了 IP 地址的利用率</li>
@@ -1151,6 +1153,11 @@
 </tr>
 </tbody>
 </table>
+<ul>
+<li>RIP 是一种分布式的基于距离向量的路由选择协议，通过广播 UDP 报文来交换路由信息</li>
+<li>OSPF 是一个内部网关协议，要交换的信息量较大，应使报文的长度尽量短，所以不适用传输层协议（UDP或TCP），而直接采用 IP</li>
+<li>BGP 是一个外部网关协议，在不同的自治系统之间交换路由信息。由于网络环境复杂，需要保证可靠传输，所以采用 TCP</li>
+</ul>
 
       
     </div>
@@ -1241,10 +1248,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -1267,7 +1274,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">91</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -1322,7 +1329,7 @@
                       
                     
                     <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -1643,7 +1650,7 @@
                       
                     
                     <span class="site-state-item-count">151</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -1739,7 +1746,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1747,7 +1754,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
