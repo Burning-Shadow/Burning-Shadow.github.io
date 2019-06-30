@@ -111,7 +111,8 @@
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1xpm4eoGF3KVjSZFo762mpFXal.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1wxW7ekWE3KVjSZSy760ocXXaN.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1NHO5eoGF3KVjSZFm762qPXXa8.png">
-<meta property="og:updated_time" content="2019-06-29T10:15:04.176Z">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1zHYsev5G3KVjSZPx762I3XXab.png">
+<meta property="og:updated_time" content="2019-06-30T04:04:30.451Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络期末总结">
 <meta name="twitter:description" content="此章用于计算机网络的期末复习总结。">
@@ -391,7 +392,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-06-29 18:15:04" itemprop="dateModified" datetime="2019-06-29T18:15:04+08:00">2019-06-29</time>
+                <time title="Geändert am: 2019-06-30 12:04:30" itemprop="dateModified" datetime="2019-06-30T12:04:30+08:00">2019-06-30</time>
               
             
           </span>
@@ -1031,6 +1032,66 @@
 </ul>
 </li>
 </ul>
+<p><img src="https://ae01.alicdn.com/kf/HTB1zHYsev5G3KVjSZPx762I3XXab.png" alt="网络类别"></p>
+<blockquote>
+<p>补充一下上图。<strong>主机号全<code>1</code>的话则代表是一个广播地址</strong>，<strong>主机号全<code>0</code>则代表本网络</strong></p>
+<p>若为<code>224</code>开头，则代表网络类型为<strong><code>D类</code></strong>，其中的地址全为<strong>组播地址</strong>。</p>
+<p>而当我们碰到诸如<code>192.168.24.59/30</code>的地址时，先将后部分的<code>59</code>化为二进制<code>00111011</code>，后边的<code>/30</code>代表<code>CIDR</code>无分类编址，所以前<code>30</code>位为<strong>网络位</strong>，而后两位为<strong>主机位</strong>。主机位为全 1，故此地址为广播地址。<strong>而主机号非全 1 则为单播地址</strong></p>
+<p>可以接收到广播分组的主机需要除去主机号全<code>0</code>和全<code>1</code>的地址</p>
+</blockquote>
+<p>把 IP 网络划分成子网，这样做可以方便我们对每个小网络问题的排查。既可以减轻我们的工作量也可以加快我们的效率</p>
+<p>划分子网时我们要看<code>CIDR</code>无分类编址后边的位数。用<code>32</code>减去”<code>/</code>“的数字即是我们的<code>子网+IP</code>。其中前面是 子网号后边是<code>IP</code>。</p>
+<p>其中子网号既不能为全<code>0</code>亦不可为全<code>1</code>，而 <strong>IP 则是2的剩余的位数的幂次方</strong>。又 IP 不能为全<code>0</code>或全<code>1</code>，所以需要在此基础上<code>-2</code> </p>
+<ul>
+<li>例题：某网络的 IP 地址空间为<code>192.168.5.0/24</code>，采用定长子网划分，子网掩码为<code>255.255.255.248</code>，则该网络中的最大子网个数、每个子网内的最大可分配地址个数分别为：<ul>
+<li>分析：<code>192.168.5.0/24</code>，网络号为前24位，则后8位为子网号 + 主机号。</li>
+<li>子网掩码为<code>255.255.255.248</code>，第四个字节<code>248</code>转为二进制：<code>11111000</code>，故前五位为子网号，后三位为  IP，故子网有32个</li>
+<li>每个子网最大可分配地址则是用<code>8 - 2 = 6</code>个主机地址</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>解决 IP 地址耗尽<ul>
+<li>划分子网：主机号借用若干比特作为子网号，从而对原来较大规模的网络细分成几个规模较小的网络，提高了 IP 地址的利用率</li>
+<li>CIDR：使用各种长度的网络前缀来代替分类地址中的网络号和子网号，将网络前缀都相同的 IP 地址组成”CIDR 地址块“</li>
+<li>NAT 网络地址转换：只要一个全球 IP 地址，就可以让多台主机同时访问因特网</li>
+<li>IPv6：从根本上扩充 IP 资源短缺问题<ul>
+<li>IPv4有 4B 的内存来进行编制</li>
+<li>IPv6 有 16B 的内存进行编制</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>一些常用的 IP 地址<ul>
+<li><code>0.0.0.0</code>：本主机在本网络上的源地址。只能作为 IP 分组的源 IP 地址但不能作为目的 IP 地址</li>
+<li></li>
+<li><code>255.255.255.255</code>：整个 TCP/IP 的广播地址，又称受限广播地址</li>
+<li><code>127.0.0.1</code>：环路自检地址，表示任意主机本身。<ul>
+<li>目的地址为环回地址的 IP 数据报永远不会出现在网络上。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>IP 数据报的准备和传递过程<ul>
+<li>传输层分片（数据长度过大强制分片）</li>
+<li>网络层封装（加上源 IP 地址和目的 IP 地址）</li>
+<li>数据链路层封装（加上源 MAC 和目的 MAC 地址）【硬件地址具有本地意义，故不同子网间进行通信时都必须<strong>重新封装源 MAC 地址和目的 MAC 地址</strong>】</li>
+<li>物理层以比特流的形式放在链路上进行传输</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>ARP 协议：<strong>将 IP 地址解析为数据链路层的 MAC 地址</strong>，及<strong>解析下一跳的地址</strong></li>
+<li>ARP-A协议：将 MAC 地址转化为 IP 地址</li>
+<li>DNS协议：根据域名查询 IP 地址【<code>ping</code>】、根据 IP 地址查询域名【<code>nslookup</code>】</li>
+</ul>
+<p>IP 层（网络层）包函 ARP协议、 IP协议、ICMP协议和 IGMP协议，其中 ARP协议是为 IP协议服务的，而 IP协议又为 ICMP和IGMP协议服务</p>
+<p>请求分组对应广播方式，响应分组对应单播的方式</p>
+<p>当响应回应给请求方信息后，会将响应地址的 MAC 封装在数据链路层的数据帧中。之后若向响应方传递信息则从自己的 ARP 表中查到相应地址后封装在帧中直接传递</p>
 
       
     </div>
