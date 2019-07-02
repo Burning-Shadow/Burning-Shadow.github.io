@@ -113,7 +113,7 @@
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1NHO5eoGF3KVjSZFm762qPXXa8.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1zHYsev5G3KVjSZPx762I3XXab.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1oI3FeAWE3KVjSZSy760ocXXa1.png">
-<meta property="og:updated_time" content="2019-06-30T06:54:42.418Z">
+<meta property="og:updated_time" content="2019-07-02T14:12:49.008Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络期末总结">
 <meta name="twitter:description" content="此章用于计算机网络的期末复习总结。">
@@ -393,7 +393,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-30 14:54:42" itemprop="dateModified" datetime="2019-06-30T14:54:42+08:00">2019-06-30</time>
+                <time title="Modified: 2019-07-02 22:12:49" itemprop="dateModified" datetime="2019-07-02T22:12:49+08:00">2019-07-02</time>
               
             
           </span>
@@ -542,27 +542,49 @@
 </tbody>
 </table>
 <ul>
-<li><p>服务、接口、协议是计算机网络中 OSI 参考模型的三个主要概念</p>
-<ul>
+<li>服务、接口、协议是计算机网络中 OSI 参考模型的三个主要概念<ul>
 <li>协议包函三个方面：语法（传输数据的格式）、语义（所要完成的功能）、同步 （执行各种操作的条件、时序关系）</li>
 <li><strong>协议是水平的，是控制两个对等实体进行痛惜的规则</strong>，即是控制两个对等实体进行通信的规则的集合。在协议的控制下，两个对等实体间的通信使得本层能够向上一层提供服务，而要实现本层协议，还需要使用下一层提供的服务。</li>
 <li><strong>服务是垂直的，是由下层通过层间接口向上层提供的</strong></li>
 </ul>
 </li>
-<li><p>上下邻层实体之间的接口称为服务访问点。各层服务访问点对应关系如下<br>| 层级       | 访问点   |<br>| ———- | ——– |<br>| 应用层     | 用户界面 |<br>| 传输层     | 端口号   |<br>| 网络层     | IP 地址  |<br>| 数据链路层 | MAC 地址 |<br>| 物理层     | 网卡接口 |</p>
-</li>
+<li>上下邻层实体之间的接口称为服务访问点。各层服务访问点对应关系如下</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>访问点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用层</td>
+<td>用户界面</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>端口号</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>IP 地址</td>
+</tr>
+<tr>
+<td>数据链路层</td>
+<td>MAC 地址</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td>网卡接口</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
-<ul>
-<li>发送时延 / 传输时延：将分组的所有比特推向链路的时间<ul>
-<li>发送时延（传输时延） = 分组长度 / 信道宽度（带宽）</li>
-</ul>
-</li>
-<li>传播时延：一个比特从链路一端到另一端传播的时间<ul>
-<li>传播时延 = 信道长度 / 电磁波在信道上的传播速率</li>
-</ul>
-</li>
-</ul>
+<p>发送时延 / 传输时延：将分组的所有比特推向链路的时间</p>
+<p>发送时延（传输时延） = 分组长度 / 信道宽度（带宽）</p>
+<p>传播时延：一个比特从链路一端到另一端传播的时间</p>
+<p>传播时延 = 信道长度 / 电磁波在信道上的传播速率</p>
 </blockquote>
 <ul>
 <li>网络体系结构：计算机网络的各层及其协议的集合</li>
