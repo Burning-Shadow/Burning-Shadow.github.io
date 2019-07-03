@@ -113,7 +113,8 @@
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1NHO5eoGF3KVjSZFm762qPXXa8.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1zHYsev5G3KVjSZPx762I3XXab.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1oI3FeAWE3KVjSZSy760ocXXa1.png">
-<meta property="og:updated_time" content="2019-07-02T14:12:49.008Z">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1TfXve79E3KVjSZFG76319XXaT.png">
+<meta property="og:updated_time" content="2019-07-03T02:35:46.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络期末总结">
 <meta name="twitter:description" content="此章用于计算机网络的期末复习总结。">
@@ -202,7 +203,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -230,7 +231,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -247,7 +248,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -264,7 +265,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -281,7 +282,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -369,14 +370,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-06-24 10:45:58" itemprop="dateCreated datePublished" datetime="2019-06-24T10:45:58+08:00">2019-06-24</time>
+              <time title="Erstellt: 2019-06-24 10:45:58" itemprop="dateCreated datePublished" datetime="2019-06-24T10:45:58+08:00">2019-06-24</time>
             
 
             
@@ -391,9 +392,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Modified: 2019-07-02 22:12:49" itemprop="dateModified" datetime="2019-07-02T22:12:49+08:00">2019-07-02</time>
+                <time title="Geändert am: 2019-07-03 10:35:46" itemprop="dateModified" datetime="2019-07-03T10:35:46+08:00">2019-07-03</time>
               
             
           </span>
@@ -407,7 +408,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/期末总结系列/" itemprop="url" rel="index"><span itemprop="name">期末总结系列</span></a></span>
@@ -1074,6 +1075,7 @@
 </li>
 </ul>
 <p><img src="https://ae01.alicdn.com/kf/HTB1oI3FeAWE3KVjSZSy760ocXXa1.png" alt="IPv6数据报格式"></p>
+<p><img src="https://ae01.alicdn.com/kf/HTB1TfXve79E3KVjSZFG76319XXaT.png" alt="ipv6首部"></p>
 <ul>
 <li>解决 IP 地址耗尽<ul>
 <li>划分子网：主机号借用若干比特作为子网号，从而对原来较大规模的网络细分成几个规模较小的网络，提高了 IP 地址的利用率</li>
@@ -1086,6 +1088,27 @@
 </li>
 </ul>
 </li>
+</ul>
+<blockquote>
+<ul>
+<li><code>IPv6</code>和<code>IPv4</code>的区别<ul>
+<li>地址空间变大——4B ➡16B</li>
+<li>IPv6 将 IPv4 的<strong>校验和字段彻底移除</strong>，以减少每跳的处理时间</li>
+<li>IPv6 将 IPv4 的可选字段移出首部，变成了<strong>扩展首部</strong>，成为灵活的首部格式。路由器通常不对扩展首部进行检查，大大提高了路由器的处理效率</li>
+<li>IPv6 支持即插即用（自动配置），不需要 DHCP 协议</li>
+<li>IPv6 首部长度必须是 <strong>8B 的整数倍</strong>。IPv4 首部是 <strong>4B 的整数倍</strong></li>
+<li>IPv6 <strong>只能在主机处分片</strong>，IPv4 可以在路由器和主机处分片</li>
+<li>ICMPv6：差错检测协议添加报文类型“分组过大”</li>
+<li>IPv6 支持资源的预分配，支持实时视像等要求，保证一定的带宽和时延的应用</li>
+<li>IPv6 取消了协议字段，改成下一个首部字段</li>
+<li>IPv6 取消了总长度字段，改用有效载荷长度字段</li>
+<li>IPv6 取消了服务类型字段</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>IPv4 表示形式为<strong>点分十进制</strong>，而 IPv6 则用<strong>冒号十六进制</strong>表示</li>
 </ul>
 <ul>
 <li>一些常用的 IP 地址<ul>
@@ -1270,10 +1293,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -1296,7 +1319,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">91</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -1351,7 +1374,7 @@
                       
                     
                     <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">categories</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -1672,7 +1695,7 @@
                       
                     
                     <span class="site-state-item-count">151</span>
-                    <span class="site-state-item-name">tags</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -1768,7 +1791,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1776,7 +1799,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
