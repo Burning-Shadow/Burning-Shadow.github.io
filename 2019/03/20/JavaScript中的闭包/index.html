@@ -108,7 +108,7 @@
 <meta property="og:image" content="https://pic.superbed.cn/item/5c93bb153a213b0417da2fee">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c93bb4f3a213b0417da3195">
 <meta property="og:image" content="https://ww1.sinaimg.cn/large/007i4MEmgy1g1avrg3n5gj30kq0kqq3j.jpg">
-<meta property="og:updated_time" content="2019-04-15T16:02:26.242Z">
+<meta property="og:updated_time" content="2019-07-03T16:26:24.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的闭包">
 <meta name="twitter:description" content="其实这个专题之前就写过一些东西，不过当时属实是个小老弟，非常生涩而且里边的东西都是复制粘贴来的。想表达的东西很多但是都没有表达清楚。所以面临面试的我打算重新总结一番，当作一个回顾吧">
@@ -197,7 +197,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -225,7 +225,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -242,7 +242,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -259,7 +259,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -276,7 +276,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -364,14 +364,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-20 11:26:59" itemprop="dateCreated datePublished" datetime="2019-03-20T11:26:59+08:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 11:26:59" itemprop="dateCreated datePublished" datetime="2019-03-20T11:26:59+08:00">2019-03-20</time>
             
 
             
@@ -386,9 +386,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-04-16 00:02:26" itemprop="dateModified" datetime="2019-04-16T00:02:26+08:00">2019-04-16</time>
+                <time title="Modified: 2019-07-04 00:26:24" itemprop="dateModified" datetime="2019-07-04T00:26:24+08:00">2019-07-04</time>
               
             
           </span>
@@ -402,7 +402,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -462,7 +462,7 @@
 <p>《你所不知道的JavaScript》：当函数可以<strong>记住</strong>并<strong>访问</strong>所在的词法作用域时，就产生了闭包——即使函数是在当前词法作用域之外执行</p>
 </blockquote>
 <p>从我个人理解上来看《你所不知道的JavaScript》一书给出的定义最适合我们理解。因此我们着重以其思路进行判断</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(a)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> bar</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> baz = foo()</span><br><span class="line"></span><br><span class="line">baz()		<span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">  &#125;</span><br><span class="line">    </span><br><span class="line">  <span class="keyword">return</span> bar</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> baz = foo()</span><br><span class="line"></span><br><span class="line">baz()		<span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
 <p>如图，<code>foo</code>执行后将<code>bar</code>作为返回赋给了<code>baz</code>，使得<code>bar</code>得以在自己定义的语法作用域之外的地方执行。</p>
 <p>这并不是最神奇的地方。我们之前提到了<code>js</code>的垃圾回收机制，当调用结束后会自动回收内存。但是闭包会阻止这一过程的进行。此例中按理说<code>foo</code>不会再使用，<strong>但是给<code>baz</code>赋值时，引擎通过<code>RHS</code>查找的会查找<code>foo</code>的地址，此过程就阻止了<code>foo</code>的回收。</strong>归根到底还是由于<code>bar</code>本身的调用使得<code>foo</code>的内部作用域仍在被引用，此引用就叫闭包</p>
 <blockquote>
@@ -588,10 +588,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -614,7 +614,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">91</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -669,7 +669,7 @@
                       
                     
                     <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -990,7 +990,7 @@
                       
                     
                     <span class="site-state-item-count">151</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -1086,7 +1086,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1094,7 +1094,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
