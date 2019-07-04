@@ -107,7 +107,8 @@
 <meta property="og:description" content="在公司中git是每个程序员都需要掌握的技能，今天就在此将一些常用的命令做一个总结以备日后所需">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1y4iRe.KF3KVjSZFE760ExFXaq.png">
-<meta property="og:updated_time" content="2019-07-03T16:43:28.528Z">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1Qq6keW1s3KVjSZFAq6x_ZXXaL.jpg">
+<meta property="og:updated_time" content="2019-07-04T08:38:22.213Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git常用操作">
 <meta name="twitter:description" content="在公司中git是每个程序员都需要掌握的技能，今天就在此将一些常用的命令做一个总结以备日后所需">
@@ -196,7 +197,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -224,7 +225,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -241,7 +242,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -258,7 +259,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -275,7 +276,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -363,14 +364,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-07-04 00:30:15 / Geändert am: 00:43:28" itemprop="dateCreated datePublished" datetime="2019-07-04T00:30:15+08:00">2019-07-04</time>
+              <time title="Created: 2019-07-04 00:30:15 / Modified: 16:38:22" itemprop="dateCreated datePublished" datetime="2019-07-04T00:30:15+08:00">2019-07-04</time>
             
 
             
@@ -389,7 +390,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a></span>
@@ -429,6 +430,15 @@
       
         <p>在公司中<code>git</code>是每个程序员都需要掌握的技能，今天就在此将一些常用的命令做一个总结以备日后所需</p>
 <a id="more"></a>
+<h3 id="常用操作合集"><a href="#常用操作合集" class="headerlink" title="常用操作合集"></a>常用操作合集</h3><h4 id="日常操作"><a href="#日常操作" class="headerlink" title="日常操作"></a>日常操作</h4><p><code>$ git st(status)</code>   # → 查看当前分支工作区、暂存区的工作状态</p>
+<p><code>$ git diff</code>    # → diff文件的修改（⚠️很重要很重要很重要） </p>
+<p><code>$ git ci(commit)</code>     # → 提交本次修改</p>
+<p><code>$ git fetch --all</code>    # → 拉取所有远端的最新代码 </p>
+<p><code>$ git merge origin/develop</code>    # → 如果是多人协作，merge同事的修改到当前分支（先人后己原则）</p>
+<p><code>$ git merge origin/master</code>    # → 上线之前保证当前分支不落后于远端origin/master，一定要merge远端origin/master到当前分支 </p>
+<p><code>$ git push</code>    # → 推送当前分支到远端仓库 </p>
+<h4 id="权限操作"><a href="#权限操作" class="headerlink" title="权限操作"></a>权限操作</h4><p><strong>创建开发分支<code>develop</code></strong>：<code>$ git co(checkout) -b develop</code></p>
+<p><strong>合并分支</strong>：<code>$ git merge --no-ff origin/develop</code>    # → 同事<code>review code</code>之后管理员合并<code>origin/develop</code>到远端主干<code>origin/master</code></p>
 <h3 id="冲突合并"><a href="#冲突合并" class="headerlink" title="冲突合并"></a>冲突合并</h3><p>项目中由于大家都是独立开发，完成后再将自己负责的部分推到线上。而某些时候，比如你和另外的老哥同时更改了同一个文件，此时后拉下来代码的人就需要将分支进行合并咯~（所以勤推代码是好事儿）</p>
 <h4 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h4><p>在 Git 中，“合并（merging）” 是在形式上整合别的分支到你当前的工作分支的操作。你需要得到在另外一个上下文背景下的改动（这就也就是我们所提到过的，一个有效的分支应该是建立在一个上下文工作背景上的），并且合并它们到你的当前的工作文件中来。</p>
 <p>（这段是我粘贴来的，我自己也没搞懂，就是吓唬你们一下</p>
@@ -443,6 +453,18 @@
 <p>当改动发生在同一个文件的同一行上，我们就需要看看发生冲突的文件的内容</p>
 <p>Git 会将文件中有问题的区域在“<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code>” 和 “<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; [other/branch/name]</code>” 之间标记出来。</p>
 <p><img src="https://ae01.alicdn.com/kf/HTB1y4iRe.KF3KVjSZFE760ExFXaq.png" alt="问题区域"></p>
+<h5 id="强大的编辑器"><a href="#强大的编辑器" class="headerlink" title="强大的编辑器"></a>强大的编辑器</h5><p>如果使用编辑器（<code>idle</code>、<code>vscode</code>等）会有默认的自动提示，我们只需要在对应区域选择 “保留原版代码 / 保留现有代码 / 保留双方代码”即可。（如果有冲突则保留双方代码无法直接使用），但是命令行的话就需要我们手动来做更改了。</p>
+<h5 id="命令行方式"><a href="#命令行方式" class="headerlink" title="命令行方式"></a>命令行方式</h5><p>我们经常通过<code>git status</code>来查看在本地副本（working copy）有哪些文件被改动了，而若想清楚的了解这些改动的细节，就需使用<code>git diff</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$ git diff</span><br><span class="line">diff --git a/about.html b/about.html</span><br><span class="line">index d09ab79..0c20c33 100644</span><br><span class="line">--- a/about.html</span><br><span class="line">+++ b/about.html</span><br><span class="line">@@ -19,7 +19,7 @@</span><br><span class="line">   &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">   &lt;div id=&quot;headerContainer&quot;&gt;</span><br><span class="line">-    &lt;h1&gt;About&amp;lt/h1&gt;</span><br><span class="line">+    &lt;h1&gt;About This Project&amp;lt/h1&gt;</span><br><span class="line">   &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">   &lt;div id=&quot;contentContainer&quot;&gt;</span><br><span class="line">diff --git a/imprint.html b/imprint.html</span><br><span class="line">index 1932d95..d34d56a 100644</span><br><span class="line">--- a/imprint.html</span><br><span class="line">+++ b/imprint.html</span><br><span class="line">@@ -19,7 +19,7 @@</span><br><span class="line">   &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">   &lt;div id=&quot;headerContainer&quot;&gt;</span><br><span class="line">-    &lt;h1&gt;Imprint&amp;lt/h1&gt;</span><br><span class="line">+    &lt;h1&gt;Imprint / Disclaimer&amp;lt/h1&gt;</span><br><span class="line">   &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">   &lt;div id=&quot;contentContainer&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://ae01.alicdn.com/kf/HTB1Qq6keW1s3KVjSZFAq6x_ZXXaL.jpg" alt="读懂git文件"></p>
+<ul>
+<li>元数据（<code>Metadata</code>）：最开始的两串数字表示两个文件的 hashes（简单点说就是它们的 “ID”）。这个 hash ID 就代表了一个文件对象的特定版本。最后的一串数字代表了一个文件的模式（100644 代表它是一个普通的文件，100755 表示一个可执行文件，120000 仅仅是一符号链接）。<strong>开发中版本发布时最好带上文件的元数据，这样方便查找和版本回退。</strong></li>
+<li>标记（a/b）：继续向下观察这些输出信息，A 与 B 的真正差别会被显示在这里。新增部分（新版本）会使用”+”表示，而老版本则是”-“</li>
+</ul>
+<p>若不带参数则<code>git diff</code>会为我们给所有<strong>在本地副本中且未被打包（<code>unstaged</code>）的变化</strong>作比较并展示</p>
+<p>而若仅仅想看那些已经被打包的改动结果则可以使用<code>git diff --staged</code></p>
+<p>进入编辑器中手动合并完成后，你必须手动的将这些文件标记为已解决（<code>git add &lt;filename&gt;</code>）最后记得提交</p>
+<h5 id="撤销合并"><a href="#撤销合并" class="headerlink" title="撤销合并"></a>撤销合并</h5><p>错了咱也有办法回退。使用<code>git merge --abort</code>可以撤销你此步的合并。而<code>git reset --hard</code>则可以回滚到合并开始前的状态</p>
 
       
     </div>
@@ -535,10 +557,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -561,7 +583,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">92</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -616,7 +638,7 @@
                       
                     
                     <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -941,7 +963,7 @@
                       
                     
                     <span class="site-state-item-count">153</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -1004,7 +1026,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#冲突合并"><span class="nav-number">1.</span> <span class="nav-text">冲突合并</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#是什么"><span class="nav-number">1.1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#咋整"><span class="nav-number">1.2.</span> <span class="nav-text">咋整</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用操作合集"><span class="nav-number">1.</span> <span class="nav-text">常用操作合集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#日常操作"><span class="nav-number">1.1.</span> <span class="nav-text">日常操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权限操作"><span class="nav-number">1.2.</span> <span class="nav-text">权限操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冲突合并"><span class="nav-number">2.</span> <span class="nav-text">冲突合并</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#是什么"><span class="nav-number">2.1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#咋整"><span class="nav-number">2.2.</span> <span class="nav-text">咋整</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#强大的编辑器"><span class="nav-number">2.2.1.</span> <span class="nav-text">强大的编辑器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令行方式"><span class="nav-number">2.2.2.</span> <span class="nav-text">命令行方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#撤销合并"><span class="nav-number">2.2.3.</span> <span class="nav-text">撤销合并</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1037,7 +1059,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1045,7 +1067,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
