@@ -98,18 +98,18 @@
 
 
 
-  <meta name="description" content="本篇博客仅用于给自己当作一个API文档，已被随时查询">
+  <meta name="description" content="本篇博客仅用于给自己当作一个API文档，已被随时查询 之前的版本整体思路比较乱，因为学习reactJS的原因所以重新整理了一下【因为reactJS强调尽可能不更改原始数据】。 话不多说我们开始吧。">
 <meta name="keywords" content="JavaScript,Array">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Array类型中的操作方法">
 <meta property="og:url" content="http://yoursite.com/2019/03/27/Array类型中的操作方法/index.html">
 <meta property="og:site_name" content="Siir">
-<meta property="og:description" content="本篇博客仅用于给自己当作一个API文档，已被随时查询">
+<meta property="og:description" content="本篇博客仅用于给自己当作一个API文档，已被随时查询 之前的版本整体思路比较乱，因为学习reactJS的原因所以重新整理了一下【因为reactJS强调尽可能不更改原始数据】。 话不多说我们开始吧。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-31T14:48:29.277Z">
+<meta property="og:updated_time" content="2019-07-05T09:57:29.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Array类型中的操作方法">
-<meta name="twitter:description" content="本篇博客仅用于给自己当作一个API文档，已被随时查询">
+<meta name="twitter:description" content="本篇博客仅用于给自己当作一个API文档，已被随时查询 之前的版本整体思路比较乱，因为学习reactJS的原因所以重新整理了一下【因为reactJS强调尽可能不更改原始数据】。 话不多说我们开始吧。">
 
 
 
@@ -385,7 +385,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-31 22:48:29" itemprop="dateModified" datetime="2019-03-31T22:48:29+08:00">2019-03-31</time>
+                <time title="Modified: 2019-07-05 17:57:29" itemprop="dateModified" datetime="2019-07-05T17:57:29+08:00">2019-07-05</time>
               
             
           </span>
@@ -438,8 +438,69 @@
 
       
         <p>本篇博客仅用于给自己当作一个API文档，已被随时查询</p>
+<p>之前的版本整体思路比较乱，因为学习<code>reactJS</code>的原因所以重新整理了一下【因为<code>reactJS</code>强调尽可能不更改原始数据】。</p>
+<p>话不多说我们开始吧。</p>
 <a id="more"></a>
-<h3 id="检测数组"><a href="#检测数组" class="headerlink" title="检测数组"></a>检测数组</h3><ul>
+<p>上面我们提到<code>reactJS</code>需要保留原始数据，以保留原始记录为后续的操作提供根源。所以我们为此将数组中的方法分为两大类：<strong>改变自身的方法</strong> &amp; <strong>不改变自身的方法</strong></p>
+<h2 id="按操作前后是否改变区分"><a href="#按操作前后是否改变区分" class="headerlink" title="按操作前后是否改变区分"></a>按操作前后是否改变区分</h2><h3 id="改变自身的方法"><a href="#改变自身的方法" class="headerlink" title="改变自身的方法"></a>改变自身的方法</h3><ul>
+<li><p><code>array.copyWithin（target, start [, end = this.length]）</code>【有兼容性问题】<br>用于在数组内的替换操作，即替换元素和被替换元素都是数组内的元素<br>参数皆为整数，允许start，end为负数（倒数第n个）</p>
+</li>
+<li><p><code>array.fill(value [,statrt = 0[, end = this.length]])</code><br>将数组中指定区间的所有元素的值，都替换成value<br>start，end允许为负值，同上</p>
+</li>
+<li><p><code>array.pop()</code><br>删除一个数组中的最后一个元素，并且返回这个元素</p>
+</li>
+<li><p><code>array.push(element1, ...elementN)</code><br>添加一个或多个元素到数组的末尾，并返回数组新的长度</p>
+</li>
+<li><p><code>array.reverse()</code><br>前后颠倒数组中元素的位置，第一个元素会成为最后一个</p>
+</li>
+<li><p><code>array.shift()</code><br>删除数组的第一个元素，并返回这个元素</p>
+</li>
+<li><p><code>array.unshift(element1, ...elementN)</code><br>在数组的开头插入一个或多个元素，并返回数组的新长度</p>
+</li>
+<li><p><code>array.sort([function(a, b)])</code><br>对数组的元素做原地的排序，并返回这个数组。sort可能<em>不稳定</em>，默认按照字符串的<code>unicode</code>码位点排序</p>
+<p>记a和b是两个将要被比较的元素：</p>
+<ul>
+<li>如果函数<code>function(a, b)</code>返回值小于0， 则a会排在b之前</li>
+<li>如何函数返回值等于0， 则a和b的相对位置不变（并不被保证）</li>
+<li>如果函数返回值大于0，则a会排在b之后</li>
+<li>比较函数输出结果必须稳定，否则排序的结果将是不确定的</li>
+</ul>
+</li>
+<li><p><code>array.splice(start, deleteCount[, item1[, item2...])</code><br>在任意的位置给数组添加或删除任意个元素（拼接），返回被删除的元素组成的数组，没有则返回空数组</p>
+<ul>
+<li><code>start</code>：开始操作的索引</li>
+<li><code>deleteCount</code>：要移除的数组元素的个数</li>
+<li><code>itemN</code>：要添加进数组的元素，如果不指定，则<code>splice</code>只删除数组元素</li>
+</ul>
+</li>
+</ul>
+<h3 id="不改变自身的方法"><a href="#不改变自身的方法" class="headerlink" title="不改变自身的方法"></a>不改变自身的方法</h3><ul>
+<li><code>array.concat(value1, value2.....)</code><br>将传入的数组或非数组值与原数组合并，组成一个新的数组并返回</li>
+<li><code>array.includes(searchElement, [, fromIndex])</code>[实验性质，es7，可能会改变或删除]<br>用来判断当前数组是否包含某指定的值，如果是，则返回<code>true</code>，否则<code>false</code></li>
+<li><code>array.join([separator = &#39;,&#39;])</code><br>将数组中的所有元素连接成一个字符串(默认用逗号作为分隔符，如果separator是一个空字符串，那么数组中的所有元素将被直接连接)<br>如果元素是undefined或者null，则会转化成空字符串</li>
+<li><code>array.slice([begin = 0 [, end = this.length - 1]])</code><br>把数组中一部分的浅复制（<code>shallow copy</code>）存入一个新的数组对象中，并返回这个新的数组</li>
+<li><code>array.toLocaleString()</code><br>返回一个字符串表示数组中的元素。数组中的元素将使用各自的<code>toLocaleString</code>方法转化成字符串，这些字符串将使用一个特定语言环境的字符串（例如逗号）隔开</li>
+<li><code>array.indexOf(searchElement[, fromIndex = 0])</code><br>返回指定元素能在数组中找到的第一个索引值，否则返回-1<br><code>fromIndex</code>可以为负，表示从倒数第n个开始（<strong>此时仍然从前向后查询数组</strong>）<br>使用“严格相等”（===）进行匹配</li>
+<li><code>array.lastIndexOf(searchElement[, fromIndex = arr.length - 1])</code><br>返回指定元素在数组中的最后一个的索引，如果不存在则返回-1， <strong>从数组的后面向前查找</strong></li>
+</ul>
+<h2 id="遍历方法"><a href="#遍历方法" class="headerlink" title="遍历方法"></a>遍历方法</h2><ul>
+<li><code>array.forEach((val, index, arr) =&gt; {})</code><br>让数组的每一项都执行一次给定的函数<br>v表示当前项的值，i表示当前索引，a表示数组本身<br><em><code>forEach</code>遍历的范围在第一次调用 callback前就会确定。调用<code>forEach</code>后添加到数组中的项不会被 <code>callback</code>访问到。如果已经存在的值被改变，则传递给 <code>callback</code>的值是<code>forEach</code>遍历到他们那一刻的值。已删除的项不会被遍历到。</em></li>
+<li><code>array.entries()</code><br>返回一个Array Iterator对象，该对象包含数组中每一个索引的键值对</li>
+<li><code>array.every(callback(val, index, arr){})</code><br><code>callback</code>只会为那些已经被赋值的索引调用，不会为那些被删除或从来没有被赋值的索引调用（返回的是一个<code>bollean</code>值）</li>
+<li><code>array.some()</code>：对每个元素的callback函数结果作逻辑“||”操作</li>
+<li><code>array.filter((val, index, arr) =&gt; {})</code><br>使用指定的函数测试所有元素，并创建一个包含所有测试通过的元素的新数组<br>callback函数返回一个布尔值，true即通过测试<br>callback只会在已经赋值的索引上被调用，对于那些已经被删除或者从未被赋值的索引不会被调用<br><em>不会改变原数组</em></li>
+<li><code>array.find((val, index, arr) =&gt;{})</code>【有兼容性问题目前】<br>返回数组中满足测试条件的<strong>第一个元素</strong>，如果没有满足条件的元素，则返回undefined</li>
+<li><code>array.keys()</code><br>返回一个数组索引的迭代器（类似于<code>array.entries()</code>方法）</li>
+<li><code>array.map((val, index, arr) =&gt; {})</code><br>返回一个由原数组中的每个元素调用一个指定方法后的返回值组成的新数组<br>map 不修改调用它的原数组本身（当然可以在 callback 执行时改变原数组）</li>
+<li><code>array.reduce(callback[, initialValue])</code><br>该方法接收一个函数作为累加器（<code>accumulator</code>），数组中的每个值（从左到右）开始合并，最终为一个值<ul>
+<li><code>previousValue</code>:上一次调用回调返回的值，或者是提供的初始值（<code>initialValue</code>）</li>
+<li><code>currentValue</code>: 数组中当前被处理的元素</li>
+<li><code>index</code>： index</li>
+<li><code>array</code>： 调用的数组</li>
+</ul>
+</li>
+</ul>
+<h2 id="按功能区分"><a href="#按功能区分" class="headerlink" title="按功能区分"></a>按功能区分</h2><h3 id="检测数组"><a href="#检测数组" class="headerlink" title="检测数组"></a>检测数组</h3><ul>
 <li><code>Array.isArray(obj)</code>：确定<code>obj</code>是否为数组</li>
 <li><code>Object.prototype.toString.call(obj)</code></li>
 </ul>
@@ -516,7 +577,7 @@
 <h3 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h3><h4 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="string">'a'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'d'</span>, <span class="string">'e'</span>, <span class="string">'e'</span>, <span class="number">1</span>, <span class="number">0</span>]</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; arr.length; j++)&#123;</span><br><span class="line">      <span class="keyword">if</span>(arr[i] === arr[j]) arr.splice(j,<span class="number">1</span>);<span class="comment">//如果前一个值与后一个值相等，那么就去掉后一个值，splice()可以修改原数组</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
 <h4 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">50</span>, <span class="number">50</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">2</span>];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> arr.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item,index,array</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> array.indexOf(item) === index; </span><br><span class="line">    <span class="comment">//或者这样写return array.indexOf(item, index+1) === -1; 如果没有重复项，返回true</span></span><br><span class="line">    <span class="comment">//用filter方法，返回ietm对应的indexOf索引值与本身index索引值相等的值，也就是去掉重复的值，filter本身不修改数组，只是会自动遍历数组，去掉重复值后，那么arr就剩下不重复的了</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line">test();<span class="comment">//输出Array [ 1, 4, 50, 6, 2 ]</span></span><br></pre></td></tr></table></figure>
 <h4 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">50</span>, <span class="number">50</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">2</span>];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(arr));</span><br><span class="line">&#125;</span><br><span class="line">unique(arr);</span><br></pre></td></tr></table></figure>
-<h3 id="数组降维"><a href="#数组降维" class="headerlink" title="数组降维"></a>数组降维</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [[<span class="number">1</span>],[<span class="number">9</span>, [<span class="number">6</span>, <span class="number">8</span>, [<span class="number">5</span>, [<span class="number">10</span>]]]]]</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatterMap</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(arr[i])) &#123;</span><br><span class="line">            <span class="keyword">let</span> tempArr = arr[i]</span><br><span class="line">            arr.splice(i, <span class="number">1</span>, ...tempArr)</span><br><span class="line">            i--</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> 	<span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">flatterMap(arr)  <span class="comment">//[1,9,6,8,5,10]</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组降维"><a href="#数组降维" class="headerlink" title="数组降维"></a>数组降维</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [[<span class="number">1</span>],[<span class="number">9</span>, [<span class="number">6</span>, <span class="number">8</span>, [<span class="number">5</span>, [<span class="number">10</span>]]]]]</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatterMap</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(arr[i])) &#123;</span><br><span class="line">            <span class="keyword">let</span> tempArr = arr[i]</span><br><span class="line">            arr.splice(i, <span class="number">1</span>, ...tempArr)</span><br><span class="line">            i--</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> 	<span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">flatterMap(arr)  <span class="comment">//[1,9,6,8,5,10]</span></span><br></pre></td></tr></table></figure>
 <p>摒弃了递归的做法，带来了性能上极大的提升。</p>
 
       
@@ -1083,7 +1144,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#检测数组"><span class="nav-number">1.</span> <span class="nav-text">检测数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换方法"><span class="nav-number">2.</span> <span class="nav-text">转换方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈-amp-队列"><span class="nav-number">3.</span> <span class="nav-text">栈 &amp; 队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重排序方法"><span class="nav-number">4.</span> <span class="nav-text">重排序方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作方法"><span class="nav-number">5.</span> <span class="nav-text">操作方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代方法"><span class="nav-number">6.</span> <span class="nav-text">迭代方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归并方法"><span class="nav-number">7.</span> <span class="nav-text">归并方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组排序"><span class="nav-number">8.</span> <span class="nav-text">数组排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#冒泡排序"><span class="nav-number">8.1.</span> <span class="nav-text">冒泡排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort"><span class="nav-number">8.2.</span> <span class="nav-text">sort()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组去重"><span class="nav-number">9.</span> <span class="nav-text">数组去重</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法1"><span class="nav-number">9.1.</span> <span class="nav-text">方法1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法2"><span class="nav-number">9.2.</span> <span class="nav-text">方法2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6"><span class="nav-number">9.3.</span> <span class="nav-text">ES6</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组降维"><span class="nav-number">10.</span> <span class="nav-text">数组降维</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#按操作前后是否改变区分"><span class="nav-number">1.</span> <span class="nav-text">按操作前后是否改变区分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变自身的方法"><span class="nav-number">1.1.</span> <span class="nav-text">改变自身的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不改变自身的方法"><span class="nav-number">1.2.</span> <span class="nav-text">不改变自身的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历方法"><span class="nav-number">2.</span> <span class="nav-text">遍历方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按功能区分"><span class="nav-number">3.</span> <span class="nav-text">按功能区分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检测数组"><span class="nav-number">3.1.</span> <span class="nav-text">检测数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换方法"><span class="nav-number">3.2.</span> <span class="nav-text">转换方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈-amp-队列"><span class="nav-number">3.3.</span> <span class="nav-text">栈 &amp; 队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重排序方法"><span class="nav-number">3.4.</span> <span class="nav-text">重排序方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作方法"><span class="nav-number">3.5.</span> <span class="nav-text">操作方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代方法"><span class="nav-number">3.6.</span> <span class="nav-text">迭代方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归并方法"><span class="nav-number">3.7.</span> <span class="nav-text">归并方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组排序"><span class="nav-number">3.8.</span> <span class="nav-text">数组排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#冒泡排序"><span class="nav-number">3.8.1.</span> <span class="nav-text">冒泡排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort"><span class="nav-number">3.8.2.</span> <span class="nav-text">sort()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组去重"><span class="nav-number">3.9.</span> <span class="nav-text">数组去重</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法1"><span class="nav-number">3.9.1.</span> <span class="nav-text">方法1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法2"><span class="nav-number">3.9.2.</span> <span class="nav-text">方法2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6"><span class="nav-number">3.9.3.</span> <span class="nav-text">ES6</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组降维"><span class="nav-number">4.</span> <span class="nav-text">数组降维</span></a></li></ol></div>
             
 
           </div>
