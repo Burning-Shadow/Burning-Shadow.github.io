@@ -101,14 +101,14 @@
   <meta name="description" content="由于最近在看reactJS，其中的数据为单向传输，有点类似于阉割版的vue，所以特地总结一下免得面试的时候搞混了，同时试着找找二者的可借鉴之处">
 <meta name="keywords" content="props,context,events">
 <meta property="og:type" content="article">
-<meta property="og:title" content="reactJS 中的组件间传输">
-<meta property="og:url" content="http://yoursite.com/2019/07/06/reactJS-中的组件间传输/index.html">
+<meta property="og:title" content="reactJS中的组件间通信">
+<meta property="og:url" content="http://yoursite.com/2019/07/06/reactJS-中的组件间通信/index.html">
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="由于最近在看reactJS，其中的数据为单向传输，有点类似于阉割版的vue，所以特地总结一下免得面试的时候搞混了，同时试着找找二者的可借鉴之处">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-06T05:04:07.170Z">
+<meta property="og:updated_time" content="2019-07-06T17:56:28.593Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="reactJS 中的组件间传输">
+<meta name="twitter:title" content="reactJS中的组件间通信">
 <meta name="twitter:description" content="由于最近在看reactJS，其中的数据为单向传输，有点类似于阉割版的vue，所以特地总结一下免得面试的时候搞混了，同时试着找找二者的可借鉴之处">
 
 
@@ -116,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/06/reactJS-中的组件间传输/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/06/reactJS-中的组件间通信/">
 
 
 
@@ -126,7 +126,7 @@
   };
 </script>
 
-  <title>reactJS 中的组件间传输 | Siir</title>
+  <title>reactJS中的组件间通信 | Siir</title>
   
 
 
@@ -194,7 +194,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -222,7 +222,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -239,7 +239,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -256,7 +256,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -273,7 +273,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -325,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/06/reactJS-中的组件间传输/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/06/reactJS-中的组件间通信/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siir">
@@ -342,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">reactJS 中的组件间传输
+          <h1 class="post-title" itemprop="name headline">reactJS中的组件间通信
 
               
             
@@ -361,16 +361,32 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-07-06 13:04:07" itemprop="dateCreated datePublished" datetime="2019-07-06T13:04:07+08:00">2019-07-06</time>
+              <time title="Created: 2019-07-06 13:04:07" itemprop="dateCreated datePublished" datetime="2019-07-06T13:04:07+08:00">2019-07-06</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-07 01:56:28" itemprop="dateModified" datetime="2019-07-07T01:56:28+08:00">2019-07-07</time>
+              
             
           </span>
 
@@ -383,7 +399,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a></span>
@@ -437,11 +453,20 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  handleChange = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.value = e.target.value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; setValue &#125; = <span class="keyword">this</span>.props;</span><br><span class="line">    setValue(<span class="keyword">this</span>.value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        我是Child</span><br><span class="line">        &lt;div className=<span class="string">"card"</span>&gt;</span><br><span class="line">          state 定义在 parent</span><br><span class="line">          &lt;input onChange=&#123;<span class="keyword">this</span>.handleChange&#125; /&gt;</span><br><span class="line">          &lt;div className=<span class="string">"button"</span> onClick=&#123;<span class="keyword">this</span>.handleClick&#125;&gt;通知&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>如上所示，<code>react</code> 中的子组件拿到父组件的方式更改变量，私以为权力过于大，但是仁者见仁智者见智，只读属性通过 <code>props</code> 即可完成。</p>
 <p>父组件将改变自身状态的函数传递给子组件，而当子组件想要更改父组件的值时，执行父组件的状态更改 <code>setState</code> 函数，从而直接更改父组件的 <code>state</code>，使得父组件重渲染</p>
-<h3 id="兄弟组件间通信"><a href="#兄弟组件间通信" class="headerlink" title="兄弟组件间通信"></a>兄弟组件间通信</h3><p>当年 <code>vue</code> 我们实现兄弟组件间通信有一种方式就是借鉴了 <code>react</code> 的“状态提升”。即，将兄弟组件的数据提升至其公共父组件，再由父组件完成分发以达到交流目的</p>
+<h3 id="兄弟组件间通信"><a href="#兄弟组件间通信" class="headerlink" title="兄弟组件间通信"></a>兄弟组件间通信</h3><h4 id="状态提升"><a href="#状态提升" class="headerlink" title="状态提升"></a>状态提升</h4><p>当年 <code>vue</code> 我们实现兄弟组件间通信时有一种方式就是借鉴了 <code>react</code> 的“状态提升”。即，将兄弟组件的数据提升至其公共父组件，再由父组件完成分发以达到交流目的</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// parent</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Container</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      value: <span class="string">''</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  setValue = <span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      value,</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;A setValue=&#123;<span class="keyword">this</span>.setValue&#125;/&gt;</span><br><span class="line">        &lt;B value=&#123;<span class="keyword">this</span>.state.value&#125; /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// brotherA</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  handleChange = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.value = e.target.value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; setValue &#125; = <span class="keyword">this</span>.props;</span><br><span class="line">    setValue(<span class="keyword">this</span>.value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"card"</span>&gt;</span><br><span class="line">        我是Brother A, &lt;input onChange=&#123;<span class="keyword">this</span>.handleChange&#125; /&gt;</span><br><span class="line">        &lt;div className=<span class="string">"button"</span> onClick=&#123;<span class="keyword">this</span>.handleClick&#125;&gt;通知&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// brotherB</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> B = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;div className=<span class="string">"card"</span>&gt;</span><br><span class="line">    我是Brother B, value是：</span><br><span class="line">    &#123;props.value&#125;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp">export default B;</span></span><br></pre></td></tr></table></figure>
-<p>远离其实比较简单，只不过需要找到其公共父组件。简单结构是可以满足了。</p>
+<p>原理其实比较简单，只不过需要找到其公共父组件。简单结构是可以满足了。</p>
+<h4 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h4><p>如果是一种很恶心的情况，即，两个组件间需要穿过一层层的父元素才能通信，这要怎么办呢？</p>
+<p>此时就可以用到<code>react</code>中自带的状态管理器<code>context</code>了。<code>context</code>设计目的是共享那些对于一个组件树而言是“全局”的数据，比如已登录用户的头像、ID等信息。</p>
+<p>为了方便演示我们用一个嵌套层级较多的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 顶级公共组件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      value: <span class="string">''</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  setValue = <span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      value,</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getChildContext() &#123; <span class="comment">// 必需</span></span><br><span class="line">    <span class="keyword">return</span> &#123; </span><br><span class="line">      value: <span class="keyword">this</span>.state.value,</span><br><span class="line">      setValue: <span class="keyword">this</span>.setValue,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;AParent /&gt;</span><br><span class="line">        &lt;BParent /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 必需</span></span><br><span class="line"><span class="regexp">Context.childContextTypes = &#123;</span></span><br><span class="line"><span class="regexp">  value: PropTypes.string,</span></span><br><span class="line"><span class="regexp">  setValue: PropTypes.func,</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A 的 parent</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AParent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"card"</span>&gt;</span><br><span class="line">        &lt;A /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ A</span></span><br><span class="line"><span class="regexp">class A extends Component &#123;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  handleChange = (e) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    this.value = e.target.value;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  handleClick = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    const &#123; setValue &#125; = this.context;</span></span><br><span class="line"><span class="regexp">    setValue(this.value);</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  render() &#123;</span></span><br><span class="line"><span class="regexp">    return (</span></span><br><span class="line"><span class="regexp">      &lt;div&gt;</span></span><br><span class="line"><span class="regexp">        我是parentA 下的 A, &lt;input onChange=&#123;this.handleChange&#125; /</span>&gt;</span><br><span class="line">        &lt;div className=<span class="string">"button"</span> onClick=&#123;<span class="keyword">this</span>.handleClick&#125;&gt;通知&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 必需</span></span><br><span class="line">A.contextTypes = &#123;</span><br><span class="line">  setValue: PropTypes.func,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// B 的 parent</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BParent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"card"</span>&gt;</span><br><span class="line">        &lt;B /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ B</span></span><br><span class="line"><span class="regexp">class B extends Component &#123;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  render() &#123;</span></span><br><span class="line"><span class="regexp">    return (</span></span><br><span class="line"><span class="regexp">      &lt;div&gt;</span></span><br><span class="line"><span class="regexp">        我是parentB 下的 B, value是：</span></span><br><span class="line"><span class="regexp">        &#123;this.context.value&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">B.contextTypes = &#123;</span><br><span class="line">  value: PropTypes.string,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>中间者是<code>context</code>公有<code>container</code>组件。我们通过<code>getChildContext</code>函数定义<code>context</code>中的值，注意别忘了<code>childContextTypes</code>。这样属于这个<code>container</code>组件的子组件通过<code>this.context</code>就可以取到定义的值，且起到跟<code>state</code>同样的效果。</p>
+<p>相当于是官方给你的挂，省去了<code>props</code>的传递</p>
+<h3 id="大型项目"><a href="#大型项目" class="headerlink" title="大型项目"></a>大型项目</h3><p>这种时候就直接上库咯。可靠性更高也更加方便。推荐的库有<code>Redux</code>和<code>Mobx</code>，今后学习了再写吧。</p>
 
       
     </div>
@@ -536,10 +561,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -562,7 +587,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">93</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -619,7 +644,7 @@
                       
                     
                     <span class="site-state-item-count">20</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -950,7 +975,7 @@
                       
                     
                     <span class="site-state-item-count">156</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -1013,7 +1038,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#父子组件间通信"><span class="nav-number">1.</span> <span class="nav-text">父子组件间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#父传子"><span class="nav-number">1.1.</span> <span class="nav-text">父传子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子传父"><span class="nav-number">1.2.</span> <span class="nav-text">子传父</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兄弟组件间通信"><span class="nav-number">2.</span> <span class="nav-text">兄弟组件间通信</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#父子组件间通信"><span class="nav-number">1.</span> <span class="nav-text">父子组件间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#父传子"><span class="nav-number">1.1.</span> <span class="nav-text">父传子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子传父"><span class="nav-number">1.2.</span> <span class="nav-text">子传父</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兄弟组件间通信"><span class="nav-number">2.</span> <span class="nav-text">兄弟组件间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#状态提升"><span class="nav-number">2.1.</span> <span class="nav-text">状态提升</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Context"><span class="nav-number">2.2.</span> <span class="nav-text">Context</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大型项目"><span class="nav-number">3.</span> <span class="nav-text">大型项目</span></a></li></ol></div>
             
 
           </div>
@@ -1046,7 +1071,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1054,7 +1079,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
