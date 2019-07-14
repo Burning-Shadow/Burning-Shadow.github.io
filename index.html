@@ -190,7 +190,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -218,7 +218,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -305,6 +305,209 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/14/多人开发的大型项目是什么样子的/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/14/多人开发的大型项目是什么样子的/" class="post-title-link" itemprop="url">多人开发的大型项目是什么样子的</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-07-14 17:42:50 / Geändert am: 17:47:13" itemprop="dateCreated datePublished" datetime="2019-07-14T17:42:50+08:00">2019-07-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/项目流程/" itemprop="url" rel="index"><span itemprop="name">项目流程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>自学前端的小白从来都是个人开发，最多上传一下git仓库。有一天如果我需要一个帮手，[好吧]组件化，让他不要动我的，开发完了再合。。。</p>
+<blockquote>
+<p>前不久进入了某厂项目组，亲身体验了几次繁复的开发流程。感觉自己像一个茹毛饮血的原始人学习文明社会的规则。</p>
+</blockquote>
+<h3 id="开发前的准备"><a href="#开发前的准备" class="headerlink" title="开发前的准备"></a>开发前的准备</h3><p>涉及真正的多人开发，多数人都是平等的开发者，“我为什么要帮你合代码，帮你调试”组长 更懒得管这些。所以用GIT来规范化流程，大家来维护一套代码，每个人为他的提交负责。那针对开源项目和企业项目两个场景，用git做库管理有什么区别呢？</p>
+<h4 id="开源项目"><a href="#开源项目" class="headerlink" title="开源项目"></a>开源项目</h4><p><img src="https:////upload-images.jianshu.io/upload_images/8553902-4fbd7ebc9637028f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="img"></p>
+<p>开源项目开发流程.png</p>
+<p>开源项目个人开发者没有操作项目代码库master的权限，如此操作在项目代码库每个人的每一次优化只有一次记录，记录树比较清晰。</p>
+<h4 id="企业项目"><a href="#企业项目" class="headerlink" title="企业项目"></a>企业项目</h4><p><img src="https:////upload-images.jianshu.io/upload_images/8553902-499650f113305c8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/834/format/webp" alt="img"></p>
+<p>企业项目开发流程.png</p>
+<p> 企业项目个人开发者有权限操作master分支，特点就是每一次优化的和并提交将其中的无用commit都携带（比如test1、test2）。master的权限带来巨大改变，因此需要一些约束。在master分支的时候一定要慎重，因为master的代码随时可能被张三李四等人获取，如果蕴藏一个影响业务逻辑的bug。。。。对于无用的commit要在merge前rebase清理干净。</p>
+<h3 id="测开利器CI"><a href="#测开利器CI" class="headerlink" title="测开利器CI"></a>测开利器CI</h3><p>CI全称Continuous Integration，中文名持续集成，还是不知道是啥。它主要分为自动化构建和单元测试，两部分，我主要体验了自动化构建。我们拿到了一个项目代码要下载依赖、dev开发、build打包。。。这是在我们的开发电脑上，如果是一台素昧平生的测试服务器呢？OK，远程连接然后做这些，那前后端联调要部署很多次的，如果是项目上线面对服务器群呢？CI可以帮我做这些，我需要的就是修改配置文件，来告诉CI我这次想在远程对项目做什么（比如更新哪个目录的内容、静态资源打包吗？映射到本地吗？），然后git push 一下，CI就开始工作了，中间如果出现错误CI主动发邮件提示我。</p>
+<h3 id="发布上线"><a href="#发布上线" class="headerlink" title="发布上线"></a>发布上线</h3><p>这几天遇到的名词，总结一下。<br> <strong>全量发布</strong>：就是我有20台服务器，20台服务器都发布。<br> <strong>灰度发布</strong>：就是我有20台服务器，发两台体验一下，比例由大家讨论指定。<br> <strong>无损发布</strong>：这是比较难解释。我用银行柜台举个例子。银行正常运转，每一个柜台都有人排队，此时经理要找每个柜员谈重要的事（比如季度考核）。所有柜员一起溜了，银行就关门了。需要一个平滑的策略让柜员逐个撤出前台，无损发布就在做这个。A柜员前面不要增加排队的人了，处理完目前几个人的业务就可以撤了。<br> 还有关于<strong>发布顺序</strong>的不同场景的处理不同：<br> <em>要增加一个按钮，后台也增加一个服务：</em>要确保用户看见按钮的时候是可以点的，所有后台服务先上线，前端服务后上线。<br> <em>要删除一个按钮，后台也下线一个服务：</em>要确保用户看见按钮的时候是可以点的，所有前端服务先上线，后台服务后上线。</p>
+<h3 id="静态资源更新"><a href="#静态资源更新" class="headerlink" title="静态资源更新"></a>静态资源更新</h3><p>下面的部分和工作流程没有关系，只是介绍静态资源更新变成现在这个样子的原因。</p>
+<blockquote>
+<p>index.60a31.js中间的一串字符是什么？干什么用？</p>
+</blockquote>
+<ol>
+<li>茹毛饮血</li>
+</ol>
+<p><script src="//xxx/xx/index.js"></script><br>上面的语句再常见不过了，我将有这句的html文件放在云服务器上，做好静态资源分发，index.js就到手了。<br>然而对于公司（要恰饭的），每一次用户请求都发送一次，不能这么挥霍宝贵的带宽，因为运营商是按峰值收费的。</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/8553902-1ca7399522ba9b86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/798/format/webp" alt="img"></p>
+<p>按峰值收费.png</p>
+<p> 解决这样的问题运用http缓存就好了。把一次完整的请求变成协商缓存304或者直接变成本地缓存的200，过期时间足够长。 那么怎么更新资源呢？</p>
+<ol>
+<li>刀耕火种</li>
+</ol>
+<p>   <img src="https:////upload-images.jianshu.io/upload_images/8553902-0e3d9d988ba4cbc3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="img"></p>
+<p>   image.png</p>
+<p>   每一次在我们的资源后面加上版本号就好了，那么问题是如果三个文件我只改了一个，要全部更新吗？要解决这种问题，必须让url的修改与文件内容关联，也就是说，只有文件内容变化，才会导致相应url的变更，从而实现文件级别的精确缓存控制。因此利用 数据摘要要算法 对文件求摘要信息，摘要信息与文件内容一一对应，就有了一种可以精确到单个文件粒度的缓存控制依据了。好了，我们把url改成带摘要信息的：</p>
+<p>   <img src="https:////upload-images.jianshu.io/upload_images/8553902-938b771b1440bbcd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="img"></p>
+<p>   image.png</p>
+<ol start="2">
+<li>农业文明<br> 大型的互联网公司是有CDN保管静态资源的，而且是CDN网络（想象通信分级网络、计算机网络，长得差不多）。而有的CDN是不识?后面的内容的。而且后面会提到CDN静态资源更新，有的运营商手里把持CDN，他的CDN还总不更新。</li>
+</ol>
+<p>   <img src="https:////upload-images.jianshu.io/upload_images/8553902-ade584cb34bc5fc1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="img"></p>
+<p>   image.png</p>
+<p>   所以终于变成了index.60a31.js这还带来了另外一个好处，index.js有能力变成多个版本，老用户也能找到合适他的资源。</p>
+<blockquote>
+<p>问：那CDN上的东西不是越积越多，清一下换成新的呗？<br> 答：会越积越多，但是存储较带宽还是很廉价的。我们一般不尝试删CDN的东西，因为有人需要它，一个js css 才多大。</p>
+</blockquote>
+<h4 id="CDN更新策略"><a href="#CDN更新策略" class="headerlink" title="CDN更新策略"></a>CDN更新策略</h4><p>前面说CDN有一组网络，最上面的是源CDN，下分各级<br> <strong>回源策略：</strong>用户访问时逐级上查，向源的方向探查，获取更新。<br> <strong>推送策略：</strong>源CDN发通知，使各级CDN来获取更新（大版本会如此）。</p>
+<p>转载至<a href="https://www.jianshu.com/p/85f165b8c144" target="_blank" rel="noopener">Atlas_lili</a>的同名博客。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -359,14 +562,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-07-06 13:04:07" itemprop="dateCreated datePublished" datetime="2019-07-06T13:04:07+08:00">2019-07-06</time>
+              <time title="Erstellt: 2019-07-06 13:04:07" itemprop="dateCreated datePublished" datetime="2019-07-06T13:04:07+08:00">2019-07-06</time>
             
 
             
@@ -381,9 +584,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Modified: 2019-07-07 01:56:28" itemprop="dateModified" datetime="2019-07-07T01:56:28+08:00">2019-07-07</time>
+                <time title="Geändert am: 2019-07-07 01:56:28" itemprop="dateModified" datetime="2019-07-07T01:56:28+08:00">2019-07-07</time>
               
             
           </span>
@@ -397,7 +600,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a></span>
@@ -441,7 +644,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/07/06/reactJS-中的组件间通信/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -538,14 +741,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-07-04 00:30:15 / Modified: 16:38:22" itemprop="dateCreated datePublished" datetime="2019-07-04T00:30:15+08:00">2019-07-04</time>
+              <time title="Erstellt: 2019-07-04 00:30:15 / Geändert am: 16:38:22" itemprop="dateCreated datePublished" datetime="2019-07-04T00:30:15+08:00">2019-07-04</time>
             
 
             
@@ -564,7 +767,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a></span>
@@ -608,7 +811,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/07/04/Git常用操作/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -705,14 +908,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-06-24 10:45:58" itemprop="dateCreated datePublished" datetime="2019-06-24T10:45:58+08:00">2019-06-24</time>
+              <time title="Erstellt: 2019-06-24 10:45:58" itemprop="dateCreated datePublished" datetime="2019-06-24T10:45:58+08:00">2019-06-24</time>
             
 
             
@@ -727,9 +930,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Modified: 2019-07-04 00:29:36" itemprop="dateModified" datetime="2019-07-04T00:29:36+08:00">2019-07-04</time>
+                <time title="Geändert am: 2019-07-04 00:29:36" itemprop="dateModified" datetime="2019-07-04T00:29:36+08:00">2019-07-04</time>
               
             
           </span>
@@ -743,7 +946,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/期末总结系列/" itemprop="url" rel="index"><span itemprop="name">期末总结系列</span></a></span>
@@ -787,7 +990,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/06/24/计算机网络知识点/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -884,14 +1087,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-06-09 13:56:25 / Modified: 20:01:44" itemprop="dateCreated datePublished" datetime="2019-06-09T13:56:25+08:00">2019-06-09</time>
+              <time title="Erstellt: 2019-06-09 13:56:25 / Geändert am: 20:01:44" itemprop="dateCreated datePublished" datetime="2019-06-09T13:56:25+08:00">2019-06-09</time>
             
 
             
@@ -910,7 +1113,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/打包工具/" itemprop="url" rel="index"><span itemprop="name">打包工具</span></a></span>
@@ -954,7 +1157,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/06/09/gulp初体验/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1051,14 +1254,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-06-08 21:40:34" itemprop="dateCreated datePublished" datetime="2019-06-08T21:40:34+08:00">2019-06-08</time>
+              <time title="Erstellt: 2019-06-08 21:40:34" itemprop="dateCreated datePublished" datetime="2019-06-08T21:40:34+08:00">2019-06-08</time>
             
 
             
@@ -1073,7 +1276,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a></span>
@@ -1117,7 +1320,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/06/08/3种方法实现CSS隐藏滚动条并可以滚动内容(转载)/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1214,14 +1417,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-05-21 22:18:48" itemprop="dateCreated datePublished" datetime="2019-05-21T22:18:48+08:00">2019-05-21</time>
+              <time title="Erstellt: 2019-05-21 22:18:48" itemprop="dateCreated datePublished" datetime="2019-05-21T22:18:48+08:00">2019-05-21</time>
             
 
             
@@ -1236,9 +1439,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Modified: 2019-05-22 10:53:10" itemprop="dateModified" datetime="2019-05-22T10:53:10+08:00">2019-05-22</time>
+                <time title="Geändert am: 2019-05-22 10:53:10" itemprop="dateModified" datetime="2019-05-22T10:53:10+08:00">2019-05-22</time>
               
             
           </span>
@@ -1252,7 +1455,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vuex/" itemprop="url" rel="index"><span itemprop="name">Vuex</span></a></span>
@@ -1296,7 +1499,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/05/21/Vuex进阶/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1393,14 +1596,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-05-20 20:26:46" itemprop="dateCreated datePublished" datetime="2019-05-20T20:26:46+08:00">2019-05-20</time>
+              <time title="Erstellt: 2019-05-20 20:26:46" itemprop="dateCreated datePublished" datetime="2019-05-20T20:26:46+08:00">2019-05-20</time>
             
 
             
@@ -1415,9 +1618,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Modified: 2019-05-21 21:46:59" itemprop="dateModified" datetime="2019-05-21T21:46:59+08:00">2019-05-21</time>
+                <time title="Geändert am: 2019-05-21 21:46:59" itemprop="dateModified" datetime="2019-05-21T21:46:59+08:00">2019-05-21</time>
               
             
           </span>
@@ -1431,7 +1634,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Node-Package-Manager/" itemprop="url" rel="index"><span itemprop="name">Node Package Manager</span></a></span>
@@ -1475,7 +1678,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/05/20/yarn初体验/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1572,14 +1775,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-05-17 19:17:48" itemprop="dateCreated datePublished" datetime="2019-05-17T19:17:48+08:00">2019-05-17</time>
+              <time title="Erstellt: 2019-05-17 19:17:48" itemprop="dateCreated datePublished" datetime="2019-05-17T19:17:48+08:00">2019-05-17</time>
             
 
             
@@ -1594,9 +1797,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Modified: 2019-05-31 22:22:05" itemprop="dateModified" datetime="2019-05-31T22:22:05+08:00">2019-05-31</time>
+                <time title="Geändert am: 2019-05-31 22:22:05" itemprop="dateModified" datetime="2019-05-31T22:22:05+08:00">2019-05-31</time>
               
             
           </span>
@@ -1610,7 +1813,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学框架系列/" itemprop="url" rel="index"><span itemprop="name">重学框架系列</span></a></span>
@@ -1654,7 +1857,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/05/17/重学Vue（中篇）/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1751,14 +1954,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-05-13 15:35:04" itemprop="dateCreated datePublished" datetime="2019-05-13T15:35:04+08:00">2019-05-13</time>
+              <time title="Erstellt: 2019-05-13 15:35:04" itemprop="dateCreated datePublished" datetime="2019-05-13T15:35:04+08:00">2019-05-13</time>
             
 
             
@@ -1773,9 +1976,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Modified: 2019-05-17 19:13:43" itemprop="dateModified" datetime="2019-05-17T19:13:43+08:00">2019-05-17</time>
+                <time title="Geändert am: 2019-05-17 19:13:43" itemprop="dateModified" datetime="2019-05-17T19:13:43+08:00">2019-05-17</time>
               
             
           </span>
@@ -1789,7 +1992,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学框架系列/" itemprop="url" rel="index"><span itemprop="name">重学框架系列</span></a></span>
@@ -1833,186 +2036,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/05/13/重学Vue（上篇）/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/Vue-Router提升篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/09/Vue-Router提升篇/" class="post-title-link" itemprop="url">重学Vue-Router（提升篇）</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-09 00:04:40" itemprop="dateCreated datePublished" datetime="2019-05-09T00:04:40+08:00">2019-05-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-13 17:14:44" itemprop="dateModified" datetime="2019-05-13T17:14:44+08:00">2019-05-13</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学框架系列/" itemprop="url" rel="index"><span itemprop="name">重学框架系列</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>上一篇我们讲解了 Vue Router 的基本使用方法，而这次继续是官方 API 的解读，尽可能的会加入一些实践中所用到的案例</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/05/09/Vue-Router提升篇/#more" rel="contents">
-                Read more &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -2060,7 +2084,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Nächste Seite"></i></a>
   </nav>
 
 
@@ -2104,8 +2128,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">93</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-count">94</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -2161,8 +2185,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">20</span>
-                    <span class="site-state-item-name">categories</span>
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -2492,8 +2518,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">156</span>
-                    <span class="site-state-item-name">tags</span>
+                      
+                    
+                    <span class="site-state-item-count">157</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -2572,7 +2600,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -2580,7 +2608,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
