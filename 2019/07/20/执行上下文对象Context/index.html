@@ -106,12 +106,12 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="在我们的 API 实现的几篇博客中（apply、call、bind等）有些我们用到了执行上下文对象 Context。但这究竟是个什么玩意儿？好像平时也没有注意过，所以今天我们就从其生成过程到使用方式详细的说一下此物件的用法。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1zeQQaGL7gK0jSZFB760ZZpXaY.png">
-<meta property="og:updated_time" content="2019-07-20T08:12:04.606Z">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1mNRNaYY1gK0jSZTE760DQVXaS.png">
+<meta property="og:updated_time" content="2019-07-20T14:01:42.405Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="执行上下文对象Context">
 <meta name="twitter:description" content="在我们的 API 实现的几篇博客中（apply、call、bind等）有些我们用到了执行上下文对象 Context。但这究竟是个什么玩意儿？好像平时也没有注意过，所以今天我们就从其生成过程到使用方式详细的说一下此物件的用法。">
-<meta name="twitter:image" content="https://ae01.alicdn.com/kf/HTB1zeQQaGL7gK0jSZFB760ZZpXaY.png">
+<meta name="twitter:image" content="https://ae01.alicdn.com/kf/HTB1mNRNaYY1gK0jSZTE760DQVXaS.png">
 
 
 
@@ -370,7 +370,7 @@
                 
               
 
-              <time title="Erstellt: 2019-07-20 11:00:29 / Geändert am: 16:12:04" itemprop="dateCreated datePublished" datetime="2019-07-20T11:00:29+08:00">2019-07-20</time>
+              <time title="Erstellt: 2019-07-20 11:00:29 / Geändert am: 22:01:42" itemprop="dateCreated datePublished" datetime="2019-07-20T11:00:29+08:00">2019-07-20</time>
             
 
             
@@ -432,30 +432,52 @@
 <h3 id="预编译阶段"><a href="#预编译阶段" class="headerlink" title="预编译阶段"></a>预编译阶段</h3><p>代码无论在何处 <code>js</code> 引擎都会在执行前对代码进行<strong>预编译</strong>。其过程分为以下四步：</p>
 <ul>
 <li>解析 <code>js</code> 代码</li>
-<li>建立 <code>arguments</code> 对象</li>
+<li>建立 <code>arguments</code> 对象——<code>context</code> + 参数</li>
 <li>建立作用域链</li>
 <li>确定 <code>this</code> 指向</li>
 </ul>
 <p>欸，这就到咱们的主题咯。这个 <code>arguments</code>类数组对象之前咱们见过，都具有一个默认的参数，我们可以对其进行拆分。</p>
 <p>举一个例子，我们的 <code>call</code> 函数的实现</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.mycall = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"function's context = "</span>, context)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"function's this = "</span>, <span class="keyword">this</span>)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"function's args = "</span>, <span class="built_in">arguments</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'not funciton'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  context = context || <span class="built_in">window</span></span><br><span class="line">  context.fn = <span class="keyword">this</span></span><br><span class="line">  <span class="keyword">let</span> arg = [...arguments].slice(<span class="number">1</span>)</span><br><span class="line">  <span class="keyword">let</span> result = context.fn(...arg)</span><br><span class="line">  <span class="keyword">delete</span> context.fn</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line"> b: <span class="number">1</span>,</span><br><span class="line"> c: &#123;</span><br><span class="line">  d: <span class="number">2</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="keyword">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line">fun.mycall(a)</span><br></pre></td></tr></table></figure>
-<p>测验代码也给你们整好了，直接复制到控制台就可以。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.mycall = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"function's context = "</span>, context)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"function's this = "</span>, <span class="keyword">this</span>)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"function's args = "</span>, <span class="built_in">arguments</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'not funciton'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  context = context || <span class="built_in">window</span></span><br><span class="line">  context.fn = <span class="keyword">this</span></span><br><span class="line">  <span class="keyword">let</span> arg = [...arguments].slice(<span class="number">1</span>)</span><br><span class="line">  <span class="keyword">let</span> result = context.fn(...arg)</span><br><span class="line">  <span class="keyword">delete</span> context.fn</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测验代码也很简单，直接复制到控制台就可以。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line"> b: <span class="number">1</span>,</span><br><span class="line"> c: &#123;</span><br><span class="line">  d: <span class="number">2</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">c, d</span>)</span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(c);</span><br><span class="line"> <span class="built_in">console</span>.log(d);</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="keyword">this</span>.b)</span><br><span class="line">&#125;</span><br><span class="line">fun.mycall(a, <span class="number">8</span>, <span class="number">9</span>);</span><br></pre></td></tr></table></figure>
 <p>比较懒的小伙伴直接看结果：</p>
-<p><img src="https://ae01.alicdn.com/kf/HTB1zeQQaGL7gK0jSZFB760ZZpXaY.png" alt="myapply执行结果"></p>
+<p><img src="https://ae01.alicdn.com/kf/HTB1mNRNaYY1gK0jSZTE760DQVXaS.png" alt="myapply运行结果"></p>
 <p>瞅着没，一应俱全。</p>
 <ul>
 <li><code>this</code>被默认绑定到调用函数；</li>
 <li><code>context</code> 则是函数的执行位置</li>
-<li><code>arguments</code>对象就比较有意思了。他的第一个参数为<code>context</code>，其后则是函数传入的参数（咱们这个例子里我就不写啦，毕竟这个很好理解【你们要是实在理解不了就把<code>fun</code>函数改成<code>function fun(a){console.log(a);console.log(this.b)}</code>，那么<code>a</code>就会显示在你的<code>arguments</code>列表的后边】）</li>
+<li><code>arguments</code>对象就比较有意思了。他的第一个参数为<code>context</code>，其后则是函数传入的参数</li>
 </ul>
 <p>这次大概懂了吧。那么我们再来细究一下他的原理</p>
-<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><p>顾名思义，函数执行时的上下文，也可以理解为其执行的环境。</p>
+<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><p>顾名思义，<strong>函数执行时的上下文</strong>，也可以理解为<strong>其执行的环境</strong>。</p>
 <p>它具有三个属性：</p>
 <ul>
 <li>变量对象（<code>variable object</code>）</li>
 <li>作用域链（<code>scope chain</code>）</li>
-<li><code>this</code>指针</li>
+<li><p><code>this</code>指针</p>
+<p>js 在执行过程中会有一个上下文栈，上下文栈中存放的就是不同的上下文对象。故而，<strong>当前执行代码的<code>context</code>对象总是在栈顶</strong></p>
+</li>
 </ul>
+<h4 id="变量对象"><a href="#变量对象" class="headerlink" title="变量对象"></a>变量对象</h4><p>变量对象是<code>context</code>对象中的一个重要属性。其创建过程如下</p>
+<ul>
+<li>创建<code>arguments</code>对象，其中保有多个属性，其<code>key</code>值为<code>0、1、2、3...</code>而<code>value</code>值就是传入的参数的实际值。</li>
+<li>在<code>arguments</code>中找到第一个参数（即<code>context</code>对象，其施展的作用域）</li>
+<li>找到作用域中的所有<strong>声明</strong><ul>
+<li>若为<code>function</code>则属性名为函数名，属性值为函数的引用</li>
+<li>若为<code>var</code>则属性名即为变量名，属性值视情况而定（可能为<code>undefined</code>）</li>
+</ul>
+</li>
+</ul>
+<p>如此，我们在绑定函数作用域时即可从其执行环境（也就是<code>context</code>对象中）找到相应的变量对象。</p>
+<h4 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h4><p>知道了变量对象和执行环境之间的关系，我们可以联系一下之前的知识：变量提升。</p>
+<p>这东西想必大家还记得，js 引擎在对变量或函数进行处理前会先将函数声明即变量提升至顶端，而在赋值的时机则是看程序员的意思。</p>
+<p>那么函数声明和变量提升哪个在前边儿？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">f();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f();</span><br></pre></td></tr></table></figure>
+<p>打印结果为 <code>2,1</code> 所以显然是<code>function</code>的声明在前~</p>
+<p>这也和咱们编译阶段的<code>arguments</code>创建类似咯，对作用域中的变量进行预声明，进而方便在执行时通过作用域链查找使用，非常方便的呢。</p>
+<p>对这部分有兴趣的 boy 可以自行上网百度作用域链，当然也可以选择查看我的另一篇博客<a href="[https://burning-shadow.github.io/2019/03/20/JavaScript%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/](https://burning-shadow.github.io/2019/03/20/JavaScript中的闭包/">《JavaScript中的闭包》</a>)，其中有关于变量查询的方式，涉及到一部分作用域链的知识。还有一篇写的不太好的关于作用域的文章<a href="[https://burning-shadow.github.io/2019/03/20/JavaScript%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/](https://burning-shadow.github.io/2019/03/20/JavaScript中的作用域/">《JavaScript中的作用域》</a>)，欢迎来踩。</p>
+<p>今天到此为止，告辞。</p>
 
       
     </div>
@@ -1035,7 +1057,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#预编译阶段"><span class="nav-number">1.</span> <span class="nav-text">预编译阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行上下文"><span class="nav-number">2.</span> <span class="nav-text">执行上下文</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#预编译阶段"><span class="nav-number">1.</span> <span class="nav-text">预编译阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行上下文"><span class="nav-number">2.</span> <span class="nav-text">执行上下文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变量对象"><span class="nav-number">2.1.</span> <span class="nav-text">变量对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量提升"><span class="nav-number">2.2.</span> <span class="nav-text">变量提升</span></a></li></ol></li></ol></div>
             
 
           </div>
