@@ -108,7 +108,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c94f5683a213b0417e591d4">
 <meta property="og:image" content="https://pic.superbed.cn/item/5c93bda83a213b0417da42a9">
-<meta property="og:updated_time" content="2019-03-31T16:30:36.077Z">
+<meta property="og:updated_time" content="2019-07-20T12:15:19.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈 instanceof 和 typeof 原理">
 <meta name="twitter:description" content="对于类型判断我们很多人都知道null和instanceof这两个方法。但是同时这两个原生自带的方法也有自己的局限性。 typeof对于基本类型，除了null都可以正确显示  typeof 1 // ‘number’typeof ‘1’ // ‘string’typeof undefined // ‘undefined’typeof true // ‘boolean’typeof Symbol()">
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-04-01 00:30:36" itemprop="dateModified" datetime="2019-04-01T00:30:36+08:00">2019-04-01</time>
+                <time title="Geändert am: 2019-07-20 20:15:19" itemprop="dateModified" datetime="2019-07-20T20:15:19+08:00">2019-07-20</time>
               
             
           </span>
@@ -479,7 +479,10 @@
 </ul>
 </li>
 <li>而作为基本类型之一的<code>null</code>，当用户打印<code>null instanceof null</code>时却报了错（<code>TypeError: Right-hand side of &#39;instanceof&#39; is not an object</code>），这也是<code>JavaScript</code>历史遗留的<code>bug</code>，为了防止修复造成的更多<code>bug</code>所以一直没有修复…</li>
-<li>而当我们在控制台输入 <code>null instanceof Object</code> 时则会打印 <code>false</code> ，这和咱们输入 <code>typeof null</code> 的值 <code>&quot;object&quot;</code>大相径庭，具体原理我也没摸清，以后再填坑吧。</li>
+<li>而当我们在控制台输入 <code>null instanceof Object</code> 时则会打印 <code>false</code> ，这和咱们输入 <code>typeof null</code> 的值 <code>&quot;object&quot;</code>大相径庭，具体原理我也没摸清，以后再填坑吧。<ul>
+<li>【填坑】后来我听到了一种比较合理的解释，<code>null</code>我们可以理解为一个占位符，并不由<code>Object</code>自原型链继承而来，故<code>null instanceof Object</code>结果为<code>false</code>。另一方面，由于它是一个对象的占位符，故判断类型时将其自动归属于<code>Object</code>大类中。</li>
+</ul>
+</li>
 </ul>
 <p>因此在用 <code>typeof</code> 来判断变量类型的时候，我们需要注意，<strong>最好是用 <code>typeof</code> 来判断基本数据类型（包括<code>symbol</code>），避免对 <code>null</code> 的判断</strong>。</p>
 <p>还有一个不错的判断类型的方法，就是<strong><code>Object.prototype.toString</code></strong>，我们可以利用这个方法来对一个变量的类型来进行比较准确的判断</p>
@@ -641,7 +644,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">94</span>
+                    <span class="site-state-item-count">95</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
@@ -1033,7 +1036,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">157</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">159</span>
                     <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
