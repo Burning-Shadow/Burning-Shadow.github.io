@@ -108,7 +108,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1wQ._aVP7gK0jSZFjq6A5aXXau.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1oYhfbbj1gK0jSZFuq6ArHpXae.jpg">
-<meta property="og:updated_time" content="2019-07-22T15:18:40.974Z">
+<meta property="og:updated_time" content="2019-07-24T09:32:16.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="彻底搞懂HTTPS加密机制（转载）">
 <meta name="twitter:description" content="HTTPS 可以保证我们的数据在传输过程中不被监听到，而按照之前的理解我们只是客户端通过公钥对数据进行了加密，随后由服务端通过私钥解密数据。但是这有一个很大的漏洞：服务端向客户端发送的数据如何防止被监听到？ 终于在知乎找到了大佬对此的讲解，特此转发，为日后复习所用。 原文地址《彻底搞懂HTTPS的加密机制》">
@@ -197,7 +197,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -225,7 +225,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -242,7 +242,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -259,7 +259,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -276,7 +276,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -364,19 +364,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-07-22 21:10:31 / Geändert am: 23:18:40" itemprop="dateCreated datePublished" datetime="2019-07-22T21:10:31+08:00">2019-07-22</time>
+              <time title="Created: 2019-07-22 21:10:31" itemprop="dateCreated datePublished" datetime="2019-07-22T21:10:31+08:00">2019-07-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-24 17:32:16" itemprop="dateModified" datetime="2019-07-24T17:32:16+08:00">2019-07-24</time>
               
             
           </span>
@@ -390,7 +402,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
@@ -489,12 +501,13 @@
 </ol>
 <p>为什么这样可以证明证书可信呢？我们来仔细想一下。</p>
 <h4 id="中间人有可能篡改证书吗"><a href="#中间人有可能篡改证书吗" class="headerlink" title="中间人有可能篡改证书吗"></a>中间人有可能篡改证书吗</h4><p>假设中间人篡改了证书的原文，由于他没有CA机构的私钥，所以无法得到此时加密后签名，无法相应地篡改签名。浏览器收到该证书后会发现原文和签名解密后的值不一致，则说明证书已被篡改，证书不可信，从而终止向服务器传输信息，防止信息泄露给中间人。<br>既然不可能篡改，那整个证书被掉包呢？</p>
-<h4 id="中间人有可能把证书调包吗"><a href="#中间人有可能把证书调包吗" class="headerlink" title="中间人有可能把证书调包吗"></a>中间人有可能把证书调包吗</h4><p>假设有另一个网站B也拿到了CA机构认证的证书，它想搞垮网站A，想劫持网站A的信息。于是它成为中间人拦截到了A传给浏览器的证书，然后替换成自己的证书，传给浏览器，之后浏览器就会错误地拿到B的证书里的公钥了，会导致上文提到的漏洞。<br>其实这并不会发生，因为证书里包含了网站A的信息，包括域名，浏览器把证书里的域名与自己请求的域名比对一下就知道有没有被掉包了。</p>
-<h4 id="为什么制作数字签名时需要hash一次？"><a href="#为什么制作数字签名时需要hash一次？" class="headerlink" title="为什么制作数字签名时需要hash一次？"></a>为什么制作数字签名时需要hash一次？</h4><p>我初学HTTPS的时候就有这个问题，似乎以上过程中hash有点多余，把hash过程去掉也能保证证书没有被篡改。<br>最显然的是性能问题，前面我们已经说了非对称加密效率较差，证书信息一般较长，比较耗时。而hash后得到的是固定长度的信息（比如用md5算法hash后可以得到固定的128位的值），这样加密解密就会快很多。<br>当然还有安全上的原因，这部分内容相对深一些，感兴趣的可以看这篇解答：<a href="https://link.zhihu.com/?target=https%3A//link.juejin.im/%3Ftarget%3Dhttps%3A%2F%2Fcrypto.stackexchange.com%2Fa%2F12780" target="_blank" rel="noopener">crypto.stackexchange.com/a/12780</a></p>
-<h4 id="怎么证明CA机构的公钥是可信的？"><a href="#怎么证明CA机构的公钥是可信的？" class="headerlink" title="怎么证明CA机构的公钥是可信的？"></a>怎么证明CA机构的公钥是可信的？</h4><p>你们可能会发现上文中说到CA机构的公钥，我几乎一笔带过，“浏览器保有它的公钥”，这是个什么保有法？怎么证明这个公钥是否可信？<br>让我们回想一下数字证书到底是干啥的？没错，为了证明某公钥是可信的，即“该公钥是否对应该网站/机构等”，那这个CA机构的公钥是不是也可以用数字证书来证明？没错，操作系统、浏览器本身会预装一些它们信任的根证书，如果其中有该CA机构的根证书，那就可以拿到它对应的可信公钥了。<br>实际上证书之间的认证也可以不止一层，可以A信任B，B信任C，以此类推，我们把它叫做<code>信任链</code>或<code>数字证书链</code>，也就是一连串的数字证书，由根证书为起点，透过层层信任，使终端实体证书的持有者可以获得转授的信任，以证明身份。<br>另外，不知你们是否遇到过网站访问不了、提示要安装证书的情况？这里安装的就是跟证书。说明浏览器不认给这个网站颁发证书的机构，那么没有该机构的根证书，你就得手动下载安装（风险自己承担XD）。安装该机构的根证书后，你就有了它的公钥，就可以用它验证服务器发来的证书是否可信了。</p>
-<h4 id="HTTPS必须在每次请求中都要先进行SSL-TSL握手进行传输密钥吗？"><a href="#HTTPS必须在每次请求中都要先进行SSL-TSL握手进行传输密钥吗？" class="headerlink" title="HTTPS必须在每次请求中都要先进行SSL/TSL握手进行传输密钥吗？"></a>HTTPS必须在每次请求中都要先进行SSL/TSL握手进行传输密钥吗？</h4><p>这也是我当时的困惑之一，显然每次请求都经历一次密钥传输过程非常耗时，那怎么达到只传输一次呢？用session就行。<br>服务器会为每个浏览器（或客户端软件）维护一个session ID，在TSL握手阶段传给浏览器，浏览器生成好密钥传给服务器后，服务器会把该密钥存到相应的session ID下，之后浏览器每次请求都会携带session ID，服务器会根据session ID找到相应的密钥并进行解密加密操作，这样就不必要每次重新制作、传输密钥了！</p>
+<h4 id="中间人有可能把证书调包吗"><a href="#中间人有可能把证书调包吗" class="headerlink" title="中间人有可能把证书调包吗"></a>中间人有可能把证书调包吗</h4><p>假设有另一个网站B也拿到了CA机构认证的证书，它想搞垮网站A，想劫持网站A的信息。于是它成为中间人拦截到了A传给浏览器的证书，然后替换成自己的证书，传给浏览器，之后浏览器就会错误地拿到B的证书里的公钥了，会导致上文提到的漏洞。<br>其实这并不会发生，因为<strong>证书里包含了网站A的信息，包括域名</strong>，浏览器把证书里的域名与自己请求的域名比对一下就知道有没有被掉包了。</p>
+<h4 id="为什么制作数字签名时需要hash一次？"><a href="#为什么制作数字签名时需要hash一次？" class="headerlink" title="为什么制作数字签名时需要hash一次？"></a>为什么制作数字签名时需要hash一次？</h4><p>我初学HTTPS的时候就有这个问题，似乎以上过程中hash有点多余，把hash过程去掉也能保证证书没有被篡改。<br>最显然的是性能问题，前面我们已经说了非对称加密效率较差，证书信息一般较长，比较耗时。而 <strong>hash 后得到的是固定长度的信息（比如用md5算法hash后可以得到固定的128位的值），这样加密解密就会快很多</strong>。<br>当然还有安全上的原因，这部分内容相对深一些，感兴趣的可以看这篇解答：<a href="https://link.zhihu.com/?target=https%3A//link.juejin.im/%3Ftarget%3Dhttps%3A%2F%2Fcrypto.stackexchange.com%2Fa%2F12780" target="_blank" rel="noopener">crypto.stackexchange.com/a/12780</a></p>
+<h4 id="怎么证明CA机构的公钥是可信的？"><a href="#怎么证明CA机构的公钥是可信的？" class="headerlink" title="怎么证明CA机构的公钥是可信的？"></a>怎么证明CA机构的公钥是可信的？</h4><p>你们可能会发现上文中说到CA机构的公钥，我几乎一笔带过，“浏览器保有它的公钥”，这是个什么保有法？怎么证明这个公钥是否可信？<br>让我们回想一下数字<strong>证书</strong>到底是干啥的？没错，<strong>为了证明某公钥是可信的</strong>，<strong>即“该公钥是否对应该网站/机构</strong>等”，那这个CA机构的公钥是不是也可以用数字证书来证明？没错，操作系统、浏览器本身会预装一些它们信任的根证书，如果其中有该CA机构的根证书，那就可以拿到它对应的可信公钥了。<br>实际上证书之间的认证也可以不止一层，可以A信任B，B信任C，以此类推，我们把它叫做<strong>信任链</strong>或<strong>数字证书链</strong>，也就是一连串的数字证书，由根证书为起点，<u>透过层层信任，使终端实体证书的持有者可以获得转授的信任，以证明身份。</u><br>另外，不知你们是否遇到过网站访问不了、提示要安装证书的情况？这里安装的就是跟证书。说明浏览器不认给这个网站颁发证书的机构，那么没有该机构的根证书，你就得手动下载安装（风险自己承担XD）。安装该机构的根证书后，你就有了它的公钥，就可以用它验证服务器发来的证书是否可信了。</p>
+<h4 id="HTTPS必须在每次请求中都要先进行SSL-TSL握手进行传输密钥吗？"><a href="#HTTPS必须在每次请求中都要先进行SSL-TSL握手进行传输密钥吗？" class="headerlink" title="HTTPS必须在每次请求中都要先进行SSL/TSL握手进行传输密钥吗？"></a>HTTPS必须在每次请求中都要先进行SSL/TSL握手进行传输密钥吗？</h4><p>这也是我当时的困惑之一，显然每次请求都经历一次密钥传输过程非常耗时，那怎么达到只传输一次呢？用session就行。<br><strong>服务器会为每个浏览器（或客户端软件）维护一个session ID，在TSL握手阶段传给浏览器，浏览器生成好密钥传给服务器后，服务器会把该密钥存到相应的session ID下，之后浏览器每次请求都会携带session ID，服务器会根据session ID找到相应的密钥并进行解密加密操作，这样就不必要每次重新制作、传输密钥了！</strong></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>可以看下这张图，梳理一下整个流程（SSL、TSL握手有一些区别，不同版本间也有区别，不过大致过程就是这样）：</p>
 <p><img src="https://ae01.alicdn.com/kf/HTB1oYhfbbj1gK0jSZFuq6ArHpXae.jpg" alt="SSL/TSL握手过程"></p>
+<p>（出处：<a href="https://link.zhihu.com/?target=http%3A//www.extremetech.com" target="_blank" rel="noopener">http://www.extremetech.com</a>）</p>
 
       
     </div>
@@ -587,10 +600,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -613,7 +626,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">96</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -672,7 +685,7 @@
                       
                     
                     <span class="site-state-item-count">21</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -1013,7 +1026,7 @@
                       
                     
                     <span class="site-state-item-count">161</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -1109,7 +1122,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1117,7 +1130,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
