@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="之前也写过关于组建通讯的文章，但主要是讲父子组件之间的通讯。此文章当作总结，以备日后复习 （事实上是因为我最近比较懒所以拿出来推到个人博客页面，吃个老本吧~）">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-27T16:40:39.813Z">
+<meta property="og:updated_time" content="2019-08-04T13:43:40.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue组件间通讯">
 <meta name="twitter:description" content="之前也写过关于组建通讯的文章，但主要是讲父子组件之间的通讯。此文章当作总结，以备日后复习 （事实上是因为我最近比较懒所以拿出来推到个人博客页面，吃个老本吧~）">
@@ -194,7 +194,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -222,7 +222,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -239,7 +239,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -256,7 +256,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -273,7 +273,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -361,14 +361,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-03-12 16:21:51" itemprop="dateCreated datePublished" datetime="2019-03-12T16:21:51+08:00">2019-03-12</time>
+              <time title="Erstellt: 2019-03-12 16:21:51" itemprop="dateCreated datePublished" datetime="2019-03-12T16:21:51+08:00">2019-03-12</time>
             
 
             
@@ -383,9 +383,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Modified: 2019-04-28 00:40:39" itemprop="dateModified" datetime="2019-04-28T00:40:39+08:00">2019-04-28</time>
+                <time title="Geändert am: 2019-08-04 21:43:40" itemprop="dateModified" datetime="2019-08-04T21:43:40+08:00">2019-08-04</time>
               
             
           </span>
@@ -399,7 +399,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
@@ -450,8 +450,8 @@
 <blockquote>
 <p>v-on作用在引入子组件后的父组件模板，用来舰艇子组件派发的事件</p>
 </blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 父组件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"counter-event-example"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; total &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">v-on:increment</span>=<span class="string">"incrementTotal"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button-counter</span> <span class="attr">v-on:increment</span>=<span class="string">"incrementTotal"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">exoprt default &#123;</span></span><br><span class="line"><span class="undefined">  new Vue(&#123;</span></span><br><span class="line"><span class="undefined">    el: '#counter-event-example',</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">      total: 0</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">      incrementTotal: function () &#123;</span></span><br><span class="line"><span class="undefined">        this.total += 1</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    components: &#123;</span></span><br><span class="line"><span class="undefined">	  child</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;)</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--子组件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"incrementCounter"</span>&gt;</span>&#123;&#123; counter &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">export default&#123;</span></span><br><span class="line"><span class="undefined">  name: 'child',</span></span><br><span class="line"><span class="undefined">  data: function () &#123;</span></span><br><span class="line"><span class="undefined">    return &#123;</span></span><br><span class="line"><span class="undefined">      counter: 0</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    incrementCounter: function () &#123;</span></span><br><span class="line"><span class="undefined">      this.counter += 1</span></span><br><span class="line"><span class="undefined">      this.$emit('increment')</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 父组件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"counter-event-example"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; total &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button-counter</span> @<span class="attr">increment</span>=<span class="string">"incrementTotal"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button-counter</span> @<span class="attr">increment</span>=<span class="string">"incrementTotal"</span>&gt;</span><span class="tag">&lt;/<span class="name">button-counter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">exoprt default &#123;</span></span><br><span class="line"><span class="undefined">  new Vue(&#123;</span></span><br><span class="line"><span class="undefined">    el: '#counter-event-example',</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">      total: 0</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">      incrementTotal: function () &#123;</span></span><br><span class="line"><span class="undefined">        this.total += 1</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    components: &#123;</span></span><br><span class="line"><span class="undefined">	  child</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;)</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--子组件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"incrementCounter"</span>&gt;</span>&#123;&#123; counter &#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">export default&#123;</span></span><br><span class="line"><span class="undefined">  name: 'child',</span></span><br><span class="line"><span class="undefined">  data: function () &#123;</span></span><br><span class="line"><span class="undefined">    return &#123;</span></span><br><span class="line"><span class="undefined">      counter: 0</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  methods: &#123;</span></span><br><span class="line"><span class="undefined">    incrementCounter: function () &#123;</span></span><br><span class="line"><span class="undefined">      this.counter += 1</span></span><br><span class="line"><span class="undefined">      this.$emit('increment')</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>v-on</code>声明在父组件中，时刻监听着子组件的<code>increment</code>事件。一旦此事件被触发则调用<code>incrementTotal()</code>函数</li>
 <li><code>emit</code>则在子组件中使用，将<code>increment</code>事件派发，给父组件传递信号，令其调用<code>incrementTotal</code>完成自增。</li>
@@ -497,6 +497,14 @@
 <p>可以理解为暴露此对象的方法和属性使得组件可以调用。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = &#123;</span><br><span class="line">  state: &#123; <span class="attr">numbers</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] &#125;,</span><br><span class="line">  addNumber(newNumber) &#123;</span><br><span class="line">    <span class="keyword">this</span>.state.numbers.push(newNumber);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>而想要使用的组件引入其变量即可。说实在的不算什么高新技术，也就不再赘述了。</p>
+<h3 id="四-sync"><a href="#四-sync" class="headerlink" title="四. sync"></a>四. sync</h3><h4 id="4-1前情"><a href="#4-1前情" class="headerlink" title="4.1前情"></a>4.1前情</h4><p>我印象中在 vue 初期好像有一个名为 <code>dispatch</code> 的 API，可以实现双向通信，而后作者感觉子组件更改父组件的值使得权力过于出格所以禁掉了相应的 API。随后随着 vue 语言的发展发现其亦有可取之处（功能上讲），且 <code>emit</code> 和 <code>v-on</code> 的组合也已面世，故通过 <code>emit</code> 和 <code>v-on</code> 所铸就的语法糖亦被加入了其中，而这个语法糖就名为 <code>sync</code></p>
+<h4 id="4-2-例子"><a href="#4-2-例子" class="headerlink" title="4.2 例子"></a>4.2 例子</h4><p>这个东西平时想必大家也是闻多见少，那么我们就用 ElementUI 的例子为大家讲解。</p>
+<p>element 中的<code>el-dialog</code>组件想必大家使用过，其中最明显的一行语句就是在定义时所述的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-button type=<span class="string">"text"</span> @click=<span class="string">"dialogVisible = true"</span>&gt;点击打开 Dialog&lt;<span class="regexp">/el-button&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;el-dialog</span></span><br><span class="line"><span class="regexp">  title="提示"</span></span><br><span class="line"><span class="regexp">  :visible.sync="dialogVisible"</span></span><br><span class="line"><span class="regexp">  width="30%"</span></span><br><span class="line"><span class="regexp">  :before-close="handleClose"&gt;</span></span><br><span class="line"><span class="regexp">  &lt;span&gt;这是一段信息&lt;/</span>span&gt;</span><br><span class="line">  &lt;span slot=<span class="string">"footer"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"dialog-footer"</span>&gt;</span><br><span class="line">    &lt;el-button @click=<span class="string">"dialogVisible = false"</span>&gt;取 消&lt;<span class="regexp">/el-button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;el-button type="primary" @click="dialogVisible = false"&gt;确 定&lt;/</span>el-button&gt;</span><br><span class="line">  &lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>el-dialog&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        dialogVisible: <span class="literal">false</span></span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      handleClose(done) &#123;</span><br><span class="line">        <span class="keyword">this</span>.$confirm(<span class="string">'确认关闭？'</span>)</span><br><span class="line">          .then(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</span><br><span class="line">            done();</span><br><span class="line">          &#125;)</span><br><span class="line">          .catch(<span class="function"><span class="params">_</span> =&gt;</span> &#123;&#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>:visible.sync=&quot;dialogVisible&quot;</code>。在 <code>dialog</code> 上我们定义了这句话，其绑定 <code>visible</code> 属性想必大家知道，那么 <code>.sync</code> 呢？</p>
+<p>事实上在子组件中其会有相应的 <code>visible</code> 属性。通过 <code>$emit</code> 进行事件派发。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-if</span>=<span class="string">"dialogVisible"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> @<span class="attr">click</span>=<span class="string">"close"</span>&gt;</span>Close<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    props: [visible],</span></span><br><span class="line"><span class="undefined">    data() &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">            dialogVisible: <span class="literal">false</span></span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    watch: &#123;</span></span><br><span class="line"><span class="undefined">        visible(nVal) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.dialogVisible = nVal;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">        close() &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.dialogVisible = <span class="literal">false</span>;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">this</span>.$emit(<span class="string">"visible"</span>, <span class="literal">false</span>);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>所以这玩意儿就相当于一个对于父组件的语法糖。样例也有啦，就是使得用户在操纵父组件时可以写出更语义化的代码，料儿还是一样的。</p>
 
       
     </div>
@@ -591,10 +599,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -617,7 +625,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">96</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -676,7 +684,7 @@
                       
                     
                     <span class="site-state-item-count">21</span>
-                    <span class="site-state-item-name">categories</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -1017,7 +1025,7 @@
                       
                     
                     <span class="site-state-item-count">161</span>
-                    <span class="site-state-item-name">tags</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -1080,7 +1088,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-父子组件间通讯"><span class="nav-number">1.</span> <span class="nav-text">一.  父子组件间通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-单向传递-props"><span class="nav-number">1.1.</span> <span class="nav-text">1.1  单向传递   props</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-子组件向父组件传递信息"><span class="nav-number">1.2.</span> <span class="nav-text">1.2  子组件向父组件传递信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-直接更改props"><span class="nav-number">1.3.</span> <span class="nav-text">1.3  直接更改props</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-兄弟组件间通讯"><span class="nav-number">2.</span> <span class="nav-text">二.  兄弟组件间通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-靠爹"><span class="nav-number">2.1.</span> <span class="nav-text">2.1  靠爹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-EventBus"><span class="nav-number">2.2.</span> <span class="nav-text">2.2  EventBus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-随便怎么通讯"><span class="nav-number">3.</span> <span class="nav-text">三.  随便怎么通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Vuex"><span class="nav-number">3.1.</span> <span class="nav-text">3.1  Vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-创建"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1  创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-2-引入"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2  引入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-3-使用"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.1.3  使用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#state"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">state</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#mutations"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">mutations</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#getters"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">getters</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#actions"><span class="nav-number">3.1.3.4.</span> <span class="nav-text">actions</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-全局模式"><span class="nav-number">3.2.</span> <span class="nav-text">3.2  全局模式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-父子组件间通讯"><span class="nav-number">1.</span> <span class="nav-text">一.  父子组件间通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-单向传递-props"><span class="nav-number">1.1.</span> <span class="nav-text">1.1  单向传递   props</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-子组件向父组件传递信息"><span class="nav-number">1.2.</span> <span class="nav-text">1.2  子组件向父组件传递信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-直接更改props"><span class="nav-number">1.3.</span> <span class="nav-text">1.3  直接更改props</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-兄弟组件间通讯"><span class="nav-number">2.</span> <span class="nav-text">二.  兄弟组件间通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-靠爹"><span class="nav-number">2.1.</span> <span class="nav-text">2.1  靠爹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-EventBus"><span class="nav-number">2.2.</span> <span class="nav-text">2.2  EventBus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-随便怎么通讯"><span class="nav-number">3.</span> <span class="nav-text">三.  随便怎么通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Vuex"><span class="nav-number">3.1.</span> <span class="nav-text">3.1  Vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-1-创建"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1  创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-2-引入"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2  引入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-3-使用"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.1.3  使用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#state"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">state</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#mutations"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">mutations</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#getters"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">getters</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#actions"><span class="nav-number">3.1.3.4.</span> <span class="nav-text">actions</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-全局模式"><span class="nav-number">3.2.</span> <span class="nav-text">3.2  全局模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-sync"><span class="nav-number">4.</span> <span class="nav-text">四. sync</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1前情"><span class="nav-number">4.1.</span> <span class="nav-text">4.1前情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-例子"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 例子</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1113,7 +1121,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1121,7 +1129,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
