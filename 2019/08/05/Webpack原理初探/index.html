@@ -107,7 +107,7 @@
 <meta property="og:description" content="​        作为最常用的静态模块打包工具之一 webpack 困扰也哺育着成千上万的前端开发，我们都知道 input output，modules plugins loader，可是站在更高一层的角度看这些都有什么区别？什么作用？实现原理是 js 中的哪一种数据结构？恐怕很少有人去考量。所以今天我们试着一探究竟。 ​        本文转载自SegmentFault的whjin，原文地址：h">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/Ha80f13a83fa7456089be842c12a8af55u.png">
-<meta property="og:updated_time" content="2019-08-18T04:55:05.647Z">
+<meta property="og:updated_time" content="2019-08-18T08:26:28.951Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Webpack原理（转载）">
 <meta name="twitter:description" content="​        作为最常用的静态模块打包工具之一 webpack 困扰也哺育着成千上万的前端开发，我们都知道 input output，modules plugins loader，可是站在更高一层的角度看这些都有什么区别？什么作用？实现原理是 js 中的哪一种数据结构？恐怕很少有人去考量。所以今天我们试着一探究竟。 ​        本文转载自SegmentFault的whjin，原文地址：h">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-08-18 12:55:05" itemprop="dateModified" datetime="2019-08-18T12:55:05+08:00">2019-08-18</time>
+                <time title="Geändert am: 2019-08-18 16:26:28" itemprop="dateModified" datetime="2019-08-18T16:26:28+08:00">2019-08-18</time>
               
             
           </span>
@@ -463,7 +463,7 @@
 </ol>
 <h4 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h4><ol>
 <li>初始化：启动构建，读取与合并配置参数，加载<code>Plugin</code>，实例化<code>Compiler</code>。</li>
-<li>编译：从<code>Entry</code>发出，针对美个<code>Module</code>穿行调用对应的<code>Loader</code>去翻译文件内容，再找到该<code>Module</code>依赖的<code>Module</code>，递归地进行编译处理。</li>
+<li>编译：从<code>Entry</code>发出，针对每个<code>Module</code>串行调用对应的<code>Loader</code>去翻译文件内容，再找到该<code>Module</code>依赖的<code>Module</code>，递归地进行编译处理。</li>
 <li>输出：将编译后的<code>Module</code>组合成<code>Chunk</code>，把<code>Chunk</code>转换成文件，输出到文件系统。</li>
 </ol>
 <p>当然，如果你开启了监听模式，那么整个流程会变成这样</p>
