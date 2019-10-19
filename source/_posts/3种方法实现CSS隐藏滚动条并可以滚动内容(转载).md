@@ -2,7 +2,7 @@
 title: 3种方法实现CSS隐藏滚动条并可以滚动内容(转载)
 categories: CSS
 tags:
- - ::-webkit-scrollbar
+ - webkit-scrollbar
 ---
 
 帮学长写毕设的时候遇到的一个问题，由于没有什么好的方法所以上网求教并最终找到一篇通俗易懂的博客，码一下以备日后复习所用

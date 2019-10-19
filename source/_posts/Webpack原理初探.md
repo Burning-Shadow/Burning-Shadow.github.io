@@ -3,7 +3,6 @@ title: Webpack原理（转载）
 categories: 打包工具
 tags:
  - webpack
- - 打包工具
 ---
 
 ​		作为最常用的静态模块打包工具之一 `webpack` 困扰也哺育着成千上万的前端开发，我们都知道 `input` `output`，`modules` `plugins` `loader`，可是站在更高一层的角度看这些都有什么区别？什么作用？实现原理是 js 中的哪一种数据结构？恐怕很少有人去考量。所以今天我们试着一探究竟。

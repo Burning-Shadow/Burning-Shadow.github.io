@@ -78,3 +78,10 @@ Function.prototype.myBind = function (context) {
 }
 ```
 
+### 原理
+
+事实上对于这三个库函数的实现离不开三个东西（变量？属性？指针？）`arguments`、`context`、`this`。
+
+其中我们将`this`存储与临时变量中以便于绑定原本的函数，而`context`则是参数列表`arguments`中的第一个参数，用于代表环境变量。
+
+更详细的部分我在[《执行上下文对象Context》](https://burning-shadow.github.io/2019/07/20/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E5%AF%B9%E8%B1%A1Context/)中有写，感兴趣的 boy 可以去看一下

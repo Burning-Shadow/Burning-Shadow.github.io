@@ -123,7 +123,7 @@ f();
 
 这也和咱们编译阶段的`arguments`创建类似咯，对作用域中的变量进行预声明，进而方便在执行时通过作用域链查找使用，非常方便的呢。
 
-对这部分有兴趣的 boy 可以自行上网百度作用域链，当然也可以选择查看我的另一篇博客[《JavaScript中的闭包》]([https://burning-shadow.github.io/2019/03/20/JavaScript%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/](https://burning-shadow.github.io/2019/03/20/JavaScript中的闭包/))，其中有关于变量查询的方式，涉及到一部分作用域链的知识。还有一篇写的不太好的关于作用域的文章[《JavaScript中的作用域》]([https://burning-shadow.github.io/2019/03/20/JavaScript%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/](https://burning-shadow.github.io/2019/03/20/JavaScript中的作用域/))，欢迎来踩。
+对这部分有兴趣的 boy 可以自行上网百度作用域链，当然也可以选择查看我的另一篇博客[《JavaScript中的闭包》](https://burning-shadow.github.io/2019/03/20/JavaScript%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/)，其中有关于变量查询的方式，涉及到一部分作用域链的知识。还有一篇写的不太好的关于作用域的文章[《JavaScript中的作用域》](https://burning-shadow.github.io/2019/03/20/JavaScript%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/)，欢迎来踩。
 
 今天到此为止，告辞。
 

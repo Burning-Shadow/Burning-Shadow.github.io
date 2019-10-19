@@ -11,6 +11,15 @@ categories: JavaScript
 
 ## map
 
+>`array.map(function(currentValue,index,arr), thisValue)`
+>
+>| 参数           | 描述                                                         |
+>| -------------- | ------------------------------------------------------------ |
+>| *currentValue* | 必须。当前元素的值                                           |
+>| *index*        | 可选。当前元素的索引值                                       |
+>| *arr*          | 可选。当前元素属于的数组对象                                 |
+>| *thisValue*    | 可选。对象作为该执行回调时使用，传递给函数，用作 "this" 的值。<br/>如果省略了 thisValue，或者传入 null、undefined，那么回调函数的 this 为全局对象。 |
+
 - map一般来说针对数组进行操作。但是进行了一个很好的封装使得读者可以清晰的看到被操作数组，以及对数组内每个元素进行操作的函数。我们先看一个小例子：
 
 ```javascript
@@ -46,8 +55,18 @@ var r;
 r = arr.map(function(x){return parseInt(x);});
 ```
 
-
 ## reduce
+
+> `array.reduce(function(total, currentValue, currentIndex, arr), initialValue)`
+>
+> | 参数           | 描述                                     |
+> | -------------- | ---------------------------------------- |
+> | *total*        | 必需。*初始值*, 或者计算结束后的返回值。 |
+> | *currentValue* | 必需。当前元素                           |
+> | *currentIndex* | 可选。当前元素的索引                     |
+> | *arr*          | 可选。当前元素所属的数组对象。           |
+> | *initialValue* | 可选。传递给函数的初始值                 |
+
 不知道在座的各位有没有学过数据结构，记不记得里边的广义表章节。
 
 总之其中有一个广义表的存储方法名为**头尾链表存储结构**。叫的花哨其实没那么难懂。即使将广义表分为头尾两部分头部为值，尾部为指针指向后边的元素。后边的元素继续细分为头尾，以此类推
@@ -101,5 +120,5 @@ function string2int(s) {
 }
 ```
 
-如果对 JS 中的数组想有更多了解则可以查阅这篇博客：[《Array类型中的操作方法》]([https://burning-shadow.github.io/2019/03/27/Array%E7%B1%BB%E5%9E%8B%E4%B8%AD%E7%9A%84%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95/](https://burning-shadow.github.io/2019/03/27/Array类型中的操作方法/))
+如果对 JS 中的数组想有更多了解则可以查阅这篇博客：[《Array类型中的操作方法》](https://burning-shadow.github.io/2019/03/27/Array%E7%B1%BB%E5%9E%8B%E4%B8%AD%E7%9A%84%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95/)
 

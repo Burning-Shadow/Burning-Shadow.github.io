@@ -47,7 +47,7 @@ tags:
 
 ### 基于Object.defineProperty的双向绑定
 
-具体内容我们就不再细讲了，[《Vue双向绑定原理及实现》](https://burning-shadow.github.io/2019/03/31/Vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/)）讲的还是比较清楚的。我们来说说它的缺陷：
+具体内容我们就不再细讲了，[《Vue双向绑定原理及实现》](https://burning-shadow.github.io/2019/03/31/Vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/)讲的还是比较清楚的。我们来说说它的缺陷：
 
 
 

@@ -93,7 +93,7 @@ console.log(Book.name);  // 《vue权威指南》
 
 喏， 咱们现在的`get`和`set`就是自己定义的啦。
 
-还记不记得刚擦咱们打印的`Vue`实例？现在咱们也打印一下这个对象（`console.log(Book)`）
+还记不记得刚才咱们打印的`Vue`实例？现在咱们也打印一下这个对象（`console.log(Book)`）
 
 ![](https://0d077ef9e74d8.cdn.sohucs.com/rmd0ZU7_jpg)
 
@@ -106,21 +106,21 @@ console.log(Book.name);  // 《vue权威指南》
 - 数据变化更新视图
 - 视图变化更新数据
 
-![](https://0d077ef9e74d8.cdn.sohucs.com/rmd1iTT_jpg)
+![modelview-viewmodel](https://0d077ef9e74d8.cdn.sohucs.com/rmd1iTT_jpg)
 
 前边咱们讲`Object.defineProperty`的意思就是——我们可以通过改变数据来更新视图——只需要在相应的`set`函数中添加对应的 DOM 操作就可以啦
 
 
 
-我们只需要给要监听的对象（`Watcher`）设置一个`set`函数，当数据改变自然会触发。我们将亦喜恶更新所需的方法放在其中就可以实现啦
+我们只需要给要监听的对象（`Watcher`）设置一个`set`函数，当数据改变自然会触发。我们将更新所需的方法放在其中就可以实现啦
 
-![](https://0d077ef9e74d8.cdn.sohucs.com/rmd1tYI_jpg)
+![监听器](https://0d077ef9e74d8.cdn.sohucs.com/rmd1tYI_jpg)
 
 ### 实现过程
 
 我们所需要的流程如下
 
-![](https://0d077ef9e74d8.cdn.sohucs.com/rmd1HWt_png)
+![vue实现流程](https://0d077ef9e74d8.cdn.sohucs.com/rmd1HWt_png)
 
 **需要三个身份：**
 
@@ -314,8 +314,6 @@ function SelfVue (data, el, exp) {
     });
     return this;
 }
-
-
 ```
 
 然后在页面上new一下`SelfVue`类，就可以实现数据的双向绑定了。我们在页面上试试看
@@ -339,8 +337,6 @@ function SelfVue (data, el, exp) {
     }, 2000);
  
 </script>
-
-
 ```
 
 此时打开页面，可以看到刚开始页面显示`'hello world'`，2s之后变成了`'canfoo'`。
@@ -381,8 +377,6 @@ SelfVue.prototype = {
         });
     }
 }
-
-
 ```
 
 #### Compile实现
@@ -410,8 +404,6 @@ function nodeToFragment (el) {
     }
     return fragment;
 }
-
-
 ```
 
 接下来就是遍历各个节点，对含有相关指令的节点进行特殊处理。
@@ -446,8 +438,6 @@ function compileText (node, exp) {
 function updateText (node, value) {
     node.textContent = typeof value == 'undefined' ? '' : value;
 }
-
-
 ```
 
 获取到最外层节点后，调用`compileElement`函数，对所有子节点进行判断。若节点为文本节点且匹配**双括号**，则这种形式的指令就开始进行编译处理。
@@ -471,8 +461,6 @@ function SelfVue (options) {
     new Compile(options, this.vm);
     return this;
 }
-
-
 ```
 
 更改后，我们就不要像之前通过传入固定的元素值进行双向绑定了，可以随便命名各种变量进行双向绑定
@@ -507,8 +495,6 @@ function SelfVue (options) {
     }, 2500);
  
 </script>
-
-
 ```
 
 以上，我们可以观察到，刚开始`title`和`name`分别被初始化为`hello world`和空，2s 后`title`被替换为`'你好'`，3s 后`name`被替换为`'canfoo'`。
@@ -541,8 +527,6 @@ function compile (node) {
         }
     });
 }
-
-
 ```
 
 `compile`函数是挂在`Compile`原型上的。它首先遍历所有的节点属性，再判断属性是否是指令属性。若是则再区分是哪种指令，然后再做相应处理。
@@ -563,8 +547,6 @@ function SelfVue (options) {
     new Compile(options.el, this);
     options.mounted.call(this); // 所有事情处理好后执行mounted函数
 }
-
-
 ```
 
 我们来试试看
@@ -603,13 +585,11 @@ function SelfVue (options) {
     });
  
 </script>
-
-
 ```
 
 结果如下
 
-![](https://ww1.sinaimg.cn/large/007i4MEmly1g1l5jjstuug30go0chgoy.gif)
+![展示效果](https://ww1.sinaimg.cn/large/007i4MEmly1g1l5jjstuug30go0chgoy.gif)
 
 ### last
 

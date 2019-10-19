@@ -220,4 +220,4 @@ let list2 = ['a', 'b', 'c'];
 list2.push('d');  // 4
 ```
 
-这部分在 [《Proxy && defineProperty之实现双向绑定》]([https://burning-shadow.github.io/2019/04/12/Proxy-&&-defineProperty%E4%B9%8B%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/](https://burning-shadow.github.io/2019/04/12/Proxy-&&-defineProperty之实现双向绑定/)) 一文中有介绍，并由此过渡到了`Proxy`实现双向绑定上，感兴趣的boy可以去看一下~
+这部分在 [《Proxy && defineProperty之实现双向绑定》](https://burning-shadow.github.io/2019/04/12/Proxy-&&-defineProperty%E4%B9%8B%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/) 一文中有介绍，并由此过渡到了`Proxy`实现双向绑定上，感兴趣的boy可以去看一下~
