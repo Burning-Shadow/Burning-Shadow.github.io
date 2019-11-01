@@ -1,7 +1,8 @@
 ---
 title: Vuex初体验
-categories: Vuex
+categories: 状态管理库
 tags:
+ - 状态管理库
  - vuex
 ---
 
