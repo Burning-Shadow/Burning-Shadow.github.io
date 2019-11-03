@@ -33,7 +33,7 @@ tags:
 
 ## 为什么这么复杂
 
-​		单向数据流的初衷就是让逻辑变得更加清晰，我们写了这些代码的本质上**并非是**想提高运行速度或提升用户体验，（相较于写在 React Components 中的 state 而言这些看似繁复的规范无疑是增加了开发者的学习成本，增加了代码量，同时还增加了读取时间等等），**而是尽可能的**将流程交给我们的**数据管理器**。如此一来发生错误时可以**更精确的定位错误信息**，将错误定位时间压缩到最低。
+​		单向数据流的初衷就是让逻辑变得更加清晰，我们写了这些代码的本质上**并非是**想提高运行速度或提升用户体验，（相较于写在 React Components 中的 state 而言这些看似繁复的规范无疑是增加了开发者的学习成本，增加了代码量，同时还增加了读取时间等等），**而是尽可能的**将流程交给我们的**数据管理器**。如此一来发生错误时可以**更精确的定位错误信息**，将错误定位时间压缩到最低。此外可以将我们的逻辑代码从生命周期函数中迁移出来，防止生命周期内布过于臃肿。将其内部的请求、存储等函数方法对象等等交由 Redux 统一管理会使得你的组件中全部为逻辑代码，对于持久化管理也是好处无穷。
 
 ## 基础篇
 
@@ -214,26 +214,183 @@ export default store;
 
 ​		最后，不要忘记把此文件暴露给具体应用到 Redux 的组件哦。
 
-## 提升篇
+## 异步
 
-### 异步Action
+​		在具体介绍之前我们需要先介绍一个名词：**中间件 MiddleWare**。顾名思义是 Redux 的一部分扩展插件，用以辅助存储。
+
+![Redux Data Flow](https://pic.superbed.cn/item/5dbcf376bd461d945aeaeb9d.jpg)
+
+​		我们所常用的 `redux-thunk`、`redux-saga` 等都隶属于 MiddleWare 的范畴。
+
+---
+
+​		我们平日里在组件内请求而来的数据必须写在生命周期中，而这样的写法会使得代码的复用性降低，且无法将 Redux 数据管理的能力发挥到极致，所以为了使得我们可以通过 Redux 请求异步数据后再返回结果我们需要引入 MiddleWare —— `redux-thunk` 来帮助我们进行异步请求的管理。
 
 ​		上边我们讲解了对于本地数据存储的 Redux 使用方式，但是对于存在着大量异步请求的 web 端来说异步 Action 的存在同样重要。经过上边的介绍我们得知 Action 本质上就是一个个用于存储数据的 JSON 对象。而异步 Action 与普通 Action 不同之处只有一个：状态
 
-​		就像是 ES6 中的 Promise，除去 `pending` 状态外还有 `fulfilled` 和 `reject` 两种状态分别代表着执行成功与否，相应的，异步 Action 也存在着如上的情景，所以我们通常也会使用一个特殊字段来记录请求的状态：`status`.
+​		在实践中组件发生 action 后，在进入 reducer 前需要完成一个异步任务，只有请求拿到数据之后才能再进入 reducer。而原生的 Redux 是不支持这种操作的，所以自然而然的就可以引入下边介绍的两种中间件：`redux-thunk` 和 `redux-saga`。
 
-​		举个例子，一条后台返还的数据通常会有状态码 `status` 和数据 `data`，所以一条异步 Action 也应该具备以下三个字段（当然，以下是个人习惯，大家选自己适合的就好啦）
+​		
 
-```json
-{ 
-  type: 'FETCH_POSTS',
-  status: 0,
-  response: { ... } 
-}
-```
-
-#### Redux Thunk
+### Redux-Thunk
 
 ​		这玩意儿跟咱们平时搞的不太一样，主要作用是**将 Action 的返回对象由对象扩展为函数**。它可以像普通 Action 对象一样，由 Store 实例进行
 
 ​		同样的，为了实现这一目的我们还需要引入新的中间件：`redux-thunk`。通过 npm 进行安装就可以啦。
+
+安装完毕后我们要改变的其实也并不是很多。在 `store/index.js` 中引入即可
+
+```javascript
+// store/index.js
+
+import { createStore, applyMiddleware, compose } from "redux";
+import reducer from "./reducers";
+import thunk from "redux-thunk";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+  : compose;
+
+const enhancer = composeEnhancers(applyMiddleware(thunk));
+
+const store = createStore(reducer, enhancer);
+
+export default store;
+```
+
+至于与组件对应的 `actionCreator` 我们也无需担心。异步函数只要这样写就可以啦
+
+```javascript
+// store/actionCreators/todoList.js
+
+export const getTodoList = () => {
+  return (dispatch) => {
+    axios
+      .get(
+        "https://www.easy-mock.com/mock/5dbc42c0727c0077ea997f43/example/getlist"
+      )
+      .then(res => {
+        // console.log(res);
+        const data = res.data;
+        const action = getListAction(data);
+        dispatch(action);
+      })
+      .finally(() => {
+        console.log("finally");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
+```
+
+注意我们传入了一个 `dispatch`，如此一来我们就可以通过 `redux-thunk` 来直接在 `actionCreator` 中更改数据了。
+
+而具体的项目中其实和普通的一模一样。从 `actionCreator` 中引入函数后即可。其后的步骤如同普通的使用方式——在生命周期函数中创立副本；然后 `dispatch(action)`
+
+```javascript
+// src/pages/todoList.js
+
+componentDidMount() {
+  const action = getTodoList();
+  store.dispatch(action)
+}
+```
+
+### Redux-Saga
+
+​		老规矩，npm下载`npm i redux-saga --save`
+
+​		完成后我们需要在 `store/index.js` 中继续配置
+
+```javascript
+// store/index.js
+
+import { createStore, applyMiddleware, compose } from "redux";
+import reducer from "./reducers";
+import createSagaMiddleware from "redux-saga";
+import mySagas from "./sagas";
+
+// 创建 saga 中间件
+const sagaMiddleware = createSagaMiddleware();
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+  : compose;
+
+const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
+
+const store = createStore(reducer, enhancer);
+sagaMiddleware.run(mySagas);
+
+export default store;
+```
+
+​		细心的 boy 会发现我们会多引入一个 `sagas.js` 文件。这玩意儿得咱自己写.
+
+​		同时还有这么一句：`sagaMiddleware.run(mySagas)` emmmmm... 非要执行一下？喔原来 `saga.js` 是一个 `generator`
+
+```javascript
+// store/saga.js
+
+function* mySaga(){}
+export default mySaga;
+```
+
+​		`generator` 函数本质是一个生成器，而 `saga.js` 中我们正需要她的特性。让我们完善一下我们刚才的 `saga.js`
+
+```javascript
+// store/saga.js
+
+import { takeEvery, put } from 'redux-saga/effects';
+import { GET_MY_LIST } from './actionTypes';
+import { getListAction } from './actionCreators';
+import axios from 'axios';
+
+function* mySaga() {
+  yield takeEvery(GET_MY_LIST, getList)
+}
+
+function* getList() {
+  const res = yield axios.get("https://www.easy-mock.com/mock/5dbc42c0727c0077ea997f43/example/getlist");
+  
+  const action = getListAction(res.data);
+  yield put(action);	// 使用 saga 特定 API put。一旦 action 改变就将变化传入 Store 中
+}
+
+export default mySaga;
+```
+
+​		其中，`takeEvery` 可以理解为一个**监听器**。每次我们将对应的 action 传入时就是事件的投入，而他则会**将异步请求返回的结果统一暴露给外界**——也就是监听它的组件 `store/index.js`。
+
+​		而上面的 `getActionList` 也是和 `redux-thunk` 中的 `getTodoList` 异步函数不同，它就是一个普通的 action。
+
+```javascript
+// actionCreator.js
+
+export const getMyListAction = () => ({
+  type: GET_MY_LIST
+})
+```
+
+​		而生命周期中的操作也很简单，在对应生命周期中写入即可
+
+```javascript
+componentDidMount() {
+  const action = getMyListAction();
+  store.dispatch(action);
+}
+```
+
+​		相信大家看到这里已经明白，`react-saga` 不同于 `react-thunk` 直接使用异步函数的形式，而是通过 `generator` 对 `action` 状态进行监听，一旦发生变化则立刻通知 `store` 进行更新数据。颇有一种 `Don't call me, i'll call you` 的异步风采。而其实现刨去观察者-监听者模式之外更多的是利用 ES6 的 `generator` 函数进行异步的回调处理。
+
+### 最后说两句
+
+​		上面介绍的两种异步 Action 的 MiddleWare 使用方式事实上并无好坏之区分，适用场景不同，使用方法不同罢了，据说 `redux-saga` 更适用于大型项目。
+
+
+
+## React-Redux
+
+上述讲了这么多事实上
