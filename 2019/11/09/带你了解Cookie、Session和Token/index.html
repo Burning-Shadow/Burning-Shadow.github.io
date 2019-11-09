@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="​        啥是 cookie？啥又是 session？token 又是咋用？这些问题在蛮久之前困扰了我好久。依照后台的讲解来说我理解的 session 和 cookie 没什么两样，而 token 的话好像还是，依然是默认携带的东西交给后台做处理。但是！作为一个前端仍然有必要了解其后的机制！">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-09T14:00:11.740Z">
+<meta property="og:updated_time" content="2019-11-09T14:16:27.780Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="带你了解Cookie、Session和Token">
 <meta name="twitter:description" content="​        啥是 cookie？啥又是 session？token 又是咋用？这些问题在蛮久之前困扰了我好久。依照后台的讲解来说我理解的 session 和 cookie 没什么两样，而 token 的话好像还是，依然是默认携带的东西交给后台做处理。但是！作为一个前端仍然有必要了解其后的机制！">
@@ -194,7 +194,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -222,7 +222,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -239,7 +239,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -256,7 +256,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -273,7 +273,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -361,14 +361,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-11-09 21:00:09 / Geändert am: 22:00:11" itemprop="dateCreated datePublished" datetime="2019-11-09T21:00:09+08:00">2019-11-09</time>
+              <time title="Created: 2019-11-09 21:00:09 / Modified: 22:16:27" itemprop="dateCreated datePublished" datetime="2019-11-09T21:00:09+08:00">2019-11-09</time>
             
 
             
@@ -409,14 +409,19 @@
       
         <p>​        啥是 <code>cookie</code>？啥又是 <code>session</code>？<code>token</code> 又是咋用？这些问题在蛮久之前困扰了我好久。依照后台的讲解来说我理解的 <code>session</code> 和 <code>cookie</code> 没什么两样，而 <code>token</code> 的话好像还是，依然是默认携带的东西交给后台做处理。但是！作为一个前端仍然有必要了解其后的机制！</p>
 <a id="more"></a>
-<h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><p>​        作为三大主角中第一个出场的 boy <code>cookie</code> 无疑成为了众多前端小伙伴的第一个交互时所用到的对象。凡是拥有身份系统的应用中为了弥补 HTTP 无状态这一缺点（暂时先将其归为缺点吧），则是通过后台向前端传递的一个 kv 形式的字段 ，并在向后台发送请求时携带。而后台系统则通过验证前端所携带而来的 <code>cookie</code> 来进行身份的识别，如此一来皆大欢喜，皆大欢喜！</p>
+<h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h3><p>​        作为三大主角中第一个出场的 boy <code>cookie</code> 无疑成为了众多前端小伙伴的第一个交互时所用到的对象。凡是拥有身份系统的应用中为了弥补 HTTP 无状态这一缺点（暂时先将其归为缺点吧），则是通过后台向前端传递的一个 kv 形式的字段 ，并在向后台发送请求时携带。而后台系统则通过验证前端所携带而来的 <code>cookie</code> 来进行身份的识别，如此一来皆大欢喜，皆大欢喜！</p>
 <p>​        真的皆大欢喜了吗？</p>
 <p>​        首先，作为一个以 key-value 形式存储在本地的重要身份识别字段自然无法避免的被不法分子利用，从而造成用户身份及信息的泄露，严重的甚至危害用户的人身和财产安全，所以为了解决此问题在 HTTP 字段中我们可以通过加设 <code>http-only</code> 字段对其进行限制，禁止脚本获取。另外由于同源策略的限制在每个域下的 <code>cookie</code> 都独立存储，不会对其他域的 <code>cookie</code> 造成影响，如此一来就可以在请求发送之后完成用户身份的校验啦！</p>
 <p>​        那为什么会有 <code>session</code> 这玩意儿的存在？</p>
-<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><p>​        其实本质上来说 <code>cookie</code> 只是一个 “餐后甜点”，其作用就是本地存储，作用范围仅限于浏览器，而 <code>session</code> 才是服务器之间的硬通货。</p>
+<h3 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h3><h4 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h4><p>​        其实本质上来说 <code>cookie</code> 只是一个 “餐后甜点”，其作用就是本地存储，作用范围仅限于浏览器，而 <code>session</code> 才是服务器之间的硬通货。</p>
 <p>​        创始之初 web 网页就是让大家浏览信息所用，而直到交互式应用的出现才使得 web 应用焕发了其真正的生机。如上所述，HTTP 无状态的特性此时就成了缺点，服务端无法识别请求发送者的具体身份，相应的也就无法识别，于是 <code>session</code> 应运而生。</p>
-<p>​        </p>
-
+<h4 id="详情"><a href="#详情" class="headerlink" title="详情"></a>详情</h4><p>​        <code>session</code> 这东西说来也简单，服务器生成一个随机的字符串给浏览器，你的我的他的都不一样，给服务器发请求的时候带上，这样就完成了身份的验证，而咱们的客户端（浏览器）只需要存一个 <code>cookie</code> 而已，很棒，不是吗？</p>
+<p>​        “不是的！”，服务器如是说道。</p>
+<p>​        想想也对，咱们就存一个 <code>cookie</code> ，而人家得存咱们所有人的 <code>cookie</code>，这事儿搁谁身上都不高兴啊。为了解决这种问题服务器想到了另一个办法：找兄弟帮我分担——一台不够，那咱们加一台。</p>
+<p>​        可是兄弟毕竟是兄弟，你这两边各存一半 <code>session</code>，那人家请求过来该找谁？于是乎 <code>session sticky</code> 作为一个小伎俩被支出来，是谁验证的就一直谁管理，咱们两边分开来搞。</p>
+<p>​        那万一有一台挂掉了怎么办？还是得数据移植啊，只有备份才能保证其安全性。可是两台还好，三台四台五台六台怎么办？这个是数量级级别的增长呀。</p>
+<p>​        Memcached：“我们可以把 <code>session</code> 集中存储在一个地方，所有的机器都由这台服务器进行验证。”倒是没什么问题，但是把所有鸡蛋放在同一个篮子里，既增加了单点失败的可能性，又是极大的不稳定因素，万一没拿稳岂不是全没了。最后的解决办法还是备份，可这么个小东西高到这个份儿上的确让人有点烦躁。</p>
+<h3 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h3>
       
     </div>
 
@@ -510,10 +515,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -536,7 +541,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">100</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -595,7 +600,7 @@
                       
                     
                     <span class="site-state-item-count">21</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -948,7 +953,7 @@
                       
                     
                     <span class="site-state-item-count">168</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -1011,7 +1016,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie"><span class="nav-number">1.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session"><span class="nav-number">2.</span> <span class="nav-text">session</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie"><span class="nav-number">1.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session"><span class="nav-number">2.</span> <span class="nav-text">Session</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引子"><span class="nav-number">2.1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详情"><span class="nav-number">2.2.</span> <span class="nav-text">详情</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Token"><span class="nav-number">3.</span> <span class="nav-text">Token</span></a></li></ol></div>
             
 
           </div>
@@ -1044,7 +1049,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1052,7 +1057,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
