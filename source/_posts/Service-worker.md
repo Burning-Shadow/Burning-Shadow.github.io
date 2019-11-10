@@ -1,6 +1,6 @@
 ---
 title: Service worker
-categories: 浏览器相关知识点
+categories: Browser
 tags:
  - Service worker
 ---

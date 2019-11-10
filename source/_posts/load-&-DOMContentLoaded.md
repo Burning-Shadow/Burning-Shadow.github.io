@@ -1,6 +1,6 @@
 ---
 title: load & DOMContentLoaded
-categories: 浏览器相关知识点
+categories: Browser
 tags:
  - load
  - DOMContentLoaded
