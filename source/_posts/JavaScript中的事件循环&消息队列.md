@@ -146,31 +146,30 @@ Node 的 Event loop 分为6个阶段，它们会按照顺序反复运行
 
 ##### timer
 
-- timers 阶段会执行 `setTimeout` 和 `setInterval`。一个 `timer` 指定的时间并不是准确时间，而是在达到这个时间后尽快执行回调，可能会因为系统正在执行别的事务而延迟。下限的时间有一个范围：`[1, 2147483647]` ，如果设定的时间不在这个范围，将被设置为1.
+- timers 阶段会**执行 `setTimeout` 和 `setInterval`。**一个 `timer` 指定的时间并不是准确时间，而是在达到这个时间后尽快执行回调，可能会因为系统正在执行别的事务而延迟。下限的时间有一个范围：`[1, 2147483647]` ，如果设定的时间不在这个范围，将被设置为1.
 
 ##### I/O
 
-- I/O 阶段会执行除了 close 事件，定时器和 `setImmediate` 的回调
+- I/O 阶段会 **执行*除了* close 事件，定时器和 `setImmediate` 的回调**。
 
 ##### idle, prepare
 
-- idle, prepare 阶段内部实现
+- idle, prepare 阶段内部实现，**此阶段执行 `process.nextTick()` 的回调。**
 
 ##### poll
 
-- poll 阶段很重要，这一阶段中，系统会做两件事情
-  1. 执行到点的定时器
-  2. 执行 poll 队列中的事件
+- poll 阶段很重要，这一阶段中，**系统**会做两件事情
+  1. **执行到点的定时器**
+  2. **执行 poll 队列中的事件**
 - 并且当 poll 中没有定时器的情况下，会发现以下两件事情
   - 如果 poll 队列不为空，会遍历回调队列并同步执行，直到队列为空或者系统限制
   - 如果 poll 队列为空，会有两件事发生 
     - 如果有 `setImmediate` 需要执行，poll 阶段会停止并且进入到 check 阶段执行 `setImmediate`
-    - 如果没有 `setImmediate` 需要执行，会等待回调被加入到队列中并立即执行回调
-    - 如果有别的定时器需要被执行，会回到 timer 阶段执行回调。
+    - 如果有新的回调进入且其为定时器，会回到 timer 阶段执行回调。
 
 ##### check
 
-- check 阶段执行 `setImmediate`
+- check 阶段**执行 `setImmediate()`。**
 
 ##### close callbacks
 
@@ -208,7 +207,7 @@ Node 的 Event loop 分为6个阶段，它们会按照顺序反复运行
   // 所以以上输出一定是 setImmediate，setTimeout
   ```
 
-- 上面介绍的是`macrotask`的执行情况。被创建的`microtask`会在以上宏任务完成后立即执行
+- 上面介绍的是 `macrotask` 的执行情况。被创建的 `microtask` 会在以上宏任务完成后立即执行
 
 - ```javascript
   setTimeout(()=>{
@@ -232,6 +231,12 @@ Node 的 Event loop 分为6个阶段，它们会按照顺序反复运行
   // node 中可能打印 timer1, timer2, promise1, promise2
   // 也可能打印 timer1, promise1, timer2, promise2
   ```
+
+#### 总结
+
+上边的那张图看起来比较乱，总的来说 NODE 中的 `event loop` 可以用这一张图来表示。
+
+![event loop in NODEJS](https://pic.superbed.cn/item/5dcab5478e0e2e3ee9ac29a3.png)
 
 > Node 中的 `process.nextTick` 会先于其他 microtask 执行。
 
