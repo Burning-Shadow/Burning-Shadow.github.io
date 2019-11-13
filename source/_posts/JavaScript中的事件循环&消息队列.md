@@ -9,9 +9,9 @@ tags:
      
 ---
 
-作为一门设计初衷为了处理浏览器网页交互（`DOM`操作、`UI`动画等）的语言，`JavaScript`只能被设计为单线程（否则多个线程同时处理`DOM`那将会造成混乱）。
+​		作为一门设计初衷为了处理浏览器网页交互（`DOM`操作、`UI`动画等）的语言，`JavaScript`只能被设计为单线程（否则多个线程同时处理`DOM`那将会造成混乱）。
 
-可是写过`JavaScript`代码的人都用过定时器、`ajax`、事件绑定等。如果是单线程那岂不是无法完成这些异步请求？
+可是写过`JavaScript`代码的人都用过定时器、`ajax`、事件绑定等异步处理函数。那么单线程的 JS 是怎样将等待异步请求返回过程中闲置的 CPU 利用起来的呢？我们一起来了解一下。
 
 <!--more-->
 
@@ -103,26 +103,26 @@ console.log('script end')
 // timer over
 ```
 
-为什么`promise1`和`promise2`在“`timer over`”之前打印？
+为什么 `promise1` 和 `promise2` 在 “`timer over`”之前打印？
 
 这里就要引入宏任务（`macrotask`）和微任务（`microotask`）。
 
-- 上面提到的一切事件（同步代码块、`setTimeout`、`setInterval`等）都是宏任务
-- 而微任务则是`Promise`和`process.nextTick`
+- 上面提到的一切事件（同步代码块、`setTimeout`、`setInterval` 等）都是宏任务
+- 而微任务则是 `Promise` 和 `process.nextTick`
 
 
 
 顺序的话还是同步事件优先级最高，而这些异步事件其次**。机制同样是事件循环**。
 
-当执行宏任务时遇到`Promise`等，会创建微任务（`.then()`里的回调），并加入微任务队列队尾。
+当执行宏任务时遇到`Promise`等，会创建微任务（`.then()` 里的回调），并加入微任务队列队尾。
 
-microtask必然是在某个宏任务执行的时候创建的，而在下一个宏任务开始之前，浏览器会对页面重新渲染(`task` >> `渲染` >> `下一个task`(从任务队列中取一个))。同时，在上一个宏任务执行完成后，渲染页面之前，会执行当前微任务队列中的所有微任务。
+microtask必然是在某个宏任务执行的时候创建的，而在下一个宏任务开始之前，浏览器会对页面重新渲染(`task` >> `渲染` >> `下一个task` (从任务队列中取一个))。同时，在上一个宏任务执行完成后，渲染页面之前，会执行当前微任务队列中的所有微任务。
 
 
 
-> 在某一个`macrotask`执行完后，在重新渲染与开始下一个宏任务之前，就会将在它执行期间产生的所有microtask都执行完毕（在渲染前）。
+> 在某一个 `macrotask` 执行完后，在重新渲染与开始下一个宏任务之前，就会将在它执行期间产生的所有microtask都执行完毕（在渲染前）。
 
->在node环境下，`process.nextTick`的优先级高于`Promise`，也就是说：在宏任务结束后会先执行微任务队列中的`nextTickQueue`，然后才会执行微任务中的`Promise`。
+>在node环境下，`process.nextTick` 的优先级高于 `Promise`，也就是说：在宏任务结束后会先执行微任务队列中的 `nextTickQueue`，然后才会执行微任务中的 `Promise`。
 
 ### Node 中的 Event Loop
 
@@ -132,11 +132,11 @@ microtask必然是在某个宏任务执行的时候创建的，而在下一个�
 
 如图我们可得到以下几点信息：
 
-- 我们的`js`代码（`APPLICATION`）会先进入 V8 引擎。V8 引擎中主要是一些`setTimeout`之类的方法
-- 其次若我们的代码中执行了`node API`，比如`require('fs').read()`，`node`就会交给`libuv`库处理。这个`libuv`库就是`node`的事件环
-- `libuv`库是通过单线程异步的方式来处理事件。我们可以看到`work threads`是个多线程的队列，通过外面`event loop`阻塞的方式来进行异步调用
-- 等到`work threads`队列中有执行完成的事件，就会通过`EXECUTE CALLBACK`回调给`EVENT QUEUE`队列，把他放入队列中
-- 最后通过事件驱动的方式，取出`EVENT QUEUE`队列的事件，交给我们应用
+- 我们的`js`代码（`APPLICATION`）会先进入 V8 引擎。V8 引擎中主要是一些 `setTimeout `之类的方法
+- 其次若我们的代码中执行了 `node API`，比如 `require('fs').read()`，`node` 就会交给 `libuv` 库处理。这个`libuv` 库就是`node`的事件环
+- `libuv` 库是通过单线程异步的方式来处理事件。我们可以看到 `work threads` 是个多线程的队列，通过外面 `event loop` 阻塞的方式来进行异步调用
+- 等到 `work threads` 队列中有执行完成的事件，就会通过 `EXECUTE CALLBACK` 回调给 `EVENT QUEUE` 队列，把他放入队列中
+- 最后通过事件驱动的方式，取出 `EVENT QUEUE` 队列的事件，交给我们应用
 
 Node 的 Event loop 分为6个阶段，它们会按照顺序反复运行
 
@@ -146,7 +146,8 @@ Node 的 Event loop 分为6个阶段，它们会按照顺序反复运行
 
 ##### timer
 
-- timers 阶段会**执行 `setTimeout` 和 `setInterval`。**一个 `timer` 指定的时间并不是准确时间，而是在达到这个时间后尽快执行回调，可能会因为系统正在执行别的事务而延迟。下限的时间有一个范围：`[1, 2147483647]` ，如果设定的时间不在这个范围，将被设置为1.
+- timers 阶段会**执行 `setTimeout` 和 `setInterval`。**一个 `timer` 指定的时间并不是准确时间，而是在达到这个时间后尽快执行回调，可能会因为系统正在执行别的事务而延迟。**下限的时间有一个范围：`[1, 2147483647]` ，如果设定的时间不在这个范围，将被设置为1。**
+- **注意看上边那句**！所以说 `setTimeout(callback, 0)` 会被自动转化为  `setTimeout(callback, 1)`
 
 ##### I/O
 
@@ -238,11 +239,65 @@ Node 的 Event loop 分为6个阶段，它们会按照顺序反复运行
 
 ![event loop in NODEJS](https://pic.superbed.cn/item/5dcab5478e0e2e3ee9ac29a3.png)
 
-> Node 中的 `process.nextTick` 会先于其他 microtask 执行。
+- 很多人对于 `process.nextTick()` 和 `setImmediate()` 的执行顺序有所疑惑，通过这张图就可以完全的理清了。另一方面我们在此着重说明一下二者的区别
+  - **具体表现上** `process.nextTick()` 的回调保存在一个**数组**中，而`setImmediate()` 的结果则保存在**链表**中 
+  - **行为上** `process.nextTick()` 在每轮循环中将会**清空所有**数组中的回调函数，而 `setImmediate()` 则是在每轮循环中执行链表中的**第一个**回调函数
 
-### 你真的懂了吗老弟？
+```javascript
+process.nextTick(function() {
+  console.log("nextTick 延迟执行 1");
+});
+process.nextTick(function() {
+  console.log("nextTick 延迟执行 2");
+});
 
-#### 嵌套
+// 加入两个 setImmediate 的回调函数
+setImmediate(function() {
+  console.log("setImmediate 延迟执行 1");
+  // 进入下次循环
+  process.nextTick(function() {
+    console.log("强势插入");
+  });
+});
+setImmediate(function() {
+  console.log("setImmediate 延迟执行 2");
+});
+console.log("正常执行");
+```
+
+其打印结果为
+
+```
+正常执行
+nextTick 延迟执行 1
+nextTick 延迟执行 2
+setImmediate 延迟执行 1
+强势插入
+setImmediate 延迟执行 2
+```
+
+​		第一个 `setImmediate()` 的回调执行后并未立即执行第二个，而是进入了下一轮循环，再次按 `process.nextTick()` 优先，`setImmediate()` 次后的顺序执行。
+
+> 此打印结果会根据你电脑上的 NODEJS 版本不同而变化。比如我最初始时使用的是 `v10.16.3`，其打印结果为 
+>
+> ```
+> 正常执行
+> nextTick 延迟执行 1
+> nextTick 延迟执行 2
+> setImmediate 延迟执行 1
+> setImmediate 延迟执行 2
+> 强势插入
+> ```
+>
+> 而在 `v11` 之后则如《深入浅出NODEJS》一书所述。[具体文章](https://blog.insiderattack.net/new-changes-to-timers-and-microtasks-from-node-v11-0-0-and-above-68d112743eb3) 在此。
+>
+> 各位可以通过安装 nvm 进行 NODEJS 版本的控制完成对此例的测试。
+>
+> 此例具体位置在 《深入浅出NODEJS》中 63 页的 `setImmediate()` 部分。（具体位于 **3.5 事件驱动与高性能服务器**）
+
+### 嵌套例题
+
+#### 宏任务 & 微任务之间的嵌套
 
 先给个简单的，关于宏任务和微任务之间的嵌套
 
@@ -262,15 +317,17 @@ setTimeout(()=>{
 },0)
 ```
 
-打印结果是`Promise1  setTimeout1  Promise2  setTimeout2`
+- NODE 环境下有两种打印结果
+  - `Promise1  setTimeout1  Promise2  setTimeout2`
+  - `Promise1  setTimeout1  setTimeout2  Promise2`
 
-**解析**
+##### 解析
 
 - 一开始执行栈的同步任务执行完毕，回去**微任务队列**找
-- 清空微任务队列，输出`Promise1`，同时生成一个异步任务`setTimeout1`
-- 去宏任务队列查看此时队列是`setTimeout1`在`setTimeout2`之前，因为`setTimeout1`执行栈一开始的时候就开始异步执行，所以输出`setTimeout1`。在执行`setTimeout1`时会生成`Promise2`的一个微任务，放入**微任务队列**中
-- 接着又是一个循环，去**清空微任务队列**，输出`Promise2`
-- 清空完**微任务队列**，就又去**宏任务队列**中取一个。这次取的是`setTimeout2`
+- 清空微任务队列，输出 `Promise1`，同时生成一个异步任务 `setTimeout1`
+- 去宏任务队列查看此时队列是 `setTimeout1` 在 `setTimeout2` 之前，因为 `setTimeout1` 执行栈一开始的时候就开始异步执行，所以输出 `setTimeout1`。在执行 `setTimeout1` 时会生成 `Promise2` 的一个微任务，放入**微任务队列**中
+- 接着又是一个循环，去**清空微任务队列**，输出 `Promise2`
+- 清空完**微任务队列**，就又去**宏任务队列**中取一个。这次取的是 `setTimeout2`
 
 #### node环境下的嵌套+setTimeout+setImmediate+nextTick
 
@@ -278,15 +335,15 @@ setTimeout(()=>{
 
 首先我们说一下这仨有啥区别
 
-> `setTimeout`采用的是类似 IO 观察者。精度不高，可能有延迟执行的情况发生。动用了红黑树所以消耗资源大
+> `setTimeout` 采用的是类似 IO 观察者。精度不高，可能有延迟执行的情况发生。动用了红黑树所以消耗资源大
 >
-> `setImmediate`采用的是`check`观察者。消耗资源小，也不会造成阻塞，但效率最低
+> `setImmediate` 采用的是 `check` 观察者。消耗资源小，也不会造成阻塞，但效率最低
 >
-> `process.nextTick`采用的是`idle`观察者。效率最高，消费资源小，但会阻塞 CPU 的后续调用
+> `process.nextTick` 采用的是 `idle` 观察者。效率最高，消费资源小，但会阻塞 CPU 的后续调用
 >
 > 三种观察者的优先级顺序是：**idle观察者 >>  IO观察者 > check观察者**
 
-前两者都会进入等待队列，而`process.nextTick`是一个比较特殊的存在
+前两者都会进入等待队列，而 `process.nextTick` 是一个比较特殊的存在
 
 比如下面的代码
 
@@ -301,7 +358,7 @@ setImmediate(D);
 
 ![](https://pic.superbed.cn/item/5cb173b93a213b04172a851d)
 
-**所以`nextTick`的优先级要高于前两者（`setTimeout`和`setImmediate`一样，都是进入等待队列，所以我就不写setImmediate了啊）**
+**所以 `nextTick` 的优先级要高于前两者（`setTimeout` 和 `setImmediate` 一样，都是进入等待队列，所以我就不写 `setImmediate` 了啊）**
 
 ```javascript
 setTimeout(function(){
@@ -313,13 +370,13 @@ setImmediate(function(){
 });
 ```
 
-但是这段代码的打印结果不确定，但是`setTimeout`在前的概率更大些，因为 IO 观察者的优先级要大于`check`观察者
+但是这段代码的打印结果不确定，但是 `setTimeout` 在前的概率更大些，因为 IO 观察者的优先级要大于 `check` 观察者
 
 ##### 例子
 
-![](https://pic.superbed.cn/item/5cb162a23a213b041729e708)
+![event loop in NODEJS](https://pic.superbed.cn/item/5dcab5478e0e2e3ee9ac29a3.png)
 
-为了防止大家绕晕所以我们先把上面的`node event loop`那张图拿下来方便查看.
+为了防止大家绕晕所以我们先把上面的 `node event loop` 那张图拿下来方便查看.
 
 下面上代码
 
@@ -346,28 +403,32 @@ setImmediate1,setTimeout2,setTimeout1,nextTick1,setImmediate2
 setImmediate1,setTimeout2,nextTick1,setImmediate2,setTimeout1
 ```
 
-- 首先我们可以看到上面的代码先执行的是`setImmediate1`,此时`event loop`在**check队列**
+- 首先我们可以看到上面的代码先执行的是 `setImmediate1` ，此时 `event loop` 在**check队列**
 
-- 然后`setImmediate1`从队列取出之后，输出`setImmediate1`，然后会将`setTimeout1`执行
+- 然后 `setImmediate1` 从队列取出之后，输出 `setImmediate1` ，然后会将 `setTimeout1` 执行
 
-- 此时`event loop`执行完**check队列**之后，开始往下移动，接下来执行的是**timers队列**
+- 此时 `event loop` 执行完**check队列**之后，开始往下移动，接下来执行的是**timers队列**
 
-- 这里会有问题，我们都知道`setTimeout`设置延迟为0的话，其实还是有`4ms`的延迟。那么这里就会有两种情况。
+- 这里会有问题，我们都知道 `setTimeout` 设置延迟为0的话，其实还是有 `4ms` 的延迟。那么这里就会有两种情况。
 
-  - **第一种，`setTimeout1`已经执行完毕**：
+  - **第一种，`setTimeout1 `已经执行完毕**：
     - 根据node事件环的规则，我们会执行完所有的事件，即取出**timers队列**中的`setTimeout2,setTimeout1`
-    - 此时根据队列先进先出规则，输出顺序为`setTimeout2,setTimeout1`，在取出`setTimeout2`时，会将一个`process.nextTick`执行（执行完了就会被放入**微任务队列**），再将一个`setImmediate`执行（执行完了就会被放入**check队列**）
-    - 到这一步，`event loop`会再去寻找下个事件队列，此时`event loop`会发现**微任务队列**有事件`process.nextTick`，就会去清空它，输出`nextTick1`
-    - 最后`event loop`找到下个有事件的队列**check队列**，执行`setImmediate`，输出`setImmediate2`
-  - **第二种，`setTimeout1`还未执行完毕**
-    - 此时`event loop`找到**timers队列**，取出**timers队列**中的`setTimeout2`，输出`setTimeout2`，把`process.nextTick`执行，再把`setImmediate`执行
+    - 此时根据队列先进先出规则，输出顺序为 `setTimeout2,setTimeout1`，在取出 `setTimeout2` 时，会将一个 `process.nextTick` 执行（执行完了就会被放入**微任务队列**），再将一个 `setImmediate` 执行（执行完了就会被放入**check队列**）
+    - 到这一步，`event loop` 会再去寻找下个事件队列，此时 `event loop` 会发现**微任务队列**有事件`process.nextTick`，就会去清空它，输出 `nextTick1`
+    - 最后`event loop `找到下个有事件的队列**check队列**，执行 `setImmediate`，输出 `setImmediate2`
+  - **第二种，`setTimeout1 `还未执行完毕**
+    - 此时 `event loop` 找到**timers队列**，取出**timers队列**中的 `setTimeout2`，输出 `setTimeout2`，把` process.nextTick` 执行，再把 `setImmediate` 执行
     - 然后`event loop`需要去找下一个事件队列，**这里大家要注意一下**，这里会发生2步操作，
-      - 1、**`setTimeout1`执行完了，放入`timers`队列**。
+      - 1、**`setTimeout1` 执行完了，放入 `timers` 队列**。
       - 2、找到微任务队列清空。
-      - 所以此时会先输出`nextTick1`
-    - 接下来`event loop`会找到**`check`队列**，取出里面已经执行完的`setImmediate2`
-    - 最后`event loop`找到**`timers`队列**，取出执行完的`setTimeout1`。**这种情况下event loop比上面要多切换一次**
+      - 所以此时会先输出 `nextTick1`
+    - 接下来 `event loop` 会找到**`check`队列**，取出里面已经执行完的 `setImmediate2`
+    - 最后 `event loop` 找到 **`timers` 队列**，取出执行完的 `setTimeout1`。**这种情况下 event loop 比上面要多切换一次**
 
   
 
-如果你把这个也搞懂了，那大概就真的懂`Event Loop`了8~。
+如果你把这个也搞懂了，那大概就真的懂 `Event Loop` 了8~。
+
+### 总结
+
+最后特别鸣谢 [相学长]( https://juejin.im/user/58f876dc5c497d0058e38ae1 ) 对于我在 nodeJS 环境下不同打印结果的帮助~
