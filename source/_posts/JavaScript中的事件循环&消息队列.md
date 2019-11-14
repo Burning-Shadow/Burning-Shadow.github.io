@@ -237,7 +237,7 @@ Node 的 Event loop 分为6个阶段，它们会按照顺序反复运行
 
 上边的那张图看起来比较乱，总的来说 NODE 中的 `event loop` 可以用这一张图来表示。
 
-![event loop in NODEJS](https://pic.superbed.cn/item/5dcab5478e0e2e3ee9ac29a3.png)
+![event loop in NODEJS](https://pic.superbed.cn/item/5dcccb068e0e2e3ee9044581.png)
 
 - 很多人对于 `process.nextTick()` 和 `setImmediate()` 的执行顺序有所疑惑，通过这张图就可以完全的理清了。另一方面我们在此着重说明一下二者的区别
   - **具体表现上** `process.nextTick()` 的回调保存在一个**数组**中，而`setImmediate()` 的结果则保存在**链表**中 
@@ -374,7 +374,7 @@ setImmediate(function(){
 
 ##### 例子
 
-![event loop in NODEJS](https://pic.superbed.cn/item/5dcab5478e0e2e3ee9ac29a3.png)
+![event loop in NODEJS](https://pic.superbed.cn/item/5dcccb068e0e2e3ee9044581.png)
 
 为了防止大家绕晕所以我们先把上面的 `node event loop` 那张图拿下来方便查看.
 
@@ -431,4 +431,5 @@ setImmediate1,setTimeout2,nextTick1,setImmediate2,setTimeout1
 
 ### 总结
 
-最后特别鸣谢 [相学长]( https://juejin.im/user/58f876dc5c497d0058e38ae1 ) 对于我在 nodeJS 环境下不同打印结果的帮助~
+最后特别鸣谢 [相学长]( https://juejin.im/user/58f876dc5c497d0058e38ae1 ) 的帮助~，关于 NODEJS 打印结果不同的文章可以在 [此处](https://blog.insiderattack.net/new-changes-to-timers-and-microtasks-from-node-v11-0-0-and-above-68d112743eb3) 进行查阅。
+
