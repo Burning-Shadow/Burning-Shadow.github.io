@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="​        本文章转载自掘金，为我们揭示了项目中的部分打包优化方面的问题，自认为受益匪浅，故转自个人博客中留以自用，原文链接。  本文将探讨tree-shaking在当下(webpack@3, babel@6 以下)的现状，以及研究为什么tree-shaking依旧举步维艰的原因，最终总结当下能提高tree-shaking效果的一些手段。">
+<meta name="keywords" content="webpack,tree-shaking,uglifyJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你的Tree-Shaking并没有什么卵用(转载)">
+<meta property="og:url" content="http://yoursite.com/2019/09/17/你的Tree-Shaking并没有什么卵用-转载/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="​        本文章转载自掘金，为我们揭示了项目中的部分打包优化方面的问题，自认为受益匪浅，故转自个人博客中留以自用，原文链接。  本文将探讨tree-shaking在当下(webpack@3, babel@6 以下)的现状，以及研究为什么tree-shaking依旧举步维艰的原因，最终总结当下能提高tree-shaking效果的一些手段。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-16T01:58:06.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你的Tree-Shaking并没有什么卵用(转载)">
+<meta name="twitter:description" content="​        本文章转载自掘金，为我们揭示了项目中的部分打包优化方面的问题，自认为受益匪浅，故转自个人博客中留以自用，原文链接。  本文将探讨tree-shaking在当下(webpack@3, babel@6 以下)的现状，以及研究为什么tree-shaking依旧举步维艰的原因，最终总结当下能提高tree-shaking效果的一些手段。">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/17/你的Tree-Shaking并没有什么卵用-转载/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>你的Tree-Shaking并没有什么卵用(转载) | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/17/你的Tree-Shaking并没有什么卵用-转载/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">你的Tree-Shaking并没有什么卵用(转载)
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-09-17 22:07:42" itemprop="dateCreated datePublished" datetime="2019-09-17T22:07:42+08:00">2019-09-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-11-16 09:58:06" itemprop="dateModified" datetime="2019-11-16T09:58:06+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/打包工具/" itemprop="url" rel="index"><span itemprop="name">打包工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>​        本文章转载自掘金，为我们揭示了项目中的部分打包优化方面的问题，自认为受益匪浅，故转自个人博客中留以自用，<a href="https://juejin.im/post/5a5652d8f265da3e497ff3de" target="_blank" rel="noopener">原文链接</a>。</p>
+<blockquote>
+<p>本文将探讨tree-shaking在当下(webpack@3, babel@6 以下)的现状，以及研究为什么tree-shaking依旧举步维艰的原因，最终总结当下能提高tree-shaking效果的一些手段。</p>
+</blockquote>
+<a id="more"></a>
+<p>​        Tree-Shaking这个名词，很多前端coder已经耳熟能详了，它代表的大意就是删除没用到的代码。这样的功能对于构建大型应用时是非常好的，因为日常开发经常需要引用各种库。但大多时候仅仅使用了这些库的某些部分，并非需要全部，此时Tree-Shaking如果能帮助我们删除掉没有使用的代码，将会大大缩减打包后的代码量。</p>
+<p>​        Tree-Shaking在前端界由 <a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Frollup%2Frollup" target="_blank" rel="noopener">rollup</a> 首先提出并实现，后续 <a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fwebpack%2Fwebpack" target="_blank" rel="noopener">webpack</a> 在2.x版本也借助于 <a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fmishoo%2FUglifyJS2" target="_blank" rel="noopener">UglifyJS</a> 实现了。自那以后，在各类讨论优化打包的文章中，都能看到Tree-Shaking的身影。</p>
+<p>许多开发者看到就很开心，以为自己引用的elementUI、antd 等库终于可以删掉一大半了。然而理想是丰满的，现实是骨干的。升级之后，项目的压缩包并没有什么明显变化。</p>
+<p>​        我也遇到了这样的问题，前段时间，需要开发个组件库。我非常纳闷我开发的组件库在打包后，为什么引用者通过ES6引用，最终依旧会把组件库中没有使用过的组件引入进来。</p>
+<p>下面跟大家分享下，我在Tree-Shaking上的摸索历程。</p>
+<h3 id="Tree-Shaking原理"><a href="#Tree-Shaking原理" class="headerlink" title="Tree-Shaking原理"></a>Tree-Shaking原理</h3><p>这里我不多冗余阐述，直接贴百度外卖前端的一篇文章：<a href="https://juejin.im/post/5a4dc842518825698e7279a9" target="_blank" rel="noopener">Tree-Shaking性能优化实践 - 原理篇</a>。</p>
+<p>如果懒得看文章，可以看下如下总结：</p>
+<ol>
+<li>ES6 的模块引入是静态分析的，故而可以在编译时正确判断到底加载了什么代码。</li>
+<li>分析程序流，判断哪些变量未被使用、引用，进而删除此代码。</li>
+</ol>
+<p>很好，原理非常完美，那为什么我们的代码又删不掉呢？</p>
+<p><strong>先说原因：都是副作用的锅！</strong></p>
+<h3 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h3><p>了解过函数式编程的同学对副作用这词肯定不陌生。它大致可以理解成：一个函数会、或者可能会对函数外部变量产生影响的行为。</p>
+<p>举个例子，比如这个函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">go</span> (<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">window</span>.location.href = url</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数修改了全局变量location，甚至还让浏览器发生了跳转，这就是一个有副作用的函数。</p>
+<p>现在我们了解了副作用了，但是细想来，我写的组件库也没有什么副作用啊，我每一个组件都是一个类，简化一下，如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// componetns.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (&#123; name, age, sex &#125;) &#123;</span><br><span class="line">    <span class="keyword">this</span>.className = <span class="string">'Person'</span></span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">    <span class="keyword">this</span>.age = age</span><br><span class="line">    <span class="keyword">this</span>.sex = sex</span><br><span class="line">  &#125;</span><br><span class="line">  getName () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (&#123; model &#125;) &#123;</span><br><span class="line">    <span class="keyword">this</span>.className = <span class="string">'Apple'</span></span><br><span class="line">    <span class="keyword">this</span>.model = model</span><br><span class="line">  &#125;</span><br><span class="line">  getModel () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.model</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; Apple &#125; <span class="keyword">from</span> <span class="string">'./components'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> appleModel = <span class="keyword">new</span> Apple(&#123;</span><br><span class="line">  model: <span class="string">'IphoneX'</span></span><br><span class="line">&#125;).getModel()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(appleModel)</span><br></pre></td></tr></table></figure>
+<p>用rollup在线repl尝试了下tree-shaking，也确实删掉了Person，<a href="https://link.juejin.im/?target=https%3A%2F%2Frollupjs.cn%2Frepl%3Fversion%3D0.53.3%26shareable%3DJTdCJTIybW9kdWxlcyUyMiUzQSU1QiU3QiUyMm5hbWUlMjIlM0ElMjJtYWluLmpzJTIyJTJDJTIyY29kZSUyMiUzQSUyMmltcG9ydCUyMCU3QiUyMEFwcGxlJTIwJTdEJTIwZnJvbSUyMCcuJTJGY29tcG9uZW50cyclNUNuJTVDbmNvbnN0JTIwYXBwbGVNb2RlbCUyMCUzRCUyMG5ldyUyMEFwcGxlKCU3QiU1Q24lMjAlMjBtb2RlbCUzQSUyMCdJcGhvbmVYJyU1Q24lN0QpLmdldE1vZGVsKCklNUNuJTVDbmNvbnNvbGUubG9nKGFwcGxlTW9kZWwpJTIyJTdEJTJDJTdCJTIybmFtZSUyMiUzQSUyMmNvbXBvbmVudHMuanMlMjIlMkMlMjJjb2RlJTIyJTNBJTIyZXhwb3J0JTIwY2xhc3MlMjBQZXJzb24lMjAlN0IlNUNuJTIwJTIwY29uc3RydWN0b3IlMjAoJTdCJTIwbmFtZSUyQyUyMGFnZSUyQyUyMHNleCUyMCU3RCklMjAlN0IlNUNuJTIwJTIwJTIwJTIwdGhpcy5jbGFzc05hbWUlMjAlM0QlMjAnUGVyc29uJyU1Q24lMjAlMjAlMjAlMjB0aGlzLm5hbWUlMjAlM0QlMjBuYW1lJTVDbiUyMCUyMCUyMCUyMHRoaXMuYWdlJTIwJTNEJTIwYWdlJTVDbiUyMCUyMCUyMCUyMHRoaXMuc2V4JTIwJTNEJTIwc2V4JTVDbiUyMCUyMCU3RCU1Q24lMjAlMjBnZXROYW1lJTIwKCklMjAlN0IlNUNuJTIwJTIwJTIwJTIwcmV0dXJuJTIwdGhpcy5uYW1lJTVDbiUyMCUyMCU3RCU1Q24lN0QlNUNuZXhwb3J0JTIwY2xhc3MlMjBBcHBsZSUyMCU3QiU1Q24lMjAlMjBjb25zdHJ1Y3RvciUyMCglN0IlMjBtb2RlbCUyMCU3RCklMjAlN0IlNUNuJTIwJTIwJTIwJTIwdGhpcy5jbGFzc05hbWUlMjAlM0QlMjAnQXBwbGUnJTVDbiUyMCUyMCUyMCUyMHRoaXMubW9kZWwlMjAlM0QlMjBtb2RlbCU1Q24lMjAlMjAlN0QlNUNuJTIwJTIwZ2V0TW9kZWwlMjAoKSUyMCU3QiU1Q24lMjAlMjAlMjAlMjByZXR1cm4lMjB0aGlzLm1vZGVsJTVDbiUyMCUyMCU3RCU1Q24lN0QlMjIlN0QlNUQlMkMlMjJvcHRpb25zJTIyJTNBJTdCJTIyZm9ybWF0JTIyJTNBJTIyZXMlMjIlMkMlMjJtb2R1bGVOYW1lJTIyJTNBJTIybXlCdW5kbGUlMjIlMkMlMjJnbG9iYWxzJTIyJTNBJTdCJTdEJTJDJTIybmFtZSUyMiUzQSUyMm15QnVuZGxlJTIyJTJDJTIyYW1kJTIyJTNBJTdCJTIyaWQlMjIlM0ElMjIlMjIlN0QlN0QlMkMlMjJleGFtcGxlJTIyJTNBbnVsbCU3RA%3D%3D" target="_blank" rel="noopener">传送门</a></p>
+<p>可是为什么当我通过webpack打包组件库，再被他人引入时，却没办法消除未使用代码呢？</p>
+<p>因为我忽略了两件事情：babel编译 + webpack打包</p>
+<h3 id="成也Babel，败也Babel"><a href="#成也Babel，败也Babel" class="headerlink" title="成也Babel，败也Babel"></a>成也Babel，败也Babel</h3><p>Babel不用我多解释了，它能把ES6/ES7的代码转化成指定浏览器能支持的代码。正是由于它，我们前端开发者才能有今天这样美好的开发环境，能够不用考虑浏览器兼容性地、畅快淋漓地使用最新的JavaScript语言特性。</p>
+<p>然而也是由于它的编译，一些我们原本看似没有副作用的代码，便转化为了(可能)有副作用的。</p>
+<p>比如我如上的示例，如果我们用babel先编译一下，再贴到rollup的repl，那么结果如下：<a href="https://link.juejin.im?target=https%3A%2F%2Frollupjs.cn%2Frepl%3Fversion%3D0.53.3%26shareable%3DJTdCJTIybW9kdWxlcyUyMiUzQSU1QiU3QiUyMm5hbWUlMjIlM0ElMjJtYWluLmpzJTIyJTJDJTIyY29kZSUyMiUzQSUyMmltcG9ydCUyMCU3QiUyMEFwcGxlJTIwJTdEJTIwZnJvbSUyMCcuJTJGY29tcG9uZW50cyclNUNuJTVDbmNvbnN0JTIwYXBwbGVNb2RlbCUyMCUzRCUyMG5ldyUyMEFwcGxlKCU3QiU1Q24lMjAlMjBtb2RlbCUzQSUyMCdJcGhvbmVYJyU1Q24lN0QpLmdldE1vZGVsKCklNUNuJTVDbmNvbnNvbGUubG9nKGFwcGxlTW9kZWwpJTIyJTdEJTJDJTdCJTIybmFtZSUyMiUzQSUyMmNvbXBvbmVudHMuanMlMjIlMkMlMjJjb2RlJTIyJTNBJTIydmFyJTIwX2NyZWF0ZUNsYXNzJTIwJTNEJTIwZnVuY3Rpb24lMjAoKSUyMCU3QiUyMGZ1bmN0aW9uJTIwZGVmaW5lUHJvcGVydGllcyh0YXJnZXQlMkMlMjBwcm9wcyklMjAlN0IlMjBmb3IlMjAodmFyJTIwaSUyMCUzRCUyMDAlM0IlMjBpJTIwJTNDJTIwcHJvcHMubGVuZ3RoJTNCJTIwaSUyQiUyQiklMjAlN0IlMjB2YXIlMjBkZXNjcmlwdG9yJTIwJTNEJTIwcHJvcHMlNUJpJTVEJTNCJTIwZGVzY3JpcHRvci5lbnVtZXJhYmxlJTIwJTNEJTIwZGVzY3JpcHRvci5lbnVtZXJhYmxlJTIwJTdDJTdDJTIwZmFsc2UlM0IlMjBkZXNjcmlwdG9yLmNvbmZpZ3VyYWJsZSUyMCUzRCUyMHRydWUlM0IlMjBpZiUyMCglNUMlMjJ2YWx1ZSU1QyUyMiUyMGluJTIwZGVzY3JpcHRvciklMjBkZXNjcmlwdG9yLndyaXRhYmxlJTIwJTNEJTIwdHJ1ZSUzQiUyME9iamVjdC5kZWZpbmVQcm9wZXJ0eSh0YXJnZXQlMkMlMjBkZXNjcmlwdG9yLmtleSUyQyUyMGRlc2NyaXB0b3IpJTNCJTIwJTdEJTIwJTdEJTIwcmV0dXJuJTIwZnVuY3Rpb24lMjAoQ29uc3RydWN0b3IlMkMlMjBwcm90b1Byb3BzJTJDJTIwc3RhdGljUHJvcHMpJTIwJTdCJTIwaWYlMjAocHJvdG9Qcm9wcyklMjBkZWZpbmVQcm9wZXJ0aWVzKENvbnN0cnVjdG9yLnByb3RvdHlwZSUyQyUyMHByb3RvUHJvcHMpJTNCJTIwaWYlMjAoc3RhdGljUHJvcHMpJTIwZGVmaW5lUHJvcGVydGllcyhDb25zdHJ1Y3RvciUyQyUyMHN0YXRpY1Byb3BzKSUzQiUyMHJldHVybiUyMENvbnN0cnVjdG9yJTNCJTIwJTdEJTNCJTIwJTdEKCklM0IlNUNuJTVDbmZ1bmN0aW9uJTIwX2NsYXNzQ2FsbENoZWNrKGluc3RhbmNlJTJDJTIwQ29uc3RydWN0b3IpJTIwJTdCJTIwaWYlMjAoIShpbnN0YW5jZSUyMGluc3RhbmNlb2YlMjBDb25zdHJ1Y3RvcikpJTIwJTdCJTIwdGhyb3clMjBuZXclMjBUeXBlRXJyb3IoJTVDJTIyQ2Fubm90JTIwY2FsbCUyMGElMjBjbGFzcyUyMGFzJTIwYSUyMGZ1bmN0aW9uJTVDJTIyKSUzQiUyMCU3RCUyMCU3RCU1Q24lNUNudmFyJTIwUGVyc29uJTIwJTNEJTIwZnVuY3Rpb24lMjAoKSUyMCU3QiU1Q24lMjAlMjBmdW5jdGlvbiUyMFBlcnNvbihfcmVmKSUyMCU3QiU1Q24lMjAlMjAlMjAlMjB2YXIlMjBuYW1lJTIwJTNEJTIwX3JlZi5uYW1lJTJDJTVDbiUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMGFnZSUyMCUzRCUyMF9yZWYuYWdlJTJDJTVDbiUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMHNleCUyMCUzRCUyMF9yZWYuc2V4JTNCJTVDbiU1Q24lMjAlMjAlMjAlMjBfY2xhc3NDYWxsQ2hlY2sodGhpcyUyQyUyMFBlcnNvbiklM0IlNUNuJTVDbiUyMCUyMCUyMCUyMHRoaXMuY2xhc3NOYW1lJTIwJTNEJTIwJ1BlcnNvbiclM0IlNUNuJTIwJTIwJTIwJTIwdGhpcy5uYW1lJTIwJTNEJTIwbmFtZSUzQiU1Q24lMjAlMjAlMjAlMjB0aGlzLmFnZSUyMCUzRCUyMGFnZSUzQiU1Q24lMjAlMjAlMjAlMjB0aGlzLnNleCUyMCUzRCUyMHNleCUzQiU1Q24lMjAlMjAlN0QlNUNuJTVDbiUyMCUyMF9jcmVhdGVDbGFzcyhQZXJzb24lMkMlMjAlNUIlN0IlNUNuJTIwJTIwJTIwJTIwa2V5JTNBJTIwJ2dldE5hbWUnJTJDJTVDbiUyMCUyMCUyMCUyMHZhbHVlJTNBJTIwZnVuY3Rpb24lMjBnZXROYW1lKCklMjAlN0IlNUNuJTIwJTIwJTIwJTIwJTIwJTIwcmV0dXJuJTIwdGhpcy5uYW1lJTNCJTVDbiUyMCUyMCUyMCUyMCU3RCU1Q24lMjAlMjAlN0QlNUQpJTNCJTVDbiU1Q24lMjAlMjByZXR1cm4lMjBQZXJzb24lM0IlNUNuJTdEKCklM0IlNUNudmFyJTIwQXBwbGUlMjAlM0QlMjBmdW5jdGlvbiUyMCgpJTIwJTdCJTVDbiUyMCUyMGZ1bmN0aW9uJTIwQXBwbGUoX3JlZjIpJTIwJTdCJTVDbiUyMCUyMCUyMCUyMHZhciUyMG1vZGVsJTIwJTNEJTIwX3JlZjIubW9kZWwlM0IlNUNuJTVDbiUyMCUyMCUyMCUyMF9jbGFzc0NhbGxDaGVjayh0aGlzJTJDJTIwQXBwbGUpJTNCJTVDbiU1Q24lMjAlMjAlMjAlMjB0aGlzLmNsYXNzTmFtZSUyMCUzRCUyMCdBcHBsZSclM0IlNUNuJTIwJTIwJTIwJTIwdGhpcy5tb2RlbCUyMCUzRCUyMG1vZGVsJTNCJTVDbiUyMCUyMCU3RCU1Q24lNUNuJTIwJTIwX2NyZWF0ZUNsYXNzKEFwcGxlJTJDJTIwJTVCJTdCJTVDbiUyMCUyMCUyMCUyMGtleSUzQSUyMCdnZXRNb2RlbCclMkMlNUNuJTIwJTIwJTIwJTIwdmFsdWUlM0ElMjBmdW5jdGlvbiUyMGdldE1vZGVsKCklMjAlN0IlNUNuJTIwJTIwJTIwJTIwJTIwJTIwcmV0dXJuJTIwdGhpcy5tb2RlbCUzQiU1Q24lMjAlMjAlMjAlMjAlN0QlNUNuJTIwJTIwJTdEJTVEKSUzQiU1Q24lNUNuJTIwJTIwcmV0dXJuJTIwQXBwbGUlM0IlNUNuJTdEKCklM0IlNUNuJTVDbmV4cG9ydCUyMCU3QiUyMFBlcnNvbiUyQyUyMEFwcGxlJTIwJTdEJTNCJTVDbiUyMiU3RCU1RCUyQyUyMm9wdGlvbnMlMjIlM0ElN0IlMjJmb3JtYXQlMjIlM0ElMjJlcyUyMiUyQyUyMm1vZHVsZU5hbWUlMjIlM0ElMjJteUJ1bmRsZSUyMiUyQyUyMmdsb2JhbHMlMjIlM0ElN0IlN0QlMkMlMjJuYW1lJTIyJTNBJTIybXlCdW5kbGUlMjIlMkMlMjJhbWQlMjIlM0ElN0IlMjJpZCUyMiUzQSUyMiUyMiU3RCU3RCUyQyUyMmV4YW1wbGUlMjIlM0FudWxsJTdE" target="_blank" rel="noopener">传送门</a></p>
+<p>如果懒得点开链接，可以看下Person类被babel编译后的结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_classCallCheck</span>(<span class="params">instance, Constructor</span>) </span>&#123; <span class="keyword">if</span> (!(instance <span class="keyword">instanceof</span> Constructor)) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Cannot call a class as a function"</span>); &#125; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> _createClass = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">defineProperties</span>(<span class="params">target, props</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; props.length; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> descriptor = props[i];</span><br><span class="line">      descriptor.enumerable = descriptor.enumerable || !<span class="number">1</span>, descriptor.configurable = !<span class="number">0</span>,</span><br><span class="line">      <span class="string">"value"</span> <span class="keyword">in</span> descriptor &amp;&amp; (descriptor.writable = !<span class="number">0</span>), <span class="built_in">Object</span>.defineProperty(target, descriptor.key, descriptor);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">Constructor, protoProps, staticProps</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> protoProps &amp;&amp; defineProperties(Constructor.prototype, protoProps), staticProps &amp;&amp; defineProperties(Constructor, staticProps),</span><br><span class="line">    Constructor;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Person = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">_ref</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = _ref.name, age = _ref.age, sex = _ref.sex;</span><br><span class="line">    _classCallCheck(<span class="keyword">this</span>, Person);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.className = <span class="string">'Person'</span>;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.sex = sex;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  _createClass(Person, [&#123;</span><br><span class="line">    key: <span class="string">'getName'</span>,</span><br><span class="line">    value: <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;]);</span><br><span class="line">  <span class="keyword">return</span> Person;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+<p>我们的Person类被封装成了一个IIFE(立即执行函数)，然后返回一个构造函数。那它怎么就产生副作用了呢？问题就出现在_createClass这个方法上，你只要在上一个rollup的repl链接中，将Person的IIFE中的<code>_createClass</code>调用删了，Person类就会被移除了。至于<code>_createClass</code>为什么会产生副作用，我们先放一边。因为大家可能会产生另外一个疑问：<strong>Babel为什么要这样去声明构造函数的？</strong></p>
+<p>假如是我的话，我可能会这样去编译：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Person = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  Person.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>.name &#125;;</span><br><span class="line">  <span class="keyword">return</span> Person;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+<p>因为我们以前就是这么写“类”的，那babel为什么要采用<code>Object.defineProperty</code>这样的形式呢，用原型链有什么不妥呢？自然是非常的不妥的，因为ES6的一些语法是有其特定的语义的。比如：</p>
+<ol>
+<li>类内部声明的方法，是不可枚举的，而通过原型链声明的方法是可以枚举的。这里可以参考下阮老师介绍<a href="https://link.juejin.im?target=http%3A%2F%2Fes6.ruanyifeng.com%2F%23docs%2Fclass" target="_blank" rel="noopener">Class 的基本语法</a></li>
+<li><code>for...of</code>的循环是通过遍历器(<code>Iterator</code>)迭代的，循环数组时并非是i++，然后通过下标寻值。这里依旧可以看下阮老师关于遍历器与for…of的介绍，以及一篇babel关于<code>for...of</code>编译的说明<a href="https://link.juejin.im?target=http%3A%2F%2Fbabeljs.io%2Fdocs%2Fplugins%2Ftransform-es2015-for-of" target="_blank" rel="noopener">transform-es2015-for-of</a></li>
+</ol>
+<p>所以，babel为了符合ES6真正的语义，编译类时采取了<code>Object.defineProperty</code>来定义原型方法，于是导致了后续这些一系列问题。</p>
+<p>眼尖的同学可能在我上述第二点中发的链接<a href="https://link.juejin.im?target=http%3A%2F%2Fbabeljs.io%2Fdocs%2Fplugins%2Ftransform-es2015-for-of" target="_blank" rel="noopener">transform-es2015-for-of</a>中看到，babel其实是有一个<code>loose</code>模式的，直译的话叫做宽松模式。它是做什么用的呢？它会不严格遵循ES6的语义，而采取更符合我们平常编写代码时的习惯去编译代码。比如上述的<code>Person</code>类的属性方法将会编译成直接在原型链上声明方法。</p>
+<p>这个模式具体的babel配置如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// .babelrc</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"presets"</span>: [[<span class="string">"env"</span>, &#123; <span class="string">"loose"</span>: <span class="literal">false</span> &#125;]]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="不够屌的UglifyJS"><a href="#不够屌的UglifyJS" class="headerlink" title="不够屌的UglifyJS"></a>不够屌的UglifyJS</h3><p>然而不要开心的太早，当我们用Webpack配合UglifyJS打包文件时，这个Person类的IIFE又被打包进去了？ What？？？</p>
+<p>为了彻底搞明白这个问题，我搜到一条UglifyJS的issue：<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fmishoo%2FUglifyJS2%2Fissues%2F1261" target="_blank" rel="noopener">Class declaration in IIFE considered as side effect</a>，仔细看了好久。对此有兴趣、并且英语还ok的同学，可以快速去了解这条issue，还是挺有意思的。我大致阐述下这条issue下都说了些啥。</p>
+<blockquote>
+<p>issue楼主-<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fblacksonic" target="_blank" rel="noopener">blacksonic</a> 好奇为什么UglifyJS不能消除未引用的类。</p>
+</blockquote>
+<blockquote>
+<p>UglifyJS贡献者-<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fkzc" target="_blank" rel="noopener">kzc</a>说，uglify不进行程序流分析，所以不能排除有可能有副作用的代码。</p>
+</blockquote>
+<blockquote>
+<p>楼主：我的代码没什么副作用啊。要不你们来个配置项，设置后，可以认为它是没有副作用的，然后放心的删了它们吧。</p>
+</blockquote>
+<blockquote>
+<p>贡献者：我们没有程序流分析，我们干不了这事儿，实在想删除他们，出门左转 rollup 吼吧，他们屌，做了程序流分析，能判断到底有没有副作用。</p>
+</blockquote>
+<blockquote>
+<p>楼主：迁移rollup成本有点高啊。我觉得加个配置不难啊，比如这样这样，巴拉巴拉。</p>
+</blockquote>
+<blockquote>
+<p>贡献者：欢迎提PR。</p>
+</blockquote>
+<blockquote>
+<p>楼主：别嘛，你们项目上千行代码，我咋提PR啊。我的代码也没啥副作用啊，您能详细的说明下么？</p>
+</blockquote>
+<blockquote>
+<p>贡献者：变量赋值就是有可能产生副作用的！我举个例子：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> V8Engine = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">V8Engine</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  V8Engine.prototype.toString = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="string">'V8'</span> &#125;</span><br><span class="line">  <span class="keyword">return</span> V8Engine</span><br><span class="line">&#125;())</span><br><span class="line"><span class="keyword">var</span> V6Engine = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">V6Engine</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  V6Engine.prototype = V8Engine.prototype <span class="comment">// &lt;---- side effect</span></span><br><span class="line">  V6Engine.prototype.toString = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="string">'V6'</span> &#125;</span><br><span class="line">  <span class="keyword">return</span> V6Engine</span><br><span class="line">&#125;())</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> V8Engine().toString())</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>贡献者：<code>V6Engine</code>虽然没有被使用，但是它修改了V8Engine原型链上的属性，这就产生副作用了。你看<code>rollup</code>（楼主特意注明截至当时）目前就是这样的策略，直接把V6Engine 给删了，其实是不对的。</p>
+</blockquote>
+<blockquote>
+<p>楼主以及一些路人甲乙丙丁，纷纷提出自己的建议与方案。最终定下，可以在代码上通过<code>/*@__PURE__*/</code>这样的注释声明此函数无副作用。</p>
+</blockquote>
+<p>这个issue信息量比较大，也挺有意思，其中那位uglify贡献者kzc，当时提出rollup存在的问题后还给rollup提了issue，rollup认为问题不大不紧急，这位贡献者还顺手给rollup提了个PR，解决了问题。。。</p>
+<p>我再从这个issue中总结下几点关键信息：</p>
+<ol>
+<li>函数的参数若是引用类型，对于它属性的操作，都是有可能会产生副作用的。因为首先它是引用类型，对它属性的任何修改其实都是改变了函数外部的数据。其次获取或修改它的属性，会触发<code>getter</code>或者<code>setter</code>，而<code>getter</code>、<code>setter</code>是不透明的，有可能会产生副作用。</li>
+<li>uglify没有完善的程序流分析。它可以简单的判断变量后续是否被引用、修改，但是不能判断一个变量完整的修改过程，不知道它是否已经指向了外部变量，所以很多有可能会产生副作用的代码，都只能保守的不删除。</li>
+<li>rollup有程序流分析的功能，可以更好的判断代码是否真正会产生副作用。</li>
+</ol>
+<p>有的同学可能会想，连获取对象的属性也会产生副作用导致不能删除代码，这也太过分了吧！事实还真是如此，我再贴个示例演示一下：<a href="https://link.juejin.im?target=https%3A%2F%2Frollupjs.cn%2Frepl%3Fversion%3D0.53.3%26shareable%3DJTdCJTIybW9kdWxlcyUyMiUzQSU1QiU3QiUyMm5hbWUlMjIlM0ElMjJtYWluLmpzJTIyJTJDJTIyY29kZSUyMiUzQSUyMmltcG9ydCUyMCU3QiUyMGN1YmUlMjAlN0QlMjBmcm9tJTIwJy4lMkZtYXRocy5qcyclM0IlNUNuY29uc29sZS5sb2coJTIwY3ViZSglMjA1JTIwKSUyMCklM0IlMjAlMkYlMkYlMjAxMjUlMjIlN0QlMkMlN0IlMjJuYW1lJTIyJTNBJTIybWF0aHMuanMlMjIlMkMlMjJjb2RlJTIyJTNBJTIyZXhwb3J0JTIwZnVuY3Rpb24lMjBzcXVhcmUlMjAoJTIweCUyMCklMjAlN0IlNUNuJTVDdHJldHVybiUyMHguYSU1Q24lN0QlNUNuJTVDbnNxdWFyZSglN0IlMjBhJTNBJTIwMTIzJTIwJTdEKSU1Q24lNUNuZXhwb3J0JTIwZnVuY3Rpb24lMjBjdWJlJTIwKCUyMHglMjApJTIwJTdCJTVDbiU1Q3RyZXR1cm4lMjB4JTIwKiUyMHglMjAqJTIweCUzQiU1Q24lN0QlMjIlN0QlNUQlMkMlMjJvcHRpb25zJTIyJTNBJTdCJTIyZm9ybWF0JTIyJTNBJTIyZXMlMjIlMkMlMjJtb2R1bGVOYW1lJTIyJTNBJTIybXlCdW5kbGUlMjIlMkMlMjJnbG9iYWxzJTIyJTNBJTdCJTdEJTJDJTIybmFtZSUyMiUzQSUyMm15QnVuZGxlJTIyJTJDJTIyYW1kJTIyJTNBJTdCJTIyaWQlMjIlM0ElMjIlMjIlN0QlN0QlMkMlMjJleGFtcGxlJTIyJTNBbnVsbCU3RA%3D%3D" target="_blank" rel="noopener">传送门</a></p>
+<p>代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// maths.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">square</span> (<span class="params"> x </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x.a</span><br><span class="line">&#125;</span><br><span class="line">square(&#123; <span class="attr">a</span>: <span class="number">123</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">cube</span> (<span class="params"> x </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x * x * x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; cube &#125; <span class="keyword">from</span> <span class="string">'./maths.js'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log( cube( <span class="number">5</span> ) ); <span class="comment">// 125</span></span><br></pre></td></tr></table></figure>
+<p>打包结果如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">square</span> (<span class="params"> x </span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x.a</span><br><span class="line">&#125;</span><br><span class="line">square(&#123; <span class="attr">a</span>: <span class="number">123</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cube</span> (<span class="params"> x </span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x * x * x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log( cube( <span class="number">5</span> ) ); <span class="comment">// 125</span></span><br></pre></td></tr></table></figure>
+<p>而如果将<code>square</code>方法中的<code>return x.a</code> 改为 <code>return x</code>，则最终打包的结果则不会出现<code>square</code>方法。当然啦，如果不在<code>maths.js</code>文件中执行这个<code>square</code>方法，自然也是不会在打包文件中出现它的。</p>
+<p>所以我们现在理解了，当时babel编译成的<code>_createClass</code>方法为什么会有副作用。现在再回头一看，它简直浑身上下都是副作用。</p>
+<p>查看uglify的具体配置，我们可以知道，目前uglify可以配置<code>pure_getters: true</code>来强制认为获取对象属性，是没有副作用的。这样可以通过它删除上述示例中的<code>square</code>方法。不过由于没有<code>pure_setters</code>这样的配置，<code>_createClass</code>方法依旧被认为是有副作用的，无法删除。</p>
+<h3 id="那到底该咋办"><a href="#那到底该咋办" class="headerlink" title="那到底该咋办"></a>那到底该咋办</h3><p>聪明的同学肯定会想，既然babel编译导致我们产生了副作用代码，那我们先进行tree-shaking打包，最后再编译bundle文件不就好了嘛。这确实是一个方案，然而可惜的是：这在处理项目自身资源代码时是可行的，处理外部依赖npm包就不行了。因为人家为了让工具包具有通用性、兼容性，大多是经过babel编译的。而最占容量的地方往往就是这些外部依赖包。</p>
+<p>那先从根源上讨论，假如我们现在要开发一个组件库提供给别人用，该怎么做？</p>
+<h4 id="如果是使用webpack打包JavaScript库"><a href="#如果是使用webpack打包JavaScript库" class="headerlink" title="如果是使用webpack打包JavaScript库"></a>如果是使用webpack打包JavaScript库</h4><p>先贴下webpack将项目打包为JS库的<a href="https://link.juejin.im?target=https%3A%2F%2Fdoc.webpack-china.org%2Fguides%2Fauthor-libraries" target="_blank" rel="noopener">文档</a>。可以看到webpack有多种导出模式，一般大家都会选择最具通用性的<code>umd</code>方式，但是webpack却没支持导出ES模块的模式。</p>
+<p><strong>所以，假如你把所有的资源文件通过webpack打包到一个bundle文件里的话，那这个库文件从此与Tree-shaking无缘。</strong></p>
+<p>那怎么办呢？也不是没有办法。目前业界流行的组件库多是将每一个组件或者功能函数，都打包成单独的文件或目录。然后可以像如下的方式引入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> clone <span class="keyword">from</span> <span class="string">'lodash/clone'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Button <span class="keyword">from</span> <span class="string">'antd/lib/button'</span>;</span><br></pre></td></tr></table></figure>
+<p>但是这样呢也比较麻烦，而且不能同时引入多个组件。所以这些比较流行的组件库大哥如antd，element专门开发了babel插件，使得用户能以<code>import { Button, Message } form &#39;antd&#39;</code>这样的方式去按需加载。本质上就是通过插件将上一句的代码又转化成如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Button <span class="keyword">from</span> <span class="string">'antd/lib/button'</span>;</span><br><span class="line"><span class="keyword">import</span> Message <span class="keyword">from</span> <span class="string">'antd/lib/button'</span>;</span><br></pre></td></tr></table></figure>
+<p>这样似乎是最完美的变相tree-shaking方案。唯一不足的是，对于组件库开发者来说，需要专门开发一个babel插件；对于使用者来说，需要引入一个babel插件，稍微略增加了开发成本与使用成本。</p>
+<p>除此之外，其实还有一个比较前沿的方法。是rollup的一个<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Frollup%2Frollup%2Fwiki%2Fpkg.module" target="_blank" rel="noopener">提案</a>，在package.json中增加一个key：module，如下所示：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"my-package"</span>,</span><br><span class="line">  <span class="attr">"main"</span>: <span class="string">"dist/my-package.umd.js"</span>,</span><br><span class="line">  <span class="attr">"module"</span>: <span class="string">"dist/my-package.esm.js"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，当开发者以es6模块的方式去加载npm包时，会以<code>module</code>的值为入口文件，这样就能够同时兼容多种引入方式，(rollup以及webpack2+都已支持)。但是webpack不支持导出为es6模块，所以webpack还是要拜拜。我们得上rollup!</p>
+<p>(有人会好奇，那干脆把未打包前的资源入口文件暴露到<code>module</code>，让使用者自己去编译打包好了，那它就能用未编译版的npm包进行tree-shaking了。这样确实也不是不可以。但是，很多工程化项目的babel编译配置，为了提高编译速度，其实是会忽略掉<code>node_modules</code>内的文件的。所以为了保证这些同学的使用，我们还是应该要暴露出一份编译过的ES6 Module。)</p>
+<h4 id="使用rollup打包JavaScript库"><a href="#使用rollup打包JavaScript库" class="headerlink" title="使用rollup打包JavaScript库"></a>使用rollup打包JavaScript库</h4><p>吃了那么多亏后，我们终于明白，打包工具库、组件库，还是rollup好用，为什么呢？</p>
+<ol>
+<li>它支持导出ES模块的包。</li>
+<li>它支持程序流分析，能更加正确的判断项目本身的代码是否有副作用。</li>
+</ol>
+<p>我们只要通过rollup打出两份文件，一份umd版，一份ES模块版，它们的路径分别设为<code>main</code>，<code>module</code>的值。这样就能方便使用者进行tree-shaking。</p>
+<p>那么问题又来了，使用者并不是用rollup打包自己的工程化项目的，由于生态不足以及代码拆分等功能限制，一般还是用webpack做工程化打包。</p>
+<h4 id="使用webpack打包工程化项目"><a href="#使用webpack打包工程化项目" class="headerlink" title="使用webpack打包工程化项目"></a>使用webpack打包工程化项目</h4><p>之前也提到了，我们可以先进行tree-shaking，再进行编译，减少编译带来的副作用，从而增加tree-shaking的效果。那么具体应该怎么做呢？</p>
+<p>首先我们需要去掉babel-loader，然后webpack打包结束后，再执行babel编译文件。但是由于webpack项目常有多入口文件或者代码拆分等需求，我们又需要写一个配置文件，对应执行babel，这又略显麻烦。所以我们可以使用webpack的plugin，让这个环节依旧跑在webpack的打包流程中，就像<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fwebpack-contrib%2Fuglifyjs-webpack-plugin" target="_blank" rel="noopener">uglifyjs-webpack-plugin</a>一样，不再是以loader的形式对单个资源文件进行操作，而是在打包最后的环节进行编译。这里可能需要大家了解下webpack的<a href="https://link.juejin.im?target=https%3A%2F%2Fdoc.webpack-china.org%2Fconcepts%2Fplugins%2F" target="_blank" rel="noopener">plugin机制</a>。</p>
+<p>关于uglifyjs-webpack-plugin，这里有一个小细节，webpack默认会带一个低版本的，可以直接用<code>webpack.optimize.UglifyJsPlugin</code>别名去使用。具体可以看webpack的<a href="https://link.juejin.im?target=https%3A%2F%2Fdoc.webpack-china.org%2Fplugins%2Fuglifyjs-webpack-plugin" target="_blank" rel="noopener">相关说明</a></p>
+<blockquote>
+<p>webpack =&lt; v3.0.0 currently contains v0.4.6 of this plugin under webpack.optimize.UglifyJsPlugin as an alias. For usage of the latest version (v1.0.0), please follow the instructions below. Aliasing v1.0.0 as webpack.optimize.UglifyJsPlugin is scheduled for webpack v4.0.0</p>
+</blockquote>
+<p>而这个<strong>低版本的uglifyjs-webpack-plugin</strong>使用的依赖<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fmishoo%2FUglifyJS" target="_blank" rel="noopener">uglifyjs</a>也是低版本的，它没有<code>uglify</code>ES6代码的能力，故而如果我们有这样的需求，需要在工程中重新<code>npm install uglifyjs-webpack-plugin -D</code>，安装最新版本的<code>uglifyjs-webpack-plugin</code>，重新引入它并使用。</p>
+<p>这样之后，我们再使用webpack的babel插件进行编译代码。</p>
+<p>问题又来了，这样的需求比较少，因此webpack和babel官方都没有这样的插件，只有一个第三方开发者开发了一个插件<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fsimlrh%2Fbabel-webpack-plugin" target="_blank" rel="noopener">babel-webpack-plugin</a>。可惜的是这位作者已经近一年没有维护这个插件了，并且存在着一个问题，此插件不会用项目根目录下的<code>.babelrc</code>文件进行babel编译。有人对此提了<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fsimlrh%2Fbabel-webpack-plugin%2Fissues%2F3" target="_blank" rel="noopener">issue</a>，却也没有任何回应。</p>
+<p>那么又没有办法，就我来写一个新的插件吧—-<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fwuomzfx%2Fwebpack-babel-plugin" target="_blank" rel="noopener">webpack-babel-plugin</a>，有了它之后我们就能让webpack在最后打包文件之前进行babel编译代码了，具体如何安装使用可以点开项目查看。注意这个配置需要在<code>uglifyjs-webpack-plugin</code>之后，像这样：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugins: [</span><br><span class="line">  new UglifyJsPlugin(),</span><br><span class="line">  new BabelPlugin()</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>但是这样呢，有一个毛病，由于babel在最后阶段去编译比较大的文件，耗时比较长，所以建议区分下开发模式与生产模式。另外还有个更大的问题，<code>webpack</code>本身采用的编译器<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Facornjs%2Facorn" target="_blank" rel="noopener">acorn</a>不支持对象的扩展运算符(…)以及某些还未正式成为ES标准的特性，所以。。。。。</p>
+<p>所以如果特性用的非常超前，还是需要<code>babel-loader</code>，但是<code>babel-loader</code>要做专门的配置，把还在es stage阶段的代码编译成ES2017的代码，以便于<code>webpack</code>本身做处理。</p>
+<p><strong>感谢掘金热心网友的提示，还有一个插件BabelMinifyWebpackPlugin，它所依赖的babel/minify也集成了uglifyjs。使用此插件便等同于上述使用UglifyJsPlugin + BabelPlugin的效果，如若有此方面需求，建议使用此插件。</strong></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>上面讲了这么多，我最后再总结下，在当下阶段，在tree-shaking上能够尽力的事。</p>
+<ol>
+<li>尽量不写带有副作用的代码。诸如编写了立即执行函数，在函数里又使用了外部变量等。</li>
+<li>如果对ES6语义特性要求不是特别严格，可以开启babel的<code>loose</code>模式，这个要根据自身项目判断，如：是否真的要不可枚举class的属性。</li>
+<li>如果是开发JavaScript库，请使用rollup。并且提供ES6 module的版本，入口文件地址设置到package.json的<code>module</code>字段。</li>
+<li>如果JavaScript库开发中，难以避免的产生各种副作用代码，可以将功能函数或者组件，打包成单独的文件或目录，以便于用户可以通过目录去加载。如有条件，也可为自己的库开发单独的webpack-loader，便于用户按需加载。</li>
+<li>如果是工程项目开发，对于依赖的组件，只能看组件提供者是否有对应上述3、4点的优化。对于自身的代码，除1、2两点外，对于项目有极致要求的话，可以先进行打包，最终再进行编译。</li>
+<li>如果对项目非常有把握，可以通过uglify的一些<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fmishoo%2FUglifyJS2%2F%23compress-options" target="_blank" rel="noopener">编译配置</a>，如：<code>pure_getters: true</code>，删除一些强制认为不会产生副作用的代码。</li>
+</ol>
+<p>故而，在当下阶段，依旧没有比较简单好用的方法，便于我们完整的进行tree-shaking。所以说，想做好一件事真难啊。不仅需要靠个人的努力，还需要考虑到历史的进程。</p>
+<blockquote>
+<p>PS: 此文中涉及到的代码，我也传到了github，可以点击阅读原文下载查看。</p>
+</blockquote>
+<p>–<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2Fwuomzfx%2Ftree-shaking-test" target="_blank" rel="noopener">阅读原文</a></p>
+<p>@<a href="https://juejin.im/user/59f931526fb9a045023af2a4" target="_blank" rel="noopener">丁香园F2E</a> @<a href="https://link.juejin.im?target=https%3A%2F%2Fwww.zhihu.com%2Fpeople%2Fxiang-xue-zhang" target="_blank" rel="noopener">相学长</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+            <a href="/tags/tree-shaking/" rel="tag"># tree-shaking</a>
+          
+            <a href="/tags/uglifyJS/" rel="tag"># uglifyJS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/15/Vue中有趣的自定义指令/" rel="next" title="Vue中有趣的自定义指令">
+                <i class="fa fa-chevron-left"></i> Vue中有趣的自定义指令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/20/reactJS生命周期初探/" rel="prev" title="reactJS生命周期初探">
+                reactJS生命周期初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">106</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">Kategorien</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">176</span>
+                    <span class="site-state-item-name">schlagwörter</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tree-Shaking原理"><span class="nav-number">1.</span> <span class="nav-text">Tree-Shaking原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#副作用"><span class="nav-number">2.</span> <span class="nav-text">副作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成也Babel，败也Babel"><span class="nav-number">3.</span> <span class="nav-text">成也Babel，败也Babel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不够屌的UglifyJS"><span class="nav-number">4.</span> <span class="nav-text">不够屌的UglifyJS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那到底该咋办"><span class="nav-number">5.</span> <span class="nav-text">那到底该咋办</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如果是使用webpack打包JavaScript库"><span class="nav-number">5.1.</span> <span class="nav-text">如果是使用webpack打包JavaScript库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用rollup打包JavaScript库"><span class="nav-number">5.2.</span> <span class="nav-text">使用rollup打包JavaScript库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用webpack打包工程化项目"><span class="nav-number">5.3.</span> <span class="nav-text">使用webpack打包工程化项目</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

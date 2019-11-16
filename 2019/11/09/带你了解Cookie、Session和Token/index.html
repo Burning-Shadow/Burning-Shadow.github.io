@@ -106,10 +106,13 @@
 <meta property="og:site_name" content="Siir">
 <meta property="og:description" content="​        啥是 cookie？啥又是 session？token 又是咋用？这些问题在蛮久之前困扰了我好久。依照后台的讲解来说我理解的 session 和 cookie 没什么两样，而 token 的话好像还是，依然是默认携带的东西交给后台做处理。但是！作为一个前端仍然有必要了解其后的机制！">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-09T14:16:27.780Z">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H6f6b1ec3b0384e9d990640b9b6b77c7fw.png">
+<meta property="og:image" content="https://pic.superbed.cn/item/5dc7e64a8e0e2e3ee9ff54fe.png">
+<meta property="og:updated_time" content="2019-11-16T01:58:06.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="带你了解Cookie、Session和Token">
 <meta name="twitter:description" content="​        啥是 cookie？啥又是 session？token 又是咋用？这些问题在蛮久之前困扰了我好久。依照后台的讲解来说我理解的 session 和 cookie 没什么两样，而 token 的话好像还是，依然是默认携带的东西交给后台做处理。但是！作为一个前端仍然有必要了解其后的机制！">
+<meta name="twitter:image" content="https://ae01.alicdn.com/kf/H6f6b1ec3b0384e9d990640b9b6b77c7fw.png">
 
 
 
@@ -194,7 +197,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -222,7 +225,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -239,7 +242,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -256,7 +259,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -273,7 +276,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -361,23 +364,53 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2019-11-09 21:00:09 / Modified: 22:16:27" itemprop="dateCreated datePublished" datetime="2019-11-09T21:00:09+08:00">2019-11-09</time>
+              <time title="Erstellt: 2019-11-09 21:00:09" itemprop="dateCreated datePublished" datetime="2019-11-09T21:00:09+08:00">2019-11-09</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-11-16 09:58:06" itemprop="dateModified" datetime="2019-11-16T09:58:06+08:00">2019-11-16</time>
               
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Browser/" itemprop="url" rel="index"><span itemprop="name">Browser</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -420,8 +453,19 @@
 <p>​        想想也对，咱们就存一个 <code>cookie</code> ，而人家得存咱们所有人的 <code>cookie</code>，这事儿搁谁身上都不高兴啊。为了解决这种问题服务器想到了另一个办法：找兄弟帮我分担——一台不够，那咱们加一台。</p>
 <p>​        可是兄弟毕竟是兄弟，你这两边各存一半 <code>session</code>，那人家请求过来该找谁？于是乎 <code>session sticky</code> 作为一个小伎俩被支出来，是谁验证的就一直谁管理，咱们两边分开来搞。</p>
 <p>​        那万一有一台挂掉了怎么办？还是得数据移植啊，只有备份才能保证其安全性。可是两台还好，三台四台五台六台怎么办？这个是数量级级别的增长呀。</p>
-<p>​        Memcached：“我们可以把 <code>session</code> 集中存储在一个地方，所有的机器都由这台服务器进行验证。”倒是没什么问题，但是把所有鸡蛋放在同一个篮子里，既增加了单点失败的可能性，又是极大的不稳定因素，万一没拿稳岂不是全没了。最后的解决办法还是备份，可这么个小东西高到这个份儿上的确让人有点烦躁。</p>
-<h3 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h3>
+<p>​        Memcached：“我们可以把 <code>session</code> 集中存储在一个地方，所有的机器都由这台服务器进行验证。”倒是没什么问题，但是把所有鸡蛋放在同一个篮子里，既增加了单点失败的可能性，又是极大的不稳定因素，万一没拿稳岂不是全没了。最后的解决办法还是备份，可这么个小东西搞到这个份儿上的确让人有点烦躁。</p>
+<p><img src="https://ae01.alicdn.com/kf/H6f6b1ec3b0384e9d990640b9b6b77c7fw.png" alt="session集中存储模式"></p>
+<h3 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h3><h4 id="引子-1"><a href="#引子-1" class="headerlink" title="引子"></a>引子</h4><blockquote>
+<p>服务器：为什么只让我存储 <code>session</code>？难道没有更好的办法了吗？</p>
+</blockquote>
+<p>​        不行的哦老弟，因为用户凭证由你所生成，而相应的也应该由你进行验证。所以只能……</p>
+<p>​        不对，我们解决的是如<strong>何判断用户身份</strong>问题，而要做的就是<strong>后台可以生成一个唯一身份标识</strong>并且<strong>验证</strong>。完全可以<strong>绕开存储的问题</strong>！</p>
+<p>​        既然可以绕开那么我们怎么进行呢？关键点就是<strong>验证</strong></p>
+<p>​        既然后台不进行保存只有前端进行存储，那么自然，作为一个搞软件的都知道，<strong>空间可以换时间</strong>，那么反过来，<strong>时间亦可以换空间</strong>。至此，我们的主角 <code>Token</code> 正式出场</p>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><p>​        接收咱们还是老规矩，你请求的时候从 <code>header</code> 里带来就行了呗。而验证的话，既然咱们<strong>用时间换空间</strong>，那自然是不会再在后台服务器进行存储的。我们需要提供额外的一套规则，增加服务器的运算量来节约其存储空间。</p>
+<p>​        学过 <a href="[https://burning-shadow.github.io/2019/07/22/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82HTTPS%E5%8A%A0%E5%AF%86%E6%9C%BA%E5%88%B6/](https://burning-shadow.github.io/2019/07/22/彻底搞懂HTTPS加密机制/">HTTPS</a> ) 的 boys 应该知道数字签名这东西（没学过的去看一下去！），那么我们也可以！后台制定一套加密规则，将 sessionid 通过密钥加密后生成一个<strong>签名</strong>，附带着明文的 sessionid 发送给浏览器，而浏览器则继续以 <code>cookie</code> 的形式进行存储。而浏览器向服务器发送请求时则会在 HTTP 中的 <code>Header</code> 中附带 <code>cookie</code>，而浏览器拿到之后则使用其发送而来的 <code>sessionid</code> 进行密钥加密，完成后和一同发送而来签名对比，相同则身份一致，否则身份错误，将其登陆状态下掉，这就是我们的 <code>Token</code>~</p>
+<p><img src="https://pic.superbed.cn/item/5dc7e64a8e0e2e3ee9ff54fe.png" alt="token在服务端的验证过程"></p>
+
       
     </div>
 
@@ -461,8 +505,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/15/Vue中有趣的自定义指令/" rel="next" title="Vue中有趣的自定义指令">
-                <i class="fa fa-chevron-left"></i> Vue中有趣的自定义指令
+              <a href="/2019/10/30/Redux初体验/" rel="next" title="Redux初体验">
+                <i class="fa fa-chevron-left"></i> Redux初体验
               </a>
             
           </div>
@@ -470,6 +514,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/16/3种方法实现CSS隐藏滚动条并可以滚动内容(转载)/" rel="prev" title="3种方法实现CSS隐藏滚动条并可以滚动内容(转载)">
+                3种方法实现CSS隐藏滚动条并可以滚动内容(转载) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -515,10 +563,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -540,8 +588,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">100</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-count">106</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -599,8 +647,12 @@
                     
                       
                     
+                      
+                    
+                      
+                    
                     <span class="site-state-item-count">21</span>
-                    <span class="site-state-item-name">categories</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -952,8 +1004,28 @@
                     
                       
                     
-                    <span class="site-state-item-count">168</span>
-                    <span class="site-state-item-name">tags</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">176</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -1016,7 +1088,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie"><span class="nav-number">1.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session"><span class="nav-number">2.</span> <span class="nav-text">Session</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引子"><span class="nav-number">2.1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详情"><span class="nav-number">2.2.</span> <span class="nav-text">详情</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Token"><span class="nav-number">3.</span> <span class="nav-text">Token</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie"><span class="nav-number">1.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session"><span class="nav-number">2.</span> <span class="nav-text">Session</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引子"><span class="nav-number">2.1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详情"><span class="nav-number">2.2.</span> <span class="nav-text">详情</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Token"><span class="nav-number">3.</span> <span class="nav-text">Token</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引子-1"><span class="nav-number">3.1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证"><span class="nav-number">3.2.</span> <span class="nav-text">验证</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1049,7 +1121,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1057,7 +1129,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

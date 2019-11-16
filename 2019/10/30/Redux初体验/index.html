@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="​        鉴于单向数据流的理念逐渐深入人心，人们对 react 的设计理念也逐步提高了认同度。但是由于其祖孙间通讯过程不直观等问题，在大型项目中我们需要一个第三方的更稳定版本的 “event bus”。在诸多候选者中易于操作且基于单向数据流的 redux 成功取代 Flux 成为脱颖而出的佼佼者。">
+<meta name="keywords" content="状态管理库,redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux初体验">
+<meta property="og:url" content="http://yoursite.com/2019/10/30/Redux初体验/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="​        鉴于单向数据流的理念逐渐深入人心，人们对 react 的设计理念也逐步提高了认同度。但是由于其祖孙间通讯过程不直观等问题，在大型项目中我们需要一个第三方的更稳定版本的 “event bus”。在诸多候选者中易于操作且基于单向数据流的 redux 成功取代 Flux 成为脱颖而出的佼佼者。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic.superbed.cn/item/5db93767bd461d945a59da84.jpg">
+<meta property="og:image" content="https://pic.superbed.cn/item/5dbcf376bd461d945aeaeb9d.jpg">
+<meta property="og:updated_time" content="2019-11-16T01:58:06.378Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redux初体验">
+<meta name="twitter:description" content="​        鉴于单向数据流的理念逐渐深入人心，人们对 react 的设计理念也逐步提高了认同度。但是由于其祖孙间通讯过程不直观等问题，在大型项目中我们需要一个第三方的更稳定版本的 “event bus”。在诸多候选者中易于操作且基于单向数据流的 redux 成功取代 Flux 成为脱颖而出的佼佼者。">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5db93767bd461d945a59da84.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/30/Redux初体验/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Redux初体验 | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Navigationsleiste an/ausschalten">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/30/Redux初体验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redux初体验
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-10-30 10:24:01" itemprop="dateCreated datePublished" datetime="2019-10-30T10:24:01+08:00">2019-10-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-11-16 09:58:06" itemprop="dateModified" datetime="2019-11-16T09:58:06+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/状态管理库/" itemprop="url" rel="index"><span itemprop="name">状态管理库</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>​        鉴于单向数据流的理念逐渐深入人心，人们对 <code>react</code> 的设计理念也逐步提高了认同度。但是由于其祖孙间通讯过程不直观等问题，在大型项目中我们需要一个第三方的更稳定版本的 “<code>event bus</code>”。在诸多候选者中易于操作且基于单向数据流的 <code>redux</code> 成功取代 <code>Flux</code> 成为脱颖而出的佼佼者。</p>
+<a id="more"></a>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><code>redux</code> 本身由 ES2015 编写，故其可以支持任何现代浏览器，无需 Babel 或模块打包器进行处理</li>
+<li>使用 <code>react</code> 进行开发时你需要 <code>react绑定库</code> 和 <code>开发者工具</code>  —— <code>react-redux</code> &amp; <code>redux-devtools</code></li>
+<li><code>Redux</code> 生态下的很多包都不提供 UMD 文件，故为了提升开发体验，官方推荐使用像 Webpack 和 Browserify 这样的 CommonJS 模块打包器。</li>
+</ul>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>​        React 最基本的逻辑就是将内容（state）以对象的形式存储在一个单一的 store 中，只有 action 可以对 state 进行更改。</p>
+<p><img src="https://pic.superbed.cn/item/5db93767bd461d945a59da84.jpg" alt="Redux Flow"></p>
+<p>​        如图，我们可以将此理解为一个图书管理系统。我们所使用状态管理器（Redux）的组件可以理解为<strong>借书者</strong>，Store 则是<strong>图书管理员</strong>。我们借书的过程中必须借助 Action Creators 进行“沟通”，将我们借书的请求分派（dispatch）给<strong>图书管理员</strong>（Store），而后由图书管理员对此请求进行梳理，去<strong>图书馆</strong>（Reducers）中进行图书的取借，完成后将新状态返还给我们的<strong>借书者</strong>（React Components）</p>
+<ul>
+<li>Store 只能有一个，用于存储整个应用的状态（数据）。</li>
+<li>React Components 改变 state的唯一方法是通过调用 store 的 dispatch 方法，触发一个 action。此 action 被<strong>相应的 reducer</strong> 处理，完成 state 的更新。</li>
+<li><strong>reducer 必须为纯函数</strong>。</li>
+<li>组件间的值传递需要 dispatch action 给 store，而非直接通知。</li>
+<li>组件更新时通过 subscribe store 中的 state 来刷新自己的视图。</li>
+</ul>
+<h2 id="为什么这么复杂"><a href="#为什么这么复杂" class="headerlink" title="为什么这么复杂"></a>为什么这么复杂</h2><p>​        单向数据流的初衷就是让逻辑变得更加清晰，我们写了这些代码的本质上<strong>并非是</strong>想提高运行速度或提升用户体验，（相较于写在 React Components 中的 state 而言这些看似繁复的规范无疑是增加了开发者的学习成本，增加了代码量，同时还增加了读取时间等等），<strong>而是尽可能的</strong>将流程交给我们的<strong>数据管理器</strong>。如此一来发生错误时可以<strong>更精确的定位错误信息</strong>，将错误定位时间压缩到最低。此外可以将我们的逻辑代码从生命周期函数中迁移出来，防止生命周期内布过于臃肿。将其内部的请求、存储等函数方法对象等等交由 Redux 统一管理会使得你的组件中全部为逻辑代码，对于持久化管理也是好处无穷。</p>
+<h2 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h2><p>​        介绍的话还是从基础的使用讲起吧。此部分分为三块：Action、Reducer、Store</p>
+<h3 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h3><p>​        Action ，顾名思义：<code>行动、活动、功能</code>。其在 Redux 中扮演着非常重要的角色。主要是用来己撸我们的状态。如果忘记前边那张图的 boy 可以翻到前边看一下。</p>
+<p>​        不过需要大家伙儿注意的一点是：<strong>action 只是一个个的；用于描述存储值的对象！我们需要的是通过 actionCreators 创建相应的 action！</strong></p>
+<p>​        举个例子，action 的样子如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  type: "change_ipnut_value",</span><br><span class="line">  value: inputValue</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​        而 actionCreators 则是这样的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getInputChangeAction = <span class="function"><span class="params">value</span> =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">"change_ipnut_value"</span>,</span><br><span class="line">  value: inputValue</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>​        我们在组件内通过 actionCreators 创建相应的 action 后，需要在同样的位置由 store 进行 dispatch(action) 操作</p>
+<h3 id="Reducers"><a href="#Reducers" class="headerlink" title="Reducers"></a>Reducers</h3><p>​        还是那张老图，我们通过 <code>store.dispatch(action)</code> 操作<strong>通知</strong> Store 后，Store 再将相应的消息通知给 Reducers 进行处理。Reducers 接收之前的老数据，并将更改后的 数据返还给 Store 进行更改。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> defaultState = &#123;</span><br><span class="line">  inputValue: <span class="string">""</span>,</span><br><span class="line">  list: [<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>, <span class="string">"5"</span>]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (state = defaultState, action) =&gt; &#123;</span><br><span class="line">  <span class="comment">// // state 为上一次所保存的数据（value），action 为用户所传递过来的描述（type）</span></span><br><span class="line">  <span class="comment">// // console.log("state = ", state);</span></span><br><span class="line">  <span class="comment">// // console.log("action = ", action);</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> newState = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(state));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> CHANGE_INPUT_VALUE:</span><br><span class="line">      newState.inputValue = action.value;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> ADD_TODO_ITEM:</span><br><span class="line">      newState.list.push(newState.inputValue);</span><br><span class="line">      newState.inputValue = <span class="string">""</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> DELETE_TODO_ITEM:</span><br><span class="line">      newState.list.splice(action.index, <span class="number">1</span>);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> newState || state;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>​        如上例，我们要做的最多的就是将 reducer 变成一个 <a href="https://juejin.im/post/5b1a251e6fb9a01e83146ddf" target="_blank" rel="noopener">纯函数</a> ： <strong>相同的输入，永远会得到相同的输出</strong> 。而通过 ES6 语法令 state 拥有默认值无疑也是更加便捷的操作。</p>
+<h4 id="拆分"><a href="#拆分" class="headerlink" title="拆分"></a>拆分</h4><p>​        Reducer 虽好用但是在系统足够复杂之后我们不得不对其进行<strong>拆分</strong>了。同样的层级同样的 <code>switch...case</code> 使得虽然可以完成判断但是不同的组件间不同 State 的分层已经不再明显。基础的方法嘛……函数化呗。将我们相应的组件以函数的形式独立出去，再引入进一个汇总所用的 reducer 中。时不时很简单？</p>
+<p>​        才疏学浅所以就用官方的例子咯。<code>todos</code> 和 <code>visibilityFilter</code> 是两个相互独立的更新系统，所以我们将其单独拆分成两个系统（<code>visibilityFilter</code> 相对结构较为简单所以就不对其进行拆分啦）。这也是组件化的一部分，使得其逻辑更为清晰。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">todos</span>(<span class="params">state = [], action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> ADD_TODO:</span><br><span class="line">      <span class="keyword">return</span> [</span><br><span class="line">        ...state,</span><br><span class="line">        &#123;</span><br><span class="line">          text: action.text,</span><br><span class="line">          completed: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    <span class="keyword">case</span> TOGGLE_TODO:</span><br><span class="line">      <span class="keyword">return</span> state.map(<span class="function">(<span class="params">todo, index</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (index === action.index) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">Object</span>.assign(&#123;&#125;, todo, &#123;</span><br><span class="line">            completed: !todo.completed</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> todo</span><br><span class="line">      &#125;)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">todoApp</span>(<span class="params">state = initialState, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> SET_VISIBILITY_FILTER:</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Object</span>.assign(&#123;&#125;, state, &#123;</span><br><span class="line">        visibilityFilter: action.filter</span><br><span class="line">      &#125;)</span><br><span class="line">    <span class="keyword">case</span> ADD_TODO:</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Object</span>.assign(&#123;&#125;, state, &#123;</span><br><span class="line">        todos: todos(state.todos, action)</span><br><span class="line">      &#125;)</span><br><span class="line">    <span class="keyword">case</span> TOGGLE_TODO:</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Object</span>.assign(&#123;&#125;, state, &#123;</span><br><span class="line">        todos: todos(state.todos, action)</span><br><span class="line">      &#125;)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​        如此虽然说简化了 <code>reducers/index</code> 的代码量，但是稳定性、复用性等等都与编码者的编码习惯有关。算是项目中的一个不稳定因素。所以我们可以使用官方提供的 API</p>
+<h4 id="combineReducers"><a href="#combineReducers" class="headerlink" title="combineReducers"></a>combineReducers</h4><p>​        这东西物如其名，就是将不同模块对应的 Reducer 结合到一起。我们将 <code>reducer/index</code> 中的代码改成这样</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> todoApp = combineReducers(&#123;</span><br><span class="line">  visibilityFilter,</span><br><span class="line">  todos</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> todoApp</span><br></pre></td></tr></table></figure>
+<p>​        上边的写法和下边的完全等价</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">todoApp</span>(<span class="params">state = &#123;&#125;, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    visibilityFilter: visibilityFilter(state.visibilityFilter, action),</span><br><span class="line">    todos: todos(state.todos, action)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​        而具体的诸如 <code>visibilityFilter</code> 之类的 Reducer 中则照着原本的样子进行编写。如此就可以完成模块的拆分咯。相较于老版本的写法官网的 API 使得 index 更为整洁，不同的是在对应组件中需要获取 <code>state</code> 必须通过 <code>store.getState().visibilityFilter</code> / <code>store.getState().todos</code> 等方式获取，以此完成组件对数据的订阅。</p>
+<h3 id="Store"><a href="#Store" class="headerlink" title="Store"></a>Store</h3><p>​        上边说了那么多，对 Store 只是提了一下而已。事实上 Store 是将上述内容所联系起来的对象</p>
+<blockquote>
+<ul>
+<li><p>它有以下几个方法：</p>
+<ul>
+<li><p>提供 <a href="https://www.redux.org.cn/docs/api/Store.html#getState" target="_blank" rel="noopener"><code>getState()</code></a> 方法获取 state； </p>
+</li>
+<li><p>提供 <a href="https://www.redux.org.cn/docs/api/Store.html#dispatch" target="_blank" rel="noopener"><code>dispatch(action)</code></a> 方法更新 state； </p>
+</li>
+<li><p>通过 <a href="https://www.redux.org.cn/docs/api/Store.html#subscribe" target="_blank" rel="noopener"><code>subscribe(listener)</code></a> 注册监听器; </p>
+</li>
+<li><p>通过 <a href="https://www.redux.org.cn/docs/api/Store.html#subscribe" target="_blank" rel="noopener"><code>subscribe(listener)</code></a> 返回的函数注销监听器。 </p>
+<p>​                                                                                                    ——Redux官方文档</p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>​        相应的，为了其后期的调试及使用，我们需要在 chrome 上安装插件 <code>Redux Devtools</code>。同时，需要在相应的存储文件夹对应的文件中（一般是index，毕竟是用来关联 Reducers 和 actionCreators 的）进行如下设置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">"redux"</span>;</span><br><span class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">"./reducers"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(</span><br><span class="line">  reducer,</span><br><span class="line">  <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION__ &amp;&amp; <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION__()</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store;</span><br></pre></td></tr></table></figure>
+<p>​        最后，不要忘记把此文件暴露给具体应用到 Redux 的组件哦。</p>
+<h2 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h2><p>​        在具体介绍之前我们需要先介绍一个名词：<strong>中间件 MiddleWare</strong>。顾名思义是 Redux 的一部分扩展插件，用以辅助存储。</p>
+<p><img src="https://pic.superbed.cn/item/5dbcf376bd461d945aeaeb9d.jpg" alt="Redux Data Flow"></p>
+<p>​        我们所常用的 <code>redux-thunk</code>、<code>redux-saga</code> 等都隶属于 MiddleWare 的范畴。</p>
+<hr>
+<p>​        我们平日里在组件内请求而来的数据必须写在生命周期中，而这样的写法会使得代码的复用性降低，且无法将 Redux 数据管理的能力发挥到极致，所以为了使得我们可以通过 Redux 请求异步数据后再返回结果我们需要引入 MiddleWare —— <code>redux-thunk</code> 来帮助我们进行异步请求的管理。</p>
+<p>​        上边我们讲解了对于本地数据存储的 Redux 使用方式，但是对于存在着大量异步请求的 web 端来说异步 Action 的存在同样重要。经过上边的介绍我们得知 Action 本质上就是一个个用于存储数据的 JSON 对象。而异步 Action 与普通 Action 不同之处只有一个：状态</p>
+<p>​        在实践中组件发生 action 后，在进入 reducer 前需要完成一个异步任务，只有请求拿到数据之后才能再进入 reducer。而原生的 Redux 是不支持这种操作的，所以自然而然的就可以引入下边介绍的两种中间件：<code>redux-thunk</code> 和 <code>redux-saga</code>。</p>
+<p>​        </p>
+<h3 id="Redux-Thunk"><a href="#Redux-Thunk" class="headerlink" title="Redux-Thunk"></a>Redux-Thunk</h3><p>​        这玩意儿跟咱们平时搞的不太一样，主要作用是<strong>将 Action 的返回对象由对象扩展为函数</strong>。它可以像普通 Action 对象一样，由 Store 实例进行</p>
+<p>​        同样的，为了实现这一目的我们还需要引入新的中间件：<code>redux-thunk</code>。通过 npm 进行安装就可以啦。</p>
+<p>安装完毕后我们要改变的其实也并不是很多。在 <code>store/index.js</code> 中引入即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store/index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware, compose &#125; <span class="keyword">from</span> <span class="string">"redux"</span>;</span><br><span class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">"./reducers"</span>;</span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">"redux-thunk"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> composeEnhancers = <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__</span><br><span class="line">  ? <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(&#123;&#125;)</span><br><span class="line">  : compose;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> enhancer = composeEnhancers(applyMiddleware(thunk));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer, enhancer);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store;</span><br></pre></td></tr></table></figure>
+<p>至于与组件对应的 <code>actionCreator</code> 我们也无需担心。异步函数只要这样写就可以啦</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store/actionCreators/todoList.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getTodoList = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">dispatch</span>) =&gt;</span> &#123;</span><br><span class="line">    axios</span><br><span class="line">      .get(</span><br><span class="line">        <span class="string">"https://www.easy-mock.com/mock/5dbc42c0727c0077ea997f43/example/getlist"</span></span><br><span class="line">      )</span><br><span class="line">      .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// console.log(res);</span></span><br><span class="line">        <span class="keyword">const</span> data = res.data;</span><br><span class="line">        <span class="keyword">const</span> action = getListAction(data);</span><br><span class="line">        dispatch(action);</span><br><span class="line">      &#125;)</span><br><span class="line">      .finally(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"finally"</span>);</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(e);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>注意我们传入了一个 <code>dispatch</code>，如此一来我们就可以通过 <code>redux-thunk</code> 来直接在 <code>actionCreator</code> 中更改数据了。</p>
+<p>而具体的项目中其实和普通的一模一样。从 <code>actionCreator</code> 中引入函数后即可。其后的步骤如同普通的使用方式——在生命周期函数中创立副本；然后 <code>dispatch(action)</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/pages/todoList.js</span></span><br><span class="line"></span><br><span class="line">componentDidMount() &#123;</span><br><span class="line">  <span class="keyword">const</span> action = getTodoList();</span><br><span class="line">  store.dispatch(action)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Redux-Saga"><a href="#Redux-Saga" class="headerlink" title="Redux-Saga"></a>Redux-Saga</h3><p>​        老规矩，npm下载<code>npm i redux-saga --save</code></p>
+<p>​        完成后我们需要在 <code>store/index.js</code> 中继续配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store/index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware, compose &#125; <span class="keyword">from</span> <span class="string">"redux"</span>;</span><br><span class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">"./reducers"</span>;</span><br><span class="line"><span class="keyword">import</span> createSagaMiddleware <span class="keyword">from</span> <span class="string">"redux-saga"</span>;</span><br><span class="line"><span class="keyword">import</span> mySagas <span class="keyword">from</span> <span class="string">"./sagas"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建 saga 中间件</span></span><br><span class="line"><span class="keyword">const</span> sagaMiddleware = createSagaMiddleware();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> composeEnhancers = <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__</span><br><span class="line">  ? <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(&#123;&#125;)</span><br><span class="line">  : compose;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer, enhancer);</span><br><span class="line">sagaMiddleware.run(mySagas);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store;</span><br></pre></td></tr></table></figure>
+<p>​        细心的 boy 会发现我们会多引入一个 <code>sagas.js</code> 文件。这玩意儿得咱自己写.</p>
+<p>​        同时还有这么一句：<code>sagaMiddleware.run(mySagas)</code> emmmmm… 非要执行一下？喔原来 <code>saga.js</code> 是一个 <code>generator</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store/saga.js</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">mySaga</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> mySaga;</span><br></pre></td></tr></table></figure>
+<p>​        <code>generator</code> 函数本质是一个生成器，而 <code>saga.js</code> 中我们正需要她的特性。让我们完善一下我们刚才的 <code>saga.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store/saga.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; takeEvery, put &#125; <span class="keyword">from</span> <span class="string">'redux-saga/effects'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; GET_MY_LIST &#125; <span class="keyword">from</span> <span class="string">'./actionTypes'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; getListAction &#125; <span class="keyword">from</span> <span class="string">'./actionCreators'</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">mySaga</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> takeEvery(GET_MY_LIST, getList)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">getList</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">yield</span> axios.get(<span class="string">"https://www.easy-mock.com/mock/5dbc42c0727c0077ea997f43/example/getlist"</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> action = getListAction(res.data);</span><br><span class="line">  <span class="keyword">yield</span> put(action);	<span class="comment">// 使用 saga 特定 API put。一旦 action 改变就将变化传入 Store 中</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> mySaga;</span><br></pre></td></tr></table></figure>
+<p>​        其中，<code>takeEvery</code> 可以理解为一个<strong>监听器</strong>。每次我们将对应的 action 传入时就是事件的投入，而他则会<strong>将异步请求返回的结果统一暴露给外界</strong>——也就是监听它的组件 <code>store/index.js</code>。</p>
+<p>​        而上面的 <code>getActionList</code> 也是和 <code>redux-thunk</code> 中的 <code>getTodoList</code> 异步函数不同，它就是一个普通的 action。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// actionCreator.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getMyListAction = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">  type: GET_MY_LIST</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>​        而生命周期中的操作也很简单，在对应生命周期中写入即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount() &#123;</span><br><span class="line">  <span class="keyword">const</span> action = getMyListAction();</span><br><span class="line">  store.dispatch(action);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​        相信大家看到这里已经明白，<code>react-saga</code> 不同于 <code>react-thunk</code> 直接使用异步函数的形式，而是通过 <code>generator</code> 对 <code>action</code> 状态进行监听，一旦发生变化则立刻通知 <code>store</code> 进行更新数据。颇有一种 <code>Don&#39;t call me, i&#39;ll call you</code> 的异步风采。而其实现刨去观察者-监听者模式之外更多的是利用 ES6 的 <code>generator</code> 函数进行异步的回调处理。</p>
+<h3 id="最后说两句"><a href="#最后说两句" class="headerlink" title="最后说两句"></a>最后说两句</h3><p>​        上面介绍的两种异步 Action 的 MiddleWare 使用方式事实上并无好坏之区分，适用场景不同，使用方法不同罢了，据说 <code>redux-saga</code> 更适用于大型项目。</p>
+<h2 id="React-Redux"><a href="#React-Redux" class="headerlink" title="React-Redux"></a>React-Redux</h2><p>上述讲了这么多事实上</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/状态管理库/" rel="tag"># 状态管理库</a>
+          
+            <a href="/tags/redux/" rel="tag"># redux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/24/JS绑定事件/" rel="next" title="JS绑定事件">
+                <i class="fa fa-chevron-left"></i> JS绑定事件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/09/带你了解Cookie、Session和Token/" rel="prev" title="带你了解Cookie、Session和Token">
+                带你了解Cookie、Session和Token <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">106</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">Kategorien</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">176</span>
+                    <span class="site-state-item-name">schlagwörter</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">1.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么这么复杂"><span class="nav-number">3.</span> <span class="nav-text">为什么这么复杂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础篇"><span class="nav-number">4.</span> <span class="nav-text">基础篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Action"><span class="nav-number">4.1.</span> <span class="nav-text">Action</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reducers"><span class="nav-number">4.2.</span> <span class="nav-text">Reducers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#拆分"><span class="nav-number">4.2.1.</span> <span class="nav-text">拆分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#combineReducers"><span class="nav-number">4.2.2.</span> <span class="nav-text">combineReducers</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Store"><span class="nav-number">4.3.</span> <span class="nav-text">Store</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步"><span class="nav-number">5.</span> <span class="nav-text">异步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux-Thunk"><span class="nav-number">5.1.</span> <span class="nav-text">Redux-Thunk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux-Saga"><span class="nav-number">5.2.</span> <span class="nav-text">Redux-Saga</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后说两句"><span class="nav-number">5.3.</span> <span class="nav-text">最后说两句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Redux"><span class="nav-number">6.</span> <span class="nav-text">React-Redux</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
