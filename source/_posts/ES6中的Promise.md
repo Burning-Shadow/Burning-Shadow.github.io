@@ -1,5 +1,6 @@
 ---
 title: ES6中的Promise
+date: 2019-04-15 08:53:00
 categories: ES6
 tags: 
 - Promise

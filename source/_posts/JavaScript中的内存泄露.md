@@ -1,6 +1,9 @@
 ---
-title: JavaScript中的内存泄露
+title: JavaScript中的内存泄漏
+date: 2019-03-30 21:00:20
 categories: JavaScript
+tags:
+ - 内存泄漏
 ---
 
 ### 定义

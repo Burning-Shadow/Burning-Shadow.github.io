@@ -1,5 +1,6 @@
 ---
 title: HTML5中的新API
+date: 2019-04-06 12:24:01
 categories: HTML5
 tags: 
  - Canvas

@@ -1,5 +1,6 @@
 ---
 title: 重学Vue-Router（提升篇）
+date: 2019-05-13 12:13:01
 categories: 重学框架系列
 tags:
  - vue-router

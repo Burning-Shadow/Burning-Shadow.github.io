@@ -1,5 +1,6 @@
 ---
 title: Object.create()
+date: 2019-03-24 21:00:20
 categories: ES6
 tags: 
  - Object.create()

@@ -1,6 +1,11 @@
 ---
 title: JavaScript中的作用域
+date: 2019-04-04 00:24:00
 categories: JavaScript
+tags:
+ - 作用域
+ - LHS
+ - RHS
 ---
 
 ## 词法作用域

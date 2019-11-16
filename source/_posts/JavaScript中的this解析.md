@@ -1,6 +1,9 @@
 ---
 title: JavaScript中的this解析
+date: 2019-03-24 21:00:10
 categories: JavaScript
+tags:
+ - this指向
 ---
 
 一张图放在前面

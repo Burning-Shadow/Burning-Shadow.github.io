@@ -1,5 +1,6 @@
 ---
 title: JavaScript中如何实现一个相对准确的计时器
+date: 2019-03-30 21:00:30
 categories: JavaScript —— 原理篇
 tags: 
  - setTimeout

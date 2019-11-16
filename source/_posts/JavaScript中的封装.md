@@ -1,5 +1,6 @@
 ---
 title: JavaScript中的封装
+date: 2019-03-28 21:00:10
 categories: JavaScript设计模式
 tags: 
  - 设计模式

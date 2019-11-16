@@ -1,5 +1,6 @@
 ---
 title: ES6中的代理模式
+date: 2019-04-12 15:53:00
 categories: ES6
 tags:
  - proxy

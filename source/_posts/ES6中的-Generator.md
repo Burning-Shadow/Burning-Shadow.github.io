@@ -1,5 +1,6 @@
 ---
 title: ES6中的 Generator
+date: 2019-04-06 10:13:00
 categories: ES6
 tags: 
 - generator
@@ -7,7 +8,6 @@ tags:
 - yield
 - iterator
 - yield*
-
 ---
 
 ### 前言

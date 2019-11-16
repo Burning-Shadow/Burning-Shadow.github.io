@@ -1,5 +1,6 @@
 ---
 title: JavaScript 原型系统的变迁 & ES6 中的 Class
+date: 2019-03-26 01:23:10
 categories: JavaScript —— 原理篇
 tags:
  - Class语法

@@ -1,6 +1,10 @@
 ---
 title: Vue项目中关于axios跨域的设置
+date: 2019-03-24 21:00:15
 categories: Vue
+tags:
+ - vue
+ - 跨域
 ---
 
 `config`文件夹中的`dev.env.js`

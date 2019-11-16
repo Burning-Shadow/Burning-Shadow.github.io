@@ -1,6 +1,10 @@
 ---
 title: JavaScript中的map和reduce
+date: 2019-03-06 10:13:00
 categories: JavaScript
+tags:
+ - map
+ - reduce
 ---
 
 

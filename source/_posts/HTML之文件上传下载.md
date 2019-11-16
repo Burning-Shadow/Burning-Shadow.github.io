@@ -1,5 +1,6 @@
 ---
 title: HTML5之文件上传下载
+date: 2019-04-06 12:24:02
 categories: HTML5
 tags:
  - FileList

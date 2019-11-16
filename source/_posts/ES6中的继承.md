@@ -1,5 +1,6 @@
 ---
 title: ES6中的继承
+date: 2019-04-30 17:12:00
 categories: ES6
 tags:
  - extends

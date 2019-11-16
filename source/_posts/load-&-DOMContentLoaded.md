@@ -1,5 +1,6 @@
 ---
 title: load & DOMContentLoaded
+date: 2019-04-01 12:24:00
 categories: Browser
 tags:
  - load

@@ -1,5 +1,6 @@
 ---
 title: import、require、export、module.exports混合使用详解
+date: 2019-04-29 15:21:00
 categories: 前端模块化
 tags: 
  - import

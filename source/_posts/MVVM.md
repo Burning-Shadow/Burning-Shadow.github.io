@@ -1,5 +1,6 @@
 ---
 title: MVVM
+date: 2019-04-05 11:31:00
 categories: Vue
 tags: 
  - 脏数据检测

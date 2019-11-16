@@ -1,5 +1,6 @@
 ---
 title: 浅谈 instanceof 和 typeof 原理
+date: 2019-03-06 10:13:00
 categories: JavaScript —— 原理篇
 tags: 
 - typeof

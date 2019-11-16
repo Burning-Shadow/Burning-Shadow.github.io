@@ -1,5 +1,6 @@
 ---
 title: 四、DHCP与PXE：IP是怎么来的，又是怎么没的？
+date: 2019-03-30 21:35:03
 tags: [计算机网络]
 categories: 网络协议
 
@@ -56,9 +57,7 @@ $ sudo ip link set up eth1
 ### 动态主机配置协议（DHCP）
 
 <p>原来配置 IP 有这么多门道儿啊。你可能会问了，配置了 IP 之后一般不能变的，配置一个服务端的机器还可以，但是如果是客户端的机器呢？我抱着一台笔记本电脑在公司里走来走去，或者白天来晚上走，每次使用都要配置 IP 地址，那可怎么办？还有人事、行政等非技术人员，如果公司所有的电脑都需要 IT 人员配置，肯定忙不过来啊。</p>
-
 <p>因此，我们需要有一个自动配置的协议，也就是称<strong>动态主机配置协议（Dynamic Host Configuration Protocol）</strong>，简称<strong>DHCP</strong>。</p>
-
 有了这个协议，我们的网络管理员只需要配置一段共享的<font size = 3 color= red>IP</font>地址（自己理解为<font size = 3 color= red>IP池</font>）。每一台新接入的机器都通过<font size = 3 color= red>DHCP协议</font>，来这一段共享IP地址里<font size = 3 color= red>申请</font>，然后自己配置，等人走了，再<font size = 3 color= red>回收IP</font>地址
 
 所以说，<font size = 3>**如果是数据中心里面的服务器，IP 一旦配置好，基本不会变，这就相当于买房自己装修。<font size = 3 color= red>DHCP 的方式就相当于租房</font>。你不用装修，都是帮你配置好的。你暂时用一下，用完退租就可以了。**</font>
@@ -66,43 +65,30 @@ $ sudo ip link set up eth1
 ### 解析 DHCP 的工作方式
 
 <p>当一台机器新加入一个网络的时候，肯定一脸懵，啥情况都不知道，只知道自己的 MAC 地址。怎么办？先吼一句，我来啦，有人吗？这时候的沟通基本靠<font size = 3 color= red>“吼”</font>。这一步，我们称为<font size = 3 color= red>DHCP Discover。</font></p>
-
 <p>新来的机器使用<font size = 3 color= red> IP</font> 地址<font size = 3 color= red> 0.0.0.0 </font>发送了一个<font size = 3 color= red>广播包</font>，<font size = 3 color= red>目的 IP </font>地址为<font size = 3 color= red> 255.255.255.255</font>。广播包封装了<font size = 3 color= red> UDP</font>，<font size = 3 color= red>UDP</font> 封装了 <font size = 3 color= red>BOOTP</font>。其实<font size = 3 color= red> DHCP</font> 是<font size = 3 color= red> BOOTP</font> 的增强版，但是如果你去抓包的话，很可能看到的名称还是<font size = 3 color= red> BOOTP 协议</font>。</p>
-
 <p>在这个广播包里面，新人大声喊：我是新来的（Boot request），我的 MAC 地址是这个，我还没有 IP，谁能给租给我个 IP 地址！</p>
-
 <p>格式就像这样：</p>
-
 ![image](https://static001.geekbang.org/resource/image/39/1f/395b304f49559034af34c882bd86f11f.jpg)
 
 <p>如果一个网络管理员在网络里面配置了<font size = 3 color= red>DHCP Server</font>的话，他就相当于这些 IP 的管理员。他立刻能知道来了一个“新人”。这个时候，我们可以体会 MAC 地址唯一的重要性了。当一台机器带着自己的 MAC 地址加入一个网络的时候，MAC 是它唯一的身份，如果连这个都重复了，就没办法配置了。</p>
-
 <p>只有 <font size = 3 color= red>MAC</font> 唯一，<font size = 3 color= red>IP</font> 管理员才能知道这是一个新人，需要租给它一个<font size = 3 color= red> IP </font>地址，这个过程我们称为<font size = 3 color= red>DHCP Offer</font>。同时，<font size = 3 color= red>DHCP Server</font> 为此客户保留为它提供的 <font size = 3 color= red>IP</font> 地址，从而不会为其他<font size = 3 color= red> DHCP 客户</font>分配<font size = 3 color= red>此 IP </font>地址。</p>
-
 <p>DHCP Offer 的格式就像这样，里面有给新人分配的地址。</p>
-
 ![image](https://static001.geekbang.org/resource/image/54/86/54ffefbe4f493f0f4a39f45504bd5086.jpg)
 
 <p><font size = 3 color= red>DHCP Server</font> 仍然使用广播地址作为目的地址，因为，此时请求分配 <font size = 3 color= red>IP</font> 的新人还没有自己的 <font size = 3 color= red>IP</font>。<font size = 3 color= red>DHCP Server</font> 回复说，我分配了一个可用的 <font size = 3 color= red>IP</font> 给你，你看如何？除此之外，服务器还发送了<font size = 3 color= red>子网掩码</font>、<font size = 3 color= red>网关</font>和 <font size = 3 color= red>IP 地址租用期</font>等信息。</p>
-
 <p>新来的机器很开心，它的“吼”得到了回复，并且有人愿意租给它一个 IP 地址了，这意味着它可以在网络上立足了。当然更令人开心的是，如果有多个 <font size = 3 color= red>DHCP Server</font>，这台新机器会收到多个<font size = 3 color= red> IP</font> 地址，简直受宠若惊。</p>
 <p>它会选择其中一个 <font size = 3 color= red>DHCP Offer</font>，一般是最先到达的那个，并且会向网络发送一个<font size = 3 color= red> DHCP Request </font>广播数据包，包中包含<font size = 3 color= red>客户端的 MAC 地址</font>、接受的租约中的<font size = 3 color= red> IP 地址</font>、提供此租约的<font size = 3 color= red> DHCP</font> 服务器地址等，并告诉所有<font size = 3 color= red> DHCP Server</font> 它将接受哪一台服务器提供的<font size = 3 color= red> IP 地址</font>，告诉其他<font size = 3 color= red> DHCP</font> 服务器，谢谢你们的接纳，并请求撤销它们提供的 <font size = 3 color= red>IP</font> 地址，以便提供给下一个 <font size = 3 color= red>IP</font> 租用请求者。</p>
-
 ![image](https://static001.geekbang.org/resource/image/e1/24/e1e45ba0d86d2774ec80a1d86f87b724.jpg)
 
 <p>此时，由于还没有得到 DHCP Server 的最后确认，客户端仍然使用 0.0.0.0 为源 IP 地址、255.255.255.255 为目标地址进行广播。在 BOOTP 里面，接受某个 DHCP Server 的分配的 IP。</p>
-
 <p>当 DHCP Server 接收到客户机的 DHCP request 之后，会广播返回给客户机一个 DHCP ACK 消息包，表明已经接受客户机的选择，并将这一 IP 地址的合法租用信息和其他的配置信息都放入该广播包，发给客户机，欢迎它加入网络大家庭。</p>
-
 ![image](https://static001.geekbang.org/resource/image/7d/0e/7da571c18b974582a9cfe4718c5dea0e.jpg)
 
 <p>最终租约达成的时候，还是需要广播一下，让大家都知道。</p>
-
 ### IP 地址的收回和续租
 
 <p>既然是租房子，就是有租期的。租期到了，管理员就要将 IP 收回。</p>
 <p>如果不用的话，收回就收回了。就像你租房子一样，如果还要续租的话，不能到了时间再续租，而是要提前一段时间给房东说。DHCP 也是这样。</p>
 <p>客户机会在租期过去 50% 的时候，直接向为其提供 IP 地址的 DHCP Server 发送 DHCP request 消息包。客户机接收到该服务器回应的 DHCP ACK 消息包，会根据包中所提供的新的租期以及其他已经更新的 TCP/IP 参数，更新自己的配置。这样，IP 租用更新就完成了。</p>
-
 
 

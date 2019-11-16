@@ -1,5 +1,6 @@
 ---
 title: Vue杂记
+date: 2019-04-20 23:05:00
 categories: Vue
 tags: 
  - 路由传参

@@ -1,5 +1,6 @@
 ---
 title: JavaScript中的new操作符
+date: 2019-03-25 21:00:21
 categories: JavaScript —— 原理篇
 tags: 
 - new操作符

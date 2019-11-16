@@ -1,5 +1,6 @@
 ---
 title: JavaScript中的prototype、[[prototype]]和__proto__的区别和用法
+date: 2019-04-29 15:21:00
 categories: JavaScript —— 原理篇
 tags: 
 - __proto__

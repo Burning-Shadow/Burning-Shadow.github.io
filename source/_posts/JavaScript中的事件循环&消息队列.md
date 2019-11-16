@@ -1,12 +1,12 @@
 ---
 title: JavaScript中的事件循环&消息队列
+date: 2019-04-01 13:58:00
 categories: JavaScript —— 原理篇
 tags: 
 - 事件循环
 - Event Loop
 - 宏任务&微任务
 - 执行栈&消息队列
-     
 ---
 
 ​		作为一门设计初衷为了处理浏览器网页交互（`DOM`操作、`UI`动画等）的语言，`JavaScript`只能被设计为单线程（否则多个线程同时处理`DOM`那将会造成混乱）。

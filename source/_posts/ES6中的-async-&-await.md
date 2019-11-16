@@ -1,10 +1,10 @@
 ---
 title: ES6中的 async & await
+date: 2019-03-30 00:58:10
 categories: ES6
 tags: 
 - async
 - await
-
 ---
 
 async/await 是 **ES7 引入的新的异步代码 [规范](https://link.juejin.im?target=https%3A%2F%2Fwww.ecma-international.org%2Fecma-262%2F8.0%2F%23sec-async-function-definitions)**，它提供了一种新的编写异步代码的方式，这种方式**在语法层面提供了一种形式上非常接近于同步代码的异步非阻塞代码风格**，在此之前我们使用的多是异步回调、 [Promise](https://link.juejin.im?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FJavaScript%2FReference%2FGlobal_Objects%2FPromise) 模式。 从实现上来看 async/await 是在 [生成器](https://link.juejin.im?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FJavaScript%2FReference%2FGlobal_Objects%2FGenerator)、Promise 基础上构建出来的新语法：以 **生成器** 实现流程控制，以 Promise 实现异步控制。 Node 自 [v8.0.0](https://link.juejin.im?target=https%3A%2F%2Fnodejs.org%2Fen%2Fblog%2Frelease%2Fv8.0.0%2F) 起已经完全支持 async/await 语法，[babel](https://link.juejin.im?target=https%3A%2F%2Fbabeljs.io%2Fdocs%2Fen%2Fbabel-plugin-syntax-async-functions) 也已经完全支持 async/await 语法的转译。

@@ -1,5 +1,6 @@
 ---
 title: gulp初体验
+date: 2019-06-09 20:01:00
 categories: 打包工具
 tags:
  - gulp

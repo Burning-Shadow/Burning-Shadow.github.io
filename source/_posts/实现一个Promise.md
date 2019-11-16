@@ -1,5 +1,6 @@
 ---
 title: 实现一个Promise
+date: 2019-03-29 16:16:10
 categories: JavaScript —— 原理篇
 tags: 
  - Promise

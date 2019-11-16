@@ -1,6 +1,7 @@
 ---
 title: Node.js中的模块
-categories: Node.js
+date: 2019-04-04 16:47:00
+categories: 前端模块化
 tags:
  - require
  - exports

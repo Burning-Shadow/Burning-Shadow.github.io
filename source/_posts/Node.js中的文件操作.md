@@ -1,5 +1,6 @@
 ---
 title: Node.js中的文件操作
+date: 2019-04-28 20:55:00
 categories: Node.js
 tags:
  - fs

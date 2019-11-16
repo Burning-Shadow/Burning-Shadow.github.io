@@ -1,5 +1,6 @@
 ---
 title: Vue组件间通讯
+date: 2019-04-16 00:13:00
 categories: Vue
 tags:
  - 父子组件间通讯

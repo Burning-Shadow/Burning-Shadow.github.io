@@ -1,5 +1,6 @@
 ---
 title: JavaScript中的call和apply
+date: 2019-03-24 21:00:11
 categories: JavaScript
 ---
 

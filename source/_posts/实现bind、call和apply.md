@@ -1,5 +1,6 @@
 ---
 title: 实现bind、call和apply
+date: 2019-03-29 21:00:10
 categories: JavaScript —— 原理篇
 tags: 
  - 实现原理

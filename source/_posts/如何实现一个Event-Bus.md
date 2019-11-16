@@ -1,5 +1,6 @@
 ---
 title: 如何实现一个Event Bus
+date: 2019-05-02 12:13:00
 categories: JavaScript —— 原理篇
 tags:
  - Event Bus实现

@@ -1,5 +1,6 @@
 ---
 title: Generator+Promise实现Async&Await
+date: 2019-04-16 00:29:00
 categories: ES6
 tags:
  - Async

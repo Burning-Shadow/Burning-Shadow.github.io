@@ -1,6 +1,9 @@
 ---
 title: ES6中的Symbol
+date: 2019-04-15 08:54:00
 categories: ES6
+tags:
+ - Symbol
 ---
 
 我们今天一起看一些 ES6 新增的基本类型`Symbol`

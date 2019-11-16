@@ -1,5 +1,6 @@
 ---
 title: Vue中有趣的自定义指令
+date: 2019-08-15 21:58:00
 categories: Vue
 tags: 
  - directive

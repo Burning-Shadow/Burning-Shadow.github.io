@@ -1,5 +1,6 @@
 ---
 title: Vuex进阶
+date: 2019-05-22 10:53:00
 categories: 状态管理库
 tags:
  - 状态管理库

@@ -1,5 +1,6 @@
 ---
 title: reactJS中的组件间通信
+date: 2019-07-07 10:13:00
 categories: React
 tags:
  - props

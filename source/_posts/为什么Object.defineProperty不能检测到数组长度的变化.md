@@ -1,5 +1,6 @@
 ---
 title: 为什么Object.defineProperty不能检测到数组长度的变化
+date: 2019-04-25 15:13:00
 categories: JavaScript —— 原理篇
 tags:
  - Object.defineProperty

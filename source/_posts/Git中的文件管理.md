@@ -1,5 +1,6 @@
 ---
 title: Git中的文件管理
+date: 2019-04-07 20:36:00
 categories: Git
 tags:
  - 版本回退

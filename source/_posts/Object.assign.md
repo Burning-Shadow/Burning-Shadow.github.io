@@ -1,5 +1,6 @@
 ---
 title: Object.assign
+date: 2019-04-03 23:24:00
 categories: ES6
 tags:
  - Object.assign()

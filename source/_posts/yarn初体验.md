@@ -1,5 +1,6 @@
 ---
 title: yarn初体验
+date: 2019-05-21 21:46:00
 categories: Node Package Manager
 tags:
  - yarn

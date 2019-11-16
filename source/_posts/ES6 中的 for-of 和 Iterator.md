@@ -1,5 +1,6 @@
 ---
 title: ES6 中的 for-of 和 Iterator
+date: 2019-03-24 21:00:19
 categories: ES6
 tags: 
 - Iterator

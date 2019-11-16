@@ -1,5 +1,6 @@
 ---
 title: Vue中的$emit、$on和v-on
+date: 2019-05-06 12:13:00
 categories: Vue
 tags: 
  - v-on

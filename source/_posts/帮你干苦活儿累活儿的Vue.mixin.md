@@ -1,5 +1,6 @@
 ---
 title: 帮你干苦活儿累活儿的Vue.mixin
+date: 2019-08-10 21:36:00
 categories: Vue
 tags:
  - vue

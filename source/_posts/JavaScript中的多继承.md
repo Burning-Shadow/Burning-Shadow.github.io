@@ -1,5 +1,6 @@
 ---
-title: JavaScript中的多继承&多态
+title: JavaScript中的多继承 && 多态
+date: 2019-03-28 21:00:10
 categories: JavaScript设计模式
 tags: 
  - 多继承

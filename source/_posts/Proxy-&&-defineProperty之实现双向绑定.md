@@ -1,5 +1,6 @@
 ---
 title: Proxy && defineProperty之实现双向绑定
+date: 2019-04-12 17:06:00
 categories: Vue
 tags:
  - Proxy
