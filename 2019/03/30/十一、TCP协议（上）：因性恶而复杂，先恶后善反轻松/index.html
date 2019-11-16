@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="上一节，我们讲的 UDP，基本上包括了传输层所必须的端口字段。它就像我们小时候一样简单，相信“网之初，性本善，不丢包，不乱序”。后来呢，我们都慢慢长大，了解了社会的残酷，变得复杂而成熟，就像 TCP 协议一样。它之所以这么复杂，那是因为它秉承的是“性恶论”。它天然认为网络环境是恶劣的，丢包、乱序、重传，拥塞都是常有的事情，一言不合就可能送达不了，因而要从算法层面来保证可靠性。">
+<meta name="keywords" content="计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十一、TCP协议（上）：因性恶而复杂，先恶后善反轻松">
+<meta property="og:url" content="http://yoursite.com/2019/03/30/十一、TCP协议（上）：因性恶而复杂，先恶后善反轻松/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="上一节，我们讲的 UDP，基本上包括了传输层所必须的端口字段。它就像我们小时候一样简单，相信“网之初，性本善，不丢包，不乱序”。后来呢，我们都慢慢长大，了解了社会的残酷，变得复杂而成熟，就像 TCP 协议一样。它之所以这么复杂，那是因为它秉承的是“性恶论”。它天然认为网络环境是恶劣的，丢包、乱序、重传，拥塞都是常有的事情，一言不合就可能送达不了，因而要从算法层面来保证可靠性。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/a7/bf/a795461effcce686a43f48e094c9adbf.jpg">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/66/a2/666d7d20aa907d8317af3770411f5aa2.jpg">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/1f/11/1f6a5e17b34f00d28722428b7b8ccb11.jpg">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/da/ab/dab9f6ee2908b05ed6f15f3e21be88ab.jpg">
+<meta property="og:updated_time" content="2019-11-16T12:01:27.269Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="十一、TCP协议（上）：因性恶而复杂，先恶后善反轻松">
+<meta name="twitter:description" content="上一节，我们讲的 UDP，基本上包括了传输层所必须的端口字段。它就像我们小时候一样简单，相信“网之初，性本善，不丢包，不乱序”。后来呢，我们都慢慢长大，了解了社会的残酷，变得复杂而成熟，就像 TCP 协议一样。它之所以这么复杂，那是因为它秉承的是“性恶论”。它天然认为网络环境是恶劣的，丢包、乱序、重传，拥塞都是常有的事情，一言不合就可能送达不了，因而要从算法层面来保证可靠性。">
+<meta name="twitter:image" content="https://static001.geekbang.org/resource/image/a7/bf/a795461effcce686a43f48e094c9adbf.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/30/十一、TCP协议（上）：因性恶而复杂，先恶后善反轻松/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>十一、TCP协议（上）：因性恶而复杂，先恶后善反轻松 | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/十一、TCP协议（上）：因性恶而复杂，先恶后善反轻松/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">十一、TCP协议（上）：因性恶而复杂，先恶后善反轻松
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-03-30 21:35:10" itemprop="dateCreated datePublished" datetime="2019-03-30T21:35:10+08:00">2019-03-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-11-16 20:01:27" itemprop="dateModified" datetime="2019-11-16T20:01:27+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络协议/" itemprop="url" rel="index"><span itemprop="name">网络协议</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>上一节，我们讲的 UDP，基本上包括了传输层所必须的端口字段。它就像我们小时候一样简单，相信“网之初，性本善，不丢包，不乱序”。</p><br><p>后来呢，我们都慢慢长大，了解了社会的残酷，变得复杂而成熟，就像 TCP 协议一样。它之所以这么复杂，那是因为它秉承的是“性恶论”。它天然认为网络环境是恶劣的，丢包、乱序、重传，拥塞都是常有的事情，一言不合就可能送达不了，因而要从算法层面来保证可靠性。</p><br><a id="more"></a><br><br>### TCP 包头格式<br><br><p>我们先来看 <font size="3" color="red">TCP</font> 头的格式。从这个图上可以看出，它比 <font size="3" color="red">UDP</font> 复杂得多。</p><br><img src="https://static001.geekbang.org/resource/image/a7/bf/a795461effcce686a43f48e094c9adbf.jpg" alt="image"><br><br><p>首先，<font size="3" color="red">源端口号</font>和<font size="3" color="red">目标端口号</font>是不可少的，这一点和 <font size="3" color="red">UDP</font> 是一样的。如果没有这两个端口号。数据就不知道应该发给哪个应用。</p><br><p>接下来是<font size="3" color="red">包的序号</font>。为什么要给包编号呢？当然是为了<font size="3" color="red">解决乱序</font>的问题。不编好号怎么确认哪个应该先来，哪个应该后到呢。编号是为了解决乱序问题。既然是社会老司机，做事当然要稳重，一件件来，面临再复杂的情况，也临危不乱。</p><br><p>还应该有的就是<font size="3" color="red">确认序号</font>。发出去的包应该有确认，要不然我怎么知道对方有没有收到呢？如果没有收到就应该重新发送，直到送达。这个可以<font size="3" color="red">解决不丢包</font>的问题。作为老司机，做事当然要靠谱，答应了就要做到，暂时做不到也要有个回复。</p><br><p><font size="3" color="red">TCP</font> 是靠谱的协议，但是这不能说明它面临的网络环境好。从 <font size="3" color="red">IP</font> 层面来讲，如果网络状况的确那么差，是没有任何可靠性保证的，而作为 <font size="3" color="red">IP</font> 的上一层 <font size="3" color="red">TCP</font> 也无能为力，唯一能做的就是更加努力，不断重传，通过各种算法保证。也就是说，对于 <font size="3" color="red">TCP</font> 来讲，<font size="3" color="red">IP</font> 层你丢不丢包，我管不着，但是我在我的层面上，会努力保证可靠性。</p><br><p>这有点像如果你在北京，和客户约十点见面，那么你应该清楚堵车是常态，你干预不了，也控制不了，你唯一能做的就是早走。打车不行就改乘地铁，尽力不失约。</p><br><p>接下来有一些状态位。例如 <font size="3" color="red">SYN</font> 是发起一个连接，<font size="3" color="red">ACK</font> 是回复，<font size="3" color="red">RST</font> 是重新连接，<font size="3" color="red">FIN</font> 是结束连接等。<font size="3" color="red">TCP</font> 是面向连接的，因而双方要维护连接的状态，这些带状态位的包的发送，会引起双方的状态变更。</p><br><p>不像小时候，随便一个不认识的小朋友都能玩在一起，人大了，就变得礼貌，优雅而警觉，人与人遇到会互相热情的寒暄，离开会不舍的道别，但是人与人之间的信任会经过多次交互才能建立。</p><br><p>还有一个重要的就是窗口大小。<font size="3" color="red">TCP</font> 要做<font size="3" color="red">流量控制</font>，通信双方各声明一个窗口，标识自己当前能够的处理能力，别发送的太快，撑死我，也别发的太慢，饿死我。</p><br><p>作为老司机，做事情要有分寸，待人要把握尺度，既能适当提出自己的要求，又不强人所难。除了做流量控制以外，<font size="3" color="red">TCP</font> 还会做<font size="3" color="red">拥塞控制</font>，对于真正的通路堵车不堵车，它无能为力，唯一能做的就是控制自己，也即<font size="3" color="red">控制发送的速度</font>。不能改变世界，就改变自己嘛。</p><br><p>作为老司机，要会自我控制，知进退，知道什么时候应该坚持，什么时候应该让步。</p><br><p>通过对 <font size="3" color="red">TCP</font> 头的解析，我们知道要掌握<font size="3" color="red"> TCP</font> 协议，重点应该关注以下几个问题：</p><br><ul><br><li><p>顺序问题 ，稳重不乱；</p><br></li><br><li><p>丢包问题，承诺靠谱；</p><br></li><br><li><p>连接维护，有始有终；</p><br></li><br><li><p>流量控制，把握分寸；</p><br></li><br><li><p>拥塞控制，知进知退。</p><br></li><br></ul><br><br>### TCP 的三次握手<br><br><p>所有的问题，首先都要先建立一个连接，所以我们先来看连接维护问题。</p><br><p><font size="3" color="red">TCP</font> 的<font size="3" color="red">连接建立</font>，我们常常称为三次握手。</p><br><p>A：您好，我是 A。</p><br><p>B：您好 A，我是 B。</p><br><p>A：您好 B。</p><br><p>我们也常称为<font size="3" color="red">“请求 -&gt; 应答 -&gt; 应答之应答”</font>的三个回合。这个看起来简单，其实里面还是有很多的学问，很多的细节。</p><br><p>首先，为什么要三次，而不是两次？按说两个人打招呼，一来一回就可以了啊？为了可靠，为什么不是四次？</p><br><p>我们还是假设这个<font size="3" color="red">通路</font>是非常<font size="3" color="red">不可靠</font>的，<font size="3" color="red">A</font> 要发起一个连接，当发了第一个请求杳无音信的时候，会有很多的可能性，比如第一个请求包丢了，再如没有丢，但是绕了弯路，超时了，还有 <font size="3" color="red">B</font> 没有响应，不想和我连接。</p><br><p><font size="3" color="red">A</font> 不能确认结果，于是再发，再发。终于，有一个请求包到了 <font size="3" color="red">B</font>，但是请求包到了<font size="3" color="red"> B</font> 的这个事情，目前 <font size="3" color="red">A</font> 还<font size="3" color="red">是不知道的</font>，<font size="3" color="red">A 还有可能再发</font>。</p><br><p><font size="3" color="red">B</font> 收到了请求包，就知道了 <font size="3" color="red">A</font> 的存在，并且知道 <font size="3" color="red">A</font> 要<font size="3" color="red">和它建立连接</font>。如果 <font size="3" color="red">B</font> <font size="3" color="red">不乐意建立连接</font>，则 <font size="3" color="red">A</font> 会重试一阵后放弃，连接建立失败，没有问题；如果 <font size="3" color="red">B</font> 是<font size="3" color="red">乐意建立连接</font>的，则会<font size="3" color="red">发送应答包给 A</font>。</p><br><p>当然对于 <font size="3" color="red">B</font> 来说，这个应答包也是一入网络深似海，不知道能不能到达 <font size="3" color="red">A</font>。这个时候 <font size="3" color="red">B</font> 自然不能认为连接是建立好了，因为应答包仍然会丢，会绕弯路，或者 <font size="3" color="red">A</font> 已经挂了都有可能。</p><br><p>而且这个时候 <font size="3" color="red">B</font> 还能碰到一个诡异的现象就是，<font size="3" color="red">A</font> 和 <font size="3" color="red">B</font> 原来建立了连接，做了简单通信后，结束了连接。还记得吗？A 建立连接的时候，请求包重复发了几次，有的请求包绕了一大圈又回来了，B 会认为这也是一个正常的的请求的话，因此建立了连接，可以想象，这个连接不会进行下去，也没有个终结的时候，纯属单相思了。因而两次握手肯定不行。</p><br><p><font size="3" color="red">B</font> 发送的应答可能会发送多次，但是只要一次到达 <font size="3" color="red">A</font>，<font size="3" color="red">A</font> 就认为连接<font size="3" color="red">已经建立</font>了，因为对于 <font size="3" color="red">A</font> 来讲，他的消息有去有回。<font size="3" color="red">A</font> 会给 <font size="3" color="red">B 发送应答之应答</font>，而 <font size="3" color="red">B</font> 也在等这个消息，才能确认连接的建立，只有等到了这个消息，对于 <font size="3" color="red">B</font> 来讲，才算它的消息有去有回。</p><br><p>当然<font size="3" color="red"> A</font> 发给 <font size="3" color="red">B</font> 的<font size="3" color="red">应答之应答</font>也会丢，也会绕路，甚至 <font size="3" color="red">B</font> 挂了。按理来说，还应该有个<font size="3" color="red">应答之应答之应答</font>，这样下去就没底了。所以<font size="3" color="red">四次握手是可以的</font>，四十次都可以，关键四百次也不能保证就真的可靠了。只要双方的消息都有去有回，就基本可以了。</p><br><p>好在大部分情况下，<font size="3" color="red">A</font> 和 <font size="3" color="red">B</font> 建立了连接之后，<font size="3" color="red">A</font> 会马上发送数据的，一旦 <font size="3" color="red">A</font> 发送数据，则很多问题都得到了解决。例如 <font size="3" color="red">A</font> 发给 <font size="3" color="red">B</font> 的应答丢了，当 <font size="3" color="red">A</font> 后续发送的数据到达的时候，<font size="3" color="red">B</font> 可以认为这个连接已经建立，或者 <font size="3" color="red">B</font> 压根就挂了，<font size="3" color="red">A </font>发送的数据，会报错，说 <font size="3" color="red">B</font> 不可达，<font size="3" color="red">A</font> 就知道 <font size="3" color="red">B</font> 出事情了。</p><br><p>当然你可以说 A 比较坏，就是不发数据，建立连接后空着。我们在程序设计的时候，可以要求开启 keepalive 机制，即使没有真实的数据包，也有探活包。</p><br><p>另外，你作为服务端 B 的程序设计者，对于 A 这种长时间不发包的客户端，可以主动关闭，从而空出资源来给其他客户端使用。</p><br><p>三次握手除了双方建立连接外，主要还是为了沟通一件事情，就是<strong><font size="3" color="red">TCP 包的序号的问题</font></strong>。</p><br>发起的包的序号起始是从哪个号开始的。<font size="3" color="red">为什么序号不能都从 1 开始呢？</font>因为这样往往会出现冲突。<p></p>
+
+<p>例如，<font size="3" color="red">A</font> 连上 <font size="3" color="red">B</font> 之后，发送了 <font size="3" color="red">1、2、3 </font>三个包，但是发送 <font size="3" color="red">3</font> 的时候，中间丢了，或者绕路了，于是重新发送，后来 <font size="3" color="red">A</font> 掉线了，重新连上 <font size="3" color="red">B</font> 后，序号又从 1 开始，然后发送 2，但是压根没想发送 3，但是上次绕路的那个 3 又回来了，发给了 <font size="3" color="red">B</font>，<font size="3" color="red">B</font> 自然认为，这就是下一个包，于是发生了错误。</p><br><p>因而，<font size="3" color="red">每个连接都要有不同的序号</font>。这个<font size="3" color="red">序号</font>的<font size="3" color="red">起始序号</font>是<font size="3" color="red">随着时间变化的</font>，可以看成一个 32 位的计数器，每 4ms 加一，如果计算一下，如果到重复，需要 4 个多小时，那个绕路的包早就死翘翘了，因为我们都知道 IP 包头里面有个 TTL，也即生存时间。</p><br><p><font size="3" color="red">A</font> 要告诉<font size="3" color="red"> B</font>，我这面发起的包的序号起始是从哪个号开始的，<font size="3" color="red">B</font> 同样也要告诉 <font size="3" color="red">A</font>，<font size="3" color="red">B</font><br></p><p>好了，双方终于建立了信任，建立了连接。前面也说过，为了维护这个连接，双方都要维护一个状态机，在连接建立的过程中，双方的状态变化时序图就像这样。</p>
+
+<p><img src="https://static001.geekbang.org/resource/image/66/a2/666d7d20aa907d8317af3770411f5aa2.jpg" alt="image"></p>
+<p></p><p>一开始，客户端和服务端都处于 <font size="3" color="red">CLOSED</font> 状态。先是服务端主动监听某个端口，处于 <font size="3" color="red">LISTEN</font> 状态。然后<font size="3" color="red">客户端</font>主动发起连接 <font size="3" color="red">SYN</font>，之后处于 <font size="3" color="red">SYN-SENT</font> 状态。服务端收到发起的连接，返回 <font size="3" color="red">SYN</font>，并且 <font size="3" color="red">ACK</font> 客户端的 <font size="3" color="red">SYN</font>，之后处于 <font size="3" color="red">SYN-RCVD</font> 状态。客户端收到服务端发送的 <font size="3" color="red">SYN</font> 和 <font size="3" color="red">ACK</font> 之后，发送 <font size="3" color="red">ACK</font> 的 <font size="3" color="red">ACK</font>，之后处于 <font size="3" color="red">ESTABLISHED</font> 状态，因为它一发一收成功了。服务端收到 <font size="3" color="red">ACK 的 ACK</font> 之后，处于 <font size="3" color="red">ESTABLISHED</font> 状态，因为它也一发一收了。</p><p></p>
+<h3 id="TCP-四次挥手"><a href="#TCP-四次挥手" class="headerlink" title="TCP 四次挥手"></a>TCP 四次挥手</h3><p></p><p>好了，说完了连接，接下来说一说“拜拜”，好说好散。这常被称为四次挥手。</p><p></p>
+<p></p><p>A：B 啊，我不想玩了。</p><p></p>
+<p></p><p>B：哦，你不想玩了啊，我知道了。</p><p></p>
+<p></p><p>这个时候，还只是 A 不想玩了，也即 A 不会再发送数据，但是 B 能不能在 ACK 的时候，直接关闭呢？当然不可以了，很有可能 A 是发完了最后的数据就准备不玩了，但是 B 还没做完自己的事情，还是可以发送数据的，所以称为半关闭的状态。</p><p></p>
+<p></p><p>这个时候 A 可以选择不再接收数据了，也可以选择最后再接收一段数据，等待 B 也主动关闭。</p><p></p>
+<p></p><p>B：A 啊，好吧，我也不玩了，拜拜。</p><p></p>
+<p></p><p>A：好的，拜拜。</p><p></p>
+<p></p><p>这样整个连接就关闭了。但是这个过程有没有异常情况呢？当然有，上面是和平分手的场面。</p><p></p>
+<p></p><p><font size="3" color="red">A</font> 开始说“不玩了”，<font size="3" color="red">B</font> 说“知道了”，这个回合，是没什么问题的，因为在此之前，双方还处于合作的状态，如果 <font size="3" color="red">A</font> 说“不玩了”，没有收到回复，则<font size="3" color="red"> A</font> 会重新发送“不玩了”。但是这个回合结束之后，就有可能出现异常情况了，因为已经有一方率先撕破脸。</p><p></p>
+<p></p><p>一种情况是，<font size="3" color="red">A</font> 说完“不玩了”之后，直接跑路，是会有问题的，因为 <font size="3" color="red">B</font> 还没有发起结束，而如果 <font size="3" color="red">A</font> 跑路，<font size="3" color="red">B</font> 就算发起结束，也得不到回答，<font size="3" color="red">B</font> 就不知道该怎么办了。另一种情况是，<font size="3" color="red">A</font> 说完“不玩了”，<font size="3" color="red">B</font> 直接跑路，也是有问题的，因为 <font size="3" color="red">A</font> 不知道 <font size="3" color="red">B</font> 是还有事情要处理，还是过一会儿会发送结束。</p><p></p>
+<p></p><p>那怎么解决这些问题呢？<font size="3" color="red">TCP</font> 协议专门设计了几个状态来处理这些问题。我们来看断开连接的时候的<strong>状态时序图</strong>。</p><br><img src="https://static001.geekbang.org/resource/image/1f/11/1f6a5e17b34f00d28722428b7b8ccb11.jpg" alt="image"><p></p>
+<p></p><p>断开的时候，我们可以看到，当 <font size="3" color="red">A</font> 说“不玩了”，就进入 <font size="3" color="red">FIN_WAIT_1</font> 的状态，<font size="3" color="red">B</font> 收到“A 不玩”的消息后，发送知道了，就进入 <font size="3" color="red">CLOSE_WAIT</font> 的状态。</p><p></p>
+<p></p><p><font size="3" color="red">A</font> 收到“B 说知道了”，就进入 <font size="3" color="red">FIN_WAIT_2</font> 的状态，如果这个时候 <font size="3" color="red">B</font> 直接跑路，则 <font size="3" color="red">A</font> 将永远在这个状态。<font size="3" color="red">TCP</font> 协议里面并没有对这个状态的处理，但是 Linux 有，可以调整 tcp_fin_timeout 这个参数，设置一个超时时间。</p><p></p>
+<p></p><p>如果 <font size="3" color="red">B</font> 没有跑路，发送了<font size="3" color="red">“B 也不玩了”</font>的请求到达 <font size="3" color="red">A</font> 时，<font size="3" color="red">A</font> 发送“知道 B 也不玩了”的 <font size="3" color="red">ACK</font> 后，从 <font size="3" color="red">FIN_WAIT_2</font> 状态结束，按说 <font size="3" color="red">A</font> 可以跑路了，但是最后的这个 <font size="3" color="red">ACK</font> 万一 <font size="3" color="red">B</font> 收不到呢？则 <font size="3" color="red">B</font> 会重新发一个“B 不玩了”，这个时候 <font size="3" color="red">A</font> 已经跑路了的话，<font size="3" color="red">B</font> 就再也收不到 <font size="3" color="red">ACK</font> 了，因而 <font size="3" color="red">TCP</font> 协议要求 <font size="3" color="red">A</font> 最后等待一段时间 <font size="3" color="red">TIME_WAIT</font>，这个时间要足够长，长到如果 <font size="3" color="red">B</font> 没收到 <font size="3" color="red">ACK</font> 的话，“B 说不玩了”会重发的，<font size="3" color="red">A</font> 会重新发一个 <font size="3" color="red">ACK</font> 并且足够时间到达 <font size="3" color="red">B</font>。</p><p></p>
+<p></p><p><font size="3" color="red">A</font> 直接跑路还有一个问题是，<font size="3" color="red">A</font> 的端口就直接空出来了，但是 <font size="3" color="red">B</font> 不知道，<font size="3" color="red">B</font> 原来发过的很多包很可能还在路上，如果 <font size="3" color="red">A</font> 的端口被一个新的应用占用了，这个新的应用会收到上个连接中 <font size="3" color="red">B</font> 发过来的包，虽然序列号是重新生成的，但是这里要上一个双保险，防止产生混乱，因而也需要等足够长的时间，等到原来 <font size="3" color="red">B</font> 发送的所有的包都死翘翘，再空出端口来。</p><p></p>
+<p></p><p>等待的时间设为 2MSL，<strong>MSL</strong>是<strong>Maximum Segment Lifetime</strong>，<strong>报文最大生存时间</strong>，它是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃。因为 TCP 报文基于是 IP 协议的，而 IP 头中有一个 TTL 域，是 IP 数据报可以经过的最大路由数，每经过一个处理他的路由器此值就减 1，当此值为 0 则数据报将被丢弃，同时发送 ICMP 报文通知源主机。协议规定 MSL 为 2 分钟，实际应用中常用的是 30 秒，1 分钟和 2 分钟等。</p><p></p>
+<p></p><p>还有一个异常情况就是，B 超过了 2MSL 的时间，依然没有收到它发的 FIN 的 ACK，怎么办呢？按照 TCP 的原理，B 当然还会重发 FIN，这个时候 A 再收到这个包之后，A 就表示，我已经在这里等了这么长时间了，已经仁至义尽了，之后的我就都不认了，于是就直接发送 RST，B 就知道 A 早就跑了。</p><p></p>
+<h3 id="TCP-状态机"><a href="#TCP-状态机" class="headerlink" title="TCP 状态机"></a>TCP 状态机</h3><p></p><p>将连接建立和连接断开的两个时序状态图综合起来，就是这个著名的 TCP 的状态机。学习的时候比较建议将这个状态机和时序状态机对照着看，不然容易晕。</p><br><img src="https://static001.geekbang.org/resource/image/da/ab/dab9f6ee2908b05ed6f15f3e21be88ab.jpg" alt="image"><p></p>
+<p></p><p>在这个图中，加黑加粗的部分，是上面说到的主要流程，其中阿拉伯数字的序号，是连接过程中的顺序，而大写中文数字的序号，是连接断开过程中的顺序。加粗的实线是客户端 A 的状态变迁，加粗的虚线是服务端 B 的状态变迁。</p><p></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul><br><li><p>TCP 包头很复杂，但是主要关注五个问题，顺序问题，丢包问题，连接维护，流量控制，拥塞控制；</p><br></li><br><li><p>连接的建立是经过三次握手，断开的时候四次挥手，一定要掌握的我画的那个状态图。</p><br></li><br></ul>
+
+<p></p><p>最后，给你留两个思考题。</p><p></p>
+<ol><br><li><p>TCP 的连接有这么多的状态，你知道如何在系统中查看某个连接的状态吗？</p><br></li><br><li><p>这一节仅仅讲了连接维护问题，其实为了维护连接的状态，还有其他的数据结构来处理其他的四个问题，那你知道是什么吗？</p><br></li><br></ol>
+
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/30/十、UDP协议：因性善而简单，难免碰到“城会玩”/" rel="next" title="十、UDP协议：因性善而简单，难免碰到“城会玩”">
+                <i class="fa fa-chevron-left"></i> 十、UDP协议：因性善而简单，难免碰到“城会玩”
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/30/十二、TCP协议（下）：西行必定多妖孽，恒心智慧消磨难/" rel="prev" title="十二、TCP协议（下）：西行必定多妖孽，恒心智慧消磨难">
+                十二、TCP协议（下）：西行必定多妖孽，恒心智慧消磨难 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ensemble
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">107</span>
+                    <span class="site-state-item-name">articles</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">203</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-四次挥手"><span class="nav-number">1.</span> <span class="nav-text">TCP 四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-状态机"><span class="nav-number">2.</span> <span class="nav-text">TCP 状态机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

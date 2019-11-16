@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="这篇文章是我从Segmentfault上转载而来，颠覆了我对之前原型、继承、公私有的理解，转载此文，并在此表示对作者深深的敬意。                                                        —— 2019.3.26       Siir">
+<meta name="keywords" content="ES6,Class语法,继承,原型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 原型系统的变迁 &amp; ES6 中的 Class">
+<meta property="og:url" content="http://yoursite.com/2019/03/26/JavaScript 原型系统的变迁 & ES6 中的 Class/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="这篇文章是我从Segmentfault上转载而来，颠覆了我对之前原型、继承、公私有的理解，转载此文，并在此表示对作者深深的敬意。                                                        —— 2019.3.26       Siir">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-11-16T11:49:27.870Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 原型系统的变迁 &amp; ES6 中的 Class">
+<meta name="twitter:description" content="这篇文章是我从Segmentfault上转载而来，颠覆了我对之前原型、继承、公私有的理解，转载此文，并在此表示对作者深深的敬意。                                                        —— 2019.3.26       Siir">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/26/JavaScript 原型系统的变迁 & ES6 中的 Class/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JavaScript 原型系统的变迁 & ES6 中的 Class | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/JavaScript 原型系统的变迁 & ES6 中的 Class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript 原型系统的变迁 & ES6 中的 Class
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-03-26 01:23:10" itemprop="dateCreated datePublished" datetime="2019-03-26T01:23:10+08:00">2019-03-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-11-16 19:49:27" itemprop="dateModified" datetime="2019-11-16T19:49:27+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章是我从<code>Segmentfault</code>上转载而来，颠覆了我对之前原型、继承、公私有的理解，转载此文，并在此表示对作者深深的敬意。                                                        —— 2019.3.26       Siir</p>
+<a id="more"></a>
+<h3 id="开始前对-Class-的一点强调"><a href="#开始前对-Class-的一点强调" class="headerlink" title="开始前对 Class 的一点强调"></a>开始前对 Class 的一点强调</h3><p>ES6中的<code>class</code>可以看作只是一个语法糖，绝大部分功能都可以用ES5实现，并且，<strong>类和模块的内部，默认就是严格模式，所以不需要使用use strict指定运行模式</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES5</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">P</span> (<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.x = x;</span><br><span class="line">    <span class="keyword">this</span>.y = y;</span><br><span class="line">&#125;</span><br><span class="line">P.prototype.toString = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'('</span> + <span class="keyword">this</span>.x + <span class="string">', '</span> + <span class="keyword">this</span>.y + <span class="string">')'</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> P(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ES6</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(x, y)&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">    toString()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'('</span> + <span class="keyword">this</span>.x + <span class="string">', '</span> + <span class="keyword">this</span>.y + <span class="string">')'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a = <span class="keyword">new</span> P(<span class="number">1</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>ES6中类的所有方法都是定义在<code>prototype</code>属性上。调用类实例的方法，其实就是调用原型上的方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123; ... &#125;</span><br><span class="line">    toString()&#123; ... &#125;</span><br><span class="line">    toNumber()&#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line">P.prototyoe = &#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123; ... &#125;,</span><br><span class="line">    toString()&#123; ... &#125;,</span><br><span class="line">    toNumber()&#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = <span class="keyword">new</span> P();</span><br><span class="line">a.constructor === P.prototype.constructor; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>JavaScript 的原型系统是最初就有的语言设计。但随着 ES 标准的进化和新特性的添加。它也一直在不停进化。这篇文章的目的就是梳理一下早期到 ES5 和现在 ES6，新特性的加入对原型系统的影响。</p>
+<p>如果你对原型的理解还停留在 <code>function + new</code> 这个层面而不知道更深入的操作原型链的技巧，或者你想了解 ES6 class 的知识，相信本文会有所帮助。</p>
+<p>这篇文章是我学习 You Don’t Know JS 的副产品，推荐任何想系统性地学习 JavaScript 的人去阅读此书。</p>
+<h3 id="JavaScript-原型简述"><a href="#JavaScript-原型简述" class="headerlink" title="JavaScript 原型简述"></a>JavaScript 原型简述</h3><p>很多人应该都对原型（prototype）不陌生。简单地说，JavaScript 是基于原型的语言。当我们调用一个对象的属性时，如果对象没有该属性，JavaScript 解释器就会从对象的原型对象上去找该属性，如果原型上也没有该属性，那就去找原型的原型。这种属性查找的方式被称为原型链（prototype chain）。</p>
+<p>对象的原型是没有公开的属性名去访问的（下文再谈 <code>__proto__</code> 属性）。以下为了方便称呼，我把一个对象内部对原型的引用称为 [[Prototype]]。</p>
+<p>JavaScript 没有类的概念，原型链的设定就是少数能够让多个对象共享属性和方法，甚至模拟继承的方式。在 ES5 以前，如果我们想设置对象的 [[Prototype]]，只能通过 <code>new</code> 关键字，比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>._name = <span class="string">'David'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">User.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>._name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User()</span><br><span class="line">user.getName()                  <span class="comment">// "David"</span></span><br><span class="line">user.hasOwnProperty(<span class="string">'getName'</span>)  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>当 <code>User</code> 函数被 <code>new</code> 关键字调用时，它就类似于一个构造函数，其生成的对象的 [[Prototype]] 会引用 <code>User.prototype</code> 。因为 <code>User.prototype</code> 也是一个对象，它的 [[Prototype]] 是 <code>Object.prototype</code> 。</p>
+<p>一般我们对这种构造函数命名都会采用 CamelCase ，并把它称呼为“类”，这不仅是为了跟 OOP 的理念保持一致，也是因为 JavaScript 的内建“类”也是这种命名。</p>
+<p>由 <code>SomeClass</code> 生成的对象，其 [[Prototype]] 是 <code>SomeClass.prototype</code>。除了稍显繁琐，这套逻辑是可以自圆其说的，比如：</p>
+<ol>
+<li>我们用 <code>{..}</code> 创建的对象的 [[Prototype]] 都是 <code>Object.prototype</code>，也是原型链的顶点。</li>
+<li>数组的 [[Prototype]] 是 <code>Array.prototype</code> 。</li>
+<li>字符串的 [[Prototype]] 是 <code>String.prototype</code> 。</li>
+<li><code>Array.prototype</code> 和 <code>String.prototype</code> 的 [[Prototype]] 是 <code>Object.prototype</code> 。</li>
+</ol>
+<h3 id="模拟继承"><a href="#模拟继承" class="headerlink" title="模拟继承"></a>模拟继承</h3><p>模拟继承是自定义原型链的典型使用场景。但如果用 <code>new</code> 的方式则比较麻烦。一种常见的解法是：子类的 <code>prototype</code> 等于父类的实例。这就涉及到定义子类的时候调用父类的构造函数。为了避免父类的构造函数在类定义过程中的潜在影响，我们一般会建造一个临时类去做代替父类 <code>new</code> 的过程。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createSubProto</span>(<span class="params">proto</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// fn 在这里就是临时类</span></span><br><span class="line">  <span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  fn.prototype = proto</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> fn()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = createSubProto(Parent.prototype)</span><br><span class="line">Child.prototype.constructor = Child</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child = <span class="keyword">new</span> Child()</span><br><span class="line">child <span class="keyword">instanceof</span> Child   <span class="comment">// true</span></span><br><span class="line">child <span class="keyword">instanceof</span> Parent  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="ES5-自由地操控原型链"><a href="#ES5-自由地操控原型链" class="headerlink" title="ES5: 自由地操控原型链"></a>ES5: 自由地操控原型链</h3><p>既然原型链本质上只是建立对象之间的关联，那我们可不可以直接操作对象的 [[Prototype]] 呢？</p>
+<p>在 ES5（准确的说是 5.1）之前，我们没有办法直接获取对象的原型，只能通过 [[Prototype]] 的 <code>constructor</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User()</span><br><span class="line">user.constructor.prototype          <span class="comment">// User</span></span><br><span class="line">user.hasOwnProperty(<span class="string">'constructor'</span>)  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>类可以通过 <code>prototype</code> 属性获取生成的对象的 [[Prototype]]。[[Prototype]] 里的 <code>constructor</code> 属性又会反过来引用函数本身。因为 <code>user</code> 的原型是 <code>User.prototype</code> ，它自然也能够通过 <code>constructor</code> 获取到 <code>User</code> 函数，进而获取到自己的 [[Prototype]]。比较绕是吧？</p>
+<p>ES5.1 之后加了几个新的 API 帮助我们操作对象的 [[Prototype]]，自此以后 JavaScript 才真的有自由操控原型的能力。它们是：</p>
+<ul>
+<li><code>Object.prototype.isPrototypeOf</code></li>
+<li><code>Object.create</code></li>
+<li><code>Object.getPrototypeOf</code></li>
+<li><code>Object.setPrototypeOf</code></li>
+</ul>
+<p>注：以上方法并不完全是 ES5.1 的，<code>isPrototypeOf</code> 是 ES3 就有的，<code>setPrototypeOf</code> 是 ES6 才有的。但它们的规范都在 ES6 中修改了一部分。</p>
+<p>下面的例子里，<code>Object.create</code> 创建 <code>child</code> 对象，并把 [[Prototype]] 设置为 <code>parent</code> 对象。<code>Object.getPrototypeOf</code> 可以直接获取对象的 [[Prototype]]。<code>isPrototypeOf</code> 能够判断一个对象是否在另一个对象的原型链上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> parent = &#123;</span><br><span class="line">  _name: <span class="string">'David'</span>,</span><br><span class="line">  getName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="keyword">this</span>._name &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child = <span class="built_in">Object</span>.create(parent)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(child)           <span class="comment">// parent</span></span><br><span class="line">parent.isPrototypeOf(child)            <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.isPrototypeOf(child)  <span class="comment">// true</span></span><br><span class="line">child <span class="keyword">instanceof</span> <span class="built_in">Object</span>                <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>既然有 <code>Object.getPrototypeOf</code>，自然也有 <code>Object.setPrototypeOf</code> 。这个函数可以修改任何对象的 [[Prototype]] ，包括内建类型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> anotherParent = &#123;</span><br><span class="line">  name: <span class="string">'Alex'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(child, anotherParent)</span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(child)  <span class="comment">// anotherParent</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改数组的 [[Prototype]]</span></span><br><span class="line"><span class="keyword">var</span> a = []</span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(a, anotherParent)</span><br><span class="line">a <span class="keyword">instanceof</span> <span class="built_in">Array</span>        <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(a)  <span class="comment">// anotherParent</span></span><br></pre></td></tr></table></figure>
+<p>灵活使用以上的几个方法，我们可以非常轻松地创建原型链，或者在已知原型链中插入自定义的对象，玩法只取决于想象力。我们以此修改一下上面的模拟继承的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = <span class="built_in">Object</span>.create(Parent.prototype)</span><br><span class="line">Child.prototype.constructor = Child</span><br></pre></td></tr></table></figure>
+<p>因为 <code>Object.create(..)</code> 传入的参数会作为 [[Prototype]] ，所以这里有一个有意思的小技巧。我们可以用 <code>Object.create(null)</code> 创建一个没有任何属性的对象。这个技巧适合做 proxy 对象，有点类似 Ruby 中的 <code>BasicObject</code>。</p>
+<h3 id="尴尬的私生子-proto"><a href="#尴尬的私生子-proto" class="headerlink" title="尴尬的私生子 __proto__"></a>尴尬的私生子 <code>__proto__</code></h3><p>说到操作 [[Prototype]] 就不得不提 <code>__proto__</code> 。这个属性是一个 getter/setter ，可以用来获取和设置任意对象的 [[Prototype]] 。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">child.__proto__           <span class="comment">// equal to Object.getPrototypeOf(child)</span></span><br><span class="line">child.__proto__ = parent  <span class="comment">// equal to Object.setPrototypeOf(child, parent)</span></span><br></pre></td></tr></table></figure>
+<p>它本来不是 ES 的标准，无奈众多浏览器早早地都实现了这个属性，而且应用得还挺广泛的。到了 ES6 为了向下兼容性只好接纳它成为标准的一部分。这是典型的现实倒逼标准的例子。</p>
+<p>看看 MDN 的描述都充满了怨念。</p>
+<blockquote>
+<p>The use of <strong>proto</strong> is controversial, and has been discouraged. It was never originally included in the EcmaScript language spec, but modern browsers decided to implement it anyway. Only recently, the <strong>proto</strong>property has been standardized in the ECMAScript 6 language specification for web browsers to ensure compatibility, so will be supported into the future. It is deprecated in favor of Object.getPrototypeOf/Reflect.getPrototypeOf and Object.setPrototypeOf/Reflect.setPrototypeOf (though still, setting the [[Prototype]] of an object is a slow operation that should be avoided if performance is a concern).</p>
+</blockquote>
+<p><code>__proto__</code> 是不被推荐的用法。大部分情况下我们仍然应该用 <code>Object.getPrototypeOf</code> 和 <code>Object.setPrototypeOf</code> 。什么是少数情况，待会再讲。</p>
+<h3 id="Class-语法糖"><a href="#Class-语法糖" class="headerlink" title="Class 语法糖"></a>Class 语法糖</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(firstName, lastName) &#123;</span><br><span class="line">    <span class="keyword">this</span>.firstName = firstName</span><br><span class="line">    <span class="keyword">this</span>.lastName = lastName</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fullName() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.firstName&#125;</span> <span class="subst">$&#123;<span class="keyword">this</span>.lastName&#125;</span>`</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> user = <span class="keyword">new</span> User(<span class="string">'David'</span>, <span class="string">'Chen'</span>)</span><br><span class="line">user.fullName()  <span class="comment">// David Chen</span></span><br></pre></td></tr></table></figure>
+<p>以上代码的意思和 ES5 语法是一个意思</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">firstName, lastName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.firstName = firstName</span><br><span class="line">  <span class="keyword">this</span>.lastName = lastName</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">User.prototype.fullName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">''</span> + <span class="keyword">this</span>.firstName + <span class="keyword">this</span>.lastName</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我个人理解来看就是相当于一个组合式的继承。将属性写在构造函数之中，而将方法放到原型链上，以达到独立属性，共享方法的优势。</p>
+<p>ES6 并未改变 JavaScript 基于原型的本质，只是在此基础上提供了一些语法糖。比如<code>class</code>、<code>extends</code>、<code>super</code>、<code>static</code>。他们大都可以转换为等价的 ES5 语法</p>
+<p>我们来看另一个例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(firstName, lastName, age) &#123;</span><br><span class="line">    <span class="keyword">super</span>(firstName, lastName)</span><br><span class="line">    <span class="keyword">this</span>.age = age</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此基本类等价于</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params">firstName, lastName, age</span>) </span>&#123;</span><br><span class="line">  Parent.call(<span class="keyword">this</span>, firstName, lastName)</span><br><span class="line">  <span class="keyword">this</span>.age = age</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = <span class="built_in">Object</span>.create(Parent.prototype)</span><br><span class="line">Child.constructor = Child</span><br></pre></td></tr></table></figure>
+<h3 id="Extends"><a href="#Extends" class="headerlink" title="Extends"></a>Extends</h3><p>因为语言内部设计原因，我们没有办法自定义一个类来继承 JavaScript 的内建类的。继承类往往会有各种问题。ES6 的 <code>extends</code> 的最大的卖点，就是不仅可以继承自定义类，<strong>还可以继承 JavaScript 的内建类</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyArray</span> <span class="keyword">extends</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方式可以让开发者继承内建类的功能创造出符合自己想要的类。所有 Array 已有的属性和方法都会对继承类生效。这确实是个不错的诱惑，也是继承最大的吸引力。</p>
+<p>但现实总是悲催的。<code>extends</code> 内建类会引发一些奇怪的问题，很多属性和方法没办法在继承类中正常工作。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">a.length  <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> MyArray(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">b.length  <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p>如果说语法糖可以用 Babel.js 这种 transpiler 去编译成 ES5 解决 ，扩充的 API 可以用 polyfill 解决，但是这种内建类的继承机制显然是需要浏览器支持的。而目前唯一支持这个特性的浏览器是………… Microsoft Edge 。</p>
+<p>好在这并不是什么致命的问题。大多数此类需求都可以用封装类去解决，无非是多写一点 wrapper API 而已。而且个人认为封装和组合反而是比继承更灵活的解决方案。</p>
+<h3 id="super-带来的新概念（坑？）"><a href="#super-带来的新概念（坑？）" class="headerlink" title="super 带来的新概念（坑？）"></a>super 带来的新概念（坑？）</h3><h4 id="super-在-constructor-和普通方法里的不同"><a href="#super-在-constructor-和普通方法里的不同" class="headerlink" title="super 在 constructor 和普通方法里的不同"></a>super 在 constructor 和普通方法里的不同</h4><p>在 constructor 里面，<code>super</code> 的用法是 <code>super(..)</code>。它相当于一个函数，调用它等于调用父类的 constructor 。但在普通方法里面，<code>super</code> 的用法是 <code>super.prop</code> 或者 <code>super.method()</code>。它相当于一个指向对象的 [[Prototype]] 的属性。这是 ES6 标准的规定。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(firstName, lastName) &#123;</span><br><span class="line">    <span class="keyword">this</span>.firstName = firstName</span><br><span class="line">    <span class="keyword">this</span>.lastName = lastName</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fullName() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.firstName&#125;</span> <span class="subst">$&#123;<span class="keyword">this</span>.lastName&#125;</span>`</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(firstName, lastName, age) &#123;</span><br><span class="line">    <span class="keyword">super</span>(firstName, lastName)</span><br><span class="line">    <span class="keyword">this</span>.age = age</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fullName() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">super</span>.fullName()&#125;</span> (<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>)`</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：Babel.js 对方法里调用 <code>super(..)</code> 也能编译出正确的结果，但这应该是 Babel.js 的 bug ，我们不该以此得出 <code>super(..)</code> 也可以在非 constructor 里用的结论。</p>
+<h4 id="super-在子类的-constructor-里必须先于-this-调用"><a href="#super-在子类的-constructor-里必须先于-this-调用" class="headerlink" title="super 在子类的 constructor 里必须先于 this 调用"></a>super 在子类的 constructor 里必须先于 this 调用</h4><p>如果写子类的 <code>constructor</code> 需要操作 <code>this</code> ，那么 <code>super</code> 必须先调用！这是 ES6 的规则。所以写子类的 <code>constructor</code> 时尽量把 <code>super</code> 写在第一行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.xxx()  <span class="comment">// invalid</span></span><br><span class="line">    <span class="keyword">super</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="super-是编译时确定，不是运行时确定"><a href="#super-是编译时确定，不是运行时确定" class="headerlink" title="super 是编译时确定，不是运行时确定"></a>super 是编译时确定，不是运行时确定</h4><p>什么意思呢？先看代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  fullName() &#123;</span><br><span class="line">    <span class="keyword">super</span>.fullName()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上代码中 <code>fullName</code> 方法的 ES5 等价代码是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fullName() &#123;</span><br><span class="line">  Parent.prototype.fullName.call(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而不是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fullName() &#123;</span><br><span class="line">  <span class="built_in">Object</span>.getPrototypeOf(<span class="keyword">this</span>).fullName.call(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是 <code>super</code> 编译时确定的特性。不过为什么要这样设计？个人理解是，函数的 <code>this</code> 只有在运行时才能确定。因此在运行时根据 <code>this</code> 的原型链去获得上层方法并不太符合 class 的常规思维，在某些情况下更容易产生错误。比如 <code>child.fullName.call(anotherObj)</code> 。</p>
+<h4 id="super-对-static-的影响，和类的原型链"><a href="#super-对-static-的影响，和类的原型链" class="headerlink" title="super 对 static 的影响，和类的原型链"></a>super 对 static 的影响，和类的原型链</h4><p><code>static</code> 相当于类方法。因为编译时确定的特性，以下代码中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> findAll() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.findAll()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>findAll</code> 的 ES5 等价代码是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">findAll() &#123;</span><br><span class="line">  <span class="keyword">return</span> Parent.findAll()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是 <code>super</code> 编译时确定的特性。不过为什么要这样设计？个人理解是，函数的 <code>this</code> 只有在运行时才能确定。因此在运行时根据 <code>this</code> 的原型链去获得上层方法并不太符合 class 的常规思维，在某些情况下更容易产生错误。比如 <code>child.fullName.call(anotherObj)</code> 。</p>
+<h4 id="super-对-static-的影响，和类的原型链-1"><a href="#super-对-static-的影响，和类的原型链-1" class="headerlink" title="super 对 static 的影响，和类的原型链"></a>super 对 static 的影响，和类的原型链</h4><p><code>static</code> 相当于类方法。因为编译时确定的特性，以下代码中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> findAll() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.findAll()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>findAll</code> 的 ES5 等价代码是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">findAll() &#123;</span><br><span class="line">  <span class="keyword">return</span> Parent.findAll()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>static</code> 貌似和原型链没关系，但这不妨碍我们讨论一个问题：类的原型链是怎样的？我没查到相关的资料，不过我们可以测试一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.getPrototypeOf(Child) === Parent             <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(Parent) === <span class="built_in">Object</span>            <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(Parent) === <span class="built_in">Object</span>.prototype  <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">proto = <span class="built_in">Object</span>.getPrototypeOf(Parent)</span><br><span class="line"><span class="keyword">typeof</span> proto                             <span class="comment">// function</span></span><br><span class="line">proto.toString()                         <span class="comment">// function () &#123;&#125;</span></span><br><span class="line">proto === <span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">Object</span>)  <span class="comment">// true</span></span><br><span class="line">proto === <span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">String</span>)  <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> proto()  <span class="comment">//TypeError: function () &#123;&#125; is not a constructor</span></span><br></pre></td></tr></table></figure>
+<p>可见自定义类的话，子类的 [[Prototype]] 是父类，而所有顶层类的 [[Prototype]] 都是同一个函数对象，不管是内建类如 <code>Object</code> 还是自定义类如 <code>Parent</code> 。但这个函数是不能用 <code>new</code> 关键字初始化的。虽然这种设计没有 Ruby 的对象模型那么巧妙，不过也是能够自圆其说的。</p>
+<h4 id="直接定义-object-并设定-Prototype"><a href="#直接定义-object-并设定-Prototype" class="headerlink" title="直接定义 object 并设定 [[Prototype]]"></a>直接定义 object 并设定 [[Prototype]]</h4><p>除了通过 <code>class</code> 和 <code>extends</code> 的语法设定 [[Prototype]] 之外，现在定义对象也可以直接设定 [[Prototype]] 了。这就要用到 <code>__proto__</code> 属性了。“定义对象并设置 [[Prototype]]” 是唯一建议用 <code>__proto__</code> 的地方。另外，另外注意 <code>super</code> 只有在 <code>method() {}</code> 这种语法下才能用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> parent = &#123;</span><br><span class="line">  method1() &#123; .. &#125;,</span><br><span class="line">  method2() &#123; .. &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> child = &#123;</span><br><span class="line">  __proto__: parent,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// valid</span></span><br><span class="line">  method1() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.method1()</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// invalid</span></span><br><span class="line">  method2: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.method2()</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>avaScript 的原型是很有意思的设计，从某种程度上说它是更加纯粹的面向对象设计（而不是面向类的设计）。ES5 和 ES6 加入的 API 能更有效地操控原型链。语言层面支持的 <code>class</code> 也能让忠于类设计的开发者用更加统一的方式去设计类。虽然目前 <code>class</code> 仅仅提供了一些基本功能。但随着标准的进步，相信它还会扩充出更多的功能。</p>
+<p>本文的主题是原型系统的变迁，所以并没有涉及 getter/setter 和 <code>defineProperty</code> 对原型链的影响。想系统地学习原型，你可以去看 <a href="https://github.com/getify/You-Dont-Know-JS/tree/master/this%20&amp;%20object%20prototypes" target="_blank" rel="noopener">You Don’t Know JS: this &amp; Object Prototypes</a> 。</p>
+<p>原文地址：<a href="https://segmentfault.com/a/1190000003798438" target="_blank" rel="noopener">https://segmentfault.com/a/1190000003798438</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+            <a href="/tags/Class语法/" rel="tag"># Class语法</a>
+          
+            <a href="/tags/继承/" rel="tag"># 继承</a>
+          
+            <a href="/tags/原型/" rel="tag"># 原型</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/25/JavaScript中的new操作符/" rel="next" title="JavaScript中的new操作符">
+                <i class="fa fa-chevron-left"></i> JavaScript中的new操作符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/26/清除浮动/" rel="prev" title="清除浮动">
+                清除浮动 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ensemble
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">107</span>
+                    <span class="site-state-item-name">articles</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">203</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#开始前对-Class-的一点强调"><span class="nav-number">1.</span> <span class="nav-text">开始前对 Class 的一点强调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-原型简述"><span class="nav-number">3.</span> <span class="nav-text">JavaScript 原型简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟继承"><span class="nav-number">4.</span> <span class="nav-text">模拟继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES5-自由地操控原型链"><span class="nav-number">5.</span> <span class="nav-text">ES5: 自由地操控原型链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尴尬的私生子-proto"><span class="nav-number">6.</span> <span class="nav-text">尴尬的私生子 __proto__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-语法糖"><span class="nav-number">7.</span> <span class="nav-text">Class 语法糖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Extends"><span class="nav-number">8.</span> <span class="nav-text">Extends</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#super-带来的新概念（坑？）"><span class="nav-number">9.</span> <span class="nav-text">super 带来的新概念（坑？）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#super-在-constructor-和普通方法里的不同"><span class="nav-number">9.1.</span> <span class="nav-text">super 在 constructor 和普通方法里的不同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#super-在子类的-constructor-里必须先于-this-调用"><span class="nav-number">9.2.</span> <span class="nav-text">super 在子类的 constructor 里必须先于 this 调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#super-是编译时确定，不是运行时确定"><span class="nav-number">9.3.</span> <span class="nav-text">super 是编译时确定，不是运行时确定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#super-对-static-的影响，和类的原型链"><span class="nav-number">9.4.</span> <span class="nav-text">super 对 static 的影响，和类的原型链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#super-对-static-的影响，和类的原型链-1"><span class="nav-number">9.5.</span> <span class="nav-text">super 对 static 的影响，和类的原型链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#直接定义-object-并设定-Prototype"><span class="nav-number">9.6.</span> <span class="nav-text">直接定义 object 并设定 [[Prototype]]</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

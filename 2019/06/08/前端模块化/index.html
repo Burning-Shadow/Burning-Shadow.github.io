@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="​        模块化的开发方式可以提高代码复用率，方便代码的管理，并只向外暴露特定的变量和函数以保证自己的私密性。 ​        但是从网页端的脚本语言一路走来，到 NodeJS 后端语言的大热，再到前后端共用模块规范的制定，协议也一变再变。今天我们就来深究一下曾经我们使用过的规范以及其特点和发展历程。 ​        PS：希望直接看结论的请移步文章末尾。">
+<meta name="keywords" content="CommonJS,AMD,CMD,ES6 Module">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端模块化：CommonJS,AMD,CMD,ES6">
+<meta property="og:url" content="http://yoursite.com/2019/06/08/前端模块化/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="​        模块化的开发方式可以提高代码复用率，方便代码的管理，并只向外暴露特定的变量和函数以保证自己的私密性。 ​        但是从网页端的脚本语言一路走来，到 NodeJS 后端语言的大热，再到前后端共用模块规范的制定，协议也一变再变。今天我们就来深究一下曾经我们使用过的规范以及其特点和发展历程。 ​        PS：希望直接看结论的请移步文章末尾。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H7a72da5466e447a5b23aada19d7e8f53S.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H51dda43261fd464aaaed119c295033d8Q.png">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/Hab16c6fd120e4117b0e8e6943f635052x.jpg">
+<meta property="og:updated_time" content="2019-11-16T12:35:28.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端模块化：CommonJS,AMD,CMD,ES6">
+<meta name="twitter:description" content="​        模块化的开发方式可以提高代码复用率，方便代码的管理，并只向外暴露特定的变量和函数以保证自己的私密性。 ​        但是从网页端的脚本语言一路走来，到 NodeJS 后端语言的大热，再到前后端共用模块规范的制定，协议也一变再变。今天我们就来深究一下曾经我们使用过的规范以及其特点和发展历程。 ​        PS：希望直接看结论的请移步文章末尾。">
+<meta name="twitter:image" content="https://ae01.alicdn.com/kf/H7a72da5466e447a5b23aada19d7e8f53S.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/08/前端模块化/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>前端模块化：CommonJS,AMD,CMD,ES6 | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/08/前端模块化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端模块化：CommonJS,AMD,CMD,ES6
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-06-08 21:14:00" itemprop="dateCreated datePublished" datetime="2019-06-08T21:14:00+08:00">2019-06-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-11-16 20:35:28" itemprop="dateModified" datetime="2019-11-16T20:35:28+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端模块化/" itemprop="url" rel="index"><span itemprop="name">前端模块化</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>​        模块化的开发方式可以提高代码复用率，方便代码的管理，并只向外暴露特定的变量和函数以保证自己的私密性。</p>
+<p>​        但是从网页端的脚本语言一路走来，到 NodeJS 后端语言的大热，再到前后端共用模块规范的制定，协议也一变再变。今天我们就来深究一下曾经我们使用过的规范以及其特点和发展历程。</p>
+<p>​        PS：希望直接看结论的请移步文章末尾。</p>
+<a id="more"></a>
+<h3 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h3><h4 id="前情"><a href="#前情" class="headerlink" title="前情"></a>前情</h4><p>​        NodeJS 在创始之初参考了诸多语言，如 Ruby 的 <code>require</code>、Java 的类文件、Python 的 <code>import</code>、PHP 的 <code>include</code> 等等。JS 使用 <code>&lt;script&gt;</code> 标签进行引入的方式使得逻辑杂乱无章，无法应用于后端开发语言，而 CommonJS 规范的提出才算是真正成就了 NodeJS。</p>
+<p>​        由于 nodeJS 是 CommonJS 的主要实践者，故我们介绍过程中主要对象为 nodeJS，在此提前说明。</p>
+<h4 id="详情"><a href="#详情" class="headerlink" title="详情"></a>详情</h4><p>​        <strong>CommonJS 用同步的方式加载模块</strong>。</p>
+<p><img src="https://ae01.alicdn.com/kf/H7a72da5466e447a5b23aada19d7e8f53S.png" alt="node与浏览器及W3C组织、commonJS组织、ECMAScript之间的关系"></p>
+<p>​        不同于其他语言，nodeJS 所践行的规范主要通过 <code>exports</code> 暴露接口，通过 <code>require</code> 引入对象。其关系如下图所示，每个文件都是一个独立的模块（<code>module</code>），可以向外暴露接口或引用其他 <code>module</code>。</p>
+<p><img src="https://ae01.alicdn.com/kf/H51dda43261fd464aaaed119c295033d8Q.png" alt="commonJS中的模块定义"></p>
+<p>​        <strong>CommonJS规范 <code>(require)</code> 采用同步方式引入依赖</strong>，将其放入缓存之中。一个模块被加载过一次后就会在缓存中维持一个副本，若遇到重复加载的模块则直接从缓存中提取，故无需担心重复引用的问题。而另一方面，<strong>同步引用的方式会极大的限制 CommonJS 的应用范围</strong>，令其局限于后端开发环境中，这一点我们在 AMD 部分详细介绍。        </p>
+<h4 id="exports-amp-module-exports"><a href="#exports-amp-module-exports" class="headerlink" title="exports&amp;module.exports"></a>exports&amp;module.exports</h4><p>​        nodeJS 中为什么有了 <code>exports</code> 又要有 <code>module.exports</code> ？二者又有什么区别和联系？</p>
+<blockquote>
+<p>按道理来讲，只要将需要暴露出的变量赋值给 <code>exports</code> 对象即可，但是通常都会得到一个失败的结果。原因就是 <strong><code>exports</code> 对象是通过形参的方式传入的，直接赋值形参会改变形参的引用，但并不能更改作用域外的值</strong>。故若希望 <code>require</code> 引入一个类的效果，直接赋值给 <code>module.exports</code> 对象。</p>
+<p>​                                                                                                                                            ——《深入浅出nodeJS》</p>
+</blockquote>
+<p>​        但看这句话的时候我并没有读懂作者的意思，那么我们接着往后看。</p>
+<p>​        事实上，nodeJS 执行一个 JS 脚本时会生成 <code>exports</code> 和 <code>module</code> 对象，而 <code>module</code> 自身拥有一个 <code>exports</code> 属性。二者指向同一区域。</p>
+<p>​        那么既然二者指向同一块区域，又为何要分出两个 API 来分别对应呢？</p>
+<blockquote>
+<p>Node 中 <code>exports</code> 对象是唯一可以导出当前模块的方法变量的方法，而模块中的 <strong><code>module</code> 对象则代表模块自身，<code>exports</code> 是 <code>module</code> 的属性</strong>。</p>
+<p>​                                                                                                                                        ——《深入浅出nodeJS》</p>
+</blockquote>
+<p>​        为了保证客观性和真实性我们举一个例子来验证。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//koala.js</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="string">'程序员成长指北'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">module</span>.exports); <span class="comment">//能打印出结果为：&#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(exports); <span class="comment">//能打印出结果为：&#123;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//这里辛苦劳作帮 module.exports 的内容给改成 &#123;a : 'bbbbb'&#125;</span></span><br><span class="line">exports.a = <span class="string">'aaaaa'</span>; </span><br><span class="line"></span><br><span class="line">exports = <span class="string">'指向其他内存区'</span>; <span class="comment">//这里把exports的指向指走</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//test.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = <span class="built_in">require</span>(<span class="string">'/koala'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a) <span class="comment">// 打印为 &#123;a : 'bbbbb'&#125;</span></span><br></pre></td></tr></table></figure>
+<p>​        在官方文档中有这样一段描述</p>
+<blockquote>
+<p><strong>exports alias</strong></p>
+<p>  Added in: v0.1.16</p>
+<p>The <code>exports</code> variable that is available within a module starts as a reference to <code>module.exports</code>.As with any variable, if you assign a new value to it, it is no longer bound to the previous value.</p>
+<p>To illustrate the behavior, imagine this hypothetical implementation of <code>require()</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="function"><span class="keyword">function</span> <span class="title">require</span>(<span class="params">...</span>) </span>&#123;</span><br><span class="line">&gt;   <span class="comment">// ...</span></span><br><span class="line">&gt;   <span class="function">(<span class="params">(<span class="built_in">module</span>, exports</span>) =&gt;</span> &#123;</span><br><span class="line">&gt;     <span class="comment">// Your module code here</span></span><br><span class="line">&gt;     exports = some_func;	<span class="comment">// re-assigns exports is no longer</span></span><br><span class="line">&gt;       						<span class="comment">// a shortcut, and nothing is exported</span></span><br><span class="line">&gt;     <span class="built_in">module</span>.exports = some_func;		<span class="comment">// makes your module export 0</span></span><br><span class="line">&gt;   &#125;)(<span class="built_in">module</span>, <span class="built_in">module</span>.exports);</span><br><span class="line">&gt;   <span class="keyword">return</span> <span class="built_in">module</span>;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>As a guideline, if the relationship between <code>exports</code> and <code>module.exports</code> seems like magic to you, ignore <code>exports</code> and only use <code>module.exports</code></p>
+</blockquote>
+<p>​        如上所述，<code>exports</code> 和 <code>module.exports</code> 同宗同源，指向共同的一块存储区域。即，<code>exports = module.exports = {}</code>。而另一方面，虽然二者指代内容相同但是 <code>exports</code> 只是 <code>module.exports</code> 的引用，如果你给 <code>exports</code> 赋值则会改变其原本的指向，所以也就有了《深入浅出nodeJS》中的那段话。</p>
+<p><img src="https://ae01.alicdn.com/kf/Hab16c6fd120e4117b0e8e6943f635052x.jpg" alt="exports = module.exports = {}"></p>
+<h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h4><p>​        综上所述，我们若想<strong>暴露</strong>某个<strong>功能</strong>或<strong>属性</strong>，则使用 <code>exports</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exports.getTime = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​        而若是想<strong>直接暴露这个函数</strong>，则使用 <code>module.exports</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">getTime</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="AMD-和-require-js"><a href="#AMD-和-require-js" class="headerlink" title="AMD 和 require.js"></a>AMD 和 require.js</h3><h4 id="前情-1"><a href="#前情-1" class="headerlink" title="前情"></a>前情</h4><p>​        随着 nodeJS 在市场上逐渐占据一席之地，自然而然它希望获取更大的市场，开发前后端公用模块，但问题接踵而至：在后端环境下我们本地缓存的依赖包通过 CommonJS 规范可以高速的加载，（毕竟 nodeJS 擅长处理 IO 而不擅处理大型运算），而前端环境下，限于网络原因，显然异步更有市场。</p>
+<p>​        举个栗子，我们一般的 nodeJS 编写的后台的配置文件都是以 CommonJS 规范加载的。通过<strong>同步</strong>的方式使得我们在后边调用时候就可以直接使用无需等待。</p>
+<p>​        <strong>AMD(Async hronous Module Definition，异步模块定义) 规范采用异步方式加载模块，模块的加载不影响它后面语句的运行。</strong></p>
+<h4 id="详情-1"><a href="#详情-1" class="headerlink" title="详情"></a>详情</h4><p>​        其模块定义如下：<code>define(id?, dependencies?, factory);</code></p>
+<p>​        与 nodeJS 相似之处在于 factory 的内容就是实际代码的内容</p>
+<p>所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。这里介绍用 require.js 实现 AMD 规范的模块化：用<code>require.config()</code>指定引用路径等，用<code>define()</code>定义模块，用<code>require()</code>加载模块。</p>
+<blockquote>
+<p>​        AMD模块需要用 <code>define</code> 来明确定义一个模块，而在 Node 实现中则是隐式包装的。他们的目的是进行作用于隔离，仅在需要的时候被引入，避免调过去的那种通过全局变量或者全局命名空间的方式，以免变量污染和不小心被修改。另一个区别则是内容需要通过返回的方式实现导出</p>
+<p>​                                                                                                                                    ——《深入浅出nodeJS》</p>
+</blockquote>
+<p>才疏学浅，举一个别人的例子。</p>
+<p>​        首先我们需要引入 <code>require.js</code> 文件和一个入口文件 <code>main.js</code>。<code>main.js</code> 中配置<code>require.config()</code>并规定项目中用到的基础模块。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 网页中引入require.js及main.js **/</span></span><br><span class="line">&lt;script src=<span class="string">"js/require.js"</span> data-main=<span class="string">"js/main"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** main.js 入口文件/主模块 **/</span></span><br><span class="line"><span class="comment">// 首先用config()指定各模块路径和引用名</span></span><br><span class="line"><span class="built_in">require</span>.config(&#123;</span><br><span class="line">  baseUrl: <span class="string">"js/lib"</span>,</span><br><span class="line">  paths: &#123;</span><br><span class="line">    <span class="string">"jquery"</span>: <span class="string">"jquery.min"</span>,  <span class="comment">//实际路径为js/lib/jquery.min.js</span></span><br><span class="line">    <span class="string">"underscore"</span>: <span class="string">"underscore.min"</span>,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 执行基本操作</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">"jquery"</span>,<span class="string">"underscore"</span>],<span class="function"><span class="keyword">function</span>(<span class="params">$,_</span>)</span>&#123;</span><br><span class="line">  <span class="comment">// some code here</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>引用模块的时候，我们将模块名放在<code>[]</code>中作为 <code>reqiure()</code> 的第一参数；如果我们定义的模块本身也依赖其他模块,那就需要将它们放在<code>[]</code>中作为 <code>define()</code> 的第一参数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义math.js模块</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> basicNum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x + y;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        add: add,</span><br><span class="line">        basicNum :basicNum</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 定义一个依赖underscore.js的模块</span></span><br><span class="line">define([<span class="string">'underscore'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">_</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> classify = <span class="function"><span class="keyword">function</span>(<span class="params">list</span>)</span>&#123;</span><br><span class="line">    _.countBy(list,<span class="function"><span class="keyword">function</span>(<span class="params">num</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> num &gt; <span class="number">30</span> ? <span class="string">'old'</span> : <span class="string">'young'</span>;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    classify :classify</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引用模块，将模块放在[]内</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'jquery'</span>, <span class="string">'math'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">$, math</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> sum = math.add(<span class="number">10</span>,<span class="number">20</span>);</span><br><span class="line">  $(<span class="string">"#sum"</span>).html(sum);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="懒狗-CMD"><a href="#懒狗-CMD" class="headerlink" title="懒狗 CMD"></a>懒狗 CMD</h3><p>​        <strong>CMD 与 AMD 规范的主要区别在于定义模块和依赖引入的部分。AMD 需要在声明模块的时候指定所有的依赖，通过形参传递依赖到模块内容中</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'dep1'</span>, <span class="string">'dep2'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">dep1, dep2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>而 CMD 则支持动态引入</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// The module code goes here</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>require.js （AMD）在申明依赖的模块时会在第一之间加载并执行模块内的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>, <span class="string">"f"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">a, b, c, d, e, f</span>) </span>&#123; </span><br><span class="line">  <span class="comment">// 等于在最前面声明并初始化了要用到的所有模块</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="comment">// 即便没用到某个模块 b，但 b 还是提前执行了</span></span><br><span class="line">    b.foo()</span><br><span class="line">  &#125; </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>CMD 是另一种 js 模块化方案，它与 AMD 很类似，不同点在于：<strong>AMD 推崇依赖前置、提前执行，CMD推崇依赖就近、延迟执行</strong>。此规范其实是在sea.js推广过程中产生的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** AMD写法 **/</span></span><br><span class="line">define([<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>, <span class="string">"f"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">a, b, c, d, e, f</span>) </span>&#123; </span><br><span class="line">   <span class="comment">// 等于在最前面声明并初始化了要用到的所有模块</span></span><br><span class="line">  a.doSomething();</span><br><span class="line">  <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="comment">// 即便没用到某个模块 b，但 b 还是提前执行了</span></span><br><span class="line">    b.doSomething()</span><br><span class="line">  &#125; </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/** CMD写法 **/</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'./a'</span>); <span class="comment">//在需要时申明</span></span><br><span class="line">  a.doSomething();</span><br><span class="line">  <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'./b'</span>);</span><br><span class="line">    b.doSomething();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/** sea.js **/</span></span><br><span class="line"><span class="comment">// 定义模块 math.js</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery.js'</span>);</span><br><span class="line">  <span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">  &#125;</span><br><span class="line">  exports.add = add;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 加载模块</span></span><br><span class="line">seajs.use([<span class="string">'math.js'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">math</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> sum = math.add(<span class="number">1</span>+<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="ES6-Module"><a href="#ES6-Module" class="headerlink" title="ES6 Module"></a>ES6 Module</h3><h4 id="前情-2"><a href="#前情-2" class="headerlink" title="前情"></a>前情</h4><p>​        在寻找前后端通用规范的道路上磕磕绊绊，直至 ES6 Module 的出现，使其<strong>在语言标准的层面上，实现了模块功能，成为</strong>。</p>
+<h4 id="详情-2"><a href="#详情-2" class="headerlink" title="详情"></a>详情</h4><p>​        不同于 CommonJS 的模块化输出，ES6 Module 中的 <code>export</code> 对应的值是动态绑定关系，即，<strong>可以通过接口获取到模块内部实时的值</strong>。最典型的例子就是现在脚手架中的热部署功能。一旦模块发生改变那么通过观察者-监听者模式将会立即触发视图层的改变，从而达到无需刷新即可完成更新内容呈现的功能。</p>
+<p>​        该规范的具体内容主要分为两个：<code>import</code> &amp; <code>export</code></p>
+<ul>
+<li><p><code>import</code> 用于导入其他模块的功能</p>
+<ul>
+<li>配合 ES6 的解构赋值 <code>import { pureComponent } from &#39;react&#39;;</code></li>
+<li>还可以通过 <code>*</code> 实现模块的整体加载 <code>import * as cricle from ./utils/circle;</code></li>
+</ul>
+</li>
+<li><p>而 <code>export</code> 则用于从模块中向外暴露变量或方法</p>
+<ul>
+<li><p>可以向外暴露变量，通常用来约定常量值方便排查错误 <code>export const VARIABLE = &quot;variable&quot;;</code></p>
+</li>
+<li><p>也可以将变量在脚本最后导出 <code>export { variable1, variable2, variable3 };</code></p>
+</li>
+<li><p>还可以向外导出一个类或函数 <code>export function mutiply(x, y) { return x * y; }</code></p>
+</li>
+<li><p>向外暴露的内容还可以进行命名</p>
+<ul>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">v1</span>(<span class="params"></span>) </span>&#123; ... &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">v2</span>(<span class="params"></span>) </span>&#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123;</span><br><span class="line">  v1 <span class="keyword">as</span> streamV1,</span><br><span class="line">  v2 <span class="keyword">as</span> streamV2,</span><br><span class="line">  v2 <span class="keyword">as</span> streamLatestVersion</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="export-default"><a href="#export-default" class="headerlink" title="export default"></a>export default</h4><p>​        最重要的事要最先说：<strong>一个模块中可以有多个 <code>export</code>，但只能有一个 <code>export default</code> !</strong></p>
+<blockquote>
+<p>​        ES6 的模块不是对象，<code>import</code>命令会被 JavaScript 引擎静态分析，在编译时就引入模块代码，而不是在代码运行时加载，所以无法实现条件加载。也正因为这个，使得静态分析成为可能。</p>
+<p>​                                                                                                                                        ——《深入浅出nodeJS》</p>
+</blockquote>
+<p>​        理论上讲 <code>import</code> 引入和 <code>export</code> 导出已经够用，但是通过 <code>import</code> 引入时用户需要知道希望加载的函数 / 变量名。而 <code>export default</code>  则给了用户一个偷懒的机会 —— <strong>默认导出</strong>。</p>
+<p>​        举个例子，我们通过 <code>export default</code> 所导出的函数在引入时无需阅读文档，而是可以自己命名。</p>
+<p>​        同样的，在导入时也无需像接收 <code>export</code> 导出的函数一样用大括号 <code>import { pureComponent } from &quot;react&quot;;</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// export-default.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'foo'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// import-default.js</span></span><br><span class="line"><span class="keyword">import</span> customName <span class="keyword">from</span> <span class="string">'./export-default'</span>;</span><br><span class="line">customName(); <span class="comment">// 'foo'</span></span><br></pre></td></tr></table></figure>
+<p>​        当然，我们也可以通过 <code>export default</code> 导出一个变量</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> a;</span><br></pre></td></tr></table></figure>
+<p>​        同样的，我们还可以用 <code>export default</code> 输出一个类</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MyClass.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> </span>&#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> MyClass <span class="keyword">from</span> <span class="string">'MyClass'</span>;</span><br><span class="line"><span class="keyword">let</span> o = <span class="keyword">new</span> MyClass();</span><br></pre></td></tr></table></figure>
+<p>​        既然只能有一个 <code>export default</code>，那么如果希望导出多个变量 / 函数，那么就需要我们把他们包成一个对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 定义模块 math.js **/</span></span><br><span class="line"><span class="keyword">var</span> basicNum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> &#123; basicNum, add &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 引用模块 **/</span></span><br><span class="line"><span class="keyword">import</span> &#123; basicNum, add &#125; <span class="keyword">from</span> <span class="string">'./math'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">  ele.textContent = add(<span class="number">99</span> + basicNum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="模块继承"><a href="#模块继承" class="headerlink" title="模块继承"></a>模块继承</h4><p>​        既然每一个文件都是一个模块，那么其间的继承关系也相对比较好搞。具体形式如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// circleplus.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">'circle'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">var</span> e = <span class="number">2.71828182846</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.exp(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​        其基本原理就是将 <code>circle.js</code> 中的所有属性和方法引入到 <code>circleplus.js</code> 中，再将新的 <code>circleplus.js</code> 向外暴露出去。有没有想起什么？没错就是<strong>构造函数式继承</strong>，有相关需求的 boy 去掘金上搜搜文章吧，这部分我博客中并没有总结。</p>
+<blockquote>
+<p><code>export</code>与<code>export default</code>均可用于导出常量、函数、文件、模块等，但二者亦有所不同：</p>
+<ol>
+<li><code>export</code>、<code>import</code>可以有多个，而<code>export default</code>只能有一个</li>
+<li><code>export</code> <strong>导出的对象</strong>在导入时需加 { }，而<code>export default</code> 则不需要</li>
+<li><code>export</code> 能直接导出变量表达式</li>
+</ol>
+</blockquote>
+<h3 id="ES6-Module-amp-CommonJS"><a href="#ES6-Module-amp-CommonJS" class="headerlink" title="ES6 Module &amp; CommonJS"></a>ES6 Module &amp; CommonJS</h3><h4 id="拷贝-amp-引用"><a href="#拷贝-amp-引用" class="headerlink" title="拷贝&amp;引用"></a>拷贝&amp;引用</h4><ul>
+<li>CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值</li>
+<li>ES6 模块的运行机制和 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令<code>import</code>，就会生成一个制度引用。等到脚本真正执行的时候，再根据这个制度引用，到被加载的那个模块里面去取值。换句话说，ES6 的<code>import</code>有点像 Unix 系统的“符号连接”，原始值变了，<code>import</code>加载的值也会跟着变。<ul>
+<li>这也就是热部署的原理。而由于配置文件，如<code>vue.config.js</code>之类的，用的是 commonJS 规范，所以更改后需要重启服务重新读入</li>
+</ul>
+</li>
+</ul>
+<h4 id="运行时加载-amp-编译时输出接口"><a href="#运行时加载-amp-编译时输出接口" class="headerlink" title="运行时加载&amp;编译时输出接口"></a>运行时加载&amp;编译时输出接口</h4><ul>
+<li>运行时加载<ul>
+<li><strong>CommonJS 模块</strong>就是对象；即，在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法。这种加载称为“<strong>运行时加载</strong>”。</li>
+</ul>
+</li>
+<li>编译时加载<ul>
+<li><strong>ES6 Module</strong>不是对象，而是通过<code>export</code>命令显式指定输出的代码。<code>import</code>时采用静态命令的形式。即在<code>import</code>时可以指定加载某个输出值，而非整个模块，此即为“<strong>编译时加载</strong>”。</li>
+</ul>
+</li>
+</ul>
+<p>CommonJS 加载的是一个对象（即<code>module.exports</code>属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><blockquote>
+<ul>
+<li><code>require</code> 所导出的是 <code>module.exports</code> 所指向的内存块内容。简而言之，<code>exports</code> 只是 <code>module.exports</code> 的引用，辅助后者添加内容所用。使用中推荐用 <code>module.exports</code> 向外暴露接口。</li>
+<li>AMD 是提前执行，CMD 是延迟执行。AMD 推崇依赖前置，CMD 推崇依赖就近。</li>
+<li>CommonJS 模块输出的是值的拷贝（运行时加载），ES6 Module 输出的是值的 “制度引用” （编译时加载）。</li>
+<li>初学者只要记住：凡是带有 “s” 的都是 CommonJS 规范，如 <code>exports</code>、<code>module.exports</code> 等。而不带 “s” 的则是 ES6 Moudule。比如 <code>export</code>、<code>export default</code>。</li>
+<li><code>export</code> 能直接导出变量表达式</li>
+</ul>
+</blockquote>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
+<li><a href="https://juejin.im/post/5aaa37c8f265da23945f365c" target="_blank" rel="noopener">《前端模块化：CommonJS,AMD,CMD,ES6》</a></li>
+<li>《深入浅出nodeJS》</li>
+<li><a href="https://juejin.im/post/5d5639c7e51d453b5c1218b4" target="_blank" rel="noopener">《require时，exports和module.exports的区别你真的懂吗？》</a></li>
+<li><a href="https://github.com/amdjs/amdjs-api/wiki/AMD" target="_blank" rel="noopener">github.com/amdjs/amdjs</a></li>
+<li><a href="https://github.com/seajs/seajs/issues/242" target="_blank" rel="noopener">github.com/seajs/seajs</a></li>
+<li><a href="https://juejin.im/post/5c13c9e8518825697324327d" target="_blank" rel="noopener">《AMD规范与CMD规范概要》</a></li>
+<li><a href="https://neveryu.github.io/2017/03/20/amd-cmd/" target="_blank" rel="noopener">《AMD与CMD规范详解》</a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/module" target="_blank" rel="noopener">阮一峰老师的日志</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CommonJS/" rel="tag"># CommonJS</a>
+          
+            <a href="/tags/AMD/" rel="tag"># AMD</a>
+          
+            <a href="/tags/CMD/" rel="tag"># CMD</a>
+          
+            <a href="/tags/ES6-Module/" rel="tag"># ES6 Module</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/31/重学Vue（中篇）/" rel="next" title="重学Vue（中篇）">
+                <i class="fa fa-chevron-left"></i> 重学Vue（中篇）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/08/3种方法实现CSS隐藏滚动条并可以滚动内容(转载)/" rel="prev" title="3种方法实现CSS隐藏滚动条并可以滚动内容(转载)">
+                3种方法实现CSS隐藏滚动条并可以滚动内容(转载) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ensemble
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">107</span>
+                    <span class="site-state-item-name">articles</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">203</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonJS"><span class="nav-number">1.</span> <span class="nav-text">CommonJS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前情"><span class="nav-number">1.1.</span> <span class="nav-text">前情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详情"><span class="nav-number">1.2.</span> <span class="nav-text">详情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exports-amp-module-exports"><span class="nav-number">1.3.</span> <span class="nav-text">exports&amp;module.exports</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tips"><span class="nav-number">1.4.</span> <span class="nav-text">Tips</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMD-和-require-js"><span class="nav-number">2.</span> <span class="nav-text">AMD 和 require.js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前情-1"><span class="nav-number">2.1.</span> <span class="nav-text">前情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详情-1"><span class="nav-number">2.2.</span> <span class="nav-text">详情</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#懒狗-CMD"><span class="nav-number">3.</span> <span class="nav-text">懒狗 CMD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Module"><span class="nav-number">4.</span> <span class="nav-text">ES6 Module</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前情-2"><span class="nav-number">4.1.</span> <span class="nav-text">前情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详情-2"><span class="nav-number">4.2.</span> <span class="nav-text">详情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#export-default"><span class="nav-number">4.3.</span> <span class="nav-text">export default</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模块继承"><span class="nav-number">4.4.</span> <span class="nav-text">模块继承</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Module-amp-CommonJS"><span class="nav-number">5.</span> <span class="nav-text">ES6 Module &amp; CommonJS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#拷贝-amp-引用"><span class="nav-number">5.1.</span> <span class="nav-text">拷贝&amp;引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行时加载-amp-编译时输出接口"><span class="nav-number">5.2.</span> <span class="nav-text">运行时加载&amp;编译时输出接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">6.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文档"><span class="nav-number">7.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

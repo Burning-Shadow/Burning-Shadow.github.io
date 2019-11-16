@@ -190,7 +190,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -218,7 +218,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
 
   </li>
         
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/05/HTML5中的WebSocket/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/06/HTML之文件上传下载/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siir">
@@ -341,7 +341,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/04/05/HTML5中的WebSocket/" class="post-title-link" itemprop="url">HTML5中的WebSocket</a>
+                <a href="/2019/04/06/HTML之文件上传下载/" class="post-title-link" itemprop="url">HTML5之文件上传下载</a>
               
             
           </h1>
@@ -359,14 +359,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-04-05 23:21:06" itemprop="dateCreated datePublished" datetime="2019-04-05T23:21:06+08:00">2019-04-05</time>
+              <time title="Post created: 2019-04-06 12:24:02" itemprop="dateCreated datePublished" datetime="2019-04-06T12:24:02+08:00">2019-04-06</time>
             
 
             
@@ -381,9 +381,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-04-06 10:33:38" itemprop="dateModified" datetime="2019-04-06T10:33:38+08:00">2019-04-06</time>
+                <time title="Updated at: 2019-11-16 20:10:18" itemprop="dateModified" datetime="2019-11-16T20:10:18+08:00">2019-11-16</time>
               
             
           </span>
@@ -397,7 +397,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HTML5/" itemprop="url" rel="index"><span itemprop="name">HTML5</span></a></span>
@@ -436,21 +436,12 @@
 
       
         
-          <p>我们传统的网络协议，比如<code>http</code>、<code>tcp</code>等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，大部分只能通过轮询的方式解决。而如果在通信交互频繁的领域，如网游、直播、聊天等领域轮询就显得有些捉襟见肘了，费时费力不说还会浪费大量服务器资源，大部分的精力全部用在了每隔几秒的应答上。</p>
-<p>如此一种大佬们采取了一些新的方案：<strong>轮询</strong>和<strong><code>Comet</code></strong>。</p>
-<ul>
-<li><code>Comet</code>是轮询的一种改进，分为<strong>长轮询</strong>和<strong>流技术</strong><ul>
-<li>长轮询是在普通轮询的基础上链接完成后，当服务端未更新数据时链接会保持一段时间的周期，直至<strong>数据状态改变</strong>或<strong>连接时间到</strong>。但缺点也很明显，也不太适用于变化迅速的信息处理服务器，且长轮询更占带宽和资源</li>
-<li>流技术则是客户端通过隐藏窗口向服务器发送一个长链接请求，服务器接到请求后作出回应并更新状态，保证前后端连接不过其。但是缺点还是占用带宽、资源，对服务器压力太大了</li>
-</ul>
-</li>
-</ul>
-<p>此时 H5 则新增的<code>WebSocket</code>应运而生。</p>
+          <p>h5 所提供的文件 API 在前端领域有着丰富的应用和广泛的兼容，甚至包括移动端。所以我们今天来讲一讲 H5 的文件 API</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/04/05/HTML5中的WebSocket/#more" rel="contents">
-                Weiterlesen &raquo;
+              <a class="btn" href="/2019/04/06/HTML之文件上传下载/#more" rel="contents">
+                Lire la suite &raquo;
               </a>
             </div>
           
@@ -509,7 +500,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/05/HTML5中的新API/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/06/HTML5中的新API/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siir">
@@ -529,7 +520,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/04/05/HTML5中的新API/" class="post-title-link" itemprop="url">HTML5中的新API</a>
+                <a href="/2019/04/06/HTML5中的新API/" class="post-title-link" itemprop="url">HTML5中的新API</a>
               
             
           </h1>
@@ -547,14 +538,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-04-05 19:15:16" itemprop="dateCreated datePublished" datetime="2019-04-05T19:15:16+08:00">2019-04-05</time>
+              <time title="Post created: 2019-04-06 12:24:01" itemprop="dateCreated datePublished" datetime="2019-04-06T12:24:01+08:00">2019-04-06</time>
             
 
             
@@ -569,9 +560,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-04-06 10:39:30" itemprop="dateModified" datetime="2019-04-06T10:39:30+08:00">2019-04-06</time>
+                <time title="Updated at: 2019-11-16 20:09:55" itemprop="dateModified" datetime="2019-11-16T20:09:55+08:00">2019-11-16</time>
               
             
           </span>
@@ -585,7 +576,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HTML5/" itemprop="url" rel="index"><span itemprop="name">HTML5</span></a></span>
@@ -628,8 +619,752 @@
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/04/05/HTML5中的新API/#more" rel="contents">
-                Weiterlesen &raquo;
+              <a class="btn" href="/2019/04/06/HTML5中的新API/#more" rel="contents">
+                Lire la suite &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/06/HTML5中的WebSocket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/06/HTML5中的WebSocket/" class="post-title-link" itemprop="url">HTML5中的WebSocket</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-04-06 12:24:00" itemprop="dateCreated datePublished" datetime="2019-04-06T12:24:00+08:00">2019-04-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-11-16 20:09:28" itemprop="dateModified" datetime="2019-11-16T20:09:28+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HTML5/" itemprop="url" rel="index"><span itemprop="name">HTML5</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>我们传统的网络协议，比如<code>http</code>、<code>tcp</code>等等，都是请求-响应式协议，而若是服务器希望给浏览器发送信息时的渠道则非常有限，大部分只能通过轮询的方式解决。而如果在通信交互频繁的领域，如网游、直播、聊天等领域轮询就显得有些捉襟见肘了，费时费力不说还会浪费大量服务器资源，大部分的精力全部用在了每隔几秒的应答上。</p>
+<p>如此一种大佬们采取了一些新的方案：<strong>轮询</strong>和<strong><code>Comet</code></strong>。</p>
+<ul>
+<li><code>Comet</code>是轮询的一种改进，分为<strong>长轮询</strong>和<strong>流技术</strong><ul>
+<li>长轮询是在普通轮询的基础上链接完成后，当服务端未更新数据时链接会保持一段时间的周期，直至<strong>数据状态改变</strong>或<strong>连接时间到</strong>。但缺点也很明显，也不太适用于变化迅速的信息处理服务器，且长轮询更占带宽和资源</li>
+<li>流技术则是客户端通过隐藏窗口向服务器发送一个长链接请求，服务器接到请求后作出回应并更新状态，保证前后端连接不过其。但是缺点还是占用带宽、资源，对服务器压力太大了</li>
+</ul>
+</li>
+</ul>
+<p>此时 H5 则新增的<code>WebSocket</code>应运而生。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/06/HTML5中的WebSocket/#more" rel="contents">
+                Lire la suite &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/06/ES6中的-Generator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/06/ES6中的-Generator/" class="post-title-link" itemprop="url">ES6中的 Generator</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-04-06 10:13:00" itemprop="dateCreated datePublished" datetime="2019-04-06T10:13:00+08:00">2019-04-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-11-16 20:42:58" itemprop="dateModified" datetime="2019-11-16T20:42:58+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>今天讨论的新特性让我非常兴奋，因为这个特性是 ES6 中最神奇的特性。</p>
+<p>这里的“神奇”意味着什么呢？对于初学者来说，该特性与以往的 JS 完全不同，甚至有些晦涩难懂。从某种意义上说，它完全改变了这门语言的通常行为，这不是“神奇”是什么呢。</p>
+<p>不仅如此，该特性还可以简化程序代码，将复杂的“回调堆栈”改成线性执行的形式。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/06/ES6中的-Generator/#more" rel="contents">
+                Lire la suite &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/05/CSS3中的伪类&伪元素/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/05/CSS3中的伪类&伪元素/" class="post-title-link" itemprop="url">CSS3中的伪类&伪元素</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-04-05 11:37:00" itemprop="dateCreated datePublished" datetime="2019-04-05T11:37:00+08:00">2019-04-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-11-16 20:09:06" itemprop="dateModified" datetime="2019-11-16T20:09:06+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在正式开始之前我们先看一下他们的定义</p>
+<blockquote>
+<p>伪元素（Pseudo-elements）</p>
+<p>Pseudo-elements create abstractions about the document tree beyond those specified by the document language. For instance, document languages do not offer mechanisms to access the first letter or first line of an element’s content. Pseudo-elements allow authors to refer to this otherwise inaccessible information. Pseudo-elements may also provide authors a way to refer to content that does not exist in the source document.</p>
+<p>核心就是需要创建通常不存在于文档中的元素</p>
+</blockquote>
+<blockquote>
+<p>伪类<strong>(pseudo-classes)</strong></p>
+<p>The pseudo-class concept is introduced to permit selection based on information that lies outside of the document tree or that cannot be expressed using the other simple selectors.</p>
+<p>核心就是用来选择那些<strong>不能够被普通选择器选择</strong>的<strong>文档之外的元素</strong>。比如:hover</p>
+</blockquote>
+<p><strong>所以，伪类和伪元素都是用来表示文档树以外的“元素”</strong></p>
+<p><strong>二者的区别关键在于：若没有伪元素（或伪类），是否需要添加元素才能达到目的。若是则是伪元素，反之则是伪类</strong></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/05/CSS3中的伪类&伪元素/#more" rel="contents">
+                Lire la suite &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/05/MVVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/05/MVVM/" class="post-title-link" itemprop="url">MVVM</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-04-05 11:31:00" itemprop="dateCreated datePublished" datetime="2019-04-05T11:31:00+08:00">2019-04-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-11-16 20:08:39" itemprop="dateModified" datetime="2019-11-16T20:08:39+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>MVVM 由以下三部分组成</p>
+<ul>
+<li><code>View</code>：界面</li>
+<li><code>Model</code>：数据模型</li>
+<li><code>ViewModel</code>：作为桥梁负责沟通<code>View</code>和<code>Model</code></li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/05/MVVM/#more" rel="contents">
+                Lire la suite &raquo;
               </a>
             </div>
           
@@ -726,19 +1461,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-04-05 10:33:21 / Geändert am: 11:30:16" itemprop="dateCreated datePublished" datetime="2019-04-05T10:33:21+08:00">2019-04-05</time>
+              <time title="Post created: 2019-04-05 11:30:00" itemprop="dateCreated datePublished" datetime="2019-04-05T11:30:00+08:00">2019-04-05</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-11-16 20:08:13" itemprop="dateModified" datetime="2019-11-16T20:08:13+08:00">2019-11-16</time>
               
             
           </span>
@@ -752,7 +1499,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a></span>
@@ -796,377 +1543,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/04/05/CSS中的选择器/#more" rel="contents">
-                Weiterlesen &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/CSS3中的伪类&伪元素/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/04/CSS3中的伪类&伪元素/" class="post-title-link" itemprop="url">CSS3中的伪类&伪元素</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-04-04 22:01:45" itemprop="dateCreated datePublished" datetime="2019-04-04T22:01:45+08:00">2019-04-04</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-04-05 11:37:26" itemprop="dateModified" datetime="2019-04-05T11:37:26+08:00">2019-04-05</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在正式开始之前我们先看一下他们的定义</p>
-<blockquote>
-<p>伪元素（Pseudo-elements）</p>
-<p>Pseudo-elements create abstractions about the document tree beyond those specified by the document language. For instance, document languages do not offer mechanisms to access the first letter or first line of an element’s content. Pseudo-elements allow authors to refer to this otherwise inaccessible information. Pseudo-elements may also provide authors a way to refer to content that does not exist in the source document.</p>
-<p>核心就是需要创建通常不存在于文档中的元素</p>
-</blockquote>
-<blockquote>
-<p>伪类<strong>(pseudo-classes)</strong></p>
-<p>The pseudo-class concept is introduced to permit selection based on information that lies outside of the document tree or that cannot be expressed using the other simple selectors.</p>
-<p>核心就是用来选择那些<strong>不能够被普通选择器选择</strong>的<strong>文档之外的元素</strong>。比如:hover</p>
-</blockquote>
-<p><strong>所以，伪类和伪元素都是用来表示文档树以外的“元素”</strong></p>
-<p><strong>二者的区别关键在于：若没有伪元素（或伪类），是否需要添加元素才能达到目的。若是则是伪元素，反之则是伪类</strong></p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/04/CSS3中的伪类&伪元素/#more" rel="contents">
-                Weiterlesen &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/Node.js中的文件操作/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/04/Node.js中的文件操作/" class="post-title-link" itemprop="url">Node.js中的文件操作</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-04-04 17:44:33" itemprop="dateCreated datePublished" datetime="2019-04-04T17:44:33+08:00">2019-04-04</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Bearbeitet am</span>
-                
-                <time title="Geändert am: 2019-04-28 20:55:31" itemprop="dateModified" datetime="2019-04-28T20:55:31+08:00">2019-04-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Node-js/" itemprop="url" rel="index"><span itemprop="name">Node.js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><code>fs</code>作为Node.js最强大的模块，小到文件查找，大至代码编译，均需经过它之手。关键人家还是自带模块，无需下载安装，直接引用即可。所以我们今天来聊一聊其内置的文件模块</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/04/Node.js中的文件操作/#more" rel="contents">
-                Weiterlesen &raquo;
+                Lire la suite &raquo;
               </a>
             </div>
           
@@ -1263,16 +1640,32 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-04-04 16:47:30" itemprop="dateCreated datePublished" datetime="2019-04-04T16:47:30+08:00">2019-04-04</time>
+              <time title="Post created: 2019-04-04 16:47:00" itemprop="dateCreated datePublished" datetime="2019-04-04T16:47:00+08:00">2019-04-04</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-11-16 20:07:29" itemprop="dateModified" datetime="2019-11-16T20:07:29+08:00">2019-11-16</time>
+              
             
           </span>
 
@@ -1285,10 +1678,10 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Node-js/" itemprop="url" rel="index"><span itemprop="name">Node.js</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端模块化/" itemprop="url" rel="index"><span itemprop="name">前端模块化</span></a></span>
 
                 
                 
@@ -1329,7 +1722,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/04/04/Node.js中的模块/#more" rel="contents">
-                Weiterlesen &raquo;
+                Lire la suite &raquo;
               </a>
             </div>
           
@@ -1388,7 +1781,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/MVVM/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/JavaScript中的作用域/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siir">
@@ -1408,7 +1801,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/04/03/MVVM/" class="post-title-link" itemprop="url">MVVM</a>
+                <a href="/2019/04/04/JavaScript中的作用域/" class="post-title-link" itemprop="url">JavaScript中的作用域</a>
               
             
           </h1>
@@ -1426,14 +1819,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-04-03 21:54:06" itemprop="dateCreated datePublished" datetime="2019-04-03T21:54:06+08:00">2019-04-03</time>
+              <time title="Post created: 2019-04-04 00:24:00" itemprop="dateCreated datePublished" datetime="2019-04-04T00:24:00+08:00">2019-04-04</time>
             
 
             
@@ -1448,9 +1841,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-04-05 11:31:13" itemprop="dateModified" datetime="2019-04-05T11:31:13+08:00">2019-04-05</time>
+                <time title="Updated at: 2019-11-16 20:37:19" itemprop="dateModified" datetime="2019-11-16T20:37:19+08:00">2019-11-16</time>
               
             
           </span>
@@ -1464,10 +1857,10 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
 
                 
                 
@@ -1503,17 +1896,17 @@
 
       
         
-          <p>MVVM 由以下三部分组成</p>
-<ul>
-<li><code>View</code>：界面</li>
-<li><code>Model</code>：数据模型</li>
-<li><code>ViewModel</code>：作为桥梁负责沟通<code>View</code>和<code>Model</code></li>
-</ul>
+          <h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><h3 id="LHS和RHS"><a href="#LHS和RHS" class="headerlink" title="LHS和RHS"></a>LHS和RHS</h3><blockquote>
+<p>若查找的目的是对变量进行赋值则引擎会使用LHS查询</p>
+<p>若目的是获取变量的值则使用LHS查询</p>
+</blockquote>
+<p>如题，<strong>LHS查询</strong>的目的是对变量赋值，则可以理解为<strong>寻找变量的容器本身</strong></p>
+<p>而<strong>RHS查询</strong>则应理解为<code>retrieve his source value</code>（<strong>取其源值</strong>）</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/04/03/MVVM/#more" rel="contents">
-                Weiterlesen &raquo;
+              <a class="btn" href="/2019/04/04/JavaScript中的作用域/#more" rel="contents">
+                Lire la suite &raquo;
               </a>
             </div>
           
@@ -1572,7 +1965,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/JavaScript中如何实现一个相对准确的计时器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/Object.assign/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siir">
@@ -1592,7 +1985,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/30/JavaScript中如何实现一个相对准确的计时器/" class="post-title-link" itemprop="url">JavaScript中如何实现一个相对准确的计时器</a>
+                <a href="/2019/04/03/Object.assign/" class="post-title-link" itemprop="url">Object.assign</a>
               
             
           </h1>
@@ -1610,185 +2003,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-03-30 20:06:56 / Geändert am: 20:48:57" itemprop="dateCreated datePublished" datetime="2019-03-30T20:06:56+08:00">2019-03-30</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>由于JavaScript是一门单线程语言，所以<code>setTimeout</code>的误差无法完全被解决</p>
-<p>也许会因为浏览器中的事件过多导致该宏时间等待时间增长</p>
-<p>也许会因为也许是因为回调中的某些问题使得时延增加。</p>
-<p>还可能是因为<code>HTML5</code>标准中规定函数第二个参数不得小于<code>4ms</code>而强制增加。</p>
-<p>所以，页面开久了定时器会不准</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/30/JavaScript中如何实现一个相对准确的计时器/#more" rel="contents">
-                Weiterlesen &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/Vue2.0中的diff算法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/30/Vue2.0中的diff算法/" class="post-title-link" itemprop="url">Vue2.0中的diff算法</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-30 11:38:14" itemprop="dateCreated datePublished" datetime="2019-03-30T11:38:14+08:00">2019-03-30</time>
+              <time title="Post created: 2019-04-03 23:24:00" itemprop="dateCreated datePublished" datetime="2019-04-03T23:24:00+08:00">2019-04-03</time>
             
 
             
@@ -1803,9 +2025,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-04-02 01:36:05" itemprop="dateModified" datetime="2019-04-02T01:36:05+08:00">2019-04-02</time>
+                <time title="Updated at: 2019-11-16 20:06:27" itemprop="dateModified" datetime="2019-11-16T20:06:27+08:00">2019-11-16</time>
               
             
           </span>
@@ -1819,10 +2041,10 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
 
                 
                 
@@ -1858,175 +2080,13 @@
 
       
         
-          <p><code>Vue2.0</code>中虚拟DOM的概念想必大家都有所耳闻。这东西对<code>diff</code>算法的理解有着至关重要的作用，所以咱们先了解一下<code>virtual DOM</code></p>
+          <p>这东西各位有没有觉得有点眼熟？不错，正是深浅拷贝时候用到的知识。</p>
+<p>而本章我们则着手于介绍一下浅拷贝<code>Object.assign</code>的实现原理，然后带你手动实现一个浅拷贝。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/30/Vue2.0中的diff算法/#more" rel="contents">
-                Weiterlesen &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/实现一个Promise/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siir">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siir">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/29/实现一个Promise/" class="post-title-link" itemprop="url">实现一个Promise</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Erstellt: 2019-03-29 16:16:47" itemprop="dateCreated datePublished" datetime="2019-03-29T16:16:47+08:00">2019-03-29</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">in</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>利用ES5实现<code>Promise</code></p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/29/实现一个Promise/#more" rel="contents">
-                Weiterlesen &raquo;
+              <a class="btn" href="/2019/04/03/Object.assign/#more" rel="contents">
+                Lire la suite &raquo;
               </a>
             </div>
           
@@ -2074,7 +2134,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Vorherige Seite"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Nächste Seite"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Page précédente"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Page suivante"></i></a>
   </nav>
 
 
@@ -2119,7 +2179,7 @@
                   <a href="/archives/">
                 
                     <span class="site-state-item-count">107</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-name">articles</span>
                   </a>
                 </div>
               
@@ -2181,8 +2241,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">21</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -2568,8 +2630,48 @@
                     
                       
                     
-                    <span class="site-state-item-count">183</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">203</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -2648,7 +2750,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -2656,7 +2758,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 

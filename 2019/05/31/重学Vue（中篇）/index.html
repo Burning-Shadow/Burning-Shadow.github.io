@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="上篇我们对全局对象及相关的配置 API 进行了一遍刷文档。那么这次我们从生命周期开始继续刷">
+<meta name="keywords" content="Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重学Vue（中篇）">
+<meta property="og:url" content="http://yoursite.com/2019/05/31/重学Vue（中篇）/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="上篇我们对全局对象及相关的配置 API 进行了一遍刷文档。那么这次我们从生命周期开始继续刷">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cdeca03697df1fd0ce8c633">
+<meta property="og:image" content="https://pic.superbed.cn/item/5cded899697df1fd0ce95287">
+<meta property="og:updated_time" content="2019-11-16T12:27:32.496Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重学Vue（中篇）">
+<meta name="twitter:description" content="上篇我们对全局对象及相关的配置 API 进行了一遍刷文档。那么这次我们从生命周期开始继续刷">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5cdeca03697df1fd0ce8c633">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/31/重学Vue（中篇）/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>重学Vue（中篇） | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/31/重学Vue（中篇）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">重学Vue（中篇）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-05-31 12:13:00" itemprop="dateCreated datePublished" datetime="2019-05-31T12:13:00+08:00">2019-05-31</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-11-16 20:27:32" itemprop="dateModified" datetime="2019-11-16T20:27:32+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学框架系列/" itemprop="url" rel="index"><span itemprop="name">重学框架系列</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>上篇我们对全局对象及相关的配置 API 进行了一遍刷文档。那么这次我们从生命周期开始继续刷</p>
+<a id="more"></a>
+<h3 id="Vue生命周期钩子"><a href="#Vue生命周期钩子" class="headerlink" title="Vue生命周期钩子"></a>Vue生命周期钩子</h3><p>这玩意儿大家伙儿面试的时候应该没少被问。而具体的内容实现的话网上也有不少相关的文档。话不多说先贴一张最经典的图</p>
+<p><img src="https://pic.superbed.cn/item/5cdeca03697df1fd0ce8c633" alt></p>
+<ul>
+<li><p>beforeCreate</p>
+<ul>
+<li>在实例初始化之后，数据观测 (<code>data observer</code>) 和 <code>event/watcher</code> 事件配置之前被调用。</li>
+</ul>
+</li>
+<li><p>created</p>
+<ul>
+<li>在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，<code>watch/event</code>事件回调。然而，挂载阶段还没开始，<code>$el</code> 属性目前不可见。</li>
+</ul>
+</li>
+<li><p>beforeMount</p>
+<ul>
+<li>在挂载开始之前被调用：相关的 <code>render</code> 函数首次被调用。（<strong>该钩子在服务器端渲染期间不被调用。</strong>）</li>
+</ul>
+</li>
+<li><p>mounted</p>
+<ul>
+<li><p><code>el</code> 被新创建的 <code>vm.$el</code> 替换，并挂载到实例上去之后调用该钩子。如果<code>root</code>实例挂载了一个文档内元素，当 <code>mounted</code> 被调用时 <code>vm.$el</code> 也在文档内。</p>
+</li>
+<li><p>注意 <code>mounted</code> <strong>不会</strong>承诺所有的子组件也都一起被挂载。如果你希望等到整个视图都渲染完毕，可以用 <a href="https://cn.vuejs.org/v2/api/#vm-nextTick" target="_blank" rel="noopener">vm.$nextTick</a> 替换掉 <code>mounted</code>：</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mounted: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.$nextTick(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Code that will run only after the</span></span><br><span class="line">    <span class="comment">// entire view has been rendered</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>该钩子在服务器端渲染期间不被调用。</strong></p>
+</li>
+<li><p>beforeUpdate</p>
+<ul>
+<li>数据更新时调用，发生在虚拟 DOM 打补丁之前。这里适合在更新之前访问现有的 DOM，比如手动移除已添加的事件监听器。（<strong>该钩子在服务器端渲染期间不被调用，因为只有初次渲染会在服务端进行。</strong>）</li>
+</ul>
+</li>
+<li><p>updated</p>
+<ul>
+<li>由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。</li>
+<li>当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态。如果要相应状态改变，通常最好使用<a href="https://cn.vuejs.org/v2/api/#computed" target="_blank" rel="noopener">计算属性</a>或 <a href="https://cn.vuejs.org/v2/api/#watch" target="_blank" rel="noopener">watcher</a> 取而代之。</li>
+<li>注意 <code>updated</code> <strong>不会</strong>承诺所有的子组件也都一起被重绘。如果你希望等到整个视图都重绘完毕，可以用 <a href="https://cn.vuejs.org/v2/api/#vm-nextTick" target="_blank" rel="noopener">vm.$nextTick</a> 替换掉 <code>updated</code>：</li>
+<li></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">updated: function () &#123;</span><br><span class="line">  this.$nextTick(function () &#123;</span><br><span class="line">    // Code that will run only after the</span><br><span class="line">    // entire view has been re-rendered</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>该钩子在服务器端渲染期间不被调用。</strong></p>
+</li>
+<li><p>beforeDestory</p>
+<ul>
+<li>实例销毁之前调用。在这一步，实例仍然完全可用。（<strong>该钩子在服务器端渲染期间不被调用。</strong>）</li>
+</ul>
+</li>
+<li><p>destoryed</p>
+<ul>
+<li>Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。（<strong>该钩子在服务器端渲染期间不被调用。</strong>）</li>
+</ul>
+</li>
+<li><p>errorCaptured(2.5.0+)</p>
+<ul>
+<li><strong>类型</strong>：<code>(err: Error, vm: Component, info: string) =&gt; ?boolean</code></li>
+<li><strong>详细</strong>：</li>
+</ul>
+<p>当捕获一个来自子孙组件的错误时被调用。此钩子会收到三个参数：错误对象、发生错误的组件实例以及一个包含错误来源信息的字符串。此钩子可以返回 <code>false</code>以阻止该错误继续向上传播。</p>
+</li>
+</ul>
+<blockquote>
+<p>你可以在此钩子中修改组件的状态。因此在模板或渲染函数中设置其它内容的短路条件非常重要，它可以防止当一个错误被捕获时该组件进入一个无限的渲染循环。</p>
+</blockquote>
+<ul>
+<li>错误传播规则<ul>
+<li>默认情况下，如果全局的 <code>config.errorHandler</code> 被定义，所有的错误仍会发送它，因此这些错误仍然会向单一的分析服务的地方进行汇报。</li>
+<li>如果一个组件的继承或父级从属链路中存在多个 <code>errorCaptured</code> 钩子，则它们将会被相同的错误逐个唤起。</li>
+<li>如果此 <code>errorCaptured</code> 钩子自身抛出了一个错误，则这个新错误和原本被捕获的错误都会发送给全局的 <code>config.errorHandler</code>。</li>
+<li>一个 <code>errorCaptured</code> 钩子能够返回 <code>false</code> 以阻止错误继续向上传播。本质上是说“这个错误已经被搞定了且应该被忽略”。它会阻止其它任何会被这个错误唤起的 <code>errorCaptured</code> 钩子和全局的 <code>config.errorHandler</code>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;<span class="xml"><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line">    &lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"https://cdn.jsdelivr.net/vue/2.1.3/vue.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/head&gt;</span></span><br><span class="line"><span class="regexp">&lt;body&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;div id="app"&gt;</span></span><br><span class="line"><span class="regexp">     &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">"&gt;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">  var app = new Vue(&#123;</span></span><br><span class="line"><span class="string">      el: '#app',</span></span><br><span class="line"><span class="string">      data: &#123;</span></span><br><span class="line"><span class="string">          message : "</span>xuxiao is boy<span class="string">" </span></span><br><span class="line"><span class="string">      &#125;,</span></span><br><span class="line"><span class="string">       beforeCreate: function () &#123;</span></span><br><span class="line"><span class="string">                console.group('beforeCreate 创建前状态===============》');</span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">" , "</span>el     : <span class="string">" + this.$el); //undefined</span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>data   : <span class="string">" + this.$data); //undefined </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>message: <span class="string">" + this.message)  </span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        created: function () &#123;</span></span><br><span class="line"><span class="string">            console.group('created 创建完毕状态===============》');</span></span><br><span class="line"><span class="string">            console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>el     : <span class="string">" + this.$el); //undefined</span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>data   : <span class="string">" + this.$data); //已被初始化 </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>message: <span class="string">" + this.message); //已被初始化</span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        beforeMount: function () &#123;</span></span><br><span class="line"><span class="string">            console.group('beforeMount 挂载前状态===============》');</span></span><br><span class="line"><span class="string">            console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>el     : <span class="string">" + (this.$el)); //已被初始化</span></span><br><span class="line"><span class="string">            console.log(this.$el);</span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>data   : <span class="string">" + this.$data); //已被初始化  </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>message: <span class="string">" + this.message); //已被初始化  </span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        mounted: function () &#123;</span></span><br><span class="line"><span class="string">            console.group('mounted 挂载结束状态===============》');</span></span><br><span class="line"><span class="string">            console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>el     : <span class="string">" + this.$el); //已被初始化</span></span><br><span class="line"><span class="string">            console.log(this.$el);    </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>data   : <span class="string">" + this.$data); //已被初始化</span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>message: <span class="string">" + this.message); //已被初始化 </span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        beforeUpdate: function () &#123;</span></span><br><span class="line"><span class="string">            console.group('beforeUpdate 更新前状态===============》');</span></span><br><span class="line"><span class="string">            console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>el     : <span class="string">" + this.$el);</span></span><br><span class="line"><span class="string">            console.log(this.$el);   </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>data   : <span class="string">" + this.$data); </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>message: <span class="string">" + this.message); </span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        updated: function () &#123;</span></span><br><span class="line"><span class="string">            console.group('updated 更新完成状态===============》');</span></span><br><span class="line"><span class="string">            console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>el     : <span class="string">" + this.$el);</span></span><br><span class="line"><span class="string">            console.log(this.$el); </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>data   : <span class="string">" + this.$data); </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>message: <span class="string">" + this.message); </span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        beforeDestroy: function () &#123;</span></span><br><span class="line"><span class="string">            console.group('beforeDestroy 销毁前状态===============》');</span></span><br><span class="line"><span class="string">            console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>el     : <span class="string">" + this.$el);</span></span><br><span class="line"><span class="string">            console.log(this.$el);    </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>data   : <span class="string">" + this.$data); </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>message: <span class="string">" + this.message); </span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        destroyed: function () &#123;</span></span><br><span class="line"><span class="string">            console.group('destroyed 销毁完成状态===============》');</span></span><br><span class="line"><span class="string">            console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>el     : <span class="string">" + this.$el);</span></span><br><span class="line"><span class="string">            console.log(this.$el);  </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>data   : <span class="string">" + this.$data); </span></span><br><span class="line"><span class="string">               console.log("</span>%c%s<span class="string">", "</span>color:red<span class="string">","</span>message: <span class="string">" + this.message)</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="create-amp-amp-mounted"><a href="#create-amp-amp-mounted" class="headerlink" title="create &amp;&amp; mounted"></a>create &amp;&amp; mounted</h5><p>我们运行上述代码会发现：</p>
+<blockquote>
+<p><code>beforecreated</code>：el 和 data 并未初始化<br><code>created</code>:完成了 data 数据的初始化，el没有<br><code>beforeMount</code>：完成了 el 和 data 初始化<br><code>mounted</code> ：完成挂载</p>
+</blockquote>
+<p>同时，<code>beforeMount</code>时我们发现<code>el</code>还是  。这里就是应用的 <code>Virtual DOM</code>（虚拟Dom）技术，先把坑占住了。到后面<code>mounted</code>挂载的时候再把值渲染进去。</p>
+<h5 id="update"><a href="#update" class="headerlink" title="update"></a>update</h5><p>我们在<code>chrome</code>的控制台中输入这样一段代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.message= <span class="string">'yes !! I do'</span>;</span><br></pre></td></tr></table></figure>
+<p>我们就可以看到<code>data</code>中的值被修改后触发<code>update</code>的操作</p>
+<p><img src="https://pic.superbed.cn/item/5cded899697df1fd0ce95287" alt></p>
+<p>这两个算是比较关键的部分，我们通过控制台打印完成使用。</p>
+<h3 id="选项-amp-amp-组合"><a href="#选项-amp-amp-组合" class="headerlink" title="选项&amp;&amp;组合"></a>选项&amp;&amp;组合</h3><h4 id="parent-amp-children"><a href="#parent-amp-children" class="headerlink" title="$parent &amp; $children"></a>$parent &amp; $children</h4><ul>
+<li><p><strong>类型</strong>：<code>Vue instance</code></p>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p>指定已创建的实例之父实例，在两者之间建立父子关系。子实例可以用 <code>this.$parent</code> 访问父实例，子实例被推入父实例的 <code>$children</code> 数组中。</p>
+</li>
+</ul>
+<p>不过这玩意儿权限太大了，慎用！慎用！如果只是组件间通讯那还是老老实实用<code>props</code>和<code>emit吧</code></p>
+<h4 id="mixins"><a href="#mixins" class="headerlink" title="mixins"></a>mixins</h4><ul>
+<li><p><strong>类型</strong>：<code>Array&lt;Object&gt;</code></p>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p><code>mixins</code> 选项接受一个混入对象的数组。这些混入实例对象可以像正常的实例对象一样包含选项，他们将在 <code>Vue.extend()</code> 里最终选择使用相同的选项合并逻辑合并。举例：如果你的混入包含一个钩子而创建组件本身也有一个，两个函数将被调用。</p>
+<p>Mixin 钩子按照传入顺序依次调用，并在调用组件自身的钩子之前被调用。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mixin = &#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="number">1</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="number">2</span>) &#125;,</span><br><span class="line">  mixins: [mixin]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// =&gt; 1</span></span><br><span class="line"><span class="comment">// =&gt; 2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="extends"><a href="#extends" class="headerlink" title="extends"></a>extends</h4><ul>
+<li><p><strong>类型</strong>：<code>Object | Function</code></p>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p>允许声明扩展另一个组件(可以是一个简单的选项对象或构造函数)，而无需使用 <code>Vue.extend</code>。这主要是为了便于扩展单文件组件。</p>
+<p>这和 <code>mixins</code> 类似。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CompA = &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在没有调用 `Vue.extend` 时候继承 CompA</span></span><br><span class="line"><span class="keyword">var</span> CompB = &#123;</span><br><span class="line">  extends: CompA,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="provide-amp-reject-2-2-0"><a href="#provide-amp-reject-2-2-0" class="headerlink" title="provide &amp; reject(2.2.0+)"></a>provide &amp; reject(2.2.0+)</h4><ul>
+<li><p><strong>类型</strong>：</p>
+<ul>
+<li><strong>provide</strong>：<code>Object | () =&gt; Object</code></li>
+<li><strong>inject</strong>：<code>Array&lt;string&gt; | { [key: string]: string | Symbol | Object }</code></li>
+</ul>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p><code>provide</code> 和 <code>inject</code> <strong>主要为高阶插件/组件库提供用例</strong>。并不推荐直接用于应用程序代码中。</p>
+<p>这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论<strong>组件层次有多深</strong>，并在起上下游关系成立的时间里始终生效。如果你熟悉 React，这与 React 的上下文特性很相似。</p>
+<p><code>provide</code> 选项应该是一个对象或返回一个对象的函数。该对象包含可注入其子孙的属性。在该对象中你可以使用 ES2015 Symbols 作为 key，但是只在原生支持 <code>Symbol</code> 和 <code>Reflect.ownKeys</code> 的环境下可工作。</p>
+<p><code>inject</code> 选项应该是：</p>
+<ul>
+<li>一个字符串数组，或</li>
+<li>一个对象，对象的 key 是本地的绑定名，value 是：<ul>
+<li>在可用的注入内容中搜索用的 key (字符串或 Symbol)，或</li>
+<li>一个对象，该对象的：<ul>
+<li><code>from</code> 属性是在可用的注入内容中搜索用的 key (字符串或 Symbol)</li>
+<li><code>default</code> 属性是降级情况下使用的 value</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>提示：<code>provide</code> 和 <code>inject</code> 绑定并不是可响应的。这是刻意为之的。然而，如果你传入了一个可监听的对象，那么其对象的属性还是可响应的。</p>
+</blockquote>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父级组件提供 'foo'</span></span><br><span class="line"><span class="keyword">var</span> Provider = &#123;</span><br><span class="line">  provide: &#123;</span><br><span class="line">    foo: <span class="string">'bar'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子组件注入 'foo'</span></span><br><span class="line"><span class="keyword">var</span> Child = &#123;</span><br><span class="line">  inject: [<span class="string">'foo'</span>],</span><br><span class="line">  created () &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.foo) <span class="comment">// =&gt; "bar"</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用 ES2015 <code>Symbols</code>、函数 <code>provide</code> 和对象 <code>inject</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> s = <span class="built_in">Symbol</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Provider = &#123;</span><br><span class="line">  provide () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      [s]: <span class="string">'foo'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: &#123; s &#125;,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>接下来 2 个例子只工作在 Vue 2.2.1 或更高版本。低于这个版本时，注入的值会在 <code>props</code> 和 <code>data</code> 初始化之后得到。</p>
+</blockquote>
+<p>使用一个注入的值作为一个属性的默认值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: [<span class="string">'foo'</span>],</span><br><span class="line">  props: &#123;</span><br><span class="line">    bar: &#123;</span><br><span class="line">      <span class="keyword">default</span> () &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.foo</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用一个注入的值作为数据入口：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: [<span class="string">'foo'</span>],</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      bar: <span class="keyword">this</span>.foo</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 2.5.0+ 的注入可以通过设置默认值使其变成可选项：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: &#123;</span><br><span class="line">    foo: &#123; <span class="attr">default</span>: <span class="string">'foo'</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果它需要从一个不同名字的属性注入，则使用 <code>from</code> 来表示其源属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: &#123;</span><br><span class="line">    foo: &#123;</span><br><span class="line">      <span class="keyword">from</span>: <span class="string">'bar'</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="string">'foo'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与<code>prop</code>的默认值类似，你需要对非原始值使用一个工厂方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Child = &#123;</span><br><span class="line">  inject: &#123;</span><br><span class="line">    foo: &#123;</span><br><span class="line">      <span class="keyword">from</span>: <span class="string">'bar'</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="选项-其他（属性）"><a href="#选项-其他（属性）" class="headerlink" title="选项/其他（属性）"></a>选项/其他（属性）</h3><h4 id="name"><a href="#name" class="headerlink" title="name"></a>name</h4><ul>
+<li><p><strong>类型</strong>：<code>string</code></p>
+</li>
+<li><p><strong>限制</strong>：只有作为组件选项时起作用。</p>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p>允许组件模板递归地调用自身。注意，组件在全局用 <code>Vue.component()</code> 注册时，全局 ID 自动作为组件的 name。</p>
+<p>指定 <code>name</code> 选项的另一个好处是<strong>便于调试</strong>。有名字的组件有更友好的警告信息。另外，当在有 <a href="https://github.com/vuejs/vue-devtools" target="_blank" rel="noopener">vue-devtools</a>，未命名组件将显示成 <code>&lt;AnonymousComponent&gt;</code>，这很没有语义。<strong>通过提供 <code>name</code> 选项，可以获得更有语义信息的组件树。</strong></p>
+<p>这里提一嘴，之前我们在编写<code>vue-router</code>的时候由于复用了组件并且将每一个使用相同组件的<code>route</code>都起了一样的名字，所以浏览器给我们报了好多黄色警告，大意是不能重复命名的样子。改成不同的<code>name</code>之后就完美的解决了复用组件的问题。</p>
+</li>
+</ul>
+<h4 id="delimiters"><a href="#delimiters" class="headerlink" title="delimiters"></a>delimiters</h4><ul>
+<li><p><strong>类型</strong>：<code>Array&lt;string&gt;</code></p>
+</li>
+<li><p><strong>默认值</strong>：<code>[&quot;, &quot;]</code></p>
+</li>
+<li><p><strong>限制</strong>：这个选项只在完整构建版本中的浏览器内编译时可用。</p>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p>改变纯文本插入分隔符。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  delimiters: [<span class="string">'$&#123;'</span>, <span class="string">'&#125;'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 分隔符变成了 ES6 模板字符串的风格</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这个貌似没有什么可说的</p>
+<h4 id="functional"><a href="#functional" class="headerlink" title="functional"></a>functional</h4><ul>
+<li><p><strong>类型</strong>：<code>boolean</code></p>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p>使组件无状态 (没有 <code>data</code> ) 和无实例 (没有 <code>this</code> 上下文)。他们用一个简单的 <code>render</code> 函数返回虚拟节点使他们更容易渲染。</p>
+</li>
+</ul>
+<p>这玩意儿说实在的就是函数式组件的一个属性。将其标名为<code>true</code>之后则意味它无状态没有<a href="https://cn.vuejs.org/v2/api/#选项-数据" target="_blank" rel="noopener">响应式数据</a>)，也没有实例 (没有 <code>this</code> 上下文)。</p>
+<p>不过一般人应该不这么使</p>
+<h4 id="model（2-2-0-）"><a href="#model（2-2-0-）" class="headerlink" title="model（2.2.0+）"></a>model（2.2.0+）</h4><ul>
+<li><p><strong>类型</strong>：<code>{ prop?: string, event?: string }</code></p>
+</li>
+<li><p><strong>详细</strong>：</p>
+<p>允许一个自定义组件在使用 <code>v-model</code> 时定制<code>prop</code>和<code>event</code>。默认情况下，一个组件上的 <code>v-model</code> 会把 <code>value</code> 用作 prop 且把 <code>input</code> 用作 event，但是一些输入类型比如单选框和复选框按钮可能想使用 <code>value</code> prop 来达到不同的目的。使用 <code>model</code> 选项可以回避这些情况产生的冲突。</p>
+</li>
+<li><p><strong>Example</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'my-checkbox'</span>, &#123;</span><br><span class="line">  model: &#123;</span><br><span class="line">    prop: <span class="string">'checked'</span>,</span><br><span class="line">    event: <span class="string">'change'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  props: &#123;</span><br><span class="line">    <span class="comment">// this allows using the `value` prop for a different purpose</span></span><br><span class="line">    value: <span class="built_in">String</span>,</span><br><span class="line">    <span class="comment">// use `checked` as the prop which take the place of `value`</span></span><br><span class="line">    checked: &#123;</span><br><span class="line">      type: <span class="built_in">Number</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>而本质上，<code>v-model</code>则是一块绑定了默认事件的语法糖。通过<code>emit</code>和<code>on</code>来完成对数据的双向绑定</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">my-checkbox</span> <span class="attr">v-model</span>=<span class="string">"foo"</span> <span class="attr">value</span>=<span class="string">"some value"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-checkbox</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码相当于：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;my-checkbox</span><br><span class="line">  :checked=<span class="string">"foo"</span></span><br><span class="line">  @change=<span class="string">"val =&gt; &#123; foo = val &#125;"</span></span><br><span class="line">  value=<span class="string">"some value"</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/my-checkbox&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>v-model</code>就可以理解为一个语法糖。想必诸位好汉应该试过用<code>$emit</code>和<code>$on</code>实现<code>v-model</code>叭。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 原型式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"text"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 展开式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:value</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">  @<span class="attr">input</span>=<span class="string">"e =&gt; text = e.target.value"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h3><p>这里的一部分其实已经被大家所熟悉，所以就简短的介绍几个吧。</p>
+<h4 id="vm-slots"><a href="#vm-slots" class="headerlink" title="vm.$slots"></a>vm.$slots</h4><ul>
+<li><p>用来访问被<a href="https://cn.vuejs.org/v2/guide/components.html#通过插槽分发内容" target="_blank" rel="noopener">插槽分发</a>的内容。每个<a href="https://cn.vuejs.org/v2/guide/components-slots.html#具名插槽" target="_blank" rel="noopener">具名插槽</a> 有其相应的属性 (例如：<code>v-slot:foo</code>中的内容将会在 <code>vm.$slots.foo</code> 中被找到)。<code>default</code> 属性包括了所有没有被包含在具名插槽中的节点，或 <code>v-slot:default</code> 的内容。</p>
+<p><strong>Note:</strong> <code>v-slot:foo</code> is supported in v2.6+. For older versions, you can use the <a href="https://cn.vuejs.org/v2/guide/components-slots.html#Deprecated-Syntax" target="_blank" rel="noopener">deprecated syntax</a>.</p>
+<p>在使用<a href="https://cn.vuejs.org/v2/guide/render-function.html" target="_blank" rel="noopener">渲染函数</a>书写一个组件时，访问 <code>vm.$slots</code> 最有帮助。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">blog-post</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-slot:header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>About Me<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Here's some page content, which will be included in vm.$slots.default, because it's not inside a named slot.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">v-slot:footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Copyright 2016 Evan You<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>If I have some content down here, it will also be included in vm.$slots.default.<span class="tag">&lt;/<span class="name">p</span>&gt;</span>.</span><br><span class="line"><span class="tag">&lt;/<span class="name">blog-post</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'blog-post'</span>, &#123;</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span> (<span class="params">createElement</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> header = <span class="keyword">this</span>.$slots.header</span><br><span class="line">    <span class="keyword">var</span> body   = <span class="keyword">this</span>.$slots.default</span><br><span class="line">    <span class="keyword">var</span> footer = <span class="keyword">this</span>.$slots.footer</span><br><span class="line">    <span class="keyword">return</span> createElement(<span class="string">'div'</span>, [</span><br><span class="line">      createElement(<span class="string">'header'</span>, header),</span><br><span class="line">      createElement(<span class="string">'main'</span>, body),</span><br><span class="line">      createElement(<span class="string">'footer'</span>, footer)</span><br><span class="line">    ])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如上例所示，我们可以通过此种方式动态获取插槽中的各属性。我们用的比较少，因为这是渲染函数的写法，今后实力提升了也许会单开一期坑吧</p>
+<h4 id="vm-scopedSlots"><a href="#vm-scopedSlots" class="headerlink" title="vm.$scopedSlots"></a>vm.$scopedSlots</h4><p>用来访问<a href="https://cn.vuejs.org/v2/guide/components-slots.html#作用域插槽" target="_blank" rel="noopener">作用域插槽</a>。对于包括 <code>默认 slot</code> 在内的每一个插槽，该对象都包含一个返回相应 VNode 的函数。</p>
+<p><code>vm.$scopedSlots</code> 在使用<a href="https://cn.vuejs.org/v2/guide/render-function.html" target="_blank" rel="noopener">渲染函数</a>开发一个组件时特别有用。</p>
+<p><strong>注意</strong>：从 2.6.0 开始，这个属性有两个变化：</p>
+<ol>
+<li>作用域插槽函数现在保证返回一个 VNode 数组，除非在返回值无效的情况下返回 <code>undefined</code>。</li>
+<li>所有的 <code>$slots</code> 现在都会作为函数暴露在 <code>$scopedSlots</code> 中。如果你在使用渲染函数，不论当前插槽是否带有作用域，我们都推荐始终通过 <code>$scopedSlots</code>访问它们。这不仅仅使得在未来添加作用域变得简单，也可以让你最终轻松迁移到所有插槽都是函数的 Vue 3。</li>
+</ol>
+<h4 id="vm-refs"><a href="#vm-refs" class="headerlink" title="vm.$refs"></a>vm.$refs</h4><blockquote>
+<p>一个对象，持有注册过 <a href="https://cn.vuejs.org/v2/api/#ref" target="_blank" rel="noopener"><code>ref</code> 特性</a> 的所有 DOM 元素和组件实例。</p>
+</blockquote>
+<p>这个大家应该比较熟悉。通过在 DOM 节点上绑定属性来获取 DOM 节点。虽然 vue 不推荐咱们直接操作 DOM 但是这玩意儿也得会是不是？</p>
+<p>简要说一句，在对应 DOM 节点上绑定属性<code>ref=&quot;aaa&quot;</code>，然后通过<code>this.$refs.aaa</code>就可以获取对应的 节点啦~</p>
+<h4 id="vm-listeners"><a href="#vm-listeners" class="headerlink" title="vm.$listeners"></a>vm.$listeners</h4><ul>
+<li><p><strong>类型</strong>：<code>{ [key: string]: Function | Array&lt;Function&gt; }</code></p>
+</li>
+<li><p><strong>只读</strong></p>
+</li>
+<li><strong>解释</strong></li>
+</ul>
+<blockquote>
+<p>包含了父作用域中的 (不含 <code>.native</code> 修饰器的) <code>v-on</code> 事件监听器。它可以通过 <code>v-on=&quot;$listeners&quot;</code> 传入内部组件——在创建更高层次的组件时非常有用。</p>
+</blockquote>
+<h3 id="实例方法-数据"><a href="#实例方法-数据" class="headerlink" title="实例方法/数据"></a>实例方法/数据</h3><h4 id="vm-watch-expOrFn-callback-options"><a href="#vm-watch-expOrFn-callback-options" class="headerlink" title="vm.$watch(expOrFn, callback, [options])"></a>vm.$watch(expOrFn, callback, [options])</h4><ul>
+<li><p><strong>参数</strong>：</p>
+<ul>
+<li><p><code>{string | Function} expOrFn</code></p>
+</li>
+<li><p><code>{Function | Object} callback</code></p>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;Object&#125; [options]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>{boolean} deep</code></li>
+<li><code>{boolean} immediate</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>返回值</strong>：<code>{Function} unwatch</code></p>
+</li>
+<li><p><strong>用法</strong>：</p>
+<p>观察 Vue 实例变化的一个表达式或计算属性函数。回调函数得到的参数为新值和旧值。表达式只接受监督的键路径。对于更复杂的表达式，用一个函数取代。</p>
+<p>注意：在变异 (不是替换) 对象或数组时，旧值将与新值相同，因为它们的引用指向同一个对象/数组。<strong>Vue 不会保留变异之前值的副本</strong>。</p>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 键路径</span></span><br><span class="line">vm.$watch(<span class="string">'a.b.c'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 做点什么</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数</span></span><br><span class="line">vm.$watch(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 表达式 `this.a + this.b` 每次得出一个不同的结果时</span></span><br><span class="line">    <span class="comment">// 处理函数都会被调用。</span></span><br><span class="line">    <span class="comment">// 这就像监听一个未被定义的计算属性</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.a + <span class="keyword">this</span>.b</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 做点什么</span></span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><code>vm.$watch</code> 返回一个取消观察函数，用来停止触发回调：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> unwatch = vm.$watch(<span class="string">'a'</span>, cb)</span><br><span class="line"><span class="comment">// 之后取消观察</span></span><br><span class="line">unwatch()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>选项：deep</strong></p>
+<p>为了发现对象内部值的变化，可以在选项参数中指定 <code>deep: true</code> 。注意监听数组的变动不需要这么做。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vm.$watch(&apos;someObject&apos;, callback, &#123;</span><br><span class="line">  deep: true</span><br><span class="line">&#125;)</span><br><span class="line">vm.someObject.nestedValue = 123</span><br><span class="line">// callback is fired</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>选项：immediate</strong></p>
+<p>在选项参数中指定 <code>immediate: true</code> 将<strong>立即以表达式的当前值触发回调</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vm.$watch(<span class="string">'a'</span>, callback, &#123;</span><br><span class="line">  immediate: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 立即以 `a` 的当前值触发回调</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在实践中我们通常以另一种方式写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">    <span class="string">"attr1"</span>: &#123;</span><br><span class="line">        deep: <span class="literal">true</span>,</span><br><span class="line">        immediate: <span class="literal">false</span>,</span><br><span class="line">        handler(oldVal, newVal) &#123;</span><br><span class="line">            <span class="comment">// TODO</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"attr2"</span>: &#123;</span><br><span class="line">        deep: <span class="literal">true</span>,</span><br><span class="line">        immediate: <span class="literal">true</span>,</span><br><span class="line">        handler(oldVal, newVal) &#123;</span><br><span class="line">            <span class="comment">// TODO</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总之监听变化，姐妹们选他！</p>
+<h4 id="vm-set-target-propertyName-index-val"><a href="#vm-set-target-propertyName-index-val" class="headerlink" title="vm.$set(target, propertyName/index, val)"></a>vm.$set(target, propertyName/index, val)</h4><ul>
+<li><p><strong>参数</strong>：</p>
+<ul>
+<li><code>{Object | Array} target</code></li>
+<li><code>{string | number} propertyName/index</code></li>
+<li><code>{any} value</code></li>
+</ul>
+</li>
+<li><p><strong>返回值</strong>：设置的值。</p>
+</li>
+<li><p><strong>用法</strong>：</p>
+<p>这是全局 <code>Vue.set</code> 的<strong>别名</strong>。</p>
+</li>
+<li><p><strong>参考</strong>：<a href="https://cn.vuejs.org/v2/api/#Vue-set" target="_blank" rel="noopener">Vue.set</a></p>
+</li>
+</ul>
+<p>这东西就是用来添加响应式属性的。当然，被添加属性的对象也得是响应式的，毕竟 vue 无法探测普通的新增属性。通过此属性我们可以动态的添加</p>
+<h3 id="实例方法-事件"><a href="#实例方法-事件" class="headerlink" title="实例方法/事件"></a>实例方法/事件</h3><h4 id="vm-on-event-callback"><a href="#vm-on-event-callback" class="headerlink" title="vm.$on(event, callback)"></a>vm.$on(event, callback)</h4><p>这东西我就不再细讲了吧。之前写过一篇博客，感兴趣的胖友可以看一下原文地址：<a href="[https://burning-shadow.github.io/2019/03/22/Vue%E4%B8%AD%E7%9A%84$emit%E3%80%81$on%E5%92%8Cv-on/](https://burning-shadow.github.io/2019/03/22/Vue中的$emit、$on和v-on/">《Vue中的$emit、$on和v-on》</a>)</p>
+<h4 id="vm-once-event-callback"><a href="#vm-once-event-callback" class="headerlink" title="vm.$once(event, callback)"></a>vm.$once(event, callback)</h4><p>这东西和<code>$on</code>差不多，只不过他只触发一次，完成后移除监听器</p>
+<h4 id="vm-off-event-callback"><a href="#vm-off-event-callback" class="headerlink" title="vm.$off([event, callback])"></a>vm.$off([event, callback])</h4><ul>
+<li><p><strong>参数</strong>：</p>
+<ul>
+<li><code>{string | Array&lt;string&gt;} event</code> (只在 2.2.2+ 支持数组)</li>
+<li><code>{Function} [callback]</code></li>
+</ul>
+</li>
+<li><p><strong>用法</strong>：</p>
+<p>移除自定义事件监听器。</p>
+<ul>
+<li>如果没有提供参数，则移除所有的事件监听器；</li>
+<li>如果只提供了事件，则移除该事件所有的监听器；</li>
+<li>如果同时提供了事件与回调，则只移除这个回调的监听器。</li>
+</ul>
+</li>
+</ul>
+<h4 id="vm-emit-eventName-…args"><a href="#vm-emit-eventName-…args" class="headerlink" title="vm.$emit(eventName, […args])"></a>vm.$emit(eventName, […args])</h4><p>这东西和<code>v-on</code>、<code>$on</code>组合着用，一个愿打一个愿挨蛮快乐。老规矩，往上边看。</p>
+<p>OK，fine，中篇暂时告一段落了。江湖见弟兄们。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/22/Vuex进阶/" rel="next" title="Vuex进阶">
+                <i class="fa fa-chevron-left"></i> Vuex进阶
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/08/前端模块化/" rel="prev" title="前端模块化：CommonJS,AMD,CMD,ES6">
+                前端模块化：CommonJS,AMD,CMD,ES6 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ensemble
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">107</span>
+                    <span class="site-state-item-name">articles</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">203</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue生命周期钩子"><span class="nav-number">1.</span> <span class="nav-text">Vue生命周期钩子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码演示"><span class="nav-number">1.1.</span> <span class="nav-text">代码演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#create-amp-amp-mounted"><span class="nav-number">1.1.1.</span> <span class="nav-text">create &amp;&amp; mounted</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#update"><span class="nav-number">1.1.2.</span> <span class="nav-text">update</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项-amp-amp-组合"><span class="nav-number">2.</span> <span class="nav-text">选项&amp;&amp;组合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#parent-amp-children"><span class="nav-number">2.1.</span> <span class="nav-text">$parent &amp; $children</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mixins"><span class="nav-number">2.2.</span> <span class="nav-text">mixins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extends"><span class="nav-number">2.3.</span> <span class="nav-text">extends</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#provide-amp-reject-2-2-0"><span class="nav-number">2.4.</span> <span class="nav-text">provide &amp; reject(2.2.0+)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项-其他（属性）"><span class="nav-number">3.</span> <span class="nav-text">选项/其他（属性）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#name"><span class="nav-number">3.1.</span> <span class="nav-text">name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delimiters"><span class="nav-number">3.2.</span> <span class="nav-text">delimiters</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#functional"><span class="nav-number">3.3.</span> <span class="nav-text">functional</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#model（2-2-0-）"><span class="nav-number">3.4.</span> <span class="nav-text">model（2.2.0+）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例属性"><span class="nav-number">4.</span> <span class="nav-text">实例属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-slots"><span class="nav-number">4.1.</span> <span class="nav-text">vm.$slots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-scopedSlots"><span class="nav-number">4.2.</span> <span class="nav-text">vm.$scopedSlots</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-refs"><span class="nav-number">4.3.</span> <span class="nav-text">vm.$refs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-listeners"><span class="nav-number">4.4.</span> <span class="nav-text">vm.$listeners</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例方法-数据"><span class="nav-number">5.</span> <span class="nav-text">实例方法/数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-watch-expOrFn-callback-options"><span class="nav-number">5.1.</span> <span class="nav-text">vm.$watch(expOrFn, callback, [options])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-set-target-propertyName-index-val"><span class="nav-number">5.2.</span> <span class="nav-text">vm.$set(target, propertyName/index, val)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例方法-事件"><span class="nav-number">6.</span> <span class="nav-text">实例方法/事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-on-event-callback"><span class="nav-number">6.1.</span> <span class="nav-text">vm.$on(event, callback)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-once-event-callback"><span class="nav-number">6.2.</span> <span class="nav-text">vm.$once(event, callback)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-off-event-callback"><span class="nav-number">6.3.</span> <span class="nav-text">vm.$off([event, callback])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm-emit-eventName-…args"><span class="nav-number">6.4.</span> <span class="nav-text">vm.$emit(eventName, […args])</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
