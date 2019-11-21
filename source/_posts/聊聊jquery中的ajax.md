@@ -1,7 +1,7 @@
 ---
 title: 聊聊jquery中的ajax
 date: 2019-03-24 21:00:09
-categories: JavaScript——原理篇
+categories: JavaScript —— 原理篇
 tags:
  - jquery
  - ajax
