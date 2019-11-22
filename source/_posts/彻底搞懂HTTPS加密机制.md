@@ -214,6 +214,10 @@ $$
 
 ​		客户端从服务器拿到证书后，根据证书上的CA签发机构，从内置的根证书里找到对应的CA机构公钥，用此公钥解开数字签名，得到摘要，根据此验证证书的合法性。
 
+​		结合另一张图进行证书机制的理解
+
+![verify certificate](https://pic.superbed.cn/item/5dd7f9e28e0e2e3ee9cba61d.jpg)
+
 ### 杂记
 
 #### 证书
@@ -249,6 +253,14 @@ $$
 
 ![HTTPS握手过程](https://ae01.alicdn.com/kf/H2a58dd6441214cd1b95e682dcd02ec7f1.jpg)
 
+我们举个粗俗的例子，黄海波老师嫖娼。在此例子中黄老师扮演的是 Server，而在宾馆里给黄老师打电话的暗娼则是 Client。
+
+- 1 ~ 2 部分就像是 小姐 对 客户 的要求 —— a（不能有过分的玩法）、b（不能有身体疾病）
+- 2 ~ 3 部分则是黄老师给的回应 —— a（HHB 身体健康，无怪癖）、b（我的身份证，证明我就是 HHB）
+- 而 `客户端 - 服务端 - 客户端 - 服务端` 这三条线路所连接的过程就是我们的 TSL 握手过程，三次握手结束过后即可建立起**双向非对称通信**，也是我们所需要的**可靠通路**
+- 随后 浏览器、服务器双方通过这三个伪随机数（计算机生成的随机数本质上都是伪随机数）生成一个**真随机数**，并以相同的算法共同计算得出**对称加密**的**密钥**。
+- 至此，对称密钥传输完成，**切换至对称加密，TSL 所建立的双向非对称通信通路彻底废弃**。
+
 ## 总结
 
 可以看下这张图，梳理一下整个流程（SSL、TSL握手有一些区别，不同版本间也有区别，不过大致过程就是这样）：
@@ -256,6 +268,8 @@ $$
 ![SSL/TSL握手过程](https://ae01.alicdn.com/kf/HTB1oYhfbbj1gK0jSZFuq6ArHpXae.jpg)
 
 （出处：[http://www.extremetech.com](https://link.zhihu.com/?target=http%3A//www.extremetech.com)）
+
+
 
 ## 参考文章
 
@@ -266,3 +280,6 @@ $$
 - [《费马小定理》](https://zh.wikipedia.org/wiki/费马小定理) 
 - [crypto.stackexchange.com/a/12780](https://link.zhihu.com/?target=https%3A//link.juejin.im/%3Ftarget%3Dhttps%3A%2F%2Fcrypto.stackexchange.com%2Fa%2F12780)
 
+由衷感谢参考文章列表中的各位大佬，并对黄海波老师献上最真挚的道歉和祝福。
+
+![告辞](https://pic2.superbed.cn/item/5c93bb733a213b0417da32d1.jpg)
