@@ -279,6 +279,7 @@ $$
 - [《模逆元》](https://zh.wikipedia.org/wiki/模反元素) 
 - [《费马小定理》](https://zh.wikipedia.org/wiki/费马小定理) 
 - [crypto.stackexchange.com/a/12780](https://link.zhihu.com/?target=https%3A//link.juejin.im/%3Ftarget%3Dhttps%3A%2F%2Fcrypto.stackexchange.com%2Fa%2F12780)
+- [《数字证书与数字签名》]( https://pathbox.github.io/2019/01/09/digit-certificate-digit-sign-https/ )
 
 由衷感谢参考文章列表中的各位大佬，并对黄海波老师献上最真挚的道歉和祝福。
 
