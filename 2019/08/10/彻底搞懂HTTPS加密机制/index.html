@@ -112,9 +112,11 @@
 <meta property="og:image" content="https://pic1.superbed.cn/item/5dd73d498e0e2e3ee9a7c99f.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1wQ._aVP7gK0jSZFjq6A5aXXau.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/Hedc58e31467b4e23af1e6611c0c511e6T.jpg">
+<meta property="og:image" content="https://pic.superbed.cn/item/5dd7f9e28e0e2e3ee9cba61d.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H2a58dd6441214cd1b95e682dcd02ec7f1.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/HTB1oYhfbbj1gK0jSZFuq6ArHpXae.jpg">
-<meta property="og:updated_time" content="2019-11-22T14:39:17.578Z">
+<meta property="og:image" content="https://pic2.superbed.cn/item/5c93bb733a213b0417da32d1.jpg">
+<meta property="og:updated_time" content="2019-11-22T15:09:01.539Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="彻底搞懂HTTPS加密机制">
 <meta name="twitter:description" content="​        HTTPS 可以保证我们的数据在传输过程中不被监听到，而按照之前的理解我们只是客户端通过公钥对数据进行了加密，随后由服务端通过私钥解密数据。但是这有一个很大的漏洞：服务端向客户端发送的数据如何防止被监听到？">
@@ -394,7 +396,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-11-22 22:39:17" itemprop="dateModified" datetime="2019-11-22T22:39:17+08:00">2019-11-22</time>
+                <time title="Geändert am: 2019-11-22 23:09:01" itemprop="dateModified" datetime="2019-11-22T23:09:01+08:00">2019-11-22</time>
               
             
           </span>
@@ -553,6 +555,8 @@
 <p><img src="https://ae01.alicdn.com/kf/Hedc58e31467b4e23af1e6611c0c511e6T.jpg" alt="客户端验证数字证书"></p>
 <p>首先，服务器端需要先向CA机构申请证书，申请证书的时候，服务器向CA机构提供服务器的公钥，CA机构用自己的CA私钥对服务器的公钥进行签名，生成数字摘要，然后将服务器公钥和数字签名打进证书。</p>
 <p>​        客户端从服务器拿到证书后，根据证书上的CA签发机构，从内置的根证书里找到对应的CA机构公钥，用此公钥解开数字签名，得到摘要，根据此验证证书的合法性。</p>
+<p>​        结合另一张图进行证书机制的理解</p>
+<p><img src="https://pic.superbed.cn/item/5dd7f9e28e0e2e3ee9cba61d.jpg" alt="verify certificate"></p>
 <h3 id="杂记"><a href="#杂记" class="headerlink" title="杂记"></a>杂记</h3><h4 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h4><p>​        证书内部包含了发布者的<strong>公钥（Public Key）</strong>、<strong>数字签名（tbsCertificate）</strong>、以及<strong>相应网站的信息</strong>。</p>
 <p>​        如此一来假设中间人篡改了证书原文，由于我们无 <strong>CA私钥</strong> 故<strong>无法得到加密后签名</strong>，无法通过浏览器验证，故无法操作。另一方面，由于证书中包含了网站的基本信息，所以浏览器只需将证书信息中域名与自己请求的域名进行对比即可知<strong>证书是否被整个掉包</strong>，故这方面也没有操作空间。</p>
 <h4 id="根证书"><a href="#根证书" class="headerlink" title="根证书"></a>根证书</h4><p>​        操作系统、浏览器本身会预装一些它们信任的根证书，如果其中有该CA机构的根证书，那就可以拿到它对应的可信公钥了。</p>
@@ -563,6 +567,14 @@
 <p>​        最显然的是性能问题，前面我们已经说了非对称加密效率较差，证书信息一般较长，比较耗时。而 <strong>hash 后得到的是固定长度的信息（比如用md5算法hash后可以得到固定的128位的值），这样加密解密就会快很多</strong>。<br>当然还有安全上的原因，这部分内容相对深一些，感兴趣的可以看这篇解答：<a href="https://link.zhihu.com/?target=https%3A//link.juejin.im/%3Ftarget%3Dhttps%3A%2F%2Fcrypto.stackexchange.com%2Fa%2F12780" target="_blank" rel="noopener">crypto.stackexchange.com/a/12780</a></p>
 <h3 id="归纳"><a href="#归纳" class="headerlink" title="归纳"></a>归纳</h3><p>最后我们用开始的那张图来对 HTTPS 握手过程进行总结</p>
 <p><img src="https://ae01.alicdn.com/kf/H2a58dd6441214cd1b95e682dcd02ec7f1.jpg" alt="HTTPS握手过程"></p>
+<p>我们举个粗俗的例子，黄海波老师嫖娼。在此例子中黄老师扮演的是 Server，而在宾馆里给黄老师打电话的暗娼则是 Client。</p>
+<ul>
+<li>1 ~ 2 部分就像是 小姐 对 客户 的要求 —— a（不能有过分的玩法）、b（不能有身体疾病）</li>
+<li>2 ~ 3 部分则是黄老师给的回应 —— a（HHB 身体健康，无怪癖）、b（我的身份证，证明我就是 HHB）</li>
+<li>而 <code>客户端 - 服务端 - 客户端 - 服务端</code> 这三条线路所连接的过程就是我们的 TSL 握手过程，三次握手结束过后即可建立起<strong>双向非对称通信</strong>，也是我们所需要的<strong>可靠通路</strong></li>
+<li>随后 浏览器、服务器双方通过这三个伪随机数（计算机生成的随机数本质上都是伪随机数）生成一个<strong>真随机数</strong>，并以相同的算法共同计算得出<strong>对称加密</strong>的<strong>密钥</strong>。</li>
+<li>至此，对称密钥传输完成，<strong>切换至对称加密，TSL 所建立的双向非对称通信通路彻底废弃</strong>。</li>
+</ul>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>可以看下这张图，梳理一下整个流程（SSL、TSL握手有一些区别，不同版本间也有区别，不过大致过程就是这样）：</p>
 <p><img src="https://ae01.alicdn.com/kf/HTB1oYhfbbj1gK0jSZFuq6ArHpXae.jpg" alt="SSL/TSL握手过程"></p>
 <p>（出处：<a href="https://link.zhihu.com/?target=http%3A//www.extremetech.com" target="_blank" rel="noopener">http://www.extremetech.com</a>）</p>
@@ -574,6 +586,8 @@
 <li><a href="https://zh.wikipedia.org/wiki/费马小定理" target="_blank" rel="noopener">《费马小定理》</a> </li>
 <li><a href="https://link.zhihu.com/?target=https%3A//link.juejin.im/%3Ftarget%3Dhttps%3A%2F%2Fcrypto.stackexchange.com%2Fa%2F12780" target="_blank" rel="noopener">crypto.stackexchange.com/a/12780</a></li>
 </ul>
+<p>由衷感谢参考文章列表中的各位大佬，并对黄海波老师献上最真挚的道歉和祝福。</p>
+<p><img src="https://pic2.superbed.cn/item/5c93bb733a213b0417da32d1.jpg" alt="告辞"></p>
 
       
     </div>
