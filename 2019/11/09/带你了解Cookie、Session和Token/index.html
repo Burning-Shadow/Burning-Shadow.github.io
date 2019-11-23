@@ -108,7 +108,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H6f6b1ec3b0384e9d990640b9b6b77c7fw.png">
 <meta property="og:image" content="https://pic.superbed.cn/item/5dc7e64a8e0e2e3ee9ff54fe.png">
-<meta property="og:updated_time" content="2019-11-16T12:46:36.282Z">
+<meta property="og:updated_time" content="2019-11-23T09:40:59.643Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="带你了解Cookie、Session和Token">
 <meta name="twitter:description" content="​        啥是 cookie？啥又是 session？token 又是咋用？这些问题在蛮久之前困扰了我好久。依照后台的讲解来说我理解的 session 和 cookie 没什么两样，而 token 的话好像还是，依然是默认携带的东西交给后台做处理。但是！作为一个前端仍然有必要了解其后的机制！">
@@ -388,7 +388,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-11-16 20:46:36" itemprop="dateModified" datetime="2019-11-16T20:46:36+08:00">2019-11-16</time>
+                <time title="Geändert am: 2019-11-23 17:40:59" itemprop="dateModified" datetime="2019-11-23T17:40:59+08:00">2019-11-23</time>
               
             
           </span>
@@ -462,9 +462,26 @@
 <p>​        不对，我们解决的是如<strong>何判断用户身份</strong>问题，而要做的就是<strong>后台可以生成一个唯一身份标识</strong>并且<strong>验证</strong>。完全可以<strong>绕开存储的问题</strong>！</p>
 <p>​        既然可以绕开那么我们怎么进行呢？关键点就是<strong>验证</strong></p>
 <p>​        既然后台不进行保存只有前端进行存储，那么自然，作为一个搞软件的都知道，<strong>空间可以换时间</strong>，那么反过来，<strong>时间亦可以换空间</strong>。至此，我们的主角 <code>Token</code> 正式出场</p>
-<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><p>​        接收咱们还是老规矩，你请求的时候从 <code>header</code> 里带来就行了呗。而验证的话，既然咱们<strong>用时间换空间</strong>，那自然是不会再在后台服务器进行存储的。我们需要提供额外的一套规则，增加服务器的运算量来节约其存储空间。</p>
-<p>​        学过 <a href="[https://burning-shadow.github.io/2019/07/22/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82HTTPS%E5%8A%A0%E5%AF%86%E6%9C%BA%E5%88%B6/](https://burning-shadow.github.io/2019/07/22/彻底搞懂HTTPS加密机制/">HTTPS</a> ) 的 boys 应该知道数字签名这东西（没学过的去看一下去！），那么我们也可以！后台制定一套加密规则，将 sessionid 通过密钥加密后生成一个<strong>签名</strong>，附带着明文的 sessionid 发送给浏览器，而浏览器则继续以 <code>cookie</code> 的形式进行存储。而浏览器向服务器发送请求时则会在 HTTP 中的 <code>Header</code> 中附带 <code>cookie</code>，而浏览器拿到之后则使用其发送而来的 <code>sessionid</code> 进行密钥加密，完成后和一同发送而来签名对比，相同则身份一致，否则身份错误，将其登陆状态下掉，这就是我们的 <code>Token</code>~</p>
+<h4 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h4><p>​        基于时间换空间的理念，我们此时不在 <code>Server</code> 端进行数据的存储，而只是占用资源进行验证。</p>
+<p>​        在用户登录之后我们会由 <code>Server</code> 进行验证，通过则将该用户改为登录态。随后为其生成 <code>Token</code> 。<code>Token</code> 的生成事实上需要以下内容：</p>
+<ul>
+<li><code>userid</code></li>
+<li>时间戳</li>
+<li>过期时间</li>
+</ul>
+<p><code>Server</code> 端会用 <strong>特定的密钥</strong> 对 <code>userid</code> 和 时间戳以及过期时间进行加密，并将结果进行一次 <code>hash</code> 处理，以保证其位数（长度）统一。这就是我们 <code>Token</code> 的 “数字签名”。</p>
+<p>而真正的 <code>Token</code> 则是我们上述生成的 “数字签名” 加上 “原料” —— <code>userid</code> &amp; 时间戳。</p>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><p>​        学过 <a href="https://burning-shadow.github.io/2019/07/22/彻底搞懂HTTPS加密机制/" target="_blank" rel="noopener">HTTPS</a> 的 boys 应该知道数字签名这东西（没学过的去看一下去！），那么我们也可以！后台制定一套加密规则，将 <code>sessionid</code> 通过密钥加密后生成一个<strong>签名</strong>，附带着明文的 <code>sessionid</code> 发送给浏览器，而浏览器则继续以 <code>cookie</code> 的形式进行存储。而浏览器向服务器发送请求时则会在 HTTP 中的 <code>Header</code> 中附带 <code>cookie</code>，而浏览器拿到之后则使用其发送而来的 <code>sessionid</code> 进行密钥加密，完成后和一同发送而来签名对比，相同则身份一致，否则身份错误，将其登陆状态下掉，这就是我们的 <code>Token</code>~</p>
 <p><img src="https://pic.superbed.cn/item/5dc7e64a8e0e2e3ee9ff54fe.png" alt="token在服务端的验证过程"></p>
+<h4 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h4><ul>
+<li>从根本上防止 <a href="https://www.cnblogs.com/shanyou/p/5038794.html" target="_blank" rel="noopener">CSRF</a> 攻击</li>
+<li>不必担心状态（登陆状态）数据迁移</li>
+</ul>
+<h4 id="无状态Token带来的问题"><a href="#无状态Token带来的问题" class="headerlink" title="无状态Token带来的问题"></a>无状态Token带来的问题</h4><p>​        虽然我们无需对已登录状态的 <code>user</code> 进行存储，但是由于统一由 <code>Server</code> 端验证，所以我们需要手动存储 <strong><code>Token</code> 未过期却主动注销</strong> 的账号。为了让 <code>Server</code> 端不进行存储我们可以约定一旦注销则自动删除本地存储中的 <code>Token</code> 。如此一来则发向服务端的请求只有<strong>验证登录态</strong>和<strong>更改为登录态</strong>两种情况，完美解决。</p>
+<h3 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h3><p>​        后期在掘金上看博客时看到了 <a href="https://juejin.im/user/57e8e6998ac247005bda090e" target="_blank" rel="noopener">边城</a> 的博客，其中有对于 <code>Token</code> 登录态设置过期时间的讨论。 觉得受益匪浅，故搬运至此。</p>
+<p>​        正常我们 <code>Server</code> 端进行设置其实本身无可厚非，无论时间长短都无所谓，但是有个问题。不论过期时间设置长短都有可能存在这种问题：<strong>用户操作过程中登录态过期</strong></p>
+<p>​        而此时大部分人采用的是当年 <code>Session</code> 的办法：<code>Server</code> 端预存 <code>Token</code> 状态，用户每次操作都会自动更新（推迟）<code>Token</code> 过期时间。但是同时也衍生出另外的问题：SPA 的出现使得请求的发送频率变高了很多，如此一来后端的运算量激增，代价过大。<strong>所以为了提高效率通常会将 Token 的过期时间存储在缓存或内存中</strong>。</p>
+<p>​        而另一种方案是 <code>Refresh Token</code>。这种方案中，服务端不需要刷新 <code>Token</code> 的过期时间，<strong>一旦 <code>Token</code> 过期，就反馈给前端，前端使用 <code>Refresh Token</code> 申请一个全新 <code>Token</code> 继续使用</strong>。这种方案中，服务端只需要在客户端请求更新 <code>Token</code> 的时候对 <code>Refresh Token</code> 的有效性进行一次检查，大大减少了更新有效期的操作，也就避免了频繁读写。当然 <code>Refresh Token</code> 也是有有效期的，但是这个有效期就可以长一点了，比如，以天为单位的时间。</p>
 
       
     </div>
@@ -1140,7 +1157,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie"><span class="nav-number">1.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session"><span class="nav-number">2.</span> <span class="nav-text">Session</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引子"><span class="nav-number">2.1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详情"><span class="nav-number">2.2.</span> <span class="nav-text">详情</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Token"><span class="nav-number">3.</span> <span class="nav-text">Token</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引子-1"><span class="nav-number">3.1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证"><span class="nav-number">3.2.</span> <span class="nav-text">验证</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie"><span class="nav-number">1.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session"><span class="nav-number">2.</span> <span class="nav-text">Session</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引子"><span class="nav-number">2.1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详情"><span class="nav-number">2.2.</span> <span class="nav-text">详情</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Token"><span class="nav-number">3.</span> <span class="nav-text">Token</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引子-1"><span class="nav-number">3.1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成"><span class="nav-number">3.2.</span> <span class="nav-text">生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证"><span class="nav-number">3.3.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#好处"><span class="nav-number">3.4.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无状态Token带来的问题"><span class="nav-number">3.5.</span> <span class="nav-text">无状态Token带来的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后续"><span class="nav-number">4.</span> <span class="nav-text">后续</span></a></li></ol></div>
             
 
           </div>
