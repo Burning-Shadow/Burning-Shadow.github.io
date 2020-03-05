@@ -190,7 +190,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
+    <button aria-label="Navigationsleiste an/ausschalten">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -218,7 +218,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Accueil</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
 
   </li>
         
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
 
   </li>
 
@@ -305,6 +305,367 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/Vue项目中关于axios跨域的设置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/24/Vue项目中关于axios跨域的设置/" class="post-title-link" itemprop="url">Vue项目中关于axios跨域的设置</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-24 21:00:15" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:15+08:00">2019-03-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-11-16 19:44:34" itemprop="dateModified" datetime="2019-11-16T19:44:34+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><code>config</code>文件夹中的<code>dev.env.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">proxyTable: &#123;</span><br><span class="line">    <span class="string">'/api'</span>: &#123;</span><br><span class="line">        target: <span class="string">'http://192.168.1.1:80'</span>, <span class="comment">// api代理服务器地址</span></span><br><span class="line">        changeOrigin: <span class="literal">true</span>, <span class="comment">// 允许跨域</span></span><br><span class="line">        secure: <span class="literal">false</span>,</span><br><span class="line">        pathRewrite: &#123;</span><br><span class="line">            <span class="string">'^/api'</span>: <span class="string">'/'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>target</code>是我们要将请求发送的靶向目标。此选项可以理解为我们的<code>node</code>后台为我们作了一次正向代理，以此避免了跨域。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/24/Vue项目中关于axios跨域的设置/#more" rel="contents">
+                Weiterlesen &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/鸭子模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/24/鸭子模型/" class="post-title-link" itemprop="url">鸭子模型？？？</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-03-24 21:00:14" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:14+08:00">2019-03-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-11-16 19:43:51" itemprop="dateModified" datetime="2019-11-16T19:43:51+08:00">2019-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Tips/" itemprop="url" rel="index"><span itemprop="name">Tips</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近在网上看到一个概念：“鸭子模型”，出于好奇搜一下然后就有了这篇水文，各位看一下图个乐呵就好了</p>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>如果它走起来像鸭子，而且叫起来像鸭子，那么它就是鸭子<br>也就是说，<strong>我们只关注对象行为而不关注对象本身</strong></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/24/鸭子模型/#more" rel="contents">
+                Weiterlesen &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -359,14 +720,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-03-24 21:00:13" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:13+08:00">2019-03-24</time>
+              <time title="Erstellt: 2019-03-24 21:00:13" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:13+08:00">2019-03-24</time>
             
 
             
@@ -381,9 +742,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Updated at: 2019-11-16 19:43:24" itemprop="dateModified" datetime="2019-11-16T19:43:24+08:00">2019-11-16</time>
+                <time title="Geändert am: 2019-11-16 19:43:24" itemprop="dateModified" datetime="2019-11-16T19:43:24+08:00">2019-11-16</time>
               
             
           </span>
@@ -397,7 +758,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -441,7 +802,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/24/forEach_for-in_for-of/#more" rel="contents">
-                Lire la suite &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -538,14 +899,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-03-24 21:00:12" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:12+08:00">2019-03-24</time>
+              <time title="Erstellt: 2019-03-24 21:00:12" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:12+08:00">2019-03-24</time>
             
 
             
@@ -560,9 +921,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Updated at: 2019-11-16 19:37:24" itemprop="dateModified" datetime="2019-11-16T19:37:24+08:00">2019-11-16</time>
+                <time title="Geändert am: 2019-11-16 19:37:24" itemprop="dateModified" datetime="2019-11-16T19:37:24+08:00">2019-11-16</time>
               
             
           </span>
@@ -576,7 +937,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -624,7 +985,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/24/我所了解的跨域/#more" rel="contents">
-                Lire la suite &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -721,14 +1082,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-03-24 21:00:11" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:11+08:00">2019-03-24</time>
+              <time title="Erstellt: 2019-03-24 21:00:11" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:11+08:00">2019-03-24</time>
             
 
             
@@ -743,9 +1104,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Updated at: 2019-11-16 17:48:34" itemprop="dateModified" datetime="2019-11-16T17:48:34+08:00">2019-11-16</time>
+                <time title="Geändert am: 2019-11-16 17:48:34" itemprop="dateModified" datetime="2019-11-16T17:48:34+08:00">2019-11-16</time>
               
             
           </span>
@@ -759,7 +1120,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -807,7 +1168,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/24/JavaScript中的call和apply/#more" rel="contents">
-                Lire la suite &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -904,14 +1265,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-03-24 21:00:10" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:10+08:00">2019-03-24</time>
+              <time title="Erstellt: 2019-03-24 21:00:10" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:10+08:00">2019-03-24</time>
             
 
             
@@ -926,9 +1287,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Updated at: 2019-11-16 17:48:48" itemprop="dateModified" datetime="2019-11-16T17:48:48+08:00">2019-11-16</time>
+                <time title="Geändert am: 2019-11-16 17:48:48" itemprop="dateModified" datetime="2019-11-16T17:48:48+08:00">2019-11-16</time>
               
             
           </span>
@@ -942,7 +1303,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -987,7 +1348,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/24/JavaScript中的this解析/#more" rel="contents">
-                Lire la suite &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1084,14 +1445,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-03-24 21:00:09" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:09+08:00">2019-03-24</time>
+              <time title="Erstellt: 2019-03-24 21:00:09" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:09+08:00">2019-03-24</time>
             
 
             
@@ -1106,9 +1467,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Updated at: 2019-11-21 20:02:05" itemprop="dateModified" datetime="2019-11-21T20:02:05+08:00">2019-11-21</time>
+                <time title="Geändert am: 2019-11-21 20:02:05" itemprop="dateModified" datetime="2019-11-21T20:02:05+08:00">2019-11-21</time>
               
             
           </span>
@@ -1122,7 +1483,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
@@ -1166,7 +1527,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/24/聊聊jquery中的ajax/#more" rel="contents">
-                Lire la suite &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1263,14 +1624,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-03-24 00:44:10" itemprop="dateCreated datePublished" datetime="2019-03-24T00:44:10+08:00">2019-03-24</time>
+              <time title="Erstellt: 2019-03-24 00:44:10" itemprop="dateCreated datePublished" datetime="2019-03-24T00:44:10+08:00">2019-03-24</time>
             
 
             
@@ -1285,9 +1646,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Updated at: 2019-11-16 19:51:39" itemprop="dateModified" datetime="2019-11-16T19:51:39+08:00">2019-11-16</time>
+                <time title="Geändert am: 2019-11-16 19:51:39" itemprop="dateModified" datetime="2019-11-16T19:51:39+08:00">2019-11-16</time>
               
             
           </span>
@@ -1301,7 +1662,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1356,7 +1717,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/24/闭包应用之——函数节流&函数防抖/#more" rel="contents">
-                Lire la suite &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1453,14 +1814,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-03-06 10:13:00" itemprop="dateCreated datePublished" datetime="2019-03-06T10:13:00+08:00">2019-03-06</time>
+              <time title="Erstellt: 2019-03-06 10:13:00" itemprop="dateCreated datePublished" datetime="2019-03-06T10:13:00+08:00">2019-03-06</time>
             
 
             
@@ -1475,9 +1836,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Updated at: 2019-11-16 20:40:52" itemprop="dateModified" datetime="2019-11-16T20:40:52+08:00">2019-11-16</time>
+                <time title="Geändert am: 2019-11-16 20:40:52" itemprop="dateModified" datetime="2019-11-16T20:40:52+08:00">2019-11-16</time>
               
             
           </span>
@@ -1491,7 +1852,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span>
@@ -1535,7 +1896,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/06/JavaScript中的map和reduce/#more" rel="contents">
-                Lire la suite &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1632,14 +1993,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Post created: 2019-03-06 10:13:00" itemprop="dateCreated datePublished" datetime="2019-03-06T10:13:00+08:00">2019-03-06</time>
+              <time title="Erstellt: 2019-03-06 10:13:00" itemprop="dateCreated datePublished" datetime="2019-03-06T10:13:00+08:00">2019-03-06</time>
             
 
             
@@ -1654,9 +2015,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Edited on</span>
+                  <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Updated at: 2019-11-16 20:41:57" itemprop="dateModified" datetime="2019-11-16T20:41:57+08:00">2019-11-16</time>
+                <time title="Geändert am: 2019-11-16 20:41:57" itemprop="dateModified" datetime="2019-11-16T20:41:57+08:00">2019-11-16</time>
               
             
           </span>
@@ -1670,7 +2031,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/JavaScript-——-原理篇/" itemprop="url" rel="index"><span itemprop="name">JavaScript —— 原理篇</span></a></span>
@@ -1724,7 +2085,7 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/03/06/浅谈instanceof和typeof原理/#more" rel="contents">
-                Lire la suite &raquo;
+                Weiterlesen &raquo;
               </a>
             </div>
           
@@ -1772,7 +2133,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="Page précédente"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="Vorherige Seite"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span>
   </nav>
 
 
@@ -1816,8 +2177,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">108</span>
-                    <span class="site-state-item-name">articles</span>
+                    <span class="site-state-item-count">110</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -1875,10 +2236,8 @@
                     
                       
                     
-                      
-                    
                     <span class="site-state-item-count">21</span>
-                    <span class="site-state-item-name">categories</span>
+                    <span class="site-state-item-name">Kategorien</span>
                   </a>
                 </div>
               
@@ -2304,8 +2663,12 @@
                     
                       
                     
-                    <span class="site-state-item-count">205</span>
-                    <span class="site-state-item-name">tags</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">207</span>
+                    <span class="site-state-item-name">schlagwörter</span>
                   </a>
                 </div>
               
@@ -2372,7 +2735,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -2384,7 +2747,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -2392,7 +2755,7 @@
 
 
 
-  <div class="theme-info">Thème – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
