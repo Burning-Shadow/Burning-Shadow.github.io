@@ -110,7 +110,7 @@
 <meta property="og:image" content="https://pic.downk.cc/item/5e607b5f98271cb2b869f94e.png">
 <meta property="og:image" content="https://pic.downk.cc/item/5e607cbb98271cb2b86acc80.png">
 <meta property="og:image" content="https://pic.downk.cc/item/5e60bd9898271cb2b8990d18.png">
-<meta property="og:updated_time" content="2020-03-05T11:54:37.189Z">
+<meta property="og:updated_time" content="2020-03-05T12:01:19.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React生命周期之——父子组件触发顺序">
 <meta name="twitter:description" content="​        React 生命周期一直是大家学习中最基础的知识点，但是涉及到父子组件层级嵌套时就需要特别注意。父组件的操作也可能会影响到子组件从而触发子组件的重渲染，所以为了尽量避免多余的 re-render 我们今天就来详细的探讨一下会触发子组件重渲染的机制。">
@@ -390,7 +390,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2020-03-05 19:54:37" itemprop="dateModified" datetime="2020-03-05T19:54:37+08:00">2020-03-05</time>
+                <time title="Geändert am: 2020-03-05 20:01:19" itemprop="dateModified" datetime="2020-03-05T20:01:19+08:00">2020-03-05</time>
               
             
           </span>
@@ -496,6 +496,7 @@
 <p>如此执行结果就如上图，完美解决重渲染问题咯~</p>
 <h3 id="其他导致的重渲染"><a href="#其他导致的重渲染" class="headerlink" title="其他导致的重渲染"></a>其他导致的重渲染</h3><p>​        上述方法虽然有用，但是由于数据类型我们将其限定为了字符串所以仍然有所局限。简而言之，JS 中基本类型的数据存放于栈内存中，可以直接进行比较，而引用类型则类似于 C 中的 “指针”，只保存引用，比较时即使两个对象的类型完全一样亦会导致 “===” 失效，因为<strong>二者比较的判断方式是识别双方引用的是否为同一块内存地址</strong>。</p>
 <p>​        判断机制说完了，那么接下来说问题：如果将上述的 <code>isChanged</code> 转换为引用类型的数据，那么其变更时仍会触发子组件的 <code>re-render</code> 机制！所以在判断时更要求各位在相应的方面做到细致咯~。建议去了解一下<strong>深拷贝</strong>以及 <code>immutable.js</code>。当然，如果你足够懒那么也可以使用 <code>PureComponent</code>。当然这就是另一个故事啦~</p>
+<p>​        最后附上<a href="https://github.com/Burning-Shadow/life_circle-test" target="_blank" rel="noopener">源码地址</a>。本人使用了 CRA 进行架构，所以下载后需要安装相应环境才可以跑得起来哦</p>
 
       
     </div>
