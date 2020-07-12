@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="对于多人协作项目 git 无疑是最重要的版本控制工具，而工作中一旦出现错误则可以通过版本回退来进行回滚，从而修复 BUG。">
+<meta name="keywords" content="版本回退,版本控制,git reset,git commit --amend,git rebase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git版本控制">
+<meta property="og:url" content="http://yoursite.com/2020/07/12/Git版本控制/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="对于多人协作项目 git 无疑是最重要的版本控制工具，而工作中一旦出现错误则可以通过版本回退来进行回滚，从而修复 BUG。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-07-12T08:54:01.729Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git版本控制">
+<meta name="twitter:description" content="对于多人协作项目 git 无疑是最重要的版本控制工具，而工作中一旦出现错误则可以通过版本回退来进行回滚，从而修复 BUG。">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/12/Git版本控制/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Git版本控制 | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/12/Git版本控制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git版本控制
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-12 16:52:03 / Modified: 16:54:01" itemprop="dateCreated datePublished" datetime="2020-07-12T16:52:03+08:00">2020-07-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>对于多人协作项目 git 无疑是最重要的版本控制工具，而工作中一旦出现错误则可以通过版本回退来进行回滚，从而修复 BUG。</p>
+<a id="more"></a>
+<h3 id="Repository-版本回退"><a href="#Repository-版本回退" class="headerlink" title="Repository 版本回退"></a>Repository 版本回退</h3><h4 id="版本号"><a href="#版本号" class="headerlink" title="版本号"></a>版本号</h4><blockquote>
+<p>版本号是一个经由 SHA1 算法计算而来的40位 hash 串，用以保证自身的唯一性</p>
+</blockquote>
+<p>版本号我们则可以通过 <code>git log</code> 在控制台中打印相应的版本信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit 1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master)</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:06:15 2018 +0800</span><br><span class="line">    append GPL</span><br><span class="line"></span><br><span class="line">commit e475afc93c209a690c39c13a46716e8fa000c366</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:03:36 2018 +0800</span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 20:59:18 2018 +0800</span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure>
+<p>而这种方式虽然包含的信息多但容易让人眼花，所以通过 <code>git log --pretty=oneline</code> 显然更令人舒服。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=oneline</span><br><span class="line">1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master) append GPL</span><br><span class="line">e475afc93c209a690c39c13a46716e8fa000c366 add distributed</span><br><span class="line">eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0 wrote a readme file</span><br></pre></td></tr></table></figure>
+<h4 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h4><p>Git 拥有一个“头指针” HEAD，其指向当前所在工作区域对应的版本，而版本回退简单来说就是将我们的 HEAD 头指针移向之前的版本，工作原理类似于删除磁盘中的文件（其删除机理为将对应文件设置为“可覆盖”状态，并不物理清空相应区域，如有新内容写入直接覆盖即可）</p>
+<h4 id="CtrlZ"><a href="#CtrlZ" class="headerlink" title="CtrlZ"></a>CtrlZ</h4><p>头指针指向的是当前版本，而上一个版本则是 <code>HEAD^</code>，上上个版本是 <code>HEAD^^</code>。当然也可以通过 <code>HEAD~frontVersion</code> 来表示。</p>
+<p>但此种方式无疑风险过高，所以最好还是复制相应版本号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^	// way 1</span><br><span class="line">git reset --hard e475afc93c209a690c39c13a46716e8fa000c366   // way 2</span><br><span class="line"></span><br><span class="line">HEAD is now at e475afc add distributed</span><br></pre></td></tr></table></figure>
+<p>而此时再 <code>git log</code> 则除去了删除的版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit e475afc93c209a690c39c13a46716e8fa000c366 (HEAD -&gt; master)</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:03:36 2018 +0800</span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 20:59:18 2018 +0800</span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure>
+<h4 id="CtrlY"><a href="#CtrlY" class="headerlink" title="CtrlY"></a>CtrlY</h4><p>如果又想回到 <strong>append GPL</strong> 版本呢？</p>
+<p>同样的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard 1094adb7b9b3807259d8cb349e7df1d4d6477073</span><br><span class="line"></span><br><span class="line">HEAD is now at 83b0afe append GPL</span><br></pre></td></tr></table></figure>
+<h4 id="git-reflog-补救"><a href="#git-reflog-补救" class="headerlink" title="git reflog 补救"></a>git reflog 补救</h4><p>如果手滑关掉了电脑忘记了版本号怎么办？<code>git reflog</code> 会记录你的每一次命令。我们 <code>reset</code> 的时候版本号只复制前几位也是没问题的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">e475afc HEAD@&#123;1&#125;: reset: moving to HEAD^</span><br><span class="line">1094adb (HEAD -&gt; master) HEAD@&#123;2&#125;: commit: append GPL</span><br><span class="line">e475afc HEAD@&#123;3&#125;: commit: add distributed</span><br><span class="line">eaadf4e HEAD@&#123;4&#125;: commit (initial): wrote a readme file</span><br></pre></td></tr></table></figure>
+<h4 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h4><p><code>git reset</code> 是一个非常好用的方法，当你完成 <code>reset</code> 操作后，那么被你撤回的操作又会被 Git 放在暂存区（Index），并且随时可撤回编辑，如此一来就不必担心版本回退后内容丢失的问题了。</p>
+<h3 id="WorkSpace回退修改"><a href="#WorkSpace回退修改" class="headerlink" title="WorkSpace回退修改"></a>WorkSpace回退修改</h3><p>如果代码仍处于 <code>Modified</code> 状态，那么我们除了通过上述方法进行版本回退之外还可以通过 <code>git checkout --&lt;file&gt;</code> 来撤销工作区相应文件的修改。</p>
+<p>而其回退的版本则是你<strong>最后修改版本之前</strong>的内容，也就是说可能的情况有两种：</p>
+<ul>
+<li><code>&lt;file&gt;</code> 自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</li>
+<li><code>&lt;file&gt;</code> 已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态</li>
+</ul>
+<blockquote>
+<p><code>git checkout --&lt;file&gt;</code> 的作用即是让文件回到最近一次 <code>git commit</code>或 <code>git add</code> 时的状态</p>
+</blockquote>
+<h3 id="Index-回退修改"><a href="#Index-回退修改" class="headerlink" title="Index 回退修改"></a>Index 回退修改</h3><p><code>git reset HEAD &lt;file&gt;</code> 可以将暂存区（Index）的修改撤掉（unstage），重新放回工作区（WorkSpace）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD readme.txt</span><br><span class="line">Unstaged changes after reset:</span><br><span class="line">M	readme.txt</span><br></pre></td></tr></table></figure>
+<h3 id="Remote前置钩子拦截"><a href="#Remote前置钩子拦截" class="headerlink" title="Remote前置钩子拦截"></a>Remote前置钩子拦截</h3><p>项目中远程仓库 Remote 往往会设置相应的钩子函数对 <code>push</code> 进行拦截，而其中 <code>commit</code> 则是比较重要的一环，保证 <code>commit</code> 备注信息的流程化和规范化可以让版本出现问题时可以更加高效的回滚和对问题进行追溯。</p>
+<p>当 <code>commit</code> 内容不符合规范时，就需要用户重新填写相关的 <code>commit</code> 备注，而后悔药就是 <code>git commit --amend</code></p>
+<p>而其效果自然也是很明显 —— 更改最后一次的 <code>commit</code> 备注</p>
+<p>（<code>i</code> 插入信息，修改完成后 Esc : wq。假设我们将备注由 <code>fix: 用户注册表失败,bug修复</code>  改为 <code>fix: 用户注册表失败,bug修复 --bug_id=80771171 修复注册故障</code>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">fix: 用户注册表失败,bug修复 --bug_id=80771171 修复注册故障</span><br><span class="line"># Please enter the commit message for your changes. Lines starting</span><br><span class="line"># with &apos;#&apos; will be ignored, and an empty message aborts the commit.</span><br><span class="line">#</span><br><span class="line"># Author:    qingyaochen &lt;qingyaochen@tencent.com&gt;</span><br><span class="line"># Date:      Thu Jul 9 22:08:15 2020 +0800</span><br><span class="line">#</span><br><span class="line"># On branch bugfix/fate_schedule</span><br><span class="line"># Changes to be committed:</span><br><span class="line">#       modified:   src/pages/resource/components/RegisterData.vue</span><br><span class="line">#</span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">~                                                                                                  </span><br><span class="line">&quot;~/code/TC-webfront/.git/COMMIT_EDITMSG&quot; 12L, 473C</span><br></pre></td></tr></table></figure>
+<p>此时我们再通过 <code>--graph</code> 展示一下变更图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">* 6a107b9f (HEAD -&gt; bugfix/fate_schedule) fix: 用户注册表失败,bug修复 --bug_id=80771171 修复注册故障</span><br><span class="line">* 05c4b028 hotfix: 管理翻页参数错误修复，系统管理部分页面优化 --bug=80765149</span><br><span class="line">* c41b5e9a fix 撤销和重做bug修复，校验画布是否存在重复边。--bug=80716183 撤回功能导致的连线改变未正</span><br><span class="line">确修改xml (merge request !629)</span><br><span class="line">*   8f858dfb Merge branch &apos;feature/workflow_fix&apos; into &apos;develop&apos; (merge request !627)</span><br><span class="line">|\  </span><br><span class="line">| *   e0a5e012 Merge branch &apos;develop&apos; of http://git.code.oa.com/dp/jupiter-webfront into feature/wo</span><br><span class="line">rkflow_fix</span><br><span class="line">| |\  </span><br><span class="line">| |/  </span><br><span class="line">|/|   </span><br><span class="line">* | 8be83f69 feat 周期化实例运行 --story_id=858436119 【TC周常优化】日常积累问题优化——7w1</span><br><span class="line">* | cfe04e62 fix: 数据模块功能优化 --story_id=859018101 新增我的收藏，我的保存位置迁移 (merge request !626)</span><br><span class="line">* | c19b360c feature/model_time (merge request !625)</span><br><span class="line">* |   8cf00538 Merge branch &apos;feature/workflow_fix&apos; into &apos;develop&apos; (merge request !623)</span><br><span class="line">|\ \  </span><br><span class="line">* \ \   449be090 fix: TC单元测试增加 --story_id=858832859 补充公共方法单元测试，增加storybook组件ui管理工具 (merge request !624)</span><br><span class="line">|\ \ \  </span><br><span class="line">| * | | e49dd58d fix: TC单元测试增加 --story_id=858832859 工具方法单元测试问题修复</span><br><span class="line">| * | | 1a2c2c8f fix: TC单元测试增加 --story_id=858832859 代码优化</span><br><span class="line">| * | | c37730a6 fix: TC单元测试增加 --story_id=858832859 删除未上线功能</span><br><span class="line">| * | | 38dd5d00 fix: TC单元测试增加 --story_id=858832859 补充公共方法单元测试，增加storybook组件ui管理工具</span><br><span class="line">* | | | 193db219 feat: 合并作业状映射 --story_id=858968467 作业状态映射</span><br><span class="line">|/ / /  </span><br><span class="line">| | * 18d7357f feat 调整上报代码。--story_id=859021431 TC-上报代码优化</span><br></pre></td></tr></table></figure>
+<p>如此一来我们的备注信息就会变化啦，再执行 <code>push</code> 操作就能完成 Remote 端前置钩子的检验啦~</p>
+<h3 id="Rebase-变基"><a href="#Rebase-变基" class="headerlink" title="Rebase 变基"></a>Rebase 变基</h3><p>廖雪峰老师的教程中 Rebase 主要用来对 graph 进行更改。使得杂乱的提交图更加有序。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/版本回退/" rel="tag"># 版本回退</a>
+          
+            <a href="/tags/版本控制/" rel="tag"># 版本控制</a>
+          
+            <a href="/tags/git-reset/" rel="tag"># git reset</a>
+          
+            <a href="/tags/git-commit-amend/" rel="tag"># git commit --amend</a>
+          
+            <a href="/tags/git-rebase/" rel="tag"># git rebase</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/09/VueRouter实现的前端权限控制/" rel="next" title="VueRouter实现的前端权限控制">
+                <i class="fa fa-chevron-left"></i> VueRouter实现的前端权限控制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">112</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">212</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Repository-版本回退"><span class="nav-number">1.</span> <span class="nav-text">Repository 版本回退</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#版本号"><span class="nav-number">1.1.</span> <span class="nav-text">版本号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HEAD"><span class="nav-number">1.2.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CtrlZ"><span class="nav-number">1.3.</span> <span class="nav-text">CtrlZ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CtrlY"><span class="nav-number">1.4.</span> <span class="nav-text">CtrlY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-reflog-补救"><span class="nav-number">1.5.</span> <span class="nav-text">git reflog 补救</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#备注"><span class="nav-number">1.6.</span> <span class="nav-text">备注</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WorkSpace回退修改"><span class="nav-number">2.</span> <span class="nav-text">WorkSpace回退修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Index-回退修改"><span class="nav-number">3.</span> <span class="nav-text">Index 回退修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Remote前置钩子拦截"><span class="nav-number">4.</span> <span class="nav-text">Remote前置钩子拦截</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rebase-变基"><span class="nav-number">5.</span> <span class="nav-text">Rebase 变基</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

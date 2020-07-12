@@ -99,7 +99,7 @@
 
 
   <meta name="description" content="我们在之前讲解async时提到了由Promise转变至async所经历的一系列过程。 由于Promise只能通过catch捕获错误，而在内部.then链中嵌套的一系列Promise调用所产生的err是无法被外层catch所捕获的，而其后添加catch则又破坏了代码的格式和一致性。 同时，Promise中的catch函数中的异常堆栈不够完整，依旧难以追寻真正发生错误的位置（因为内部调用大都是匿名函数">
-<meta name="keywords" content="Async,Await,Generator,Promise">
+<meta name="keywords" content="Promise,Async,Await,Generator">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Generator+Promise实现Async&amp;Await">
 <meta property="og:url" content="http://yoursite.com/2019/04/16/Generator+Promise实现Async&Await/index.html">
@@ -194,7 +194,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -222,7 +222,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -239,7 +239,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Schlagwörter</a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
 
   </li>
         
@@ -256,7 +256,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategorien</a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
 
   </li>
         
@@ -273,7 +273,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
 
   </li>
 
@@ -361,14 +361,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-04-16 00:29:00" itemprop="dateCreated datePublished" datetime="2019-04-16T00:29:00+08:00">2019-04-16</time>
+              <time title="Created: 2019-04-16 00:29:00" itemprop="dateCreated datePublished" datetime="2019-04-16T00:29:00+08:00">2019-04-16</time>
             
 
             
@@ -383,9 +383,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Geändert am: 2019-11-16 20:19:58" itemprop="dateModified" datetime="2019-11-16T20:19:58+08:00">2019-11-16</time>
+                <time title="Modified: 2019-11-16 20:19:58" itemprop="dateModified" datetime="2019-11-16T20:19:58+08:00">2019-11-16</time>
               
             
           </span>
@@ -399,7 +399,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
@@ -489,13 +489,13 @@
       
         <div class="post-tags">
           
+            <a href="/tags/Promise/" rel="tag"># Promise</a>
+          
             <a href="/tags/Async/" rel="tag"># Async</a>
           
             <a href="/tags/Await/" rel="tag"># Await</a>
           
             <a href="/tags/Generator/" rel="tag"># Generator</a>
-          
-            <a href="/tags/Promise/" rel="tag"># Promise</a>
           
         </div>
       
@@ -566,10 +566,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -591,8 +591,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">110</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-count">112</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -651,7 +651,7 @@
                       
                     
                     <span class="site-state-item-count">21</span>
-                    <span class="site-state-item-name">Kategorien</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -1081,8 +1081,18 @@
                     
                       
                     
-                    <span class="site-state-item-count">207</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">212</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -1178,7 +1188,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -1186,7 +1196,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
 
 
 
