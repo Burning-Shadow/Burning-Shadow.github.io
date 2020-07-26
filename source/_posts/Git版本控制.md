@@ -1,12 +1,10 @@
 ---
 title: Git版本控制
-date: 2020-07-12 16:52:03
+categories: Git
 tags:
- - 版本回退
+ - git
  - 版本控制
- - git reset
- - git commit --amend
- - git rebase
+ - 版本回退
 ---
 
 对于多人协作项目 git 无疑是最重要的版本控制工具，而工作中一旦出现错误则可以通过版本回退来进行回滚，从而修复 BUG。
@@ -203,6 +201,67 @@ rkflow_fix
 
 如此一来我们的备注信息就会变化啦，再执行 `push` 操作就能完成 Remote 端前置钩子的检验啦~
 
-### Rebase 变基
+### Rebase 
 
-廖雪峰老师的教程中 Rebase 主要用来对 graph 进行更改。使得杂乱的提交图更加有序。
+廖雪峰老师的教程中 Rebase 主要用来对 graph 进行更改。使得杂乱的提交图更加有序。举一个尤雨溪大大的 vue 项目提交记录图，可以看到其提交基线很是工整
+
+
+
+
+
+
+
+
+
+而变基的原理则是对本地的内容顺序进行更改。
+
+> 我们可以将整个分支体系想象成一条单向链表，将次分支提交的变更提取，存为临时文件，然后将变更依附于当前 `master` 分支的新 `commit`，使用 `git base <branch-name>`，使用次分支的 `.next` 指向最新的 `master` 分支。最后再将 `master` 分支与次分支 `merge` ，以此来达到基线不打结的目的。
+
+#### Tips
+
+> 除此之外，`pull` 后若代码有冲突，先不要着急解决冲突，因为修改后执行 `rebase` 操作还是会变成冲突前的代码。
+> 先 `git add .` 和 `git commit -m "xxxx"` 。随后执行 `git rebase` 时终端会显示
+>
+> ```shell
+> Resolve all conflicts manually, mark them as resolved with "git add/rm <conflicted_files>", then run "git rebase --continue
+> ```
+>
+> 此时再手动修改代码解决冲突，执行 `git add .` 再执行 `git rebase --continue` 就有效果了。完成后直接 `push` 即可。
+>
+> **因为 `pull` 下来的冲突和 `rebase` 后的冲突是不一样的，前者是远程库版本对比所导致的冲突，而后者则是变基后和版本对比所导致的冲突**
+
+而我们一旦出现错误，诸如希望更改未提交的 `commit` 却手抖将远程代码 `pull` 了下来，此时就需要我们的 `rebase` 操作啦
+
+#### 通过 rebase 合并多条请求
+
+通过 `git rebase -i <commit-code>` 进入交互模式（`interactive`） ，而 `commit-code` 则是你希望修改的 `commit` 之前的 `commit`
+
+完成后会进入编辑页面，显示着如下几行文本（#开头的是注释，此处则是代表具体情况下的格式，可忽略）
+
+```shell
+pick deadbee The oneline of this commit
+pick fa1afe1 The oneline of the next commit
+# pick 4fcc9143 add: add some new tips
+...
+```
+
+其中每一行代表一个 `commit` ，而 `pick` 则表示要对该 `commit` 做的操作。而我们接下来要做的就是对每行前面所代表的命令的词汇进行修改。共有 5 种操作： edit、reword、drop、squash、fixup
+
+##### edit
+
+`edit` 命令表示你告诉了 `rebase`，当在应用这个 `commit` 的时候，停下来，等待你修改了文件 和/或 修改了`commit messag` 之后在继续进行 `rebase`。简而言之就是既可修改 `commit message` 又可修改相应 `commit` 的文件内容
+
+##### reword
+
+`reword` 命令可以让你修改 `commit message`。当你使用这个命令后，保存这个文件并退出，执行 `git rebase continue` 命令之后会再次打开一个文件，让你对这个 `commit` 的 `commit message` 进行修改，再次保存退出之后继续进行 `rebase`
+
+##### drop
+
+`drop` 命令表示你要丢弃这个 `commit` 以及它的修改。同样可以删除这一行来表示。
+
+##### squash & fixup
+
+这两个命令都是用来将几个 `commit` 合并为一个的。其中，`fixup` 命令 `rebase` 的时候将会直接忽略掉它的 `commit message`，而 `squash` 命令，则会在 `git rebase --continue` 之后打开一个文件，该文件中将会出现所有设置为 `squash` 的 `commit`，这时删除掉多余的 `commit message`，留下（或者修改）一行作为合并之后的 `commit` 的 `commit message`。
+
+
+
