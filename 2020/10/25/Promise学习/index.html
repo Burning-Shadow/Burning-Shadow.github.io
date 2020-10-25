@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/siir.jpg?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="初学 Promise 时就让我很好奇一点，Promise 是如何将异步转化为同步语法进行执行的？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Promise记录">
+<meta property="og:url" content="http://yoursite.com/2020/10/25/Promise学习/index.html">
+<meta property="og:site_name" content="Siir">
+<meta property="og:description" content="初学 Promise 时就让我很好奇一点，Promise 是如何将异步转化为同步语法进行执行的？">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-10-25T13:51:06.472Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Promise记录">
+<meta name="twitter:description" content="初学 Promise 时就让我很好奇一点，Promise 是如何将异步转化为同步语法进行执行的？">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/10/25/Promise学习/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Promise记录 | Siir</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siir</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Beranda</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Kategori</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Arsip</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/25/Promise学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siir">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siir">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Promise记录
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Diposting di</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2020-10-25 21:51:06" itemprop="dateCreated datePublished" datetime="2020-10-25T21:51:06+08:00">2020-10-25</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Di</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ES6/" itemprop="url" rel="index"><span itemprop="name">ES6</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>初学 Promise 时就让我很好奇一点，Promise 是如何将异步转化为同步语法进行执行的？</p>
+<a id="more"></a>
+<h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><p>Vue 的设计指导模式就是发布-订阅模式，而发布订阅算是观察者模式的衍生产物。</p>
+<blockquote>
+<p>观察者模式：发布者和观察者共同维护一个列表，当列表内容发生变化时会以广播的形式通知给每一个<strong>观察者</strong></p>
+<p>发布订阅模式：发布者维护多个列表，而订阅者可以根据自身需要进行特定属性的订阅</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 观察者模式</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.list = [];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  subscribe(observer) &#123;</span><br><span class="line">    <span class="keyword">this</span>.list.push(observer)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  notifyAll(value) &#123;</span><br><span class="line">    <span class="keyword">this</span>.list.forEach(<span class="function"><span class="params">observe</span> =&gt;</span> observe(value))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 观察者</span></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> Observer();</span><br><span class="line">observer.subscribe(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"第一个观察者，接收到的值为:"</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(value)</span><br><span class="line">&#125;);</span><br><span class="line">observer.subscribe(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"第二个观察者，接收到的值为"</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(value)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  observer.notifyAll(<span class="string">'hello world'</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<p>上述的发布订阅就是顺嘴一提，主角还是观察者模式。</p>
+<p>在大家学习的时候不知有没有好奇，Promise 是如何得知异步事件执行完毕的呢？</p>
+<p>先想想你平时的使用方式，以 ajax 为例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> $ajax =  <span class="function"><span class="params">param</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resovle, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">    xhr.open(param.type || <span class="string">"get"</span>, param.url, <span class="literal">true</span>);</span><br><span class="line">    xhr.send(param.data || <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">    xhr.onreadystatechange = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">     <span class="keyword">var</span> DONE = <span class="number">4</span>; <span class="comment">// readyState 4 代表已向服务器发送请求</span></span><br><span class="line">     <span class="keyword">var</span> OK = <span class="number">200</span>; <span class="comment">// status 200 代表服务器返回成功</span></span><br><span class="line">     <span class="keyword">if</span>(xhr.readyState === DONE)&#123;</span><br><span class="line">      <span class="keyword">if</span>(xhr.status === OK)&#123;</span><br><span class="line">        resovle(<span class="built_in">JSON</span>.parse(xhr.responseText));</span><br><span class="line">      &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        reject(<span class="built_in">JSON</span>.parse(xhr.responseText));</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ajax(url).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res);</span><br><span class="line">  <span class="comment">// Do something .... </span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res);</span><br><span class="line">  <span class="comment">// Do something ....</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>其中 then 就是观察者，一旦状态改变则将控制权交由其订阅者。如此一来我们就有了如下对应关系：</p>
+<ul>
+<li>resolve / reject —— notifyAll</li>
+<li>subscribe —— then</li>
+</ul>
+<h3 id="改版为Promise"><a href="#改版为Promise" class="headerlink" title="改版为Promise"></a>改版为Promise</h3><p>有了上述设计模式的支持我们可以尝试手写简易版本，目前我们已知的几个属性如下：</p>
+<blockquote>
+<ul>
+<li>一旦创建会立即执行</li>
+<li>一旦开始则无法停止且只执行一次</li>
+<li>接收一个成功后的 function</li>
+<li>状态改变后无法回退</li>
+<li>then 对应我们的观察者 subscribe</li>
+<li>resolve / reject 对应我们的发布者 notifyAll</li>
+</ul>
+</blockquote>
+<p>然后魔改一下上面的观察者模式代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> STATUS = &#123;</span><br><span class="line">  PENDING: <span class="string">'pending'</span>,</span><br><span class="line">  RESOLVED: <span class="string">'resolved'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPromise</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(executor) &#123;</span><br><span class="line">    <span class="keyword">this</span>.list = [];</span><br><span class="line">    <span class="keyword">this</span>.status = STATUS.PENDING;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      executor(<span class="keyword">this</span>.resolve);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="built_in">Error</span>(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 原 subscribe</span></span><br><span class="line">  resolve = <span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status === STATUS.PENDING) &#123;</span><br><span class="line">      <span class="keyword">this</span>.list.forEach(<span class="function"><span class="params">fn</span> =&gt;</span> fn(val));</span><br><span class="line">      <span class="keyword">this</span>.status = STATUS.RESOLVED;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 原 notify</span></span><br><span class="line">  then(observer) &#123;</span><br><span class="line">    <span class="keyword">this</span>.list.push(observer);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> MyPromise(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    resolve(<span class="string">"hello world"</span>);</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">p.then(<span class="function"><span class="params">value</span> =&gt;</span> <span class="built_in">console</span>.log(value));</span><br></pre></td></tr></table></figure>
+<p>ok那我们第一步已经完成，魔改成功。</p>
+<p>如果你打开 chrome 断点调试你会发现， 最终的结果打印经历了这么几个步骤：</p>
+<blockquote>
+<ul>
+<li>初始化 resolve 函数</li>
+<li>初始化监听列表 &amp; 状态（防止执行多次）</li>
+<li>异步操作（定时任务）</li>
+<li>将结果传入 resolve</li>
+<li>改变状态，清空（执行）监听列表</li>
+</ul>
+</blockquote>
+<p>那么是什么时候执行的 push 操作呢？</p>
+<h4 id="push-callback"><a href="#push-callback" class="headerlink" title="push callback"></a>push callback</h4><p>由于情况较为特殊，断点并未显示执行 then 的过程，所以我们在 push 操作前可以打印一句话作为参考坐标</p>
+<p>console.log(observer)</p>
+<p>而其执行位置则是在异步操作执行结束后，也就是断点刚刚到 setTimeout 内部回调【resolve(‘hello world’)】时执行了push 操作。</p>
+<p>故<strong>完整过程如下</strong></p>
+<blockquote>
+<ul>
+<li>初始化【resolve、监听列表、状态】</li>
+<li>异步操作</li>
+<li>push callback(then中的回调) to list</li>
+<li>结果传入 resolve</li>
+<li>改变状态，清空（执行）监听列表</li>
+</ul>
+</blockquote>
+<h3 id="完善Promise"><a href="#完善Promise" class="headerlink" title="完善Promise"></a>完善Promise</h3><p>上边的内容我们仅仅是作为观察者模式的延展，根据 <a href="https://promisesaplus.com/" target="_blank" rel="noopener">Promise/A+</a> 规范，真正的 promise 我们还需要考虑以下几点</p>
+<blockquote>
+<ul>
+<li>异步执行失败的状态</li>
+<li>链式调用</li>
+</ul>
+</blockquote>
+<h4 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h4><p>首先就是加上 reject 状态及 value</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> STATUS = &#123;</span><br><span class="line">  PENDING: <span class="string">'pending'</span>,</span><br><span class="line">  RESOLVED: <span class="string">'resolved'</span>,</span><br><span class="line">  REJECTED: <span class="string">'rejected'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPromise</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(executor) &#123;</span><br><span class="line">    <span class="keyword">this</span>.list = [];</span><br><span class="line">    <span class="keyword">this</span>.status = STATUS.PENDING;</span><br><span class="line">    <span class="keyword">this</span>.value = <span class="literal">undefined</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      executor(<span class="keyword">this</span>.resolve);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="built_in">Error</span>(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  resolve = <span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status === STATUS.PENDING) &#123;</span><br><span class="line">      <span class="keyword">this</span>.list.forEach(<span class="function"><span class="params">fn</span> =&gt;</span> fn(val));</span><br><span class="line">      <span class="keyword">this</span>.value = val;</span><br><span class="line">      <span class="keyword">this</span>.status = STATUS.RESOLVED;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  reject = <span class="function"><span class="params">reason</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status === STATUS.PENDING) &#123;</span><br><span class="line">      <span class="keyword">this</span>.list.forEach(<span class="function"><span class="params">fn</span> =&gt;</span> fn(val));</span><br><span class="line">      <span class="keyword">this</span>.value = val;</span><br><span class="line">      <span class="keyword">this</span>.status = STATUS.REJECTED;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  then(observer) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'observer === '</span>, observer);</span><br><span class="line">    <span class="keyword">this</span>.list.push(observer);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> MyPromise(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    resolve(<span class="string">"hello world"</span>);</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">p.then(<span class="function"><span class="params">value</span> =&gt;</span> <span class="built_in">console</span>.log(value));</span><br></pre></td></tr></table></figure>
+<p>但此时有了不同的状态（成功 &amp; 失败）后，还要对之前的then做一下处理，以适应。链式调用我们就要分情况讨论了</p>
+<h4 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h4><p>promise 既然接受两个状态回调，那么我们自然也需要更改一下构造器里的list，将其分为监听 resolve 的以及接收 reject 的两种不同状态对应的回调函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> STATUS = &#123;</span><br><span class="line">  PENDING: <span class="string">'pending'</span>,</span><br><span class="line">  RESOLVED: <span class="string">'resolved'</span>,</span><br><span class="line">  REJECTED: <span class="string">'rejected'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPromise</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(executor) &#123;</span><br><span class="line">    <span class="keyword">this</span>.resolveCallbackArr = [];</span><br><span class="line">    <span class="keyword">this</span>.rejectCallbackArr = [];</span><br><span class="line">    <span class="keyword">this</span>.status = STATUS.PENDING;</span><br><span class="line">    <span class="keyword">this</span>.value = <span class="literal">undefined</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      executor(<span class="keyword">this</span>.resolve);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="built_in">Error</span>(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  resolve = <span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status === STATUS.PENDING) &#123;</span><br><span class="line">      <span class="keyword">this</span>.list.forEach(<span class="function"><span class="params">fn</span> =&gt;</span> fn(val));</span><br><span class="line">      <span class="keyword">this</span>.value = val;</span><br><span class="line">      <span class="keyword">this</span>.status = STATUS.RESOLVED;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  reject = <span class="function"><span class="params">reason</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status === STATUS.PENDING) &#123;</span><br><span class="line">      <span class="keyword">this</span>.list.forEach(<span class="function"><span class="params">fn</span> =&gt;</span> fn(val));</span><br><span class="line">      <span class="keyword">this</span>.value = val;</span><br><span class="line">      <span class="keyword">this</span>.status = STATUS.REJECTED;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 区别于最初的变化值，我们需要将 observer 改为 成功 / 失败态监听函数，并将观察者要执行的操作依次 push 进相应的数组中</span></span><br><span class="line">  then = <span class="function">(<span class="params">onResolve, onReject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">   * 若传入非函数则包装为函数，通过此种写法可以保证值的透传</span></span><br><span class="line"><span class="comment">   * ---------------------------------------------</span></span><br><span class="line"><span class="comment">   * new Promise(resolve=&gt;resolve(8))</span></span><br><span class="line"><span class="comment">   *  .then()</span></span><br><span class="line"><span class="comment">   *  .catch()</span></span><br><span class="line"><span class="comment">   *  .then(function(value) &#123;</span></span><br><span class="line"><span class="comment">   *    alert(value)</span></span><br><span class="line"><span class="comment">   * &#125;)</span></span><br><span class="line"><span class="comment">   * 的行为应该和</span></span><br><span class="line"><span class="comment">   * new Promise(resolve=&gt;resolve(8))</span></span><br><span class="line"><span class="comment">   *  .then(val =&gt; val)</span></span><br><span class="line"><span class="comment">   *  .catch(val =&gt; val)</span></span><br><span class="line"><span class="comment">   *  .then(function(value) &#123;</span></span><br><span class="line"><span class="comment">   *    alert(value)</span></span><br><span class="line"><span class="comment">   * &#125;)</span></span><br><span class="line"><span class="comment">   * 是一样的</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">    onResolve = <span class="keyword">typeof</span> onResolve === <span class="string">'function'</span> ? onResolve : <span class="function"><span class="params">val</span> =&gt;</span> val;</span><br><span class="line">    onReject = <span class="keyword">typeof</span> onReject === <span class="string">'function'</span> ? onReject : <span class="function"><span class="params">reason</span> =&gt;</span> reason;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保险策略，防止传入同步函数</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status === Status.RESOLVE) &#123;</span><br><span class="line">      onResolve(<span class="keyword">this</span>.value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status === Status.REJECT) &#123;</span><br><span class="line">      onReject(<span class="keyword">this</span>.value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status === Status.PENDING) &#123;</span><br><span class="line">      <span class="comment">// 判断是否 push ，push 进哪里（依赖收集）</span></span><br><span class="line">      <span class="keyword">this</span>.resolveCallbackArr.push(succObserver);</span><br><span class="line">      <span class="keyword">this</span>.resolveCallbackArr.push(failObserver);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="链式调用"><a href="#链式调用" class="headerlink" title="链式调用"></a>链式调用</h4><p>首先，<strong>Promise 链式调用的原理即是将结果包装为一个新的 Promise</strong>，那么我们就必须要保证每次返回的均为一个新的 Promise（调用then的均为Promise实例），而 new 操作之后必定为 Promise 对象，所以只需要保证执行完 then 方法后返回的仍然是 Promise 。<strong>如此我们就需要重新定义观察者（<code>subscribe</code>） —— then</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 区别于最初的变化值，我们需要将 observer 改为 成功 / 失败态监听函数</span></span><br><span class="line">then = <span class="function">(<span class="params">onResolve, onReject</span>) =&gt;</span> &#123;</span><br><span class="line">  onResolve = <span class="keyword">typeof</span> onResolve === <span class="string">'function'</span> ? onResolve : <span class="function"><span class="params">val</span> =&gt;</span> val;</span><br><span class="line">  onReject = <span class="keyword">typeof</span> onReject === <span class="string">'function'</span> ? onReject : <span class="function"><span class="params">reason</span> =&gt;</span> reason;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.status === STATUS.RESOLVED) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> result = onResolve(<span class="keyword">this</span>.value);</span><br><span class="line">        <span class="keyword">if</span> (result <span class="keyword">instanceof</span> MyPromise) &#123;</span><br><span class="line">          result.then(resolve, reject);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          resolve(result);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.status === STATUS.REJECTED) &#123;</span><br><span class="line">        <span class="keyword">const</span> result = onReject(<span class="keyword">this</span>.value);</span><br><span class="line">        <span class="keyword">if</span> (result <span class="keyword">instanceof</span> MyPromise) &#123;</span><br><span class="line">          result.then(resolve, reject);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          reject(result);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.status === STATUS.PENDING) &#123;</span><br><span class="line">        <span class="keyword">this</span>.resolveCallbackArr.push(<span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">const</span> result = onResolve(val);</span><br><span class="line"> </span><br><span class="line">          <span class="keyword">if</span> (result <span class="keyword">instanceof</span> MyPromise) &#123;</span><br><span class="line">            result.then(resolve, reject);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            resolve(result);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.rejectCallbackArr.push(<span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">const</span> result = onReject(val);</span><br><span class="line">          <span class="keyword">if</span> (result <span class="keyword">instanceof</span> MyPromise) &#123;</span><br><span class="line">            result.then(resolve, reject);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            reject(result);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      reject(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="catch、finally"><a href="#catch、finally" class="headerlink" title="catch、finally"></a>catch、finally</h3><blockquote>
+<p><code>catch</code>方法返回一个<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Promise" target="_blank" rel="noopener">Promise</a>，并且处理拒绝的情况。它的行为与调用<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then" target="_blank" rel="noopener"><code>Promise.prototype.then(undefined, onRejected)</code></a> 相同作为错误捕获</p>
+</blockquote>
+<p>所以我们有了之前的 then 作为铺垫，这个方法就简单了许多</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">catch</span> = <span class="function">(<span class="params">onReject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.then(<span class="literal">undefined</span>, onReject);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>finally</code> 避免了同样的语句需要在 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then" target="_blank" rel="noopener"><code>then()</code></a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch" target="_blank" rel="noopener"><code>catch()</code></a> 中各写一次的情况。</p>
+<blockquote>
+<p><code>finally</code>的返回结果仍为 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Promise" target="_blank" rel="noopener">Promise</a></p>
+<p><code>finally</code>的回调函数中不接收任何参数，它仅用于无论最终结果如何都要执行的情况。</p>
+<p><strong>执行完毕后其返回结果为<code>finally</code>所接收的最后一个<code>value</code></strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">finally</span> = <span class="function">(<span class="params">cb</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">    cb();</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">  &#125;, err =&gt; &#123;</span><br><span class="line">    cb();</span><br><span class="line">    <span class="keyword">throw</span> err</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Promise-resolve-amp-reject"><a href="#Promise-resolve-amp-reject" class="headerlink" title="Promise.resolve&amp;reject"></a>Promise.resolve&amp;reject</h3><p>这里实现时应当将其写为静态方法，毕竟可以通过类直接调起。所以和我们上面实现的 resolve 方法还有区别，为了便于区分我们将原 resolve 方法转移至 constructor 中。</p>
+<p>Promise.resolve 的主要作用在于<strong>将某个对象转化为 Promise 对象</strong></p>
+<p>故接收到的参数有以下几种可能的值：</p>
+<blockquote>
+<ul>
+<li><p><strong>Promise实例</strong>：不作处理，返回 Promise 实例</p>
+</li>
+<li><p><strong>tenable 对象</strong>：转为 Promise 对象并立即执行该对象的 then 方法后返回</p>
+</li>
+<li><p><strong>基本类型 / 非<code>tenable</code>对象 / 无参数</strong>：返回一个新的 resolved 态的 Promise 对象</p>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> resolve = <span class="function">(<span class="params">p</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (p <span class="keyword">instanceof</span> MyPromise) &#123;</span><br><span class="line">    <span class="keyword">return</span> p.then();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (p.then === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MyPromise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      resolve(p);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> MyPromise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    resolve(p).then();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> reject = <span class="function">(<span class="params">p</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (p <span class="keyword">instanceof</span> MyPromise) &#123;</span><br><span class="line">    <span class="keyword">return</span> p.catch();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (p.then === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MyPromise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      reject(p);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> MyPromise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    reject(p);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Promise 归根结底就是观察者模式的视线版本，其发展离不开以下几点：</p>
+<h4 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h4><ol>
+<li><strong>Push</strong>：new Promise，定义回调，then 方法完成 callback 收集，将依赖项 push 进对应 list 中【res push 进 resolveCallbackArr，rej push 进 rejectCallbackArr】。</li>
+<li><strong>Run</strong>：回调传入 constructor 执行（若catch 到 err 则通过 reject 抛出）</li>
+<li><strong>Wait</strong>：等待状态改变，调用 resolve / reject</li>
+<li><strong>ForEach</strong>：resolve、reject更改状态，并执行 callbackList【resolveCallbackArr、rejectCallbackArr】 中的回调</li>
+<li>Eg：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">res, rej</span>) =&gt;</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    res(<span class="string">'hello wrold'</span>);</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'回调结束，打印结果'</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="同步（手动调用resolve）"><a href="#同步（手动调用resolve）" class="headerlink" title="同步（手动调用resolve）"></a>同步（手动调用resolve）</h4><ol>
+<li><strong>Change</strong>：用户手动改变状态</li>
+<li><strong>Run</strong>：回调（值）传入 constructor 执行</li>
+<li><strong>forEach</strong>：直接调用 resolve，执行 callbackList【resolveCallbackArr】 中的回调</li>
+<li>Eg:</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">res, rej</span>) =&gt;</span> &#123;</span><br><span class="line">  res(<span class="string">'hello wrold'</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'回调结束，打印结果'</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="代码地址"><a href="#代码地址" class="headerlink" title="代码地址"></a>代码地址</h3><p>Xxx</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://juejin.im/post/6844903834184073224#heading-10" target="_blank" rel="noopener">《从设计模式角度分析Promise：手撕Promise并不难》</a></p>
+<p><a href="https://promisesaplus.com/" target="_blank" rel="noopener">Promise/A+</a></p>
+<p><a href="https://juejin.im/post/6844904134840156168#comment" target="_blank" rel="noopener">《观察者模式》</a></p>
+<p><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/109" target="_blank" rel="noopener">模拟实现一个 Promise.finally #109</a></p>
+<p><a href="https://es6.ruanyifeng.com/" target="_blank" rel="noopener">《ECMAScript6入门 - Promise》</a></p>
+<p><a href="https://github.com/xieranmaya/blog/issues/3" target="_blank" rel="noopener">剖析Promise内部结构，一步一步实现一个完整的、能通过所有Test case的Promise类#3</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/12/Git版本控制/" rel="next" title="Git版本控制">
+                <i class="fa fa-chevron-left"></i> Git版本控制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Daftar Isi
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ikhtisar
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://pic.superbed.cn/item/5c94a8cf3a213b0417e266a8" alt="Siir">
+            
+              <p class="site-author-name" itemprop="name">Siir</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">113</span>
+                    <span class="site-state-item-name">posting</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">kategori</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">210</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/burning-shadow" title="GitHub &rarr; https://github.com/burning-shadow" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/6975656937" title="Weibo &rarr; https://weibo.com/6975656937" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#观察者模式"><span class="nav-number">1.</span> <span class="nav-text">观察者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改版为Promise"><span class="nav-number">2.</span> <span class="nav-text">改版为Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#push-callback"><span class="nav-number">2.1.</span> <span class="nav-text">push callback</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完善Promise"><span class="nav-number">3.</span> <span class="nav-text">完善Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#状态"><span class="nav-number">3.1.</span> <span class="nav-text">状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用"><span class="nav-number">3.2.</span> <span class="nav-text">调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链式调用"><span class="nav-number">3.3.</span> <span class="nav-text">链式调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#catch、finally"><span class="nav-number">4.</span> <span class="nav-text">catch、finally</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-resolve-amp-reject"><span class="nav-number">5.</span> <span class="nav-text">Promise.resolve&amp;reject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#异步"><span class="nav-number">6.1.</span> <span class="nav-text">异步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同步（手动调用resolve）"><span class="nav-number">6.2.</span> <span class="nav-text">同步（手动调用resolve）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码地址"><span class="nav-number">7.</span> <span class="nav-text">代码地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">8.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siir</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Tema – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
