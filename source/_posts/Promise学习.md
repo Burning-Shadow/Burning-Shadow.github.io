@@ -496,7 +496,7 @@ const observer = new Promise((res, rej) => {
 
 ### 代码地址
 
-Xxx
+https://github.com/Burning-Shadow/promise-study
 
 ### 参考文章
 
